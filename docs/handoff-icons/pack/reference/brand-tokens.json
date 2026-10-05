@@ -1,0 +1,55 @@
+{
+  "brand": "VCCI — Liên đoàn Thương mại và Công nghiệp Việt Nam / Vietnam Chamber of Commerce and Industry",
+  "version": "1.0 (2026-10-05)",
+  "logo": {
+    "master": "01_Logo/Source/VCCI_Logo_Master_CMYK.cdr (decoded to 01_Logo/SVG/VCCI_Logo_Primary.svg)",
+    "aspect_ratio_w_h": 3.3217,
+    "geometry_relative_to_cap_height_H": {
+      "drum_radius_r": 0.262,
+      "first_C_outer_radius_R": 0.5,
+      "first_C_inner_radius": 0.296,
+      "drum_diameter": 0.524,
+      "note": "Drum and first C share one centre; a fine ring of background separates them."
+    },
+    "clear_space_x": "x = drum radius = 0.262 H on all sides",
+    "plate_padding": "x on all sides, Paper #FBF9F4, corner radius ≈ 0.03 H",
+    "minimum_size": {"print": "25 mm wide", "screen": "96 px wide"},
+    "rules": [
+      "One colourway only: VCCI Blue letters + drum in master colours, on light grounds.",
+      "On blue, dark, photographic or busy grounds: place the logo on a Paper plate.",
+      "Never white letters (cultural rule), never gold letters, never a standalone drum as a logo substitute.",
+      "Never stretch, rotate, recolour, add effects, or redraw the logo.",
+      "The drum SVG in _Construction-only is for construction drawings and pattern design only."
+    ]
+  },
+  "colour": {
+    "VCCI Blue":   {"hex": "#264896", "cmyk": [100, 80, 0, 0],   "role": "primary"},
+    "Drum Gold":   {"hex": "#FFCD00", "cmyk": [0, 20, 100, 0],   "role": "secondary"},
+    "Drum Bronze": {"hex": "#CC713C", "cmyk": [0, 60, 80, 20],   "role": "secondary (graphics, large text only)"},
+    "Deep Navy":   {"hex": "#0B1A4F", "cmyk": [100, 90, 30, 40], "role": "support (dark fields)"},
+    "Blue Tint":   {"hex": "#E7ECF6", "cmyk": [8, 4, 0, 0],      "role": "support (UI surfaces)"},
+    "Bronze Ink":  {"hex": "#9C570C", "cmyk": [20, 65, 100, 15], "role": "support (small accent text)"},
+    "Ink":         {"hex": "#161A26", "role": "neutral (body text)"},
+    "Slate":       {"hex": "#5C6478", "role": "neutral (secondary text)"},
+    "Stone":       {"hex": "#E6E1D5", "role": "neutral"},
+    "Ivory":       {"hex": "#F4F0E6", "role": "neutral"},
+    "Paper":       {"hex": "#FBF9F4", "role": "neutral (default background)"},
+    "balance_percent": {"VCCI Blue": 44, "Paper": 34, "Stone": 10, "Drum Gold": 7, "Drum Bronze": 5},
+    "rule": "One gold gesture per composition (a rule, a word, or a gold accent shape)."
+  },
+  "typography": {
+    "display": {"family": "Lora", "weights": [400, 500, 600], "use": "headlines, statements"},
+    "text": {"family": "Be Vietnam Pro", "weights": [300, 400, 500, 600], "use": "body, UI, labels, data"},
+    "scale": {
+      "display": "Lora Medium 64/68", "heading": "Lora Medium 40/48", "title": "Lora SemiBold 28/36",
+      "subhead": "Be Vietnam Pro SemiBold 20/28", "body": "Be Vietnam Pro Regular 16/26",
+      "label": "Be Vietnam Pro SemiBold 12, uppercase, tracking +22%"
+    }
+  },
+  "spacing": {"base_unit_px": 8, "scale": [8, 16, 24, 32, 48, 64, 96, 128], "radius": {"print": "4 px", "ui": "8 px"},
+              "negative_space_min": "40%"},
+  "graphic_motifs": ["Drum-ring line art (concentric rings, ticks, dot band, 14-ray star)", "Radiance — 14-ray star",
+                     "C-arc pattern (the first C as a ring cut at +0.35R)", "Drum-dot field"],
+  "icons_interim": {"style": "linear, 24×24 grid, 1.6 px stroke, round caps & joins, no fills",
+                    "colour": "VCCI Blue on light, Drum Gold on blue", "status": "to be replaced by the v1 icon set (step 2)"}
+}

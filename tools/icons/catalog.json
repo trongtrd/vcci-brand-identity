@@ -1,0 +1,890 @@
+[
+  {
+    "tier": "UI",
+    "slug": "home",
+    "vn": "Trang chủ",
+    "en": "Home",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_home.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_home.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_home.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_home.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "menu",
+    "vn": "Trình đơn",
+    "en": "Menu",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_menu.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_menu.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_menu.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_menu.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "close",
+    "vn": "Đóng",
+    "en": "Close",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_close.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_close.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_close.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_close.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "search",
+    "vn": "Tìm kiếm",
+    "en": "Search",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_search.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_search.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_search.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_search.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "filter",
+    "vn": "Bộ lọc",
+    "en": "Filter",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_filter.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_filter.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_filter.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_filter.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "settings",
+    "vn": "Cài đặt",
+    "en": "Settings",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_settings.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_settings.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_settings.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_settings.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "arrow-right",
+    "vn": "Sang phải",
+    "en": "Arrow Right",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_arrow-right.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_arrow-right.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_arrow-right.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_arrow-right.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "arrow-left",
+    "vn": "Sang trái",
+    "en": "Arrow Left",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_arrow-left.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_arrow-left.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_arrow-left.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_arrow-left.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "chevron-down",
+    "vn": "Mở xuống",
+    "en": "Chevron Down",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_chevron-down.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_chevron-down.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_chevron-down.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_chevron-down.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "external-link",
+    "vn": "Liên kết ngoài",
+    "en": "External Link",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_external-link.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_external-link.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_external-link.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_external-link.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "download",
+    "vn": "Tải xuống",
+    "en": "Download",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_download.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_download.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_download.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_download.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "upload",
+    "vn": "Tải lên",
+    "en": "Upload",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_upload.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_upload.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_upload.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_upload.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "share",
+    "vn": "Chia sẻ",
+    "en": "Share",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_share.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_share.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_share.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_share.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "print",
+    "vn": "In",
+    "en": "Print",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_print.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_print.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_print.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_print.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "calendar",
+    "vn": "Lịch",
+    "en": "Calendar",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_calendar.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_calendar.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_calendar.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_calendar.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "clock",
+    "vn": "Thời gian",
+    "en": "Clock",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_clock.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_clock.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_clock.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_clock.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "map-pin",
+    "vn": "Địa điểm",
+    "en": "Map Pin",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_map-pin.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_map-pin.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_map-pin.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_map-pin.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "phone",
+    "vn": "Điện thoại",
+    "en": "Phone",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_phone.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_phone.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_phone.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_phone.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "mail",
+    "vn": "Thư điện tử",
+    "en": "Mail",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_mail.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_mail.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_mail.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_mail.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "globe",
+    "vn": "Toàn cầu",
+    "en": "Globe",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_globe.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_globe.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_globe.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_globe.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "user",
+    "vn": "Người dùng",
+    "en": "User",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_user.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_user.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_user.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_user.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "users",
+    "vn": "Nhóm người dùng",
+    "en": "Users",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_users.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_users.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_users.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_users.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "user-plus",
+    "vn": "Thêm người dùng",
+    "en": "User Plus",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_user-plus.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_user-plus.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_user-plus.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_user-plus.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "lock",
+    "vn": "Khóa",
+    "en": "Lock",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_lock.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_lock.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_lock.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_lock.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "info",
+    "vn": "Thông tin",
+    "en": "Info",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_info.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_info.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_info.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_info.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "alert-triangle",
+    "vn": "Cảnh báo",
+    "en": "Alert Triangle",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_alert-triangle.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_alert-triangle.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_alert-triangle.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_alert-triangle.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "check",
+    "vn": "Xác nhận",
+    "en": "Check",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_check.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_check.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_check.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_check.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "check-circle",
+    "vn": "Đã xác nhận",
+    "en": "Check Circle",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_check-circle.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_check-circle.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_check-circle.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_check-circle.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "file",
+    "vn": "Tệp",
+    "en": "File",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_file.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_file.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_file.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_file.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "file-text",
+    "vn": "Văn bản",
+    "en": "File Text",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_file-text.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_file-text.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_file-text.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_file-text.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "file-check",
+    "vn": "Tệp đã duyệt",
+    "en": "File Check",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_file-check.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_file-check.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_file-check.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_file-check.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "folder",
+    "vn": "Thư mục",
+    "en": "Folder",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_folder.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_folder.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_folder.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_folder.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "newspaper",
+    "vn": "Tin tức",
+    "en": "Newspaper",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_newspaper.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_newspaper.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_newspaper.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_newspaper.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "presentation",
+    "vn": "Thuyết trình",
+    "en": "Presentation",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_presentation.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_presentation.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_presentation.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_presentation.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "video",
+    "vn": "Video",
+    "en": "Video",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_video.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_video.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_video.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_video.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "mic",
+    "vn": "Micro",
+    "en": "Mic",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_mic.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_mic.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_mic.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_mic.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "image",
+    "vn": "Hình ảnh",
+    "en": "Image",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_image.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_image.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_image.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_image.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "bar-chart",
+    "vn": "Biểu đồ cột",
+    "en": "Bar Chart",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_bar-chart.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_bar-chart.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_bar-chart.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_bar-chart.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "line-chart",
+    "vn": "Biểu đồ đường",
+    "en": "Line Chart",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_line-chart.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_line-chart.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_line-chart.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_line-chart.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "pie-chart",
+    "vn": "Biểu đồ tròn",
+    "en": "Pie Chart",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_pie-chart.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_pie-chart.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_pie-chart.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_pie-chart.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "briefcase",
+    "vn": "Công việc",
+    "en": "Briefcase",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_briefcase.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_briefcase.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_briefcase.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_briefcase.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "building",
+    "vn": "Tòa nhà",
+    "en": "Building",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_building.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_building.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_building.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_building.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "landmark",
+    "vn": "Thiết chế",
+    "en": "Landmark",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_landmark.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_landmark.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_landmark.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_landmark.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "factory",
+    "vn": "Nhà máy",
+    "en": "Factory",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_factory.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_factory.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_factory.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_factory.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "ship",
+    "vn": "Tàu hàng",
+    "en": "Ship",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_ship.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_ship.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_ship.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_ship.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "handshake",
+    "vn": "Bắt tay",
+    "en": "Handshake",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_handshake.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_handshake.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_handshake.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_handshake.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "scale",
+    "vn": "Cán cân",
+    "en": "Scale",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_scale.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_scale.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_scale.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_scale.svg"
+    }
+  },
+  {
+    "tier": "UI",
+    "slug": "award",
+    "vn": "Giải thưởng",
+    "en": "Award",
+    "paths": {
+      "currentColor": "build/icons/review/05_Icons/UI/SVG/currentColor/VCCI_UI_award.svg",
+      "Blue": "build/icons/review/05_Icons/UI/SVG/Blue/VCCI_UI_award.svg",
+      "Gold": "build/icons/review/05_Icons/UI/SVG/Gold/VCCI_UI_award.svg",
+      "White": "build/icons/review/05_Icons/UI/SVG/White/VCCI_UI_award.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "01",
+    "slug": "legislative-input",
+    "vn": "Góp ý xây dựng pháp luật",
+    "en": "Legislative Input",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_01_legislative-input.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_01_legislative-input.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_01_legislative-input.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_01_legislative-input.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "02",
+    "slug": "local-economic-governance",
+    "vn": "Điều hành kinh tế địa phương",
+    "en": "Local Economic Governance",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_02_local-economic-governance.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_02_local-economic-governance.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_02_local-economic-governance.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_02_local-economic-governance.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "03",
+    "slug": "business-environment-reform",
+    "vn": "Cải thiện môi trường kinh doanh",
+    "en": "Business Environment Reform",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_03_business-environment-reform.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_03_business-environment-reform.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_03_business-environment-reform.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_03_business-environment-reform.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "04",
+    "slug": "administrative-reform",
+    "vn": "Cải cách thủ tục hành chính",
+    "en": "Administrative Reform",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_04_administrative-reform.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_04_administrative-reform.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_04_administrative-reform.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_04_administrative-reform.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "05",
+    "slug": "international-integration",
+    "vn": "Hội nhập quốc tế",
+    "en": "International Integration",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_05_international-integration.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_05_international-integration.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_05_international-integration.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_05_international-integration.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "06",
+    "slug": "public-private-dialogue",
+    "vn": "Đối thoại công–tư",
+    "en": "Public-Private Dialogue",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_06_public-private-dialogue.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_06_public-private-dialogue.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_06_public-private-dialogue.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_06_public-private-dialogue.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "07",
+    "slug": "certificate-of-origin",
+    "vn": "Chứng nhận xuất xứ",
+    "en": "Certificate of Origin",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_07_certificate-of-origin.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_07_certificate-of-origin.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_07_certificate-of-origin.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_07_certificate-of-origin.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "08",
+    "slug": "sme",
+    "vn": "Doanh nghiệp nhỏ và vừa",
+    "en": "Small and Medium Enterprises",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_08_sme.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_08_sme.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_08_sme.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_08_sme.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "09",
+    "slug": "private-sector-development",
+    "vn": "Phát triển kinh tế tư nhân",
+    "en": "Private Sector Development",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_09_private-sector-development.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_09_private-sector-development.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_09_private-sector-development.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_09_private-sector-development.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "10",
+    "slug": "enterprise-productivity",
+    "vn": "Năng suất doanh nghiệp",
+    "en": "Enterprise Productivity",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_10_enterprise-productivity.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_10_enterprise-productivity.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_10_enterprise-productivity.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_10_enterprise-productivity.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "11",
+    "slug": "enterprise-green-transition",
+    "vn": "Chuyển đổi xanh doanh nghiệp",
+    "en": "Enterprise Green Transition",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_11_enterprise-green-transition.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_11_enterprise-green-transition.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_11_enterprise-green-transition.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_11_enterprise-green-transition.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "12",
+    "slug": "enterprise-digital-transition",
+    "vn": "Chuyển đổi số doanh nghiệp",
+    "en": "Enterprise Digital Transition",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_12_enterprise-digital-transition.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_12_enterprise-digital-transition.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_12_enterprise-digital-transition.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_12_enterprise-digital-transition.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "13",
+    "slug": "membership",
+    "vn": "Hội viên",
+    "en": "Membership",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_13_membership.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_13_membership.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_13_membership.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_13_membership.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "14",
+    "slug": "trade-promotion",
+    "vn": "Xúc tiến thương mại",
+    "en": "Trade Promotion",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_14_trade-promotion.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_14_trade-promotion.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_14_trade-promotion.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_14_trade-promotion.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "15",
+    "slug": "trade-fair",
+    "vn": "Hội chợ, triển lãm",
+    "en": "Trade Fair",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_15_trade-fair.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_15_trade-fair.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_15_trade-fair.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_15_trade-fair.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "16",
+    "slug": "investment",
+    "vn": "Thu hút đầu tư",
+    "en": "Investment",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_16_investment.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_16_investment.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_16_investment.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_16_investment.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "17",
+    "slug": "arbitration",
+    "vn": "Trọng tài thương mại",
+    "en": "Commercial Arbitration",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_17_arbitration.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_17_arbitration.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_17_arbitration.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_17_arbitration.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "18",
+    "slug": "training",
+    "vn": "Đào tạo, nâng cao năng lực",
+    "en": "Training",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_18_training.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_18_training.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_18_training.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_18_training.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "19",
+    "slug": "export-logistics",
+    "vn": "Xuất khẩu và logistics",
+    "en": "Export and Logistics",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_19_export-logistics.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_19_export-logistics.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_19_export-logistics.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_19_export-logistics.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "20",
+    "slug": "forum-events",
+    "vn": "Diễn đàn, sự kiện",
+    "en": "Forums and Events",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_20_forum-events.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_20_forum-events.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_20_forum-events.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_20_forum-events.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "21",
+    "slug": "research-index",
+    "vn": "Nghiên cứu, khảo sát",
+    "en": "Research and Surveys",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_21_research-index.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_21_research-index.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_21_research-index.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_21_research-index.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "22",
+    "slug": "employers-labour",
+    "vn": "Quan hệ lao động",
+    "en": "Labour Relations",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_22_employers-labour.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_22_employers-labour.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_22_employers-labour.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_22_employers-labour.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "23",
+    "slug": "networking-partnership",
+    "vn": "Kết nối, đối tác",
+    "en": "Networking and Partnerships",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_23_networking-partnership.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_23_networking-partnership.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_23_networking-partnership.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_23_networking-partnership.svg"
+    }
+  },
+  {
+    "tier": "Hero",
+    "nn": "24",
+    "slug": "business-advisory",
+    "vn": "Tư vấn doanh nghiệp",
+    "en": "Business Advisory",
+    "paths": {
+      "Blue-Gold": "build/icons/review/05_Icons/Hero/SVG/Blue-Gold/VCCI_Hero_24_business-advisory.svg",
+      "Blue": "build/icons/review/05_Icons/Hero/SVG/Blue/VCCI_Hero_24_business-advisory.svg",
+      "Gold-on-dark": "build/icons/review/05_Icons/Hero/SVG/Gold-on-dark/VCCI_Hero_24_business-advisory.svg",
+      "White": "build/icons/review/05_Icons/Hero/SVG/White/VCCI_Hero_24_business-advisory.svg"
+    }
+  }
+]

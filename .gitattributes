@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.cdr binary
+*.dotx binary
+*.potx binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.ttf binary
+*.ase binary

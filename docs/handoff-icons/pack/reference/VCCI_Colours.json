@@ -1,0 +1,205 @@
+{
+  "palette": [
+    {
+      "name": "VCCI Blue",
+      "role": "primary",
+      "hex": "#264896",
+      "rgb": [
+        38,
+        72,
+        150
+      ],
+      "cmyk": [
+        100,
+        80,
+        0,
+        0
+      ],
+      "source": "Master .CDR (logo letters)"
+    },
+    {
+      "name": "Drum Gold",
+      "role": "secondary",
+      "hex": "#FFCD00",
+      "rgb": [
+        255,
+        205,
+        0
+      ],
+      "cmyk": [
+        0,
+        20,
+        100,
+        0
+      ],
+      "source": "Master .CDR (drum)"
+    },
+    {
+      "name": "Drum Bronze",
+      "role": "secondary",
+      "hex": "#CC713C",
+      "rgb": [
+        204,
+        113,
+        60
+      ],
+      "cmyk": [
+        0,
+        60,
+        80,
+        20
+      ],
+      "source": "Master .CDR (drum figures)"
+    },
+    {
+      "name": "Deep Navy",
+      "role": "support",
+      "hex": "#0B1A4F",
+      "rgb": [
+        11,
+        26,
+        79
+      ],
+      "cmyk": [
+        100,
+        90,
+        30,
+        40
+      ],
+      "source": "Brand system"
+    },
+    {
+      "name": "Blue Tint",
+      "role": "support",
+      "hex": "#E7ECF6",
+      "rgb": [
+        231,
+        236,
+        246
+      ],
+      "cmyk": [
+        8,
+        4,
+        0,
+        0
+      ],
+      "source": "Brand system"
+    },
+    {
+      "name": "Bronze Ink",
+      "role": "support",
+      "hex": "#9C570C",
+      "rgb": [
+        156,
+        87,
+        12
+      ],
+      "cmyk": [
+        20,
+        65,
+        100,
+        15
+      ],
+      "source": "Brand system (text-safe bronze)"
+    },
+    {
+      "name": "Ink",
+      "role": "neutral",
+      "hex": "#161A26",
+      "rgb": [
+        22,
+        26,
+        38
+      ],
+      "cmyk": [
+        75,
+        65,
+        50,
+        70
+      ],
+      "source": "Brand system"
+    },
+    {
+      "name": "Slate",
+      "role": "neutral",
+      "hex": "#5C6478",
+      "rgb": [
+        92,
+        100,
+        120
+      ],
+      "cmyk": [
+        62,
+        50,
+        32,
+        12
+      ],
+      "source": "Brand system"
+    },
+    {
+      "name": "Stone",
+      "role": "neutral",
+      "hex": "#E6E1D5",
+      "rgb": [
+        230,
+        225,
+        213
+      ],
+      "cmyk": [
+        9,
+        8,
+        15,
+        0
+      ],
+      "source": "Brand system"
+    },
+    {
+      "name": "Ivory",
+      "role": "neutral",
+      "hex": "#F4F0E6",
+      "rgb": [
+        244,
+        240,
+        230
+      ],
+      "cmyk": [
+        3,
+        4,
+        9,
+        0
+      ],
+      "source": "Brand system"
+    },
+    {
+      "name": "Paper",
+      "role": "neutral",
+      "hex": "#FBF9F4",
+      "rgb": [
+        251,
+        249,
+        244
+      ],
+      "cmyk": [
+        1,
+        2,
+        4,
+        0
+      ],
+      "source": "Brand system"
+    }
+  ],
+  "contrast": {
+    "Paper on VCCI Blue": "8.1:1 AAA",
+    "Drum Gold on VCCI Blue": "5.7:1 AA",
+    "Bronze Ink on Paper": "5.3:1 AA",
+    "Drum Bronze on Paper": "3.3:1 (graphics / large text only)"
+  },
+  "balance_percent": {
+    "VCCI Blue": 44,
+    "Paper": 34,
+    "Stone": 10,
+    "Drum Gold": 7,
+    "Drum Bronze": 5
+  },
+  "screen_conversion": "CMYK -> sRGB via Coated FOGRA39, relative colorimetric"
+}
