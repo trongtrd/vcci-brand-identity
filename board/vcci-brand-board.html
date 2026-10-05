@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VCCI Brand Identity</title>
+<style>
+@font-face{font-family:Lora;src:url(../brand-assets/03_Fonts/Lora/Lora-Regular.ttf);font-weight:400}
+@font-face{font-family:Lora;src:url(../brand-assets/03_Fonts/Lora/Lora-Medium.ttf);font-weight:500}
+@font-face{font-family:Lora;src:url(../brand-assets/03_Fonts/Lora/Lora-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Lora;src:url(../brand-assets/03_Fonts/Lora/Lora-Bold.ttf);font-weight:700}
+@font-face{font-family:Lora;src:url(../brand-assets/03_Fonts/Lora/Lora-Italic.ttf);font-weight:400;font-style:italic}
+@font-face{font-family:Lora;src:url(../brand-assets/03_Fonts/Lora/Lora-MediumItalic.ttf);font-weight:500;font-style:italic}
+@font-face{font-family:Lora;src:url(../brand-assets/03_Fonts/Lora/Lora-SemiBoldItalic.ttf);font-weight:600;font-style:italic}
+@font-face{font-family:BVP;src:url(../brand-assets/03_Fonts/BeVietnamPro/BeVietnamPro-Light.ttf);font-weight:300}
+@font-face{font-family:BVP;src:url(../brand-assets/03_Fonts/BeVietnamPro/BeVietnamPro-Regular.ttf);font-weight:400}
+@font-face{font-family:BVP;src:url(../brand-assets/03_Fonts/BeVietnamPro/BeVietnamPro-Medium.ttf);font-weight:500}
+@font-face{font-family:BVP;src:url(../brand-assets/03_Fonts/BeVietnamPro/BeVietnamPro-SemiBold.ttf);font-weight:600}
+@font-face{font-family:BVP;src:url(../brand-assets/03_Fonts/BeVietnamPro/BeVietnamPro-Bold.ttf);font-weight:700}
+
+:root{
+  --navy:#264896; --deep:#0B1A4F; --night:#07113A;
+  --gold:#FFCD00; --bronze:#9C570C;
+  --ink:#161A26; --slate:#5C6478; --stone:#E6E1D5; --ivory:#F4F0E6; --paper:#FBF9F4;
+  --tint:#E7ECF6;
+  --board:#EEEAE0;
+  --hair:rgba(38,72,150,.12);
+  --hairW:rgba(255,255,255,.14);
+  --sh: 0 1px 1px rgba(30,24,10,.06), 0 8px 18px rgba(30,24,10,.10), 0 28px 60px rgba(30,24,10,.16);
+  --sh-lg: 0 2px 2px rgba(20,16,8,.08), 0 14px 28px rgba(20,16,8,.14), 0 50px 90px rgba(20,16,8,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--board)}
+body{width:2400px;font-family:BVP,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+img{display:block}
+.board{padding:80px;display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.card{position:relative;overflow:hidden;background:var(--paper);border-radius:6px}
+.c-white{background:#fff}
+.c-ivory{background:var(--ivory)}
+.c-navy{background:var(--navy);color:#fff}
+.c-deep{background:var(--deep);color:#fff}
+.c-night{background:var(--night);color:#fff}
+.c-stone{background:#E4DED1}
+
+/* card label */
+.cl{position:absolute;left:44px;right:44px;top:38px;display:flex;align-items:center;gap:18px;z-index:5;
+  font:600 14px/1 BVP;letter-spacing:.22em;text-transform:uppercase}
+.cl .n{color:var(--bronze);font-weight:700}
+.cl .t{color:var(--navy)}
+.cl .r{flex:1;height:1px;background:var(--hair)}
+.cl .m{color:var(--slate);font-weight:500;letter-spacing:.16em}
+.c-navy .cl .n,.c-deep .cl .n,.c-night .cl .n{color:var(--gold)}
+.c-navy .cl .t,.c-deep .cl .t,.c-night .cl .t{color:#fff}
+.c-navy .cl .r,.c-deep .cl .r,.c-night .cl .r{background:var(--hairW)}
+.c-navy .cl .m,.c-deep .cl .m,.c-night .cl .m{color:rgba(255,255,255,.55)}
+.cap{font:500 13px/1.4 BVP;letter-spacing:.18em;text-transform:uppercase;color:var(--slate)}
+.cap b{color:var(--navy);font-weight:600}
+h2{font:500 46px/1.12 Lora;color:var(--navy);letter-spacing:-.005em}
+h2 em{font-style:italic;color:var(--bronze)}
+.c-navy h2,.c-deep h2,.c-night h2{color:#fff}
+.c-navy h2 em,.c-deep h2 em,.c-night h2 em{color:var(--gold)}
+p{font:400 19px/1.62 BVP;color:var(--slate)}
+.mono{font-feature-settings:"tnum"}
+
+/* ---------------- HERO ---------------- */
+.plate{display:inline-block;background:var(--paper);padding:calc(var(--w)*.079);border-radius:3px;line-height:0;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.plate img{width:var(--w);display:block}
+.hero{grid-column:span 12;height:1060px;background:var(--paper);color:var(--navy)}
+.hero .side{position:absolute;right:0;top:0;bottom:0;width:820px;overflow:hidden;background:
+  radial-gradient(700px 700px at 55% 48%, #2E55AA 0%, rgba(52,88,172,0) 70%),
+  linear-gradient(160deg,#2E55AA 0%, #22438E 55%, #183470 100%)}
+.hero .ring{position:absolute;left:50%;top:48%;width:1120px;height:1120px;transform:translate(-50%,-50%)}
+.hero .sidetop,.hero .sidecap{position:absolute;left:56px;right:56px;display:flex;justify-content:space-between;font:600 13px/1 BVP;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.hero .sidetop{top:56px;padding-bottom:26px;border-bottom:1px solid var(--hairW)}
+.hero .sidecap{bottom:56px;padding-top:26px;border-top:1px solid var(--hairW)}
+.hero .sidetop b,.hero .sidecap b{color:var(--gold);font-weight:700}
+.hero .top{position:absolute;left:96px;right:916px;top:56px;display:flex;justify-content:space-between;
+  font:600 14px/1 BVP;letter-spacing:.26em;text-transform:uppercase;color:var(--slate);padding-bottom:26px;border-bottom:1px solid var(--hair)}
+.hero .top b{color:var(--bronze);font-weight:700}
+.hero .logo{position:absolute;left:96px;top:250px;width:1000px}
+.hero h1{position:absolute;left:96px;top:620px;width:1260px;font:500 70px/1.08 Lora;letter-spacing:-.012em;color:var(--navy)}
+.hero h1 em{font-style:italic;color:var(--bronze)}
+.hero .names{position:absolute;left:96px;top:808px;font:400 italic 25px/1.5 Lora;color:var(--slate)}
+.hero .facts{position:absolute;left:96px;right:916px;bottom:56px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--hair);padding-top:28px}
+.hero .facts div{padding-right:24px}
+.hero .facts span{display:block;font:600 12.5px/1 BVP;letter-spacing:.24em;text-transform:uppercase;color:var(--bronze);margin-bottom:12px}
+.hero .facts strong{font:500 21px/1.35 Lora;color:var(--navy)}
+
+/* ---------------- 01 ESSENCE ---------------- */
+.essence{grid-column:span 5;height:760px}
+.essence .stmt{position:absolute;left:44px;right:44px;top:104px;font:400 31px/1.42 Lora;color:var(--navy)}
+.essence .stmt em{color:var(--bronze);font-style:italic}
+.essence dl{position:absolute;left:44px;right:44px;bottom:40px;display:grid;grid-template-columns:150px 1fr;row-gap:0}
+.essence dt,.essence dd{padding:15px 0;border-top:1px solid var(--hair)}
+.essence dt{font:600 12.5px/1.6 BVP;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze)}
+.essence dd{font:400 17.5px/1.5 BVP;color:var(--ink)}
+
+/* ---------------- 02 PRIMARY ---------------- */
+.primary{grid-column:span 7;height:760px;background:#fff}
+.primary .logo{position:absolute;left:50%;top:50%;width:900px;transform:translate(-50%,-56%)}
+.primary .foot{position:absolute;left:44px;right:44px;bottom:40px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:32px;border-top:1px solid var(--hair);padding-top:22px}
+.primary .foot b{display:block;font:600 12.5px/1 BVP;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
+.primary .foot span{font:400 16.5px/1.5 BVP;color:var(--slate)}
+
+/* ---------------- secondary ---------------- */
+.sec{height:440px}
+.sec .inner{position:absolute;inset:96px 44px 70px;display:flex;align-items:center;justify-content:center}
+.sec .capb{position:absolute;left:44px;right:44px;bottom:34px;display:flex;justify-content:space-between}
+.lockup-h{display:flex;align-items:center;gap:30px}
+.lockup-h img{width:330px}
+.lockup-h .bar{width:1.5px;height:84px;background:var(--navy);opacity:.9}
+.lockup-h .nm{font:600 17px/1.32 BVP;color:var(--navy);letter-spacing:.01em}
+.lockup-h .nm i{display:block;font:400 italic 16px/1.4 Lora;color:var(--slate);margin-top:4px;letter-spacing:0}
+.lockup-v{text-align:center}
+.lockup-v img{width:280px;margin:0 auto 26px}
+.lockup-v .rule{width:44px;height:2px;background:var(--gold);margin:0 auto 18px}
+.lockup-v .nm{font:600 13px/1.6 BVP;letter-spacing:.2em;text-transform:uppercase;color:var(--navy)}
+.lockup-v .nm i{display:block;font:400 italic 16px/1.5 Lora;letter-spacing:0;text-transform:none;color:var(--slate)}
+
+.appicons{display:flex;align-items:flex-end;gap:30px}
+.appicon{background:linear-gradient(160deg,#FFFFFF,#F1ECE1);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.12)}
+.appicon img{width:80%}
+
+/* ---------------- backgrounds ---------------- */
+.bgt{grid-column:span 3;height:330px}
+.bgt>img,.bgt>.plate{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%)}
+.bgt>img{width:330px}
+.bgt .lab{position:absolute;left:36px;right:36px;bottom:28px;display:flex;justify-content:space-between;font:500 13px/1 BVP;letter-spacing:.18em;text-transform:uppercase}
+.bgt .lab b{font-weight:600}
+
+/* ---------------- 03 construction ---------------- */
+.cons{grid-column:span 7;height:700px;background:#fff}
+.cons .stage{position:absolute;left:50%;top:330px;transform:translate(-50%,-50%);width:720px}
+.cons .stage img{width:720px}
+.cons .stage svg{position:absolute;left:0;top:0;width:720px;height:216.76px;overflow:visible}
+.cons .notes{position:absolute;left:44px;right:44px;bottom:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;border-top:1px solid var(--hair);padding-top:22px}
+.cons .notes b{display:block;font:500 34px/1 Lora;color:var(--navy);margin-bottom:10px}
+.cons .notes span{font:400 16.5px/1.5 BVP;color:var(--slate)}
+
+.space{grid-column:span 5;height:700px}
+.space .clear{position:absolute;left:44px;right:44px;top:104px;height:300px;background:#fff;display:flex;align-items:center;justify-content:center;border-radius:4px}
+.space .zone{position:relative;padding:35px;outline:1.5px dashed rgba(156,87,12,.65)}
+.space .zone img{width:440px}
+.space .zone .x{position:absolute;width:35px;height:35px;border:1px solid rgba(156,87,12,.55);background:rgba(255,205,0,.12);display:flex;align-items:center;justify-content:center;font:500 italic 18px Lora;color:var(--bronze)}
+.space .minis{position:absolute;left:44px;right:44px;top:424px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.space .minis div{background:#fff;height:110px;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.space .minis span{font:500 12.5px/1 BVP;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+.space .dont{position:absolute;left:44px;right:44px;bottom:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.space .dont div{position:relative;background:#fff;height:80px;border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.space .dont div:after{content:"";position:absolute;inset:0;background:linear-gradient(to top right,transparent calc(50% - 1px),rgba(156,87,12,.85) 50%,transparent calc(50% + 1px))}
+.space .dont img{width:150px}
+.space .dlab{position:absolute;left:44px;right:44px;top:560px;font:600 12.5px/1 BVP;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze)}
+
+/* ---------------- 04 colour ---------------- */
+.colour{grid-column:span 12;height:780px}
+.colour h2{position:absolute;left:44px;top:100px}
+.colour .intro{position:absolute;left:44px;top:220px;width:560px}
+.sw{position:absolute;border-radius:4px;overflow:hidden;padding:30px 32px}
+.sw .nm{font:500 30px/1.1 Lora}
+.sw .role{font:600 12px/1 BVP;letter-spacing:.22em;text-transform:uppercase;opacity:.7;margin-top:12px}
+.sw table{position:absolute;left:32px;bottom:24px;border-collapse:collapse;font:500 14px/1 BVP;letter-spacing:.06em}
+.sw td{padding:4px 22px 4px 0;white-space:nowrap}
+.sw td:first-child{font-weight:700;letter-spacing:.16em;font-size:11.5px;opacity:.7;width:86px}
+.nt{position:absolute;top:586px;height:150px;border-radius:4px;padding:22px 24px}
+.nt b{display:block;font:600 16px/1 BVP;margin-bottom:8px}
+.nt span{display:block;font:500 13px/1.6 BVP;letter-spacing:.08em;opacity:.75}
+.balance{position:absolute;left:44px;top:420px;width:560px}
+.balance .bar{display:flex;height:44px;border-radius:3px;overflow:hidden;margin:16px 0 14px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.balance .legend{display:flex;justify-content:space-between;font:500 13px/1 BVP;color:var(--slate);letter-spacing:.06em}
+.pairs{position:absolute;left:44px;top:560px;width:560px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pairs div{height:76px;border-radius:3px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font:600 22px Lora}
+.pairs small{font:600 11.5px/1.3 BVP;letter-spacing:.12em;text-align:right}
+
+/* ---------------- 05 typography ---------------- */
+.type{grid-column:span 7;height:820px}
+.spec{position:absolute;top:104px;bottom:44px;width:calc(50% - 66px)}
+.spec .aa{font-size:210px;line-height:1;letter-spacing:-.02em}
+.spec .fam{display:flex;justify-content:space-between;align-items:baseline;margin-top:22px;padding-bottom:16px;border-bottom:1px solid var(--hairW)}
+.spec .fam b{font:500 30px Lora;color:var(--gold)}
+.spec .fam span{font:600 12px BVP;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.spec .wts{display:flex;gap:18px;flex-wrap:wrap;margin:18px 0 22px;font-size:17px;color:rgba(255,255,255,.85)}
+.spec p{color:rgba(255,255,255,.66);font-size:16.5px}
+.spec .glyphs{margin-top:22px;font-size:25px;line-height:1.5;color:#fff;letter-spacing:.02em}
+.type .vi{position:absolute;left:44px;right:44px;bottom:44px;border-top:1px solid var(--hairW);padding-top:24px;display:flex;justify-content:space-between;align-items:flex-end}
+.type .vi div{font:500 46px/1.1 Lora;color:#fff}
+.type .vi div em{color:var(--gold)}
+.type .vi span{font:500 12.5px/1.6 BVP;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);text-align:right}
+
+.hier{grid-column:span 5;height:820px}
+.hier .rows{position:absolute;left:44px;right:44px;top:100px}
+.hier .row{display:grid;grid-template-columns:136px 1fr;align-items:baseline;padding:30px 0;border-bottom:1px solid var(--hair)}
+.hier .row .k{font:600 12px/1.55 BVP;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.hier .row .k small{display:block;font:500 12px/1.5 BVP;letter-spacing:.04em;text-transform:none;color:var(--slate)}
+
+/* ---------------- 06 graphics ---------------- */
+.g{height:600px}
+.g .capb{position:absolute;left:40px;right:40px;bottom:32px;display:flex;justify-content:space-between;z-index:3}
+
+/* ---------------- 07 icons ---------------- */
+.icons{grid-column:span 8;height:400px}
+.icons .grid{position:absolute;left:44px;right:44px;top:100px;bottom:40px;display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--hair);border-left:1px solid var(--hair)}
+.icons .grid div{border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--navy)}
+.icons .grid img{width:58px;height:58px}
+.icons .grid span{font:500 13.5px BVP;color:var(--slate);letter-spacing:.02em}
+.iconspec{grid-column:span 4;height:400px}
+.iconspec .chips{position:absolute;left:44px;top:104px;display:flex;gap:16px}
+.iconspec .chips div{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.iconspec .chips img{width:30px;height:30px}
+.iconspec .gridspec{position:absolute;right:44px;top:96px;width:120px;height:120px}
+.iconspec ul{position:absolute;left:44px;right:44px;bottom:40px;list-style:none}
+.iconspec li{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--hairW);font:400 16px BVP;color:rgba(255,255,255,.78)}
+.iconspec li b{font-weight:600;color:#fff}
+
+/* ---------------- 08 applications ---------------- */
+.apphead{grid-column:span 12;height:150px;background:transparent;overflow:visible}
+.apphead .cl{left:0;right:0;top:30px}
+.apphead h2{position:absolute;left:0;top:74px}
+.apphead p{position:absolute;right:0;top:78px;width:620px;text-align:right}
+.scene{height:800px}
+
+/* paper */
+.paper{position:absolute;background:#FDFCF9;box-shadow:var(--sh)}
+.a4{width:430px;height:608px;padding:42px 44px}
+.a4 .lh{display:flex;justify-content:space-between;align-items:flex-start}
+.a4 .lh img{width:132px}
+.a4 .lh .addr{width:200px;font:400 8px/1.65 BVP;color:var(--slate);text-align:right;letter-spacing:.02em}
+.a4 .gr{width:34px;height:2px;background:var(--gold);margin:22px 0 26px}
+.a4 .txt{font:400 8.6px/1.75 BVP;color:#3b4152}
+.a4 .txt b{display:block;font:600 11px/1.4 Lora;color:var(--navy);margin-bottom:10px}
+.a4 .txt p{font:400 8.6px/1.75 BVP;color:#3b4152;margin-bottom:8px}
+.a4 .sig{margin-top:18px;font:italic 500 15px Lora;color:var(--navy)}
+.a4 .ft{position:absolute;left:44px;right:44px;bottom:30px;border-top:1px solid var(--hair);padding-top:10px;display:flex;justify-content:space-between;font:500 7.5px/1 BVP;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+.env{width:470px;height:236px;padding:28px 30px}
+.env img{width:118px}
+.env .ra{font:400 8px/1.6 BVP;color:var(--slate);margin-top:10px}
+.env .to{position:absolute;left:220px;top:120px;font:400 10px/1.7 BVP;color:#3b4152}
+.env .to b{font:600 11.5px Lora;color:var(--navy)}
+.env .strip{position:absolute;right:0;top:0;bottom:0;width:10px;background:var(--navy)}
+.bc{position:absolute;width:350px;height:200px;border-radius:5px;box-shadow:var(--sh)}
+.bc.front{background:linear-gradient(150deg,#2E55AA,#183470);overflow:hidden}
+.bc.front .l{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.bc.back{background:#FDFCF9;padding:26px 28px}
+.bc.back .nm{font:600 19px/1.1 Lora;color:var(--navy)}
+.bc.back .ti{font:600 8.5px/1.5 BVP;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze);margin-top:6px}
+.bc.back .ct{position:absolute;left:28px;bottom:24px;font:400 9.5px/1.7 BVP;color:#3b4152}
+.bc.back img{position:absolute;right:26px;top:26px;width:92px}
+.bc.back .gr{position:absolute;left:28px;top:84px;width:26px;height:2px;background:var(--gold)}
+
+/* phone */
+.phone{position:absolute;width:330px;height:660px;border-radius:56px;background:#0b0d12;padding:12px;box-shadow:var(--sh-lg), inset 0 0 0 2px #2a2e38}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:45px;overflow:hidden;background:var(--paper)}
+.phone .island{position:absolute;left:50%;top:12px;width:96px;height:28px;border-radius:20px;background:#000;transform:translateX(-50%);z-index:5}
+.scr .hd{position:relative;height:300px;background:linear-gradient(160deg,#2E55AA,#0B1A4F);padding:62px 24px 0;color:#fff;overflow:hidden}
+.scr .sb{position:absolute;top:18px;left:30px;right:26px;display:flex;justify-content:space-between;font:600 12px BVP;color:#fff}
+.scr .hd>img{width:92px}
+.scr .hd .hi{font:400 13px BVP;color:rgba(255,255,255,.65);margin-top:20px}
+.scr .hd .co{font:500 26px/1.15 Lora;margin-top:6px}
+.scr .mc{position:absolute;left:18px;right:18px;top:204px;height:146px;border-radius:16px;background:linear-gradient(135deg,#FFD633,#F2BC00);padding:18px 20px;color:var(--navy);box-shadow:0 14px 30px rgba(11,26,79,.35);overflow:hidden}
+.scr .mc .k{font:700 9px BVP;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.scr .mc .v{font:600 20px Lora;margin-top:6px}
+.scr .mc .id{position:absolute;left:20px;bottom:16px;font:600 12px BVP;letter-spacing:.16em}
+.scr .mc .tier{position:absolute;right:18px;bottom:16px;font:700 9px BVP;letter-spacing:.2em;text-transform:uppercase;background:var(--navy);color:var(--gold);padding:6px 9px;border-radius:20px}
+.scr .qa{position:absolute;left:18px;right:18px;top:370px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.scr .qa div{display:flex;flex-direction:column;align-items:center;gap:7px;font:500 9.5px BVP;color:var(--slate)}
+.scr .qa i{width:50px;height:50px;border-radius:14px;background:var(--tint);display:flex;align-items:center;justify-content:center;color:var(--navy)}
+.scr .qa img{width:22px;height:22px}
+.scr .ev{position:absolute;left:18px;right:18px;top:460px;border-radius:14px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.04),0 6px 16px rgba(38,72,150,.08);padding:14px 16px;display:flex;gap:14px}
+.scr .ev .d{width:52px;height:58px;border-radius:10px;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.scr .ev .d b{font:600 22px/1 Lora;color:var(--gold)}
+.scr .ev .d span{font:600 8.5px BVP;letter-spacing:.15em;margin-top:3px}
+.scr .ev .tg{font:700 8.5px BVP;letter-spacing:.18em;color:var(--bronze);text-transform:uppercase}
+.scr .ev .tt{font:600 14px/1.25 Lora;color:var(--navy);margin-top:4px}
+.scr .ev .mt{font:400 10.5px BVP;color:var(--slate);margin-top:4px}
+.scr .tab{position:absolute;left:0;right:0;bottom:0;height:74px;background:#fff;border-top:1px solid var(--hair);display:flex;justify-content:space-around;padding-top:12px;color:#9aa1b2}
+.scr .tab div{display:flex;flex-direction:column;align-items:center;gap:4px;font:500 9px BVP}
+.scr .tab img{width:21px;height:21px}
+.scr .tab .on{color:var(--navy)}
+
+/* browser */
+.browser{position:absolute;border-radius:12px;overflow:hidden;background:#fff;box-shadow:var(--sh-lg)}
+.browser .chrome{height:44px;background:#EDEAE3;display:flex;align-items:center;padding:0 16px;gap:8px;border-bottom:1px solid #dcd7cc}
+.browser .chrome i{width:12px;height:12px;border-radius:50%;background:#cfc9bc}
+.browser .url{margin-left:22px;flex:1;height:26px;border-radius:7px;background:#fff;font:400 12.5px/26px BVP;color:#6b7180;padding-left:14px}
+.site-nav{height:70px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid var(--hair);background:#fff}
+.site-nav img{width:118px}
+.site-nav .lk{margin-left:auto;display:flex;gap:30px;font:500 14px BVP;color:var(--ink)}
+.site-nav .btn{margin-left:34px;font:600 13px BVP;color:#fff;background:var(--navy);padding:11px 18px;border-radius:4px}
+.site-hero{position:relative;height:340px;background:linear-gradient(120deg,#2E55AA,#0B1A4F);padding:48px 40px;color:#fff;overflow:hidden}
+.site-hero .ey{font:600 11.5px BVP;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.site-hero h3{font:500 46px/1.12 Lora;margin-top:18px;width:600px}
+.site-hero h3 em{color:var(--gold)}
+.site-hero p{color:rgba(255,255,255,.7);font-size:16px;width:520px;margin-top:16px}
+.site-hero .cta{display:flex;gap:14px;margin-top:28px}
+.site-hero .cta span{font:600 14px BVP;padding:13px 22px;border-radius:4px}
+.site-news{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:24px 40px 26px;background:var(--paper)}
+.site-news div{border-top:2px solid var(--navy);padding-top:14px}
+.site-news .tg{font:700 10px BVP;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze)}
+.site-news .tt{font:600 16.5px/1.35 Lora;color:var(--navy);margin-top:8px}
+.site-news .dt{font:400 12px BVP;color:var(--slate);margin-top:8px}
+
+/* poster */
+.eposter{position:absolute;width:420px;height:594px;background:linear-gradient(165deg,#2E55AA,#183470);overflow:hidden;box-shadow:var(--sh-lg);color:#fff}
+.eposter .ey{position:absolute;left:34px;top:34px;font:700 9.5px BVP;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.eposter h4{position:absolute;left:34px;top:300px;width:360px;font:500 40px/1.06 Lora}
+.eposter h4 em{color:var(--gold)}
+.eposter .meta{position:absolute;left:34px;right:34px;top:446px;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--hairW);padding-top:14px;font:400 11px/1.5 BVP;color:rgba(255,255,255,.75)}
+.eposter .meta b{display:block;font:600 8.5px BVP;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px}
+.eposter .l{position:absolute;left:34px;bottom:30px}
+.eposter .url{position:absolute;right:34px;bottom:32px;font:500 10px BVP;letter-spacing:.14em;color:rgba(255,255,255,.6)}
+
+/* social */
+.post{position:absolute;width:300px;height:300px;overflow:hidden;box-shadow:var(--sh);border-radius:3px}
+
+/* badge */
+.badge{position:absolute;width:250px;height:360px;border-radius:12px;background:#FDFCF9;box-shadow:var(--sh-lg);overflow:hidden}
+.badge .top{height:118px;background:linear-gradient(150deg,#2E55AA,#0B1A4F);position:relative;overflow:hidden}
+.badge .top img{position:absolute;left:26px;top:44px;width:116px}
+.badge .slot{position:absolute;left:50%;top:14px;width:54px;height:9px;border-radius:6px;background:var(--board);transform:translateX(-50%);box-shadow:inset 0 1px 2px rgba(0,0,0,.35)}
+.badge .who{padding:26px 26px 0}
+.badge .who .r{font:700 9px BVP;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze)}
+.badge .who .n{font:600 26px/1.1 Lora;color:var(--navy);margin-top:10px}
+.badge .who .c{font:400 12px/1.5 BVP;color:var(--slate);margin-top:8px}
+.badge .bot{position:absolute;left:0;right:0;bottom:0;height:56px;background:var(--gold);display:flex;align-items:center;justify-content:space-between;padding:0 22px;font:700 9.5px BVP;letter-spacing:.18em;text-transform:uppercase;color:var(--navy)}
+
+/* box */
+.box3d{position:absolute;transform-style:preserve-3d}
+.box3d .f{position:absolute;backface-visibility:hidden}
+
+/* ---------------- 09 / 10 ---------------- */
+.tone{grid-column:span 6;height:700px}
+.tone .words{position:absolute;left:44px;right:44px;top:104px;display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.tone .words div{padding:16px 0;border-bottom:1px solid var(--hair)}
+.tone .words b{display:block;font:500 30px/1.15 Lora;color:var(--navy)}
+.tone .words b em{color:var(--bronze)}
+.tone .words span{display:block;font:400 15.5px/1.5 BVP;color:var(--slate);margin-top:6px}
+.sliders{position:absolute;left:44px;right:44px;top:368px}
+.sl{display:grid;grid-template-columns:150px 1fr 150px;align-items:center;gap:20px;padding:10px 0}
+.sl span{font:500 14px BVP;color:var(--slate)}
+.sl span:last-child{text-align:right}
+.sl .tr{position:relative;height:2px;background:var(--stone)}
+.sl .tr i{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:var(--navy);transform:translate(-50%,-50%);box-shadow:0 0 0 5px rgba(38,72,150,.12)}
+.sl .tr u{position:absolute;top:0;height:2px;background:var(--navy);text-decoration:none}
+
+.layout{grid-column:span 6;height:700px}
+.layout .scale{position:absolute;left:44px;top:110px;width:440px}
+.layout .scale .s{display:grid;grid-template-columns:64px 1fr;align-items:center;height:30px}
+.layout .scale .s span{font:500 13px BVP;color:rgba(255,255,255,.6)}
+.layout .scale .s i{height:12px;background:var(--gold);border-radius:1px}
+.layout .page{position:absolute;right:44px;top:104px;width:300px;height:424px;background:#FDFCF9;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.layout .rules{position:absolute;left:44px;width:500px;top:390px}
+.layout .rules div{display:grid;grid-template-columns:40px 1fr;padding:12px 0;border-top:1px solid var(--hairW);font:400 15.5px/1.5 BVP;color:rgba(255,255,255,.78)}
+.layout .rules div b{font:500 18px Lora;color:var(--gold)}
+.layout .rules div strong{color:#fff;font-weight:600}
+
+/* footer */
+.footer{grid-column:span 12;height:150px;background:var(--night);color:#fff;display:flex;align-items:center;padding:0 56px;gap:40px}
+.footer>img{width:170px}
+.footer .t{font:600 13px BVP;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.footer .t b{color:var(--gold)}
+.footer .s{margin-left:auto;font:400 italic 18px Lora;color:rgba(255,255,255,.7)}
+@page{size:2400px 9546px;margin:0}
+@media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="board" id="board">
+
+<!-- ============ HERO ============ -->
+<section class="card hero">
+  <div class="side">
+    <svg class="ring" id="heroRing" viewBox="-510 -510 1020 1020"></svg>
+    <div class="sidetop"><span>Visual Guidelines</span><span><b>Edition 01</b> · 2026</span></div>
+    <div class="sidecap"><span><b>Đông Sơn</b> · Drum sun</span><span>14 rays</span></div>
+  </div>
+  <div class="top"><span><b>VCCI</b>&nbsp;&nbsp;·&nbsp;&nbsp;Brand Identity System</span><span>Since 1963</span></div>
+  <img class="logo" src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI">
+  <h1>The voice of Vietnamese <em>enterprise</em>,<br>carried with heritage and authority.</h1>
+  <div class="names">Liên đoàn Thương mại và Công nghiệp Việt Nam &nbsp;—&nbsp; Vietnam Chamber of Commerce and Industry</div>
+  <div class="facts">
+    <div><span>Sector</span><strong>National chamber of commerce</strong></div>
+    <div><span>Established</span><strong>Hà Nội, 1963</strong></div>
+    <div><span>Audience</span><strong>Enterprises · Government · Global partners</strong></div>
+    <div><span>Positioning</span><strong>Premium institutional</strong></div>
+  </div>
+</section>
+
+<!-- ============ 01 ESSENCE ============ -->
+<section class="card essence c-ivory">
+  <div class="cl"><span class="n">01</span><span class="t">Brand Essence</span><span class="r"></span><span class="m">Reading the mark</span></div>
+  <div class="stmt">VCCI <em>unites, represents and protects</em> the Vietnamese business community. Its identity must carry the weight of a national institution and the warmth of a trusted partner.</div>
+  <dl>
+    <dt>Form</dt><dd>Monumental geometric capitals — heavy, square‑shouldered, built from circles and clean cuts. Engineered stability.</dd>
+    <dt>Symbol</dt><dd>The Đông Sơn bronze‑drum sun: fourteen rays, ringed by figural bands — Vietnam's oldest emblem at the heart of the name.</dd>
+    <dt>Colour</dt><dd>State blue for authority and permanence; drum gold for prosperity, heritage and national pride.</dd>
+    <dt>Character</dt><dd>Authoritative · Trusted · Enduring · Proud. Formal, yet a partner — never bureaucratic.</dd>
+  </dl>
+</section>
+
+<!-- ============ 02 PRIMARY ============ -->
+<section class="card primary">
+  <div class="cl"><span class="n">02</span><span class="t">Primary Logo</span><span class="r"></span><span class="m">Full colour · Positive</span></div>
+  <img class="logo" src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI primary logo">
+  <div class="foot">
+    <div><b>Wordmark</b><span>Four geometric capitals in VCCI Blue. Never redrawn, re‑spaced or set in type.</span></div>
+    <div><b>Symbol</b><span>The drum sun sits inside the first C, framed by a fine white ring — one centre.</span></div>
+    <div><b>One colourway</b><span>Blue letters on light grounds only. No white, gold or symbol‑only versions.</span></div>
+  </div>
+</section>
+
+<!-- ============ SECONDARY ============ -->
+<section class="card sec c-ivory" style="grid-column:span 5">
+  <div class="cl"><span class="n">02.1</span><span class="t">Horizontal Lockup</span><span class="r"></span></div>
+  <div class="inner"><div class="lockup-h"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""><div class="bar"></div><div class="nm">Liên đoàn Thương mại và<br>Công nghiệp Việt Nam<i>Vietnam Chamber of Commerce and Industry</i></div></div></div>
+  <div class="capb"><span class="cap">Formal documents · Signage · Web header</span></div>
+</section>
+<section class="card sec c-white" style="grid-column:span 3">
+  <div class="cl"><span class="n">02.2</span><span class="t">Stacked</span><span class="r"></span></div>
+  <div class="inner"><div class="lockup-v"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""><div class="rule"></div><div class="nm">Vietnam Chamber of<br>Commerce and Industry</div></div></div>
+  <div class="capb"><span class="cap">Covers · Certificates · Plaques</span></div>
+</section>
+<section class="card sec c-navy" style="grid-column:span 2">
+  <div class="cl"><span class="n">02.3</span><span class="t">Logo Plate</span></div>
+  <div class="inner"><span class="plate" style="--w:200px;box-shadow:0 18px 40px rgba(0,0,0,.30)"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span></div>
+  <div class="capb"><span class="cap" style="color:rgba(255,255,255,.6)">On navy · Padding = x</span></div>
+</section>
+<section class="card sec c-deep" style="grid-column:span 2">
+  <div class="cl"><span class="n">02.4</span><span class="t">App Icon</span></div>
+  <div class="inner"><div class="appicons">
+    <div class="appicon" style="width:128px;height:128px;border-radius:29px"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""></div>
+    <div class="appicon" style="width:64px;height:64px;border-radius:15px"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""></div>
+    <div class="appicon" style="width:40px;height:40px;border-radius:9px"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="" style="width:84%"></div>
+  </div></div>
+  <div class="capb"><span class="cap" style="color:rgba(255,255,255,.6)">iOS · Android · Favicon</span></div>
+</section>
+
+<!-- ============ LIGHT / DARK ============ -->
+<section class="card bgt" style="background:var(--paper)"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""><div class="lab" style="color:var(--slate)"><span><b style="color:var(--navy)">Paper</b> · Positive</span><span>#FBF9F4</span></div></section>
+<section class="card bgt" style="background:var(--stone)"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""><div class="lab" style="color:var(--slate)"><span><b style="color:var(--navy)">Stone</b> · Positive</span><span>#E6E1D5</span></div></section>
+<section class="card bgt c-navy"><span class="plate" style="--w:250px;"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span><div class="lab" style="color:rgba(255,255,255,.6)"><span><b style="color:#fff">Blue</b> · Logo plate</span><span>#264896</span></div></section>
+<section class="card bgt c-night"><span class="plate" style="--w:250px;"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span><div class="lab" style="color:rgba(255,255,255,.6)"><span><b style="color:#fff">Night</b> · Logo plate</span><span>#07113A</span></div></section>
+
+<!-- ============ 03 CONSTRUCTION ============ -->
+<section class="card cons">
+  <div class="cl"><span class="n">03</span><span class="t">Construction &amp; Proportion</span><span class="r"></span><span class="m">One centre, one ratio</span></div>
+  <div class="stage">
+    <img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="">
+    <svg id="consSvg" viewBox="0 0 823 242"></svg>
+  </div>
+  <div class="notes">
+    <div><b>r ≈ ½ R</b><span>Drum radius to the outer radius of the first C. One centre; a fine white ring keeps them apart.</span></div>
+    <div><b>0.52 H</b><span>The drum's diameter is just over half the cap height — the mark's governing module.</span></div>
+    <div><b>x = r</b><span>The drum radius (≈ ¼ H) defines clear space, plate padding and logo margins.</span></div>
+  </div>
+</section>
+
+<section class="card space c-ivory">
+  <div class="cl"><span class="n">03.1</span><span class="t">Clear Space &amp; Size</span><span class="r"></span></div>
+  <div class="clear"><div class="zone">
+    <img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="">
+    <div class="x" style="left:0;top:0">x</div><div class="x" style="right:0;top:0">x</div>
+    <div class="x" style="left:0;bottom:0">x</div><div class="x" style="right:0;bottom:0">x</div>
+  </div></div>
+  <div class="minis">
+    <div><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" style="width:150px" alt=""><span>Print · 25 mm</span></div>
+    <div><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" style="width:96px" alt=""><span>Screen · 96 px</span></div>
+    <div style="background:var(--navy)"><span class="plate" style="--w:96px;"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span><span style="color:rgba(255,255,255,.7)">Plate · 96 px</span></div>
+  </div>
+  <div class="dlab">Never &nbsp;—&nbsp; <span style="color:var(--slate);font-weight:500">Stretch · Recolour · Rotate · White letters</span></div>
+  <div class="dont">
+    <div><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" style="transform:scaleX(1.3) scaleY(.8)" alt=""></div>
+    <div><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" style="filter:hue-rotate(150deg) saturate(1.4)" alt=""></div>
+    <div><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" style="transform:rotate(-12deg)" alt=""></div>
+    <div style="background:var(--navy)"><img src="assets/vcci-logo-white-misuse.svg" alt=""></div>
+  </div>
+</section>
+
+<!-- ============ 04 COLOUR ============ -->
+<section class="card colour c-ivory">
+  <div class="cl"><span class="n">04</span><span class="t">Colour</span><span class="r"></span><span class="m">Specified by the master artwork</span></div>
+  <h2>A palette of <em>state</em><br>&amp; heritage.</h2>
+  <p class="intro">Blue carries the institution; gold and bronze come from the drum itself and are used sparingly — as a signature, never as a flood. Bronze Ink #9C570C is the text‑safe tone for small labels.</p>
+  <div class="balance">
+    <div class="cap"><b>Colour balance</b></div>
+    <div class="bar"><i style="flex:44;background:var(--navy)"></i><i style="flex:34;background:var(--paper)"></i><i style="flex:10;background:var(--stone)"></i><i style="flex:7;background:var(--gold)"></i><i style="flex:5;background:#CC713C"></i></div>
+    <div class="legend"><span>Blue 44</span><span>Paper 34</span><span>Stone 10</span><span>Gold 7</span><span>Bronze 5</span></div>
+  </div>
+  <div class="pairs">
+    <div style="background:var(--navy);color:var(--paper)">Aa<small>8.1 : 1<br>AAA</small></div>
+    <div style="background:var(--navy);color:var(--gold)">Aa<small>5.7 : 1<br>AA</small></div>
+    <div style="background:var(--paper);color:var(--bronze)">Aa<small>5.2 : 1<br>AA</small></div>
+  </div>
+
+  <div class="sw" style="left:660px;top:100px;width:600px;height:466px;background:var(--navy);color:#fff"><div class="nm">VCCI Blue</div><div class="role">Primary · Authority</div><table><tr><td>HEX</td><td>#264896</td></tr><tr><td>RGB</td><td>38 · 72 · 150</td></tr><tr><td>CMYK</td><td>100 · 80 · 0 · 0</td></tr><tr><td>SOURCE</td><td>Master .CDR</td></tr></table></div>
+  <div class="sw" style="left:1280px;top:100px;width:440px;height:223px;background:var(--gold);color:var(--navy)"><div class="nm">Drum Gold</div><div class="role">Secondary · Prosperity</div><table><tr><td>HEX</td><td>#FFCD00</td></tr><tr><td>RGB</td><td>255 · 205 · 0</td></tr><tr><td>CMYK</td><td>0 · 20 · 100 · 0</td></tr><tr><td>SOURCE</td><td>Master .CDR</td></tr></table></div>
+  <div class="sw" style="left:1280px;top:343px;width:440px;height:223px;background:#CC713C;color:#fff"><div class="nm">Drum Bronze</div><div class="role">Secondary · Heritage</div><table><tr><td>HEX</td><td>#CC713C</td></tr><tr><td>RGB</td><td>204 · 113 · 60</td></tr><tr><td>CMYK</td><td>0 · 60 · 80 · 20</td></tr><tr><td>SOURCE</td><td>Master .CDR</td></tr></table></div>
+  <div class="sw" style="left:1740px;top:100px;width:456px;height:223px;background:var(--deep);color:#fff"><div class="nm">Deep Navy</div><div class="role">Support · Depth</div><table><tr><td>HEX</td><td>#0B1A4F</td></tr><tr><td>RGB</td><td>11 · 26 · 79</td></tr><tr><td>CMYK</td><td>100 · 90 · 30 · 40</td></tr></table></div>
+  <div class="sw" style="left:1740px;top:343px;width:456px;height:223px;background:var(--tint);color:var(--navy)"><div class="nm">Blue Tint</div><div class="role">Support · UI surfaces</div><table><tr><td>HEX</td><td>#E7ECF6</td></tr><tr><td>RGB</td><td>231 · 236 · 246</td></tr><tr><td>CMYK</td><td>8 · 4 · 0 · 0</td></tr></table></div>
+  <div class="nt" style="left:660.0px;width:294.4px;background:var(--ink);color:#fff;"><b>Ink</b><span>#161A26<br>22 · 26 · 38</span></div>
+  <div class="nt" style="left:970.4px;width:294.4px;background:var(--slate);color:#fff;"><b>Slate</b><span>#5C6478<br>92 · 100 · 120</span></div>
+  <div class="nt" style="left:1280.8px;width:294.4px;background:var(--stone);color:var(--ink);"><b>Stone</b><span>#E6E1D5<br>230 · 225 · 213</span></div>
+  <div class="nt" style="left:1591.2px;width:294.4px;background:#F4F0E6;color:var(--ink);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);"><b>Ivory</b><span>#F4F0E6<br>244 · 240 · 230</span></div>
+  <div class="nt" style="left:1901.6px;width:294.4px;background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);"><b>Paper</b><span>#FBF9F4<br>251 · 249 · 244</span></div>
+  </section>
+
+<!-- ============ 05 TYPOGRAPHY ============ -->
+<section class="card type c-navy">
+  <div class="cl"><span class="n">05</span><span class="t">Typography</span><span class="r"></span><span class="m">Serif authority · Native sans clarity</span></div>
+  <div class="spec" style="left:44px">
+    <div class="aa" style="font-family:Lora;font-weight:500">Aa</div>
+    <div class="fam"><b>Lora</b><span>Display · Serif</span></div>
+    <div class="wts" style="font-family:Lora"><span>Regular</span><span style="font-weight:500">Medium</span><span style="font-weight:600">SemiBold</span><span style="font-style:italic">Italic</span></div>
+    <p>A contemporary serif with calligraphic roots. Used for headlines, statements and moments of gravitas.</p>
+    <div class="glyphs" style="font-family:Lora">ABCDEFGHIJKLM<br>abcdefghijklm 0123456789<br>Đđ Ăă Ơơ Ưư Ấ Ề Ộ</div>
+  </div>
+  <div class="spec" style="right:44px">
+    <div class="aa" style="font-family:BVP;font-weight:500">Aa</div>
+    <div class="fam"><b>Be Vietnam Pro</b><span>Text · Sans</span></div>
+    <div class="wts"><span style="font-weight:300">Light</span><span>Regular</span><span style="font-weight:500">Medium</span><span style="font-weight:600">SemiBold</span></div>
+    <p>A neo‑grotesk engineered in Vietnam for Vietnamese diacritics. Used for body, interface, labels and data.</p>
+    <div class="glyphs">ABCDEFGHIJKLM<br>abcdefghijklm 0123456789<br>Đđ Ăă Ơơ Ưư Ấ Ề Ộ</div>
+  </div>
+  <div class="vi"><div>Đồng hành cùng <em>doanh nghiệp</em> Việt.</div><span>Full Vietnamese<br>diacritic support</span></div>
+</section>
+
+<section class="card hier">
+  <div class="cl"><span class="n">05.1</span><span class="t">Hierarchy</span><span class="r"></span><span class="m">Scale 1.333</span></div>
+  <div class="rows">
+    <div class="row"><div class="k">Display<small>Lora Medium 64/68</small></div><div style="font:500 60px/1.05 Lora;color:var(--navy);letter-spacing:-.01em">Enterprise first</div></div>
+    <div class="row"><div class="k">Heading<small>Lora Medium 40/48</small></div><div style="font:500 38px/1.15 Lora;color:var(--navy)">Representing <em style="color:var(--bronze)">business</em></div></div>
+    <div class="row"><div class="k">Title<small>Lora SemiBold 28/36</small></div><div style="font:600 27px/1.25 Lora;color:var(--navy)">Trade, advocacy &amp; reform</div></div>
+    <div class="row"><div class="k">Subhead<small>BVP SemiBold 20/28</small></div><div style="font:600 20px/1.4 BVP;color:var(--ink)">Member services and certification</div></div>
+    <div class="row"><div class="k">Body<small>BVP Regular 16/26</small></div><div style="font:400 16px/1.62 BVP;color:var(--slate)">Clear, measured prose that informs members and partners with confidence — formal Vietnamese and English, never hype.</div></div>
+    <div class="row" style="border:0"><div class="k">Label<small>BVP SemiBold 12 · +22%</small></div><div style="font:600 12.5px/1 BVP;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze)">Vietnam Business Summit · 2026</div></div>
+  </div>
+</section>
+
+<!-- ============ 06 GRAPHIC LANGUAGE ============ -->
+<section class="card g c-navy" style="grid-column:span 5">
+  <div class="cl"><span class="n">06</span><span class="t">Graphic Language</span><span class="r"></span><span class="m">Drawn from the drum</span></div>
+  <svg id="gRing" viewBox="-300 -300 600 600" style="position:absolute;left:50%;top:54%;width:780px;height:780px;transform:translate(-50%,-50%)"></svg>
+    <div class="capb"><span class="cap" style="color:#fff"><b style="color:var(--gold)">06.1</b>&nbsp; Drum‑ring supergraphic</span><span class="cap" style="color:rgba(255,255,255,.5)">Covers · Stage · Signage</span></div>
+</section>
+<section class="card g" style="grid-column:span 3;background:var(--gold)">
+  <svg id="gStar" viewBox="-300 -300 600 600" style="position:absolute;left:50%;top:47%;width:560px;height:560px;transform:translate(-50%,-50%)"></svg>
+  <div class="capb"><span class="cap" style="color:var(--navy)"><b>06.2</b>&nbsp; Radiance — 14 rays</span></div>
+</section>
+<section class="card g c-ivory" style="grid-column:span 2">
+  <svg id="gArc" style="position:absolute;inset:0;width:100%;height:100%"></svg>
+  <div class="capb" style="background:var(--ivory);left:0;right:0;bottom:0;padding:22px 30px"><span class="cap"><b>06.3</b>&nbsp; C‑arc pattern</span></div>
+</section>
+<section class="card g c-white" style="grid-column:span 2">
+  <svg id="gDots" style="position:absolute;inset:0;width:100%;height:100%"></svg>
+  <div class="capb" style="background:#fff;left:0;right:0;bottom:0;padding:22px 30px"><span class="cap"><b>06.4</b>&nbsp; Drum‑dot field</span></div>
+</section>
+
+<!-- ============ 07 ICONS ============ -->
+<section class="card icons">
+  <div class="cl"><span class="n">07</span><span class="t">Iconography</span><span class="r"></span><span class="m">Icon system v1 · 48 UI · 24 hero</span></div>
+  <div class="grid" id="iconGrid"></div>
+</section>
+<section class="card iconspec c-deep">
+  <div class="cl"><span class="n">07.1</span><span class="t">Icon Rules</span><span class="r"></span></div>
+  <div class="chips" id="chips"></div>
+  <svg class="gridspec" viewBox="0 0 24 24" id="gridspec"></svg>
+  <ul>
+    <li><b>Grid</b><span>UI 24 px · Hero 64 px</span></li>
+    <li><b>Stroke</b><span>UI 1.6 · Hero 2 · round caps &amp; joins</span></li>
+    <li><b>Colour</b><span>Blue on light · Gold / White on blue</span></li>
+  </ul>
+</section>
+
+<!-- ============ 08 APPLICATIONS ============ -->
+<section class="card apphead">
+  <div class="cl"><span class="n">08</span><span class="t">Brand in Use</span><span class="r"></span><span class="m">Print · Digital · Event · Gifting</span></div>
+  <h2>The system, <em>applied</em>.</h2>
+  <p>One blue field, one gold signature, one serif voice — repeated with discipline across every touchpoint until the brand is recognisable before the logo is read.</p>
+</section>
+
+<!-- stationery -->
+<section class="card scene c-stone" style="grid-column:span 7;background:radial-gradient(900px 600px at 40% 30%,#EEE9DF,#DCD5C6)">
+  <div class="cl"><span class="n">08.1</span><span class="t">Stationery</span><span class="r"></span><span class="m">Letterhead · Envelope · Cards</span></div>
+  <div class="paper env" style="left:540px;top:120px;transform:rotate(5deg)">
+    <img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="">
+    <div class="ra">Số 9 Đào Duy Anh, Đống Đa, Hà Nội</div>
+    <div class="to"><b>Ông Lê Quang Huy</b><br>Tổng Giám đốc, Công ty CP Minh Phát<br>25 Lý Thường Kiệt, Hoàn Kiếm, Hà Nội</div>
+    <div class="strip"></div>
+  </div>
+  <div class="paper a4" style="left:110px;top:118px;transform:rotate(-3.5deg)">
+    <div class="lh"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""><div class="addr">Liên đoàn Thương mại và Công nghiệp Việt Nam<br>Số 9 Đào Duy Anh, Đống Đa, Hà Nội<br>T +84 24 3574 2022 · vcci.com.vn</div></div>
+    <div class="gr"></div>
+    <div class="txt">
+      <b>Thư mời tham dự Diễn đàn Doanh nghiệp 2026</b>
+      <p>Hà Nội, ngày 05 tháng 10 năm 2026</p>
+      <p>Kính gửi Quý Doanh nghiệp,</p>
+      <p>Liên đoàn Thương mại và Công nghiệp Việt Nam trân trọng kính mời Quý Doanh nghiệp tham dự Diễn đàn Doanh nghiệp thường niên — nơi cộng đồng doanh nghiệp, cơ quan quản lý và các đối tác quốc tế cùng đối thoại về môi trường kinh doanh, cải cách thể chế và cơ hội hội nhập.</p>
+      <p>Diễn đàn sẽ diễn ra tại Hà Nội với các phiên thảo luận chuyên đề về thương mại, đầu tư và chuyển đổi số. Sự hiện diện của Quý vị là nguồn động viên quý báu đối với Ban Tổ chức.</p>
+      <p>Trân trọng,</p>
+      <div class="sig">Nguyễn Minh An</div>
+      <p style="margin-top:2px">Giám đốc Ban Hội viên</p>
+    </div>
+    <div class="ft"><span>vcci.com.vn</span><span>Since 1963</span></div>
+  </div>
+  <div class="bc back" style="left:610px;top:500px;transform:rotate(-6deg)">
+    <img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="">
+    <div class="nm">Nguyễn Minh An</div>
+    <div class="ti">Director · Member Services</div>
+    <div class="gr"></div>
+    <div class="ct">an.nguyen@vcci.com.vn<br>+84 24 3574 2022 · +84 912 000 128<br>9 Đào Duy Anh, Đống Đa, Hà Nội</div>
+  </div>
+  <div class="bc front" style="left:880px;top:330px;transform:rotate(8deg)">
+    <svg class="bcring" viewBox="-300 -300 600 600" style="position:absolute;right:-150px;top:-120px;width:440px;height:440px"></svg>
+    <span class="plate l" style="--w:176px;box-shadow:0 4px 12px rgba(0,0,0,.25)"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span>
+  </div>
+</section>
+
+<!-- phone -->
+<section class="card scene c-deep" style="grid-column:span 5;background:radial-gradient(700px 600px at 70% 30%,#2E55AA,#0B1A4F 70%)">
+  <div class="cl"><span class="n">08.2</span><span class="t">Member App</span><span class="r"></span><span class="m">iOS · Android</span></div>
+  <svg class="phring" viewBox="-300 -300 600 600" style="position:absolute;left:330px;top:150px;width:700px;height:700px"></svg>
+  <div class="phone" style="left:72px;top:104px">
+    <div class="island"></div>
+    <div class="scr">
+      <div class="hd">
+        <div class="sb"><span>9:41</span><span>●●● ▮</span></div>
+        <svg class="mring" viewBox="-300 -300 600 600" style="position:absolute;right:-120px;top:-60px;width:320px;height:320px"></svg>
+        <span class="plate" style="--w:80px;border-radius:6px"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span>
+        <div class="hi">Chào buổi sáng,</div>
+        <div class="co">Công ty CP<br>Minh Phát</div>
+      </div>
+      <div class="mc">
+        <div class="k">Thẻ hội viên · Member</div>
+        <div class="v">VCCI Hội viên</div>
+        <img src="../brand-assets/01_Logo/_Construction-only/VCCI_Drum_CONSTRUCTION-ONLY.svg" style="position:absolute;right:-30px;top:-30px;width:130px;opacity:.28;mix-blend-mode:multiply" alt="">
+        <div class="id mono">0128 4471 2026</div>
+        <div class="tier">Premium</div>
+      </div>
+      <div class="qa" id="qa"></div>
+      <div class="ev">
+        <div class="d"><b>12</b><span>THG 12</span></div>
+        <div><div class="tg">Sự kiện · Event</div><div class="tt">Vietnam Business<br>Summit 2026</div><div class="mt">Hà Nội · Còn 14 chỗ</div></div>
+      </div>
+      <div class="tab" id="tab"></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:470px;right:44px;top:200px;color:#fff">
+    <div style="font:500 34px/1.18 Lora">Blue headers.<br><em style="color:var(--gold)">Gold signatures.</em><br>Serif moments.</div>
+    <p style="color:rgba(255,255,255,.62);font-size:16.5px;margin-top:22px">The product inherits the print system 1:1 — the logo sits on a paper plate, the drum‑ring is the quiet backdrop.</p>
+    <div style="margin-top:34px;display:grid;gap:12px">
+      <div style="display:flex;align-items:center;gap:14px"><i style="width:34px;height:34px;border-radius:8px;background:var(--navy);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)"></i><span class="cap" style="color:rgba(255,255,255,.7)">Blue · 60</span></div>
+      <div style="display:flex;align-items:center;gap:14px"><i style="width:34px;height:34px;border-radius:8px;background:var(--paper)"></i><span class="cap" style="color:rgba(255,255,255,.7)">Paper · 30</span></div>
+      <div style="display:flex;align-items:center;gap:14px"><i style="width:34px;height:34px;border-radius:8px;background:var(--gold)"></i><span class="cap" style="color:rgba(255,255,255,.7)">Gold · 10</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- website -->
+<section class="card scene c-ivory" style="grid-column:span 8;height:800px;background:linear-gradient(180deg,#EFEBE2,#E5DFD3)">
+  <div class="cl"><span class="n">08.3</span><span class="t">Website</span><span class="r"></span><span class="m">vcci.com.vn</span></div>
+  <div class="browser" style="left:72px;right:72px;top:110px">
+    <div class="chrome"><i></i><i></i><i></i><div class="url">https://vcci.com.vn</div></div>
+    <div class="site-nav"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""><div class="lk"><span>Giới thiệu</span><span>Hội viên</span><span>Dịch vụ</span><span>Sự kiện</span><span>Tin tức</span><span>Liên hệ</span></div><div class="btn">Đăng ký hội viên</div></div>
+    <div class="site-hero">
+      <svg class="wring" viewBox="-300 -300 600 600" style="position:absolute;right:-60px;top:-140px;width:620px;height:620px"></svg>
+            <div class="ey">Tiếng nói của doanh nghiệp Việt Nam</div>
+      <h3>Kết nối doanh nghiệp Việt với <em>thế giới</em>.</h3>
+      <p>Đại diện, bảo vệ và thúc đẩy cộng đồng doanh nghiệp — từ chính sách đến thị trường.</p>
+      <div class="cta"><span style="background:var(--gold);color:var(--navy)">Trở thành hội viên</span><span style="box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);color:#fff">Khám phá dịch vụ</span></div>
+    </div>
+    <div class="site-news">
+      <div><div class="tg">Chính sách</div><div class="tt">Đối thoại cải cách môi trường kinh doanh năm 2026</div><div class="dt">02.10.2026</div></div>
+      <div><div class="tg">Xúc tiến thương mại</div><div class="tt">Đoàn doanh nghiệp Việt Nam tại Hội chợ châu Âu</div><div class="dt">28.09.2026</div></div>
+      <div><div class="tg">Đào tạo</div><div class="tt">Chương trình năng lực quản trị cho doanh nghiệp SME</div><div class="dt">21.09.2026</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- poster -->
+<section class="card scene" style="grid-column:span 4;height:800px;background:linear-gradient(180deg,#D9D4C9,#CFC8BA)">
+  <div class="cl"><span class="n">08.4</span><span class="t">Event Poster</span><span class="r"></span><span class="m">A2</span></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:92px;background:linear-gradient(180deg,#BDB5A5,#B3AB9A)"></div>
+  <div class="eposter" style="left:50%;top:126px;margin-left:-210px">
+    <svg class="pring" viewBox="-300 -300 600 600" style="position:absolute;left:30px;top:-210px;width:600px;height:600px"></svg>
+        <div class="ey">VCCI · 2026</div>
+    <h4>Vietnam Business <em>Summit</em></h4>
+    <div class="meta"><div><b>Date</b>12 · 12 · 2026</div><div><b>Venue</b>National Convention Centre, Hà Nội</div></div>
+    <span class="plate l" style="--w:100px;"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span>
+    <div class="url">vcci.com.vn/summit</div>
+  </div>
+</section>
+
+<!-- social -->
+<section class="card scene c-white" style="grid-column:span 6;height:560px;background:linear-gradient(180deg,#F7F4ED,#EEE9DE)">
+  <div class="cl"><span class="n">08.5</span><span class="t">Social Media</span><span class="r"></span><span class="m">1080 × 1080</span></div>
+  <div class="post" style="left:44px;top:150px;background:linear-gradient(160deg,#2E55AA,#0B1A4F);color:#fff">
+    <svg class="sring" viewBox="-300 -300 600 600" style="position:absolute;right:-130px;bottom:-130px;width:360px;height:360px"></svg>
+    <div style="position:absolute;left:26px;top:26px;font:700 8.5px BVP;letter-spacing:.24em;color:var(--gold)">QUAN ĐIỂM · VIEWPOINT</div>
+    <div style="position:absolute;left:26px;top:70px;width:240px;font:500 25px/1.18 Lora">“Doanh nghiệp vững, <em style="color:var(--gold)">quốc gia</em> mạnh.”</div>
+    <span class="plate" style="--w:76px;position:absolute;left:26px;bottom:26px"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span>
+  </div>
+  <div class="post" style="left:364px;top:150px;background:var(--ivory)">
+    <img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" style="position:absolute;left:50%;top:92px;width:150px;transform:translateX(-50%)" alt="">
+    <div style="position:absolute;left:0;right:0;top:186px;text-align:center;font:500 46px/1 Lora;color:var(--navy)">63 năm</div>
+    <div style="position:absolute;left:0;right:0;top:240px;text-align:center;font:600 9px BVP;letter-spacing:.24em;color:var(--bronze)">ĐỒNG HÀNH CÙNG DOANH NGHIỆP · 1963–2026</div>
+  </div>
+  <div class="post" style="left:684px;top:150px;background:#fff">
+    <svg class="arcmini" style="position:absolute;left:0;top:0;width:300px;height:132px"></svg>
+    <div style="position:absolute;left:24px;top:150px;font:700 8.5px BVP;letter-spacing:.24em;color:var(--bronze)">ĐÀO TẠO · TRAINING</div>
+    <div style="position:absolute;left:24px;top:172px;width:250px;font:600 21px/1.2 Lora;color:var(--navy)">Quản trị doanh nghiệp trong kỷ nguyên số</div>
+    <div style="position:absolute;left:24px;bottom:22px;font:500 10.5px BVP;color:var(--slate)">18.10 · Hà Nội &amp; Trực tuyến</div>
+    <img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" style="position:absolute;right:22px;bottom:20px;width:62px" alt="">
+  </div>
+  <div style="position:absolute;left:44px;right:44px;bottom:34px;display:flex;justify-content:space-between"><span class="cap">Viewpoint · Milestone · Programme</span><span class="cap">Max. one gold accent per post</span></div>
+</section>
+
+<!-- badge -->
+<section class="card scene" style="grid-column:span 3;height:560px;background:linear-gradient(180deg,#E9E4D9,#DDD6C8)">
+  <div class="cl"><span class="n">08.6</span><span class="t">Event Badge</span><span class="r"></span></div>
+  <div style="position:absolute;left:50%;top:0;width:38px;height:150px;margin-left:-19px;background:repeating-linear-gradient(180deg,var(--navy) 0 46px,#22438E 46px 48px);box-shadow:0 6px 12px rgba(0,0,0,.18)">
+    <div style="position:absolute;left:0;right:0;top:20px;text-align:center;font:700 7px BVP;letter-spacing:.3em;color:var(--gold);writing-mode:vertical-rl;transform:rotate(180deg);height:110px;line-height:38px">VCCI · VCCI · VCCI</div>
+  </div>
+  <div style="position:absolute;left:50%;top:142px;width:26px;height:30px;margin-left:-13px;border-radius:5px;background:linear-gradient(90deg,#b9b9be,#eeeef0,#a3a3a8);box-shadow:0 3px 6px rgba(0,0,0,.25)"></div>
+  <div class="badge" style="left:50%;top:166px;margin-left:-125px">
+    <div class="top" style="background:var(--paper);border-bottom:4px solid var(--navy)"><div class="slot"></div><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt=""></div>
+    <div class="who"><div class="r">Diễn giả · Speaker</div><div class="n">Trần Thu Hà</div><div class="c">Công ty CP Minh Phát<br>Việt Nam</div></div>
+    <div class="bot"><span>Business Summit</span><span>2026</span></div>
+  </div>
+</section>
+
+<!-- packaging -->
+<section class="card scene" style="grid-column:span 3;height:560px;background:radial-gradient(500px 420px at 50% 40%,#F4F0E6,#E2DBCC)">
+  <div class="cl"><span class="n">08.7</span><span class="t">Gift Box</span><span class="r"></span></div>
+  <div id="boxwrap" style="position:absolute;left:50%;top:56%;width:0;height:0;perspective:1800px"></div>
+  <div style="position:absolute;left:44px;right:44px;bottom:34px" class="cap">Paper logo label · Blue soft‑touch</div>
+</section>
+
+<!-- ============ 09 TONE ============ -->
+<section class="card tone c-white">
+  <div class="cl"><span class="n">09</span><span class="t">Visual Tone</span><span class="r"></span><span class="m">How the brand feels</span></div>
+  <div class="words">
+    <div><b>Authoritative<em>.</em></b><span>Large serif statements, firm alignments, generous margins.</span></div>
+    <div><b>Rooted<em>.</em></b><span>Heritage through the drum — quoted, never decorated.</span></div>
+    <div><b>Measured<em>.</em></b><span>One accent per surface. Quiet confidence over volume.</span></div>
+    <div><b>Open<em>.</em></b><span>Warm paper, real people, documentary light — never stock gloss.</span></div>
+  </div>
+  <div class="sliders" id="sliders"></div>
+  <div style="position:absolute;left:44px;right:44px;bottom:40px;display:flex;align-items:center;gap:28px;border-top:1px solid var(--hair);padding-top:26px"><span style="width:44px;height:2px;background:var(--gold);flex:none"></span><span style="font:italic 400 25px/1.4 Lora;color:var(--navy)">Clarity over cleverness; the long view over the loud moment.</span></div>
+</section>
+
+<!-- ============ 10 LAYOUT ============ -->
+<section class="card layout c-navy">
+  <div class="cl"><span class="n">10</span><span class="t">Spacing &amp; Consistency</span><span class="r"></span><span class="m">8‑point system</span></div>
+  <div class="scale" id="scale"></div>
+  <div class="page" id="page"></div>
+  <div class="rules">
+    <div><b>1</b><span><strong>Margins = 2x.</strong> Page margins equal twice the drum radius of the logo as placed.</span></div>
+    <div><b>2</b><span><strong>Blue logo on light grounds only.</strong> On dark fields, use the Paper plate — never white letters.</span></div>
+    <div><b>3</b><span><strong>One gold gesture</strong> per composition: a rule, a word, or the drum ring.</span></div>
+    <div><b>4</b><span><strong>40% negative space</strong> minimum. Radius 4 px print, 8 px UI.</span></div>
+  </div>
+</section>
+
+<!-- footer -->
+<section class="card footer">
+  <span class="plate" style="--w:150px;"><img src="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" alt="VCCI"></span>
+  <div class="t"><b>Brand Identity Guidelines</b>&nbsp;&nbsp;·&nbsp;&nbsp;Edition 01&nbsp;&nbsp;·&nbsp;&nbsp;2026</div>
+  <div class="s">Liên đoàn Thương mại và Công nghiệp Việt Nam</div>
+</section>
+
+</div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const P=(a,r)=>[Math.cos(a)*r,Math.sin(a)*r];
+function starPts(R,r,n=14,rot=0){let s=[];for(let i=0;i<n*2;i++){const a=rot+i*Math.PI/n;const[x,y]=P(a,i%2?r:R);s.push(x.toFixed(2)+','+y.toFixed(2))}return s.join(' ')}
+// Drum ring line art, radius 280 in a -300..300 box
+function drum(o){
+  const c=o.c||'#fff', g=o.g||c, w=o.w||1, op=o.op??1, gop=o.gop??op, R=280;
+  let s=`<g fill="none" stroke="${c}" stroke-width="${w}" opacity="${op}">`;
+  [1,.965,.93,.78,.76,.72].forEach(k=>s+=`<circle r="${R*k}"/>`);
+  for(let i=0;i<144;i++){const a=i*Math.PI*2/144;const[x1,y1]=P(a,R*.93),[x2,y2]=P(a,R*.965);s+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`}
+  for(let i=0;i<96;i++){const a=i*Math.PI*2/96;const[x1,y1]=P(a,R*.72),[x2,y2]=P(a,R*.76);s+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`}
+  s+=`</g><g fill="${c}" opacity="${op}">`;
+  for(let i=0;i<72;i++){const[x,y]=P(i*Math.PI*2/72+.04,R*.855);s+=`<circle cx="${x}" cy="${y}" r="${1.6*w}"/>`}
+  s+=`</g><g fill="none" stroke="${g}" stroke-width="${w*1.2}" opacity="${gop}"><polygon points="${starPts(R*.62,R*.2)}"/><circle r="${R*.13}"/></g>`;
+  s+=`<g fill="${g}" opacity="${gop}">`;
+  for(let i=0;i<14;i++){const a=(i+.5)*Math.PI*2/14;[[.5,0],[.44,-.05],[.44,.05]].forEach(([k,d])=>{const[x,y]=P(a+d,R*k);s+=`<circle cx="${x}" cy="${y}" r="${2.2*w}"/>`})}
+  return s+'</g>';
+}
+const put=(sel,html)=>document.querySelectorAll(sel).forEach(e=>e.innerHTML=html);
+document.getElementById('heroRing').innerHTML=`<g transform="scale(1.7)">${drum({c:'#fff',g:'#FFCD00',w:.8,op:.14,gop:.7})}</g>`;
+put('#gRing',drum({c:'#fff',g:'#FFCD00',w:.9,op:.22,gop:.7}));
+put('.bcring',drum({c:'#fff',g:'#FFCD00',w:1.1,op:.13,gop:.4}));
+put('.phring',drum({c:'#fff',g:'#FFCD00',w:.9,op:.08,gop:.22}));
+put('.mring',drum({c:'#fff',g:'#FFCD00',w:1.4,op:.14,gop:.4}));
+put('.wring',drum({c:'#fff',g:'#FFCD00',w:1,op:.12,gop:.35}));
+put('.pring',drum({c:'#fff',g:'#FFCD00',w:1,op:.16,gop:.55}));
+put('.sring',drum({c:'#fff',g:'#FFCD00',w:1.4,op:.16,gop:.5}));
+put('.bring',drum({c:'#fff',g:'#FFCD00',w:1.6,op:.16,gop:.5}));
+// radiance
+(function(){let s='<g fill="none" stroke="#264896">';
+ s+=`<polygon points="${starPts(250,70)}" stroke-width="2.2"/>`;
+ s+=`<polygon points="${starPts(190,56)}" stroke-width="1.2" opacity=".55"/>`;
+ s+=`<polygon points="${starPts(130,40)}" stroke-width="1" opacity=".35"/>`;
+ s+=`<circle r="34" stroke-width="2.2"/><circle r="268" stroke-width="1" opacity=".4"/><circle r="282" stroke-width="1" opacity=".25"/>`;
+ for(let i=0;i<14;i++){const a=(i+.5)*Math.PI*2/14;const[x1,y1]=P(a,96),[x2,y2]=P(a,268);s+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke-width=".8" opacity=".3"/>`}
+ s+='</g><circle r="34" fill="#264896"/>';
+ document.getElementById('gStar').innerHTML=s})();
+// C-arc glyph from the logo: ring cut at +0.35R, inner radius = 0.6R
+function carc(R){const ri=R*.6,cx=R*.35,yo=Math.sqrt(R*R-cx*cx),yi=Math.sqrt(ri*ri-cx*cx);
+ return `M${cx},${-yo} A${R},${R} 0 1 0 ${cx},${yo} L${cx},${yi} A${ri},${ri} 0 1 1 ${cx},${-yi} Z`}
+function arcPattern(svg,W,H,T,gold){let s='';const R=T*.42;let k=0;const rots=[0,90,180,270,180,270,0,90];
+ for(let y=0;y*T<H+T;y++)for(let x=0;x*T<W+T;x++){const r=rots[(x*3+y*5)%8];const cx=x*T+T/2,cy=y*T+T/2;
+  s+=`<g transform="translate(${cx},${cy}) rotate(${r})"><path d="${carc(R)}" fill="#264896"/>`;
+  if((x*7+y*3)%gold===0)s+=`<circle r="${R*.6-1}" fill="#FFCD00"/>`;
+  s+='</g>'}
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=s}
+arcPattern(document.getElementById('gArc'),355,600,88,5);
+document.querySelectorAll('.arcmini').forEach(e=>arcPattern(e,300,132,66,4));
+// dot field
+(function(){const e=document.getElementById('gDots');const W=355,H=600;e.setAttribute('viewBox',`0 0 ${W} ${H}`);let s='';const cx=-40,cy=H+40;
+ for(let ring=1;ring<26;ring++){const r=ring*28;const n=Math.round(r*2*Math.PI/18);for(let i=0;i<n;i++){const a=-Math.PI/2+i*Math.PI*2/n;const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;if(x<-5||x>W+5||y<-5||y>H+5)continue;
+  const gold=ring%6===3;const sz=gold?4:2.4-ring*.04;s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${Math.max(sz,1.2)}" fill="${gold?'#FFCD00':'#264896'}" opacity="${gold?1:.75}"/>`}}
+ e.innerHTML=s})();
+const ICONS='../brand-assets/05_Icons/';
+const ui=(slug,variant='Blue')=>`<img src="${ICONS}UI/SVG/${variant}/VCCI_UI_${slug}.svg" alt="">`;
+const HEROES=[['01','legislative-input','Legislative input'],['05','international-integration','Integration'],['06','public-private-dialogue','Public–private dialogue'],
+ ['07','certificate-of-origin','Certificate of origin'],['08','sme','SMEs'],['11','enterprise-green-transition','Green transition'],
+ ['12','enterprise-digital-transition','Digital transition'],['13','membership','Membership'],['14','trade-promotion','Trade promotion'],
+ ['17','arbitration','Arbitration'],['18','training','Training'],['21','research-index','Research & surveys']];
+document.getElementById('iconGrid').innerHTML=HEROES.map(([n,slug,label])=>`<div><img src="${ICONS}Hero/SVG/Blue-Gold/VCCI_Hero_${n}_${slug}.svg" alt=""><span>${label}</span></div>`).join('');
+document.getElementById('chips').innerHTML=[['landmark','Gold'],['globe','Blue'],['file-check','Gold']].map(([slug,v],i)=>`<div style="background:${i==1?'#FFCD00':'rgba(255,255,255,.08)'};box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)">${ui(slug,v)}</div>`).join('');
+(function(){let s='<g stroke="rgba(255,255,255,.14)" stroke-width=".08">';for(let i=0;i<=24;i+=2)s+=`<line x1="${i}" y1="0" x2="${i}" y2="24"/><line x1="0" y1="${i}" x2="24" y2="${i}"/>`;
+ s+='</g><rect x="2" y="2" width="20" height="20" fill="none" stroke="rgba(255,205,0,.6)" stroke-width=".12" stroke-dasharray=".5 .4"/>';
+ s+=`<image href="${ICONS}UI/SVG/White/VCCI_UI_landmark.svg" x="0" y="0" width="24" height="24"/>`;
+ document.getElementById('gridspec').innerHTML=s})();
+document.getElementById('qa').innerHTML=[['file-check','C/O'],['globe','Xúc tiến'],['presentation','Đào tạo'],['scale','Kiến nghị']].map(([k,l])=>`<div><i>${ui(k)}</i>${l}</div>`).join('');
+document.getElementById('tab').innerHTML=[['home','Trang chủ',1],['briefcase','Dịch vụ'],['users','Kết nối'],['award','Hội viên']].map(([k,l,on])=>`<div class="${on?'on':''}" style="${on?'':'opacity:.45'}">${ui(k)}${l}</div>`).join('');
+// construction overlay (master artwork space 3321.68 x 1000)
+(function(){const cx=1650,cy=500,W=3321.68;document.getElementById('consSvg').setAttribute('viewBox',`0 0 ${W} 1000`);const s=`
+ <g fill="none" stroke="#9C570C" stroke-width="1.4" vector-effect="non-scaling-stroke">
+  <line x1="-160" y1="0" x2="${W+160}" y2="0" stroke-dasharray="4 4" opacity=".8"/>
+  <line x1="-160" y1="1000" x2="${W+160}" y2="1000" stroke-dasharray="4 4" opacity=".8"/>
+  <line x1="-160" y1="${cy}" x2="${W+160}" y2="${cy}" opacity=".35"/>
+  <line x1="${cx}" y1="-170" x2="${cx}" y2="1170" opacity=".35"/>
+  <circle cx="${cx}" cy="${cy}" r="500" stroke="#D49B00" stroke-width="2"/>
+  <circle cx="${cx}" cy="${cy}" r="296" stroke="#9C570C" stroke-dasharray="3 3"/>
+  <circle cx="${cx}" cy="${cy}" r="262" stroke="#D49B00" stroke-width="2"/>
+  <circle cx="${cx}" cy="${cy}" r="10" fill="#9C570C"/>
+ </g>
+ <g font-family="BVP" font-size="44" fill="#9C570C" letter-spacing="6" font-weight="600">
+  <text x="${W+190}" y="14">CAP</text><text x="${W+190}" y="1014">BASE</text><text x="${cx+24}" y="-190">CENTRE</text>
+  <text x="${cx-470}" y="-36" fill="#B07E00">R</text><text x="${cx-215}" y="190" fill="#B07E00">r</text>
+ </g>`;document.getElementById('consSvg').innerHTML=s})();
+// sliders
+document.getElementById('sliders').innerHTML=[['Traditional','Contemporary',42],['Formal','Approachable',34],['Restrained','Expressive',26],['National','Global',46],['Classic','Technical',30]]
+ .map(([a,b,v])=>`<div class="sl"><span>${a}</span><div class="tr"><u style="left:0;width:${v}%"></u><i style="left:${v}%"></i></div><span>${b}</span></div>`).join('');
+// spacing scale
+document.getElementById('scale').innerHTML=[8,16,24,32,48,64,96,128].map(v=>`<div class="s"><span>${v}</span><i style="width:${v*2.6}px"></i></div>`).join('');
+// layout page diagram
+(function(){const p=document.getElementById('page');const W=300,H=424,m=26;let s=`<svg viewBox="0 0 ${W} ${H}" style="position:absolute;inset:0;width:100%;height:100%">`;
+ const cw=(W-2*m-11*6)/12;for(let i=0;i<12;i++){s+=`<rect x="${m+i*(cw+6)}" y="${m}" width="${cw}" height="${H-2*m}" fill="rgba(255,205,0,.10)"/>`}
+ s+=`<rect x="${m}" y="${m}" width="${W-2*m}" height="${H-2*m}" fill="none" stroke="#9C570C" stroke-width=".8" stroke-dasharray="3 3"/>`;
+ s+=`<image href="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" x="${m}" y="${m}" width="84" height="25.29"/>`;
+ s+=`<rect x="${m}" y="${m+48}" width="22" height="1.6" fill="#FFCD00"/>`;
+ s+=`<text x="${m}" y="${m+84}" font-family="Lora" font-weight="500" font-size="21" fill="#264896">Báo cáo thường niên</text>`;
+ s+=`<text x="${m}" y="${m+108}" font-family="Lora" font-weight="500" font-size="21" fill="#264896">2026</text>`;
+ for(let i=0;i<9;i++){s+=`<rect x="${m}" y="${m+140+i*12}" width="${(i%4==3)?120:W-2*m-(i%3)*18}" height="3.2" rx="1" fill="#D9D4C8"/>`}
+ s+=`<rect x="${m}" y="${H-m-120}" width="${W-2*m}" height="120" fill="#264896"/>`;
+ s+=`<g transform="translate(${W-m-60},${H-m-60}) scale(.3)">${drum({c:'#fff',g:'#FFCD00',w:2.4,op:.25,gop:.7})}</g>`;
+ s+=`<text x="${m-4}" y="${m-8}" font-family="BVP" font-size="8" font-weight="600" fill="#9C570C" letter-spacing="1">2x</text>`;
+ p.innerHTML=s+'</svg>'})();
+// isometric gift box
+(function(){const c=.866,w=190,d=190,h=78;
+ const ex=[c,.5],ey=[-c,.5];
+ let ox=0,oy=0;
+ const raw=(x,y,z)=>[x*ex[0]+y*ey[0],x*ex[1]+y*ey[1]-z];
+ const m=raw(w/2,d/2,h/2);ox=-m[0];oy=-m[1];
+ const pt=(x,y,z)=>{const r=raw(x,y,z);return[r[0]+ox,r[1]+oy]};
+ const pts=a=>a.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ');
+ const poly=(a,f)=>`<polygon points="${pts(a)}" fill="${f}"/>`;
+ const b0=.41*w,b1=.59*w;
+ let g='';
+ const base=pt(w/2,d/2,0);
+ g+=`<ellipse cx="${base[0]}" cy="${base[1]+8}" rx="215" ry="96" fill="url(#shd)"/>`;
+ // front-left face (y=d), front-right face (x=w)
+ g+=poly([pt(0,d,h),pt(0,d,0),pt(w,d,0),pt(w,d,h)],'url(#fl)');
+ g+=poly([pt(w,0,h),pt(w,0,0),pt(w,d,0),pt(w,d,h)],'url(#fr)');
+ // belly band wraps over top and down the front-left face
+ // lid seam
+ g+=`<polyline points="${pts([pt(0,d,h-22),pt(w,d,h-22),pt(w,0,h-22)])}" fill="none" stroke="rgba(0,0,0,.45)" stroke-width="1"/>`;
+ g+=`<polyline points="${pts([pt(0,d,h-23),pt(w,d,h-23),pt(w,0,h-23)])}" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1"/>`;
+ // band edge on the lid seam
+ // top face
+ const o=pt(0,0,h);
+ g+=`<g transform="matrix(${ex[0]},${ex[1]},${ey[0]},${ey[1]},${o[0].toFixed(2)},${o[1].toFixed(2)})">
+   <rect width="${w}" height="${d}" fill="url(#ft)"/>
+   <rect x="8" y="8" width="${w-16}" height="${d-16}" fill="none" stroke="rgba(255,205,0,.5)" stroke-width=".7"/>
+   <rect x="${w/2-56}" y="${d/2-24}" width="112" height="48" fill="#FBF9F4"/>
+   <image href="../brand-assets/01_Logo/SVG/VCCI_Logo_Primary.svg" x="${w/2-46}" y="${d/2-13.85}" width="92" height="27.70"/>
+   <text x="${w/2}" y="${d/2+42}" text-anchor="middle" font-family="BVP" font-weight="600" font-size="4.4" letter-spacing="1.4" fill="#FFCD00">SINCE 1963</text>
+ </g>`;
+ document.getElementById('boxwrap').innerHTML=`<svg viewBox="-260 -230 520 460" style="position:absolute;left:-260px;top:-230px;width:520px;height:460px;overflow:visible">
+  <defs>
+   <radialGradient id="shd"><stop offset="0" stop-color="rgba(40,30,10,.34)"/><stop offset=".6" stop-color="rgba(40,30,10,.10)"/><stop offset="1" stop-color="rgba(40,30,10,0)"/></radialGradient>
+   <linearGradient id="ft" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2E55AA"/><stop offset="1" stop-color="#22438E"/></linearGradient>
+   <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22438E"/><stop offset="1" stop-color="#183470"/></linearGradient>
+   <linearGradient id="fr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#183470"/><stop offset="1" stop-color="#122A5E"/></linearGradient>
+  </defs>${g}</svg>`;
+})();
+</script>
+</body>
+</html>

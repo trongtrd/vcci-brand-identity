@@ -1,0 +1,13 @@
+:root{
+  --vcci-vcci-blue: #264896;  /* CMYK 100/80/0/0 */
+  --vcci-drum-gold: #FFCD00;  /* CMYK 0/20/100/0 */
+  --vcci-drum-bronze: #CC713C;  /* CMYK 0/60/80/20 */
+  --vcci-deep-navy: #0B1A4F;  /* CMYK 100/90/30/40 */
+  --vcci-blue-tint: #E7ECF6;  /* CMYK 8/4/0/0 */
+  --vcci-bronze-ink: #9C570C;  /* CMYK 20/65/100/15 */
+  --vcci-ink: #161A26;  /* CMYK 75/65/50/70 */
+  --vcci-slate: #5C6478;  /* CMYK 62/50/32/12 */
+  --vcci-stone: #E6E1D5;  /* CMYK 9/8/15/0 */
+  --vcci-ivory: #F4F0E6;  /* CMYK 3/4/9/0 */
+  --vcci-paper: #FBF9F4;  /* CMYK 1/2/4/0 */
+}

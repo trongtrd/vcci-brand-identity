@@ -1,0 +1,25 @@
+{
+  "name": "vcci-brand-identity",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Truong Duc Trong",
+  "description": "VCCI brand identity system: assets, templates, guidelines and the tools that build them",
+  "scripts": {
+    "build": "python tools/build.py all",
+    "build:assets": "python tools/build.py assets",
+    "build:board": "python tools/build.py board",
+    "build:word": "python tools/build.py word",
+    "build:ppt": "python tools/build.py ppt",
+    "build:guide": "python tools/build.py guide"
+  },
+  "dependencies": {
+    "docx": "^9.8.1",
+    "pptxgenjs": "^3.12.0"
+  },
+  "optionalDependencies": {
+    "sharp": "^0.33.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

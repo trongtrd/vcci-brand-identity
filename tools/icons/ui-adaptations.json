@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "home",
+    "upstream": "house",
+    "scale": 0.919956
+  },
+  {
+    "slug": "menu",
+    "upstream": "menu",
+    "scale": 1
+  },
+  {
+    "slug": "close",
+    "upstream": "x",
+    "scale": 1
+  },
+  {
+    "slug": "search",
+    "upstream": "search",
+    "scale": 1
+  },
+  {
+    "slug": "filter",
+    "upstream": "list-filter",
+    "scale": 0.92
+  },
+  {
+    "slug": "settings",
+    "upstream": "settings",
+    "scale": 0.921606
+  },
+  {
+    "slug": "arrow-right",
+    "upstream": "arrow-right",
+    "scale": 1
+  },
+  {
+    "slug": "arrow-left",
+    "upstream": "arrow-left",
+    "scale": 1
+  },
+  {
+    "slug": "chevron-down",
+    "upstream": "chevron-down",
+    "scale": 1
+  },
+  {
+    "slug": "external-link",
+    "upstream": "external-link",
+    "scale": 1
+  },
+  {
+    "slug": "download",
+    "upstream": "download",
+    "scale": 1
+  },
+  {
+    "slug": "upload",
+    "upstream": "upload",
+    "scale": 1
+  },
+  {
+    "slug": "share",
+    "upstream": "share-2",
+    "scale": 0.92
+  },
+  {
+    "slug": "print",
+    "upstream": "printer",
+    "scale": 0.92
+  },
+  {
+    "slug": "calendar",
+    "upstream": "calendar",
+    "scale": 0.92
+  },
+  {
+    "slug": "clock",
+    "upstream": "clock",
+    "scale": 0.92
+  },
+  {
+    "slug": "map-pin",
+    "upstream": "map-pin",
+    "scale": 0.92
+  },
+  {
+    "slug": "phone",
+    "upstream": "phone",
+    "scale": 0.92
+  },
+  {
+    "slug": "mail",
+    "upstream": "mail",
+    "scale": 0.92
+  },
+  {
+    "slug": "globe",
+    "upstream": "globe",
+    "scale": 0.92
+  },
+  {
+    "slug": "user",
+    "upstream": "user",
+    "scale": 1
+  },
+  {
+    "slug": "users",
+    "upstream": "users",
+    "scale": 0.92
+  },
+  {
+    "slug": "user-plus",
+    "upstream": "user-plus",
+    "scale": 0.92
+  },
+  {
+    "slug": "lock",
+    "upstream": "lock",
+    "scale": 0.92
+  },
+  {
+    "slug": "info",
+    "upstream": "info",
+    "scale": 0.92
+  },
+  {
+    "slug": "alert-triangle",
+    "upstream": "triangle-alert",
+    "scale": 0.918347
+  },
+  {
+    "slug": "check",
+    "upstream": "check",
+    "scale": 1
+  },
+  {
+    "slug": "check-circle",
+    "upstream": "circle-check",
+    "scale": 0.92
+  },
+  {
+    "slug": "file",
+    "upstream": "file",
+    "scale": 0.92
+  },
+  {
+    "slug": "file-text",
+    "upstream": "file-text",
+    "scale": 0.92
+  },
+  {
+    "slug": "file-check",
+    "upstream": "file-check",
+    "scale": 0.92
+  },
+  {
+    "slug": "folder",
+    "upstream": "folder",
+    "scale": 0.92
+  },
+  {
+    "slug": "newspaper",
+    "upstream": "newspaper",
+    "scale": 0.92
+  },
+  {
+    "slug": "presentation",
+    "upstream": "presentation",
+    "scale": 0.92
+  },
+  {
+    "slug": "video",
+    "upstream": "video",
+    "scale": 0.92
+  },
+  {
+    "slug": "mic",
+    "upstream": "mic",
+    "scale": 0.92
+  },
+  {
+    "slug": "image",
+    "upstream": "image",
+    "scale": 1
+  },
+  {
+    "slug": "bar-chart",
+    "upstream": "chart-no-axes-column",
+    "scale": 1
+  },
+  {
+    "slug": "line-chart",
+    "upstream": "chart-line",
+    "scale": 1
+  },
+  {
+    "slug": "pie-chart",
+    "upstream": "chart-pie",
+    "scale": 0.919963
+  },
+  {
+    "slug": "briefcase",
+    "upstream": "briefcase",
+    "scale": 0.92
+  },
+  {
+    "slug": "building",
+    "upstream": "building",
+    "scale": 0.92
+  },
+  {
+    "slug": "landmark",
+    "upstream": "landmark",
+    "scale": 0.92
+  },
+  {
+    "slug": "factory",
+    "upstream": "factory",
+    "scale": 1
+  },
+  {
+    "slug": "ship",
+    "upstream": "ship",
+    "scale": 0.92
+  },
+  {
+    "slug": "handshake",
+    "upstream": "handshake",
+    "scale": 0.92
+  },
+  {
+    "slug": "scale",
+    "upstream": "scale",
+    "scale": 0.92
+  },
+  {
+    "slug": "award",
+    "upstream": "award",
+    "scale": 0.92
+  }
+]
