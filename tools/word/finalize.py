@@ -8,6 +8,8 @@ import os, re, shutil, subprocess, sys, uuid, zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 import table_styles
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'assets'))
+import colour_system as CS
 
 ROOT = os.getcwd()
 W = os.path.join(ROOT, 'build', 'word')
@@ -56,6 +58,14 @@ def obfuscate(data, guid):
 def embed_and_templatise(src_docx, dst_dotx):
     zin = zipfile.ZipFile(src_docx)
     files = {n: zin.read(n) for n in zin.namelist()}
+    # VCCI theme: colour scheme (theme colours, new charts) and Lora / Be Vietnam Pro as theme fonts
+    th = files['word/theme/theme1.xml'].decode('utf-8')
+    th = re.sub(r'<a:clrScheme name="[^"]*">.*?</a:clrScheme>', CS.office_clr_scheme(), th, flags=re.S)
+    th = re.sub(r'(<a:theme [^>]*name=")[^"]*"', r'\1VCCI"', th, count=1)
+    th = re.sub(r'(<a:majorFont><a:latin typeface=")[^"]*"', r'\1Lora Medium"', th, count=1)
+    th = re.sub(r'(<a:minorFont><a:latin typeface=")[^"]*"', r'\1Be Vietnam Pro"', th, count=1)
+    th = re.sub(r'<a:fontScheme name="[^"]*"', '<a:fontScheme name="VCCI"', th, count=1)
+    files['word/theme/theme1.xml'] = th.encode('utf-8')
     ft = files['word/fontTable.xml'].decode('utf-8')
     if 'xmlns:r=' not in ft[:600]:
         ft = ft.replace('<w:fonts ', '<w:fonts xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" ', 1)
@@ -123,6 +133,8 @@ def main():
         ps('pdf', dotx, pdf)
         for old in [p for p in os.listdir(PREV) if p.startswith(base + '-') and p.endswith('.png')]: os.remove(os.path.join(PREV, old))
         subprocess.run([PDFTOPPM, '-png', '-r', '70', pdf, os.path.join(PREV, base)], check=True)
+        os.makedirs(os.path.join(DEST, 'Previews'), exist_ok=True)
+        shutil.copy(pdf, os.path.join(DEST, 'Previews', base + '.pdf'))   # used by the guide (tools/guide/prepare_images.py)
         print('ok', base, f'{os.path.getsize(dotx)/1024:.0f} KB')
 
 if __name__ == '__main__':

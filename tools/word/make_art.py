@@ -65,7 +65,7 @@ render('chapter.png', cw, ch,
 # 6. Sample chart for the report template (brand colours; one gold highlight) and the gold rule image
 CW, CH = 1600, 820
 vals = [('2021', 63.2), ('2022', 64.5), ('2023', 65.1), ('2024', 66.0), ('2025', 67.4)]
-mx, mn, x0, bw, gap, base, top = 70, 55, 150, 170, 110, 700, 90
+mx, mn, x0, bw, gap, base, top = 80, 0, 150, 170, 110, 700, 90
 yv = lambda v: base - (v - mn) / (mx - mn) * (base - top)
 bars = ''.join(
     f'<rect x="{x0 + i * (bw + gap)}" y="{yv(v)}" width="{bw}" height="{base - yv(v)}" fill="{GOLD if i == len(vals) - 1 else B}"/>'
@@ -73,7 +73,7 @@ bars = ''.join(
     f'<text x="{x0 + i * (bw + gap) + bw / 2}" y="{base + 56}" text-anchor="middle" font-family="BVP" font-size="30" fill="#5C6478">{y}</text>'
     for i, (y, v) in enumerate(vals))
 grid = ''.join(f'<line x1="110" x2="1560" y1="{yv(g)}" y2="{yv(g)}" stroke="#E6E1D5" stroke-width="2"/>'
-               f'<text x="96" y="{yv(g) + 10}" text-anchor="end" font-family="BVP" font-size="26" fill="#5C6478">{g}</text>' for g in (55, 60, 65, 70))
+               f'<text x="96" y="{yv(g) + 10}" text-anchor="end" font-family="BVP" font-size="26" fill="#5C6478">{g}</text>' for g in (0, 20, 40, 60, 80))
 FONTS_URL = 'file:///' + os.path.join(ROOT, 'brand-assets', '03_Fonts').replace(os.sep, '/').replace(' ', '%20')
 render('chart.png', CW, CH,
        f'<style>@font-face{{font-family:Lora;src:url({FONTS_URL}/Lora/Lora-Medium.ttf)}}'

@@ -15,6 +15,7 @@
         0,
         0
       ],
+      "grade": 70,
       "source": "Master .CDR (logo letters)"
     },
     {
@@ -32,6 +33,7 @@
         100,
         0
       ],
+      "grade": 13,
       "source": "Master .CDR (drum)"
     },
     {
@@ -49,6 +51,7 @@
         80,
         20
       ],
+      "grade": 41,
       "source": "Master .CDR (drum figures)"
     },
     {
@@ -66,6 +69,7 @@
         30,
         40
       ],
+      "grade": 92,
       "source": "Brand system"
     },
     {
@@ -83,7 +87,26 @@
         0,
         0
       ],
+      "grade": 5,
       "source": "Brand system"
+    },
+    {
+      "name": "Sky",
+      "role": "support",
+      "hex": "#8FA6D6",
+      "rgb": [
+        143,
+        166,
+        214
+      ],
+      "cmyk": [
+        45,
+        28,
+        0,
+        0
+      ],
+      "grade": 30,
+      "source": "Brand system (chart series 2, light blue fields)"
     },
     {
       "name": "Bronze Ink",
@@ -100,6 +123,7 @@
         100,
         15
       ],
+      "grade": 56,
       "source": "Brand system (text-safe bronze)"
     },
     {
@@ -117,6 +141,7 @@
         50,
         70
       ],
+      "grade": 94,
       "source": "Brand system"
     },
     {
@@ -134,6 +159,7 @@
         32,
         12
       ],
+      "grade": 58,
       "source": "Brand system"
     },
     {
@@ -151,6 +177,7 @@
         15,
         0
       ],
+      "grade": 9,
       "source": "Brand system"
     },
     {
@@ -168,6 +195,7 @@
         9,
         0
       ],
+      "grade": 4,
       "source": "Brand system"
     },
     {
@@ -185,6 +213,7 @@
         4,
         0
       ],
+      "grade": 2,
       "source": "Brand system"
     }
   ],
@@ -201,5 +230,129 @@
     "Drum Gold": 7,
     "Drum Bronze": 5
   },
-  "screen_conversion": "CMYK -> sRGB via Coated FOGRA39, relative colorimetric"
+  "grade_rule": "Grade 0 = white, 100 = near black. Grade difference >= 40: 3:1 (large text, graphics); >= 50: 4.5:1 (AA body text); >= 70: 7:1 (AAA).",
+  "scales": {
+    "Blue": {
+      "blue-5": "#E7ECF6",
+      "blue-10": "#CEDEFD",
+      "blue-20": "#A9C0EC",
+      "blue-30": "#8FA6D6",
+      "blue-40": "#6D8BC8",
+      "blue-50": "#5474B7",
+      "blue-60": "#3D5EA7",
+      "blue-70": "#264896",
+      "blue-80": "#15347E",
+      "blue-90": "#041C61"
+    },
+    "Gold": {
+      "gold-5": "#FFEDB9",
+      "gold-10": "#FFDA6E",
+      "gold-20": "#E7BA0D"
+    },
+    "Bronze": {
+      "bronze-5": "#FEEAE0",
+      "bronze-10": "#FED5BF",
+      "bronze-20": "#F2B18E",
+      "bronze-30": "#E09166",
+      "bronze-40": "#CE7440",
+      "bronze-50": "#B45D28",
+      "bronze-60": "#9A4A15",
+      "bronze-70": "#803802",
+      "bronze-80": "#612902",
+      "bronze-90": "#3F1800"
+    },
+    "Slate": {
+      "slate-5": "#EBEEF4",
+      "slate-10": "#DADDE6",
+      "slate-20": "#BABFCC",
+      "slate-30": "#9EA4B3",
+      "slate-40": "#848B9D",
+      "slate-50": "#6E7588",
+      "slate-60": "#596074",
+      "slate-70": "#454D5F",
+      "slate-80": "#33394A",
+      "slate-90": "#1E2332"
+    }
+  },
+  "status": {
+    "Error": {
+      "strong": "#B7191C",
+      "background": "#FEE9E6",
+      "use": "Lỗi, không đạt, nguy hiểm"
+    },
+    "Warning": {
+      "strong": "#765800",
+      "background": "#FFECC5",
+      "use": "Cảnh báo, cần chú ý"
+    },
+    "Success": {
+      "strong": "#046B2F",
+      "background": "#DEF3E1",
+      "use": "Thành công, đạt, hoàn thành"
+    },
+    "Info": {
+      "strong": "#264896",
+      "background": "#E7ECF6",
+      "use": "Thông tin, gợi ý"
+    }
+  },
+  "dataviz": {
+    "categorical": [
+      {
+        "name": "VCCI Blue",
+        "hex": "#264896"
+      },
+      {
+        "name": "Sky",
+        "hex": "#8FA6D6"
+      },
+      {
+        "name": "Drum Bronze",
+        "hex": "#CC713C"
+      },
+      {
+        "name": "Slate",
+        "hex": "#5C6478"
+      },
+      {
+        "name": "Bronze 20",
+        "hex": "#F2B18E"
+      },
+      {
+        "name": "Deep Navy",
+        "hex": "#0B1A4F"
+      }
+    ],
+    "highlight": {
+      "focus": "#FFCD00",
+      "context": "#264896",
+      "muted": "#BABFCC"
+    },
+    "sequential_7": [
+      "#CEDEFD",
+      "#A9C0EC",
+      "#8FA6D6",
+      "#6D8BC8",
+      "#5474B7",
+      "#3D5EA7",
+      "#264896"
+    ],
+    "sequential_5": [
+      "#CEDEFD",
+      "#8FA6D6",
+      "#5474B7",
+      "#264896",
+      "#041C61"
+    ],
+    "diverging_7": [
+      "#9A4A15",
+      "#CE7440",
+      "#F2B18E",
+      "#F4F0E6",
+      "#A9C0EC",
+      "#6D8BC8",
+      "#3D5EA7"
+    ]
+  },
+  "screen_conversion": "CMYK -> sRGB via Coated FOGRA39, relative colorimetric. Scales, status and chart colours are defined in sRGB only; for offset print ask the printer to convert and proof."
 }

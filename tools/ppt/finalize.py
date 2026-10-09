@@ -6,7 +6,9 @@
 5. PowerPoint saves the result as .potx with embedded fonts, and exports a PDF preview
 Run from the repository root:  python tools/ppt/finalize.py
 """
-import json, os, re, subprocess, zipfile
+import json, os, re, subprocess, sys, zipfile
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'assets'))
+import colour_system as CS
 
 ROOT = os.getcwd()
 P = os.path.join(ROOT, 'build', 'ppt')
@@ -17,11 +19,7 @@ os.makedirs(os.path.join(DEST_DIR, 'Previews'), exist_ok=True)
 POTX = os.path.join(DEST_DIR, 'VCCI_Presentation.potx')
 PDF = os.path.join(DEST_DIR, 'Previews', 'VCCI_Presentation.pdf')
 
-CLR = '''<a:clrScheme name="VCCI"><a:dk1><a:srgbClr val="161A26"/></a:dk1><a:lt1><a:srgbClr val="FFFFFF"/></a:lt1>
-<a:dk2><a:srgbClr val="0B1A4F"/></a:dk2><a:lt2><a:srgbClr val="F4F0E6"/></a:lt2><a:accent1><a:srgbClr val="264896"/></a:accent1>
-<a:accent2><a:srgbClr val="FFCD00"/></a:accent2><a:accent3><a:srgbClr val="CC713C"/></a:accent3><a:accent4><a:srgbClr val="5C6478"/></a:accent4>
-<a:accent5><a:srgbClr val="8FA6D6"/></a:accent5><a:accent6><a:srgbClr val="9C570C"/></a:accent6><a:hlink><a:srgbClr val="264896"/></a:hlink>
-<a:folHlink><a:srgbClr val="9C570C"/></a:folHlink></a:clrScheme>'''.replace('\n', '')
+CLR = CS.office_clr_scheme()   # same scheme as brand-assets/02_Colour/VCCI_Office_Theme_Colours.xml
 NO_FOOTER = {'01 Bìa sáng', '12 Bìa sự kiện', '17 Ảnh toàn khung', '18 Kết thúc', 'DEFAULT'}
 BLUE = {'12 Bìa sự kiện', '13 Chuyển chương', '14 Số liệu nổi bật', '15 Tuyên bố lớn', '16 Trích dẫn', '17 Ảnh toàn khung', '18 Kết thúc'}
 SECTION = '13 Chuyển chương'

@@ -1,6 +1,6 @@
 {
   "brand": "VCCI — Liên đoàn Thương mại và Công nghiệp Việt Nam / Vietnam Chamber of Commerce and Industry",
-  "version": "1.0 (2026-10-05)",
+  "version": "1.1 (2026-10-10)",
   "logo": {
     "master": "01_Logo/Source/VCCI_Logo_Master_CMYK.cdr (decoded to 01_Logo/SVG/VCCI_Logo_Primary.svg)",
     "aspect_ratio_w_h": 3.3217,
@@ -28,6 +28,7 @@
     "Drum Bronze": {"hex": "#CC713C", "cmyk": [0, 60, 80, 20],   "role": "secondary (graphics, large text only)"},
     "Deep Navy":   {"hex": "#0B1A4F", "cmyk": [100, 90, 30, 40], "role": "support (dark fields)"},
     "Blue Tint":   {"hex": "#E7ECF6", "cmyk": [8, 4, 0, 0],      "role": "support (UI surfaces)"},
+    "Sky":         {"hex": "#8FA6D6", "cmyk": [45, 28, 0, 0],    "role": "support (chart series 2, light blue fields; Office theme accent 5)"},
     "Bronze Ink":  {"hex": "#9C570C", "cmyk": [20, 65, 100, 15], "role": "support (small accent text)"},
     "Ink":         {"hex": "#161A26", "role": "neutral (body text)"},
     "Slate":       {"hex": "#5C6478", "role": "neutral (secondary text)"},
@@ -35,7 +36,41 @@
     "Ivory":       {"hex": "#F4F0E6", "role": "neutral"},
     "Paper":       {"hex": "#FBF9F4", "role": "neutral (default background)"},
     "balance_percent": {"VCCI Blue": 44, "Paper": 34, "Stone": 10, "Drum Gold": 7, "Drum Bronze": 5},
-    "rule": "One gold gesture per composition (a rule, a word, or a gold accent shape)."
+    "rule": "One gold gesture per composition (a rule, a word, or a gold accent shape).",
+    "grade_rule": "Grade 0 = white, 100 = near black. Grade difference >= 40: 3:1 (large text, graphics); >= 50: 4.5:1 (AA body text); >= 70: 7:1 (AAA). Generated and checked by tools/assets/colour_system.py.",
+    "grades": {"Paper": 2, "Ivory": 4, "Blue Tint": 5, "Stone": 9, "Drum Gold": 13, "Sky": 30, "Drum Bronze": 41, "Bronze Ink": 56,
+               "Slate": 58, "VCCI Blue": 70, "Deep Navy": 92, "Ink": 94},
+    "scales": {
+      "blue":   {"5": "#E7ECF6", "10": "#CEDEFD", "20": "#A9C0EC", "30": "#8FA6D6", "40": "#6D8BC8", "50": "#5474B7", "60": "#3D5EA7", "70": "#264896", "80": "#15347E", "90": "#041C61"},
+      "gold":   {"5": "#FFEDB9", "10": "#FFDA6E", "20": "#E7BA0D"},
+      "bronze": {"5": "#FEEAE0", "10": "#FED5BF", "20": "#F2B18E", "30": "#E09166", "40": "#CE7440", "50": "#B45D28", "60": "#9A4A15", "70": "#803802", "80": "#612902", "90": "#3F1800"},
+      "slate":  {"5": "#EBEEF4", "10": "#DADDE6", "20": "#BABFCC", "30": "#9EA4B3", "40": "#848B9D", "50": "#6E7588", "60": "#596074", "70": "#454D5F", "80": "#33394A", "90": "#1E2332"},
+      "note": "Blue 5 = Blue Tint, Blue 30 = Sky, Blue 70 = VCCI Blue. Screen colours (sRGB); for offset print ask the printer to convert and proof."
+    },
+    "status": {
+      "Error":   {"strong": "#B7191C", "background": "#FEE9E6", "use": "error, failed, danger"},
+      "Warning": {"strong": "#765800", "background": "#FFECC5", "use": "warning, needs attention"},
+      "Success": {"strong": "#046B2F", "background": "#DEF3E1", "use": "success, passed, done"},
+      "Info":    {"strong": "#264896", "background": "#E7ECF6", "use": "information, tips"},
+      "rule": "Strong tone for text, icons and borders (>= 4.5:1 on white, Paper and its background). Always with an icon and a word; status colours only signal status and never decorate."
+    }
+  },
+  "dataviz": {
+    "categorical": [["VCCI Blue", "#264896"], ["Sky", "#8FA6D6"], ["Drum Bronze", "#CC713C"], ["Slate", "#5C6478"], ["Bronze 20", "#F2B18E"], ["Deep Navy", "#0B1A4F"]],
+    "categorical_rule": "Apply in this order; at most 6 series. More categories: group the smallest into one series or use small multiples. Drum Gold is never a series colour.",
+    "highlight": {"focus": "#FFCD00", "context": "#264896", "muted": "#BABFCC",
+                  "rule": "One highlighted value in Drum Gold, always with its data label; other values VCCI Blue, or muted Slate 20 when there are many."},
+    "sequential_7": ["#CEDEFD", "#A9C0EC", "#8FA6D6", "#6D8BC8", "#5474B7", "#3D5EA7", "#264896"],
+    "sequential_5": ["#CEDEFD", "#8FA6D6", "#5474B7", "#264896", "#041C61"],
+    "sequential_rule": "Ordered values and maps (e.g. PCI by province): light = low, dark = high.",
+    "diverging_7": ["#9A4A15", "#CE7440", "#F2B18E", "#F4F0E6", "#A9C0EC", "#6D8BC8", "#3D5EA7"],
+    "diverging_rule": "Values around a reference: Bronze = below / decrease, Ivory = at the reference, Blue = above / increase.",
+    "chart_text": {"title": "Lora Medium, states the message", "labels_axes": "Be Vietnam Pro Regular, Slate", "gridlines": "Stone, thin", "source": "Be Vietnam Pro, caption size, below the chart"},
+    "office_theme": {"accent1": "VCCI Blue", "accent2": "Sky", "accent3": "Drum Bronze", "accent4": "Slate", "accent5": "Bronze 20 #F2B18E",
+                     "accent6": "Drum Gold", "dk1": "Ink", "dk2": "Deep Navy", "lt2": "Ivory", "hlink": "VCCI Blue", "folHlink": "Bronze Ink",
+                     "note": "Accents 1-5 follow the series order; a 6th series is set to Deep Navy by hand."},
+    "rules": ["Bar and column axes start at zero", "Never encode meaning by colour alone: label series directly or add a legend and data labels",
+              "No 3D, shadows or gradients", "Cite the source under every chart"]
   },
   "typography": {
     "display": {"family": "Lora", "weights": [400, 500, 600], "use": "headlines, statements"},

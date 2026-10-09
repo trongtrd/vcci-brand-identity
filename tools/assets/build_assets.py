@@ -1,6 +1,7 @@
 """Build the VCCI brand asset package (brand-assets/) from the master SVG decoded from Logo_VCCI.cdr.
 
-Run from the repository root:  python tools/assets/build_assets.py
+Run from the repository root:  python tools/assets/build_assets.py           (everything)
+                                python tools/assets/build_assets.py colours   (02_Colour only, no Edge needed)
 The master SVG comes from tools/cdr (build/logo/); without it, the committed brand-assets copy is reused.
 """
 import json, math, os, re, shutil, struct, subprocess, sys
@@ -11,6 +12,7 @@ from fontTools.pens.transformPen import TransformPen
 from PIL import Image
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 import env
+import colour_system as CS
 
 ROOT = os.getcwd()
 OUT = os.path.join(ROOT, 'brand-assets')
@@ -28,6 +30,7 @@ PALETTE = [
     ('Drum Bronze', 'secondary', '#CC713C', (0, 60, 80, 20),   'Master .CDR (drum figures)'),
     ('Deep Navy',   'support',   '#0B1A4F', (100, 90, 30, 40), 'Brand system'),
     ('Blue Tint',   'support',   '#E7ECF6', (8, 4, 0, 0),      'Brand system'),
+    ('Sky',         'support',   '#8FA6D6', (45, 28, 0, 0),    'Brand system (chart series 2, light blue fields)'),
     ('Bronze Ink',  'support',   '#9C570C', (20, 65, 100, 15), 'Brand system (text-safe bronze)'),
     ('Ink',         'neutral',   '#161A26', (75, 65, 50, 70),  'Brand system'),
     ('Slate',       'neutral',   '#5C6478', (62, 50, 32, 12),  'Brand system'),
@@ -215,38 +218,78 @@ def to_pdf(svg_path, pdf_path):
     edge(['--no-pdf-header-footer', '--virtual-time-budget=3000', f'--print-to-pdf={pdf_path}', 'file:///' + html.replace(os.sep, '/')])
 
 # ---------------------------------------------------------------- colour files
-def ase(path):
-    """Adobe Swatch Exchange: logo colours as CMYK process, the rest as RGB."""
-    blocks = b''
-    for name, role, h, cmyk, src in PALETTE:
-        nm = (name + '\0').encode('utf-16-be')
-        if src.startswith('Master'):
-            model, vals = b'CMYK', struct.pack('>4f', *[v / 100 for v in cmyk])
-        else:
-            model, vals = b'RGB ', struct.pack('>3f', *[v / 255 for v in rgb(h)])
-        body = struct.pack('>H', len(nm) // 2) + nm + model + vals + struct.pack('>H', 2)
-        blocks += struct.pack('>HI', 0x0001, len(body)) + body
-    open(path, 'wb').write(b'ASEF' + struct.pack('>HHI', 1, 0, len(PALETTE)) + blocks)
+def ase(path, groups):
+    """Adobe Swatch Exchange in named groups: logo colours as CMYK process, everything else as RGB."""
+    def name_bytes(n):
+        nm = (n + '\0').encode('utf-16-be')
+        return struct.pack('>H', len(nm) // 2) + nm
+    blocks, count = b'', 0
+    for group, swatches in groups:
+        g = name_bytes(group)
+        blocks += struct.pack('>HI', 0xC001, len(g)) + g; count += 1
+        for name, h, cmyk in swatches:
+            if cmyk:
+                model, vals = b'CMYK', struct.pack('>4f', *[v / 100 for v in cmyk])
+            else:
+                model, vals = b'RGB ', struct.pack('>3f', *[v / 255 for v in rgb(h)])
+            body = name_bytes(name) + model + vals + struct.pack('>H', 2)
+            blocks += struct.pack('>HI', 0x0001, len(body)) + body; count += 1
+        blocks += struct.pack('>HI', 0xC002, 0); count += 1
+    open(path, 'wb').write(b'ASEF' + struct.pack('>HHI', 1, 0, count) + blocks)
 
 def office_theme(path):
-    c = lambda h: h.lstrip('#')
-    xml = f'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="VCCI">
-  <a:dk1><a:srgbClr val="{c(HEX['Ink'])}"/></a:dk1>
-  <a:lt1><a:srgbClr val="FFFFFF"/></a:lt1>
-  <a:dk2><a:srgbClr val="{c(HEX['Deep Navy'])}"/></a:dk2>
-  <a:lt2><a:srgbClr val="{c(HEX['Ivory'])}"/></a:lt2>
-  <a:accent1><a:srgbClr val="{c(BLUE)}"/></a:accent1>
-  <a:accent2><a:srgbClr val="{c(GOLD)}"/></a:accent2>
-  <a:accent3><a:srgbClr val="{c(BRONZE)}"/></a:accent3>
-  <a:accent4><a:srgbClr val="{c(SLATE)}"/></a:accent4>
-  <a:accent5><a:srgbClr val="8FA6D6"/></a:accent5>
-  <a:accent6><a:srgbClr val="{c(HEX['Bronze Ink'])}"/></a:accent6>
-  <a:hlink><a:srgbClr val="{c(BLUE)}"/></a:hlink>
-  <a:folHlink><a:srgbClr val="{c(HEX['Bronze Ink'])}"/></a:folHlink>
-</a:clrScheme>
-'''
+    scheme = CS.office_clr_scheme().replace('<a:clrScheme ', '<a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" ', 1)
+    xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n' + re.sub(r'(<a:(?!clrScheme)\w+>)', r'\n  \1', scheme).replace('</a:clrScheme>', '\n</a:clrScheme>\n')
     open(path, 'w', encoding='utf-8').write(xml)
+
+def colour_files(col):
+    """02_Colour: core palette plus the extended system (tonal scales, status colours, chart palettes)."""
+    scales, status, dv = CS.system()
+    bad = CS.check(scales, status)
+    assert not bad, f'contrast rule broken: {bad[:5]}'
+    tok = json.load(open(os.path.join(OUT, 'brand-tokens.json'), encoding='utf-8'))   # hand-maintained copy must match
+    assert {k: {kk.split('-')[1]: h for kk, h in v.items()} for k, v in ((n.lower(), v) for n, v in scales.items())} ==            {k: v for k, v in tok['colour']['scales'].items() if k != 'note'}, 'brand-tokens.json colour.scales out of date'
+    assert [list(c) for c in dv['categorical']] == tok['dataviz']['categorical'], 'brand-tokens.json dataviz out of date'
+    assert all(tok['colour']['status'][n]['strong'] == v['strong'] and tok['colour']['status'][n]['background'] == v['background']
+               for n, v in status.items()), 'brand-tokens.json colour.status out of date'
+    slug = lambda n: n.lower().replace(' ', '-')
+    json.dump({'palette': [dict(name=n, role=r, hex=h, rgb=list(rgb(h)), cmyk=list(c), grade=CS.brand_grade(n), source=s)
+                           for n, r, h, c, s in PALETTE],
+               'contrast': {'Paper on VCCI Blue': '8.1:1 AAA', 'Drum Gold on VCCI Blue': '5.7:1 AA', 'Bronze Ink on Paper': '5.3:1 AA',
+                            'Drum Bronze on Paper': '3.3:1 (graphics / large text only)'},
+               'balance_percent': {'VCCI Blue': 44, 'Paper': 34, 'Stone': 10, 'Drum Gold': 7, 'Drum Bronze': 5},
+               'grade_rule': 'Grade 0 = white, 100 = near black. Grade difference >= 40: 3:1 (large text, graphics); '
+                             '>= 50: 4.5:1 (AA body text); >= 70: 7:1 (AAA).',
+               'scales': scales,
+               'status': status,
+               'dataviz': {'categorical': [dict(name=n, hex=h) for n, h in dv['categorical']], 'highlight': dv['highlight'],
+                           'sequential_7': dv['sequential_7'], 'sequential_5': dv['sequential_5'], 'diverging_7': dv['diverging_7']},
+               'screen_conversion': 'CMYK -> sRGB via Coated FOGRA39, relative colorimetric. Scales, status and chart colours are '
+                                    'defined in sRGB only; for offset print ask the printer to convert and proof.'},
+              open(os.path.join(col, 'VCCI_Colours.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
+    css = ':root{\n  /* core palette */\n'
+    css += ''.join(f'  --vcci-{slug(n)}: {h};  /* CMYK {"/".join(map(str, c))} · grade {CS.brand_grade(n)} */\n' for n, _, h, c, _ in PALETTE)
+    css += '  /* tonal scales: grade difference >= 50 between text and background = 4.5:1 */\n'
+    css += ''.join(f'  --vcci-{k}: {h};\n' for sc in scales.values() for k, h in sc.items())
+    css += '  /* status: strong = text, icons, borders; -bg = background */\n'
+    css += ''.join(f'  --vcci-{slug(n)}: {v["strong"]};\n  --vcci-{slug(n)}-bg: {v["background"]};\n' for n, v in status.items())
+    css += '  /* charts: categorical series in this order; gold only for one highlighted value */\n'
+    css += ''.join(f'  --vcci-chart-{i}: {h};  /* {n} */\n' for i, (n, h) in enumerate(dv['categorical'], 1))
+    css += f'  --vcci-chart-highlight: {dv["highlight"]["focus"]};\n  --vcci-chart-muted: {dv["highlight"]["muted"]};\n'
+    css += ''.join(f'  --vcci-seq-{i}: {h};\n' for i, h in enumerate(dv['sequential_7'], 1))
+    css += ''.join(f'  --vcci-div-{i}: {h};\n' for i, h in enumerate(dv['diverging_7'], 1))
+    css += '}\n'
+    open(os.path.join(col, 'VCCI_Colours.css'), 'w', encoding='utf-8').write(css)
+    master = {n: c for n, _, _, c, src in PALETTE if src.startswith('Master')}
+    ase(os.path.join(col, 'VCCI_Colours.ase'), [
+        ('VCCI Core', [(n, h, master.get(n)) for n, _, h, _, _ in PALETTE]),
+        ('VCCI Scales', [(k.replace('-', ' ').title(), h, None) for sc in scales.values() for k, h in sc.items()]),
+        ('VCCI Status', [(f'{n} {part}'.strip(), v[key], None) for n, v in status.items() for part, key in (('', 'strong'), ('BG', 'background'))]),
+        ('VCCI Charts', [(f'Chart {i} {n}', h, None) for i, (n, h) in enumerate(dv['categorical'], 1)]
+                        + [(f'Sequential {i}', h, None) for i, h in enumerate(dv['sequential_7'], 1)]
+                        + [(f'Diverging {i}', h, None) for i, h in enumerate(dv['diverging_7'], 1)]),
+    ])
+    office_theme(os.path.join(col, 'VCCI_Office_Theme_Colours.xml'))
 
 # ---------------------------------------------------------------- main
 def main():
@@ -273,17 +316,7 @@ def main():
     shutil.copy(os.path.join(ROOT, 'source', 'logo', 'Logo_VCCI.cdr'), os.path.join(src_dir, 'VCCI_Logo_Master_CMYK.cdr'))
     open(os.path.join(cons_dir, 'VCCI_Drum_CONSTRUCTION-ONLY.svg'), 'w', encoding='utf-8').write(DRUM)
 
-    col = d('02_Colour')
-    json.dump({'palette': [dict(name=n, role=r, hex=h, rgb=list(rgb(h)), cmyk=list(c), source=s) for n, r, h, c, s in PALETTE],
-               'contrast': {'Paper on VCCI Blue': '8.1:1 AAA', 'Drum Gold on VCCI Blue': '5.7:1 AA', 'Bronze Ink on Paper': '5.3:1 AA',
-                            'Drum Bronze on Paper': '3.3:1 (graphics / large text only)'},
-               'balance_percent': {'VCCI Blue': 44, 'Paper': 34, 'Stone': 10, 'Drum Gold': 7, 'Drum Bronze': 5},
-               'screen_conversion': 'CMYK -> sRGB via Coated FOGRA39, relative colorimetric'},
-              open(os.path.join(col, 'VCCI_Colours.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
-    css = ':root{\n' + ''.join(f'  --vcci-{n.lower().replace(" ", "-")}: {h};  /* CMYK {"/".join(map(str, c))} */\n' for n, _, h, c, _ in PALETTE) + '}\n'
-    open(os.path.join(col, 'VCCI_Colours.css'), 'w', encoding='utf-8').write(css)
-    ase(os.path.join(col, 'VCCI_Colours.ase'))
-    office_theme(os.path.join(col, 'VCCI_Office_Theme_Colours.xml'))
+    colour_files(d('02_Colour'))
 
     # 03_Fonts is maintained by hand (font files + OFL licences)
 
@@ -302,4 +335,8 @@ def main():
     print('done')
 
 if __name__ == '__main__':
-    main()
+    if sys.argv[1:] == ['colours']:
+        col = os.path.join(OUT, '02_Colour'); os.makedirs(col, exist_ok=True)
+        colour_files(col); print('colours ->', col)
+    else:
+        main()

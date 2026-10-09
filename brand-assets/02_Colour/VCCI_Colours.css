@@ -1,13 +1,81 @@
 :root{
-  --vcci-vcci-blue: #264896;  /* CMYK 100/80/0/0 */
-  --vcci-drum-gold: #FFCD00;  /* CMYK 0/20/100/0 */
-  --vcci-drum-bronze: #CC713C;  /* CMYK 0/60/80/20 */
-  --vcci-deep-navy: #0B1A4F;  /* CMYK 100/90/30/40 */
-  --vcci-blue-tint: #E7ECF6;  /* CMYK 8/4/0/0 */
-  --vcci-bronze-ink: #9C570C;  /* CMYK 20/65/100/15 */
-  --vcci-ink: #161A26;  /* CMYK 75/65/50/70 */
-  --vcci-slate: #5C6478;  /* CMYK 62/50/32/12 */
-  --vcci-stone: #E6E1D5;  /* CMYK 9/8/15/0 */
-  --vcci-ivory: #F4F0E6;  /* CMYK 3/4/9/0 */
-  --vcci-paper: #FBF9F4;  /* CMYK 1/2/4/0 */
+  /* core palette */
+  --vcci-vcci-blue: #264896;  /* CMYK 100/80/0/0 · grade 70 */
+  --vcci-drum-gold: #FFCD00;  /* CMYK 0/20/100/0 · grade 13 */
+  --vcci-drum-bronze: #CC713C;  /* CMYK 0/60/80/20 · grade 41 */
+  --vcci-deep-navy: #0B1A4F;  /* CMYK 100/90/30/40 · grade 92 */
+  --vcci-blue-tint: #E7ECF6;  /* CMYK 8/4/0/0 · grade 5 */
+  --vcci-sky: #8FA6D6;  /* CMYK 45/28/0/0 · grade 30 */
+  --vcci-bronze-ink: #9C570C;  /* CMYK 20/65/100/15 · grade 56 */
+  --vcci-ink: #161A26;  /* CMYK 75/65/50/70 · grade 94 */
+  --vcci-slate: #5C6478;  /* CMYK 62/50/32/12 · grade 58 */
+  --vcci-stone: #E6E1D5;  /* CMYK 9/8/15/0 · grade 9 */
+  --vcci-ivory: #F4F0E6;  /* CMYK 3/4/9/0 · grade 4 */
+  --vcci-paper: #FBF9F4;  /* CMYK 1/2/4/0 · grade 2 */
+  /* tonal scales: grade difference >= 50 between text and background = 4.5:1 */
+  --vcci-blue-5: #E7ECF6;
+  --vcci-blue-10: #CEDEFD;
+  --vcci-blue-20: #A9C0EC;
+  --vcci-blue-30: #8FA6D6;
+  --vcci-blue-40: #6D8BC8;
+  --vcci-blue-50: #5474B7;
+  --vcci-blue-60: #3D5EA7;
+  --vcci-blue-70: #264896;
+  --vcci-blue-80: #15347E;
+  --vcci-blue-90: #041C61;
+  --vcci-gold-5: #FFEDB9;
+  --vcci-gold-10: #FFDA6E;
+  --vcci-gold-20: #E7BA0D;
+  --vcci-bronze-5: #FEEAE0;
+  --vcci-bronze-10: #FED5BF;
+  --vcci-bronze-20: #F2B18E;
+  --vcci-bronze-30: #E09166;
+  --vcci-bronze-40: #CE7440;
+  --vcci-bronze-50: #B45D28;
+  --vcci-bronze-60: #9A4A15;
+  --vcci-bronze-70: #803802;
+  --vcci-bronze-80: #612902;
+  --vcci-bronze-90: #3F1800;
+  --vcci-slate-5: #EBEEF4;
+  --vcci-slate-10: #DADDE6;
+  --vcci-slate-20: #BABFCC;
+  --vcci-slate-30: #9EA4B3;
+  --vcci-slate-40: #848B9D;
+  --vcci-slate-50: #6E7588;
+  --vcci-slate-60: #596074;
+  --vcci-slate-70: #454D5F;
+  --vcci-slate-80: #33394A;
+  --vcci-slate-90: #1E2332;
+  /* status: strong = text, icons, borders; -bg = background */
+  --vcci-error: #B7191C;
+  --vcci-error-bg: #FEE9E6;
+  --vcci-warning: #765800;
+  --vcci-warning-bg: #FFECC5;
+  --vcci-success: #046B2F;
+  --vcci-success-bg: #DEF3E1;
+  --vcci-info: #264896;
+  --vcci-info-bg: #E7ECF6;
+  /* charts: categorical series in this order; gold only for one highlighted value */
+  --vcci-chart-1: #264896;  /* VCCI Blue */
+  --vcci-chart-2: #8FA6D6;  /* Sky */
+  --vcci-chart-3: #CC713C;  /* Drum Bronze */
+  --vcci-chart-4: #5C6478;  /* Slate */
+  --vcci-chart-5: #F2B18E;  /* Bronze 20 */
+  --vcci-chart-6: #0B1A4F;  /* Deep Navy */
+  --vcci-chart-highlight: #FFCD00;
+  --vcci-chart-muted: #BABFCC;
+  --vcci-seq-1: #CEDEFD;
+  --vcci-seq-2: #A9C0EC;
+  --vcci-seq-3: #8FA6D6;
+  --vcci-seq-4: #6D8BC8;
+  --vcci-seq-5: #5474B7;
+  --vcci-seq-6: #3D5EA7;
+  --vcci-seq-7: #264896;
+  --vcci-div-1: #9A4A15;
+  --vcci-div-2: #CE7440;
+  --vcci-div-3: #F2B18E;
+  --vcci-div-4: #F4F0E6;
+  --vcci-div-5: #A9C0EC;
+  --vcci-div-6: #6D8BC8;
+  --vcci-div-7: #3D5EA7;
 }
