@@ -1,0 +1,8 @@
+{
+  "name": "vcci-brand",
+  "version": "1.0.0",
+  "description": "VCCI brand identity for agents: turn raw Word documents into VCCI-branded reports and raw PowerPoint decks or outlines into VCCI-branded presentations, with the brand rules, templates and assets",
+  "author": { "name": "Truong Duc Trong" },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "keywords": ["vcci", "brand", "word", "powerpoint", "report", "presentation", "template"]
+}

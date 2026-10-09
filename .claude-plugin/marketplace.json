@@ -1,0 +1,11 @@
+{
+  "name": "vcci-brand-identity",
+  "owner": { "name": "Truong Duc Trong" },
+  "plugins": [
+    {
+      "name": "vcci-brand",
+      "source": "./",
+      "description": "Định dạng tài liệu theo Bộ nhận diện thương hiệu VCCI (báo cáo Word, bài trình bày PowerPoint)"
+    }
+  ]
+}

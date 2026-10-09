@@ -9,8 +9,9 @@ Repo này gồm nhiều loại nội dung với quyền sử dụng khác nhau.
 | Icon giao diện (UI) | `brand-assets/05_Icons/UI/` | Dựa trên Lucide, giấy phép ISC. Xem `brand-assets/05_Icons/LICENSES.md`. |
 | Font Lora, Be Vietnam Pro | `brand-assets/03_Fonts/` | SIL Open Font License 1.1. Xem `OFL.txt` trong từng thư mục font. |
 | Mã nguồn công cụ dựng | `tools/` | Giấy phép MIT (bên dưới). |
+| Script của skill cho AI agent | `skills/vcci-brand/scripts/` | Giấy phép MIT (bên dưới). Ví dụ trong `skills/vcci-brand/examples/` dùng số liệu giả lập. |
 
-## MIT License (áp dụng cho `tools/`)
+## MIT License (áp dụng cho `tools/` và `skills/vcci-brand/scripts/`)
 
 Copyright (c) 2026 VCCI Brand Identity contributors
 Developed and designed by Truong Duc Trong
