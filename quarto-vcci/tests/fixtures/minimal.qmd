@@ -1,0 +1,64 @@
+---
+title: "Báo cáo thử nghiệm: Môi trường kinh doanh cấp tỉnh 2026"
+subtitle: "Tài liệu kiểm thử tối giản cho extension quarto-vcci"
+author:
+  - name: Nguyễn Văn An
+    affiliations:
+      - name: Ban Pháp chế, VCCI
+date: 2026-10-10
+toc: true
+format:
+  vcci-report-typst: default
+  vcci-report-docx: default
+test:
+  formats: [vcci-report-typst, vcci-report-docx]
+  pages: [2, 5]
+  must-contain:
+    - "Liên đoàn Thương mại và Công nghiệp Việt Nam khảo sát 12.500 doanh nghiệp"
+    - "ĂÂĐÊÔƠƯ ăâđêôơư Ở Ỷ Ữ ự ỹ"
+    - "Điểm chỉ số theo năm"
+    - "Ghi chú cuối trang về nguồn số liệu"
+---
+
+# Tổng quan
+
+::: lead
+Liên đoàn Thương mại và Công nghiệp Việt Nam khảo sát 12.500 doanh nghiệp. Môi trường kinh doanh tiếp tục cải thiện, nhưng chi phí tuân thủ vẫn cao.
+:::
+
+Kiểm tra dấu tiếng Việt: ĂÂĐÊÔƠƯ ăâđêôơư Ở Ỷ Ữ ự ỹ. Câu này có một chú thích cuối trang.[^1]
+
+[^1]: Ghi chú cuối trang về nguồn số liệu.
+
+## Phương pháp
+
+::: label
+Phương pháp nghiên cứu
+:::
+
+Khảo sát được thực hiện qua bưu điện và trực tuyến. @tbl-index cho thấy điểm chỉ số theo năm, còn @fig-hero là hình minh họa.
+
+| Năm | Điểm chỉ số | Thay đổi |
+|---|---:|---:|
+| 2023 | 64,8 | – |
+| 2024 | 66,0 | +1,2 |
+| 2025 | 67,4 | +1,4 |
+
+: Điểm chỉ số theo năm {#tbl-index}
+
+![Hình minh họa chủ đề nghiên cứu](assets/hero-research.png){#fig-hero width=30%}
+
+### Kết quả chính
+
+::: {.highlight title="Phát hiện chính"}
+- Thời gian thực hiện thủ tục hành chính giảm 12%.
+- Chi phí không chính thức vẫn là mối lo của doanh nghiệp nhỏ.
+:::
+
+::: callout-note
+Đây là hộp ghi chú mặc định của Quarto.
+:::
+
+# Kết luận
+
+Xem thêm tại [vcci.com.vn](https://vcci.com.vn).

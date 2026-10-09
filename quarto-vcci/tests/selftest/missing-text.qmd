@@ -1,0 +1,9 @@
+---
+title: "Tự kiểm tra: thiếu nội dung"
+test:
+  formats: [vcci-report-typst, vcci-report-docx]
+  expect-fail: ["required Vietnamese text"]
+  must-contain: ["Câu này không có trong tài liệu"]
+---
+
+Tài liệu chỉ có một câu.

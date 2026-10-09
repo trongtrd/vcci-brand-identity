@@ -8,6 +8,9 @@ uharfbuzz>=0.40
 svgpathtools>=1.6
 requests>=2.31
 
+# Quarto extension tests (quarto-vcci/tests)
+PyYAML>=6
+
 # Agent skill (skills/vcci-brand)
 lxml>=5
 python-pptx>=1.0

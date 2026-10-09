@@ -1,0 +1,8 @@
+---
+title: "Tự kiểm tra: tham chiếu hỏng"
+test:
+  formats: [vcci-report-typst, vcci-report-docx]
+  expect-fail: ["no warnings"]
+---
+
+Xem @fig-khong-ton-tai.

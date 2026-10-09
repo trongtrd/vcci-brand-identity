@@ -1,0 +1,212 @@
+# Kế hoạch: extension Quarto `quarto-vcci`
+
+Ngày: 10/10/2026. Trạng thái: **chủ dự án đã duyệt (10/10/2026)**, gồm cả scheme Stata.
+
+## 1. Mục tiêu và phạm vi
+
+| Hạng mục | Đã thống nhất |
+|---|---|
+| Người dùng | Nhóm nghiên cứu (biết Markdown, chạy lệnh). Các phòng ban khác tiếp tục dùng template Word và skill `vcci-brand`. |
+| Định dạng | Ba loại tài liệu trong **một** extension: báo cáo tư vấn (`vcci-report`), working paper (`vcci-wp`), memo (`vcci-memo`). |
+| Đầu ra | **PDF bằng Typst** là bản chính. **Word (.docx)** để đồng nghiệp sửa, dựa trên template `VCCI_Report.dotx`. |
+| Thứ tự | Báo cáo → working paper → memo. Mỗi loại được chủ dự án duyệt rồi mới làm loại tiếp theo. |
+| Không làm (giai đoạn này) | Xuất HTML hay website; bản LaTeX; slide (đã có template PowerPoint). |
+
+## 2. Học từ Monash và ANU
+
+Tôi đã đọc cấu trúc các repo [quarto-monash/report](https://github.com/quarto-monash/report), [memo](https://github.com/quarto-monash/memo), [workingpaper](https://github.com/quarto-monash/workingpaper) và [anuopensci/quarto-anu-report](https://github.com/anuopensci/quarto-anu-report).
+
+| Điều quan sát được | Áp dụng cho VCCI |
+|---|---|
+| Monash: mỗi loại tài liệu là một extension, gồm `_extension.yml`, `typst-template.typ` (bố cục) và `typst-show.typ` (chuyển metadata YAML sang tham số Typst). | Dùng đúng cấu trúc này cho từng định dạng. |
+| Monash: font đi kèm extension (`fonts/`, khai báo `font-paths`), nên máy chưa cài font vẫn dựng đúng. | Đóng gói Lora và Be Vietnam Pro (giấy phép OFL cho phép). |
+| Monash: khối `common` trong `_extension.yml` chứa thiết lập chung cho PDF và Typst. | Thiết lập chung (khổ A4, ngôn ngữ, đánh số mục, cỡ hình) viết một lần. |
+| Monash: README ghi bản Typst "much faster" và "faster and more reliable" so với LaTeX. | Chỉ làm Typst; không duy trì bản LaTeX. |
+| Monash và ANU: `template.qmd` ở gốc repo, `.quartoignore` loại `examples/`, có `examples/template.pdf` để xem trước. | Giữ cách này, để lệnh `quarto use template` tạo ngay một file mẫu. |
+| ANU: Word xuất bằng `reference-doc` (một file `.docx` mang style ANU). | Sinh `reference-doc` tự động từ `VCCI_Report.dotx`. |
+| **Không repo nào có kiểm thử tự động hay CI.** Họ chỉ lưu sẵn một PDF mẫu. | VCCI cần bộ kiểm thử riêng (mục 5). |
+| Giấy phép: Monash dùng CC0; ANU không ghi giấy phép. | Chỉ học cấu trúc, tự viết mã, không chép tệp nào (theo `DECISIONS.md`). |
+
+## 3. Đã kiểm chứng trên máy này (10/10/2026)
+
+- Quarto 1.9.38 có sẵn Typst 0.14.2; Python có Jupyter.
+- R 4.6.1 (`C:\Program Files\R\R-4.6.1\bin\x64`) đã có knitr, rmarkdown, ggplot2, svglite, nên chạy được khối mã R trong Quarto và kiểm thử `theme_vcci()`.
+- Stata MP 19 (`C:\Program Files\StataNow19\StataMP-64.exe`) chạy được ở chế độ batch, nên kiểm thử được scheme Stata.
+- Một file `.qmd` tiếng Việt dựng ra PDF bằng Typst với font đóng gói qua `font-paths`:
+  - `pdffonts` cho thấy Be Vietnam Pro được nhúng.
+  - Văn bản trích từ PDF giữ đủ các chữ ă â đ ê ô ơ ư và các dấu ỹ ỵ ữ ự.
+- Bản Word dựng với `reference-doc` sinh từ `VCCI_Report.dotx` (đổi kiểu nội dung từ template sang document):
+  - Heading 1 dùng Lora Medium; đủ các style VCCI (VCCI Table, VCCI Callout…).
+  - Có 11 font được nhúng; đầu trang của template được giữ.
+  - Hạn chế đã biết của Pandoc: bảng chưa tự nhận style "VCCI Table" và không có trang bìa. Cả hai xử lý ở mục 4.4.
+
+## 4. Kiến trúc
+
+### 4.1 Vị trí và phát hành
+
+- **Phát triển** trong repo này, thư mục `quarto-vcci/`. Font, logo, màu và icon lấy trực tiếp từ `brand-assets/`, nên chỉ có một nguồn.
+- **Phát hành**: một script xuất ra repo GitHub riêng `quarto-vcci` có `_extensions/` ở gốc, để người dùng chạy được `quarto use template <tài-khoản>/quarto-vcci`. Việc này làm khi đưa repo lên GitHub (việc mở số 1 trong handoff).
+
+### 4.2 Cấu trúc thư mục (dự kiến)
+
+```
+quarto-vcci/
+  build.py                  sinh các file dùng chung từ brand-assets, chép vào từng extension
+  shared/                   nguồn dùng chung (viết tay)
+    vcci.typ                màu, cỡ chữ, khoảng cách, hàm vẽ: bìa, nhãn chương, gạch vàng, hộp nhấn mạnh, bảng
+    vcci-docx.lua           bộ lọc Pandoc cho Word: style bảng, hộp nhấn mạnh, chú thích hình/bảng tiếng Việt
+  _extensions/vcci/
+    vcci-report/            _extension.yml, typst-template.typ, typst-show.typ, + bản sao dùng chung (sinh tự động)
+    vcci-wp/
+    vcci-memo/
+  templates/                report.qmd, wp.qmd, memo.qmd (mẫu tiếng Việt) + references.bib
+  charts/                   vcci.mplstyle (matplotlib), theme_vcci.R (ggplot2)
+  tests/                    fixtures/, baseline/, run_tests.py
+  examples/                 PDF và DOCX mẫu đã dựng
+```
+
+Cách dùng trong tài liệu: `format: vcci-report-typst` hoặc `format: vcci-report-docx`.
+
+**Cần kiểm chứng ở bước 0:**
+- Quarto đặt tên định dạng thế nào khi các extension nằm trong thư mục tổ chức `_extensions/vcci/`.
+- Có dùng chung được một file `vcci.typ` giữa các extension hay không. Nếu không, `build.py` sẽ chép bản sao vào từng extension: vẫn một nguồn, chỉ khác ở bản phân phối.
+
+### 4.3 PDF (Typst)
+
+**Phần chung**
+- `lang: vi`; nhãn "Hình", "Bảng", "Mục lục", "Tài liệu tham khảo".
+- Ngày viết "10 tháng 10 năm 2026"; tắt tách từ (tiếng Việt không tách âm tiết).
+- Tiêu đề dùng Lora, nội dung dùng Be Vietnam Pro, đúng thang chữ trong `brand-tokens.json`.
+- Màu đọc từ `brand-tokens.json` (gồm cả bảng màu biểu đồ v1.1).
+
+**Báo cáo tư vấn**
+- Bìa gồm logo trên ô nền sáng, khối xanh có họa tiết vòng trống, và hero icon chọn bằng YAML (`hero: 06`).
+- Thông tin bên đặt hàng, mục lục, mở chương có nhãn và gạch vàng, đoạn dẫn.
+- Hộp "Phát hiện chính", bảng theo kiểu VCCI Table, chú thích nguồn dưới hình và bảng.
+- Phụ lục, bìa sau có thông tin liên hệ. Tùy chọn hiển thị "BẢN THẢO" hay "MẬT".
+
+**Working paper**
+- Số hiệu theo mẫu (mục 7), tóm tắt tiếng Việt và tiếng Anh, từ khóa, mã JEL.
+- Gợi ý trích dẫn, lời miễn trừ, trích dẫn BibTeX (CSL APA).
+- Trang đầu gọn, không bìa màu; đánh số phương trình.
+
+**Memo**
+- Khối Gửi / Từ / Ngày / Về việc, nhãn mức độ (Khẩn, Nội bộ), 1–2 trang, chữ ký tùy chọn.
+
+### 4.4 Word (.docx)
+
+- `build.py` sinh `vcci-reference.docx` từ `VCCI_Report.dotx` (đã thử thành công).
+- Bộ lọc `vcci-docx.lua`:
+  - Gán style "VCCI Table" cho bảng.
+  - Gán style "VCCI Callout" cho hộp nhấn mạnh.
+  - Dùng "Hình"/"Bảng" trong chú thích.
+- Trang bìa Word: chèn một khối tiêu đề theo style Title và VCCI Label. Pandoc không dựng được bìa màu như PDF; tôi ghi rõ hạn chế này trong README.
+
+### 4.5 Biểu đồ
+
+- `vcci.mplstyle` cho matplotlib: kiểm thử được tại máy này.
+- `theme_vcci()` và thang màu cho ggplot2: kiểm thử bằng R 4.6.1 trên máy này.
+- Cả hai theo đúng thứ tự màu chuỗi, thang tuần tự và phân kỳ, và quy tắc chữ trong biểu đồ của phần 08.
+- **Scheme Stata** `scheme-vcci.scheme` (đã duyệt): màu chuỗi, font, lưới, nền theo phần 08. Kiểm thử bằng Stata batch: vẽ bộ biểu đồ mẫu (cột, đường, cột ngang, phân tán), xuất SVG/PNG, kiểm tra mã màu trong SVG thuộc bảng màu VCCI, và chèn vào tài liệu mẫu.
+
+## 5. Kiểm thử: làm sao để sản phẩm không lỗi
+
+Chạy mọi kiểm thử bằng một lệnh: `python quarto-vcci/tests/run_tests.py`. Kết quả là báo cáo đạt/không đạt kèm ảnh các trang.
+
+### 5.1 Tài liệu thử (fixtures)
+
+Mỗi định dạng có hai file:
+- **`template.qmd`**: file mẫu người dùng nhận được.
+- **`stress.qmd`**: cố tình khó, gồm:
+  - Tiêu đề dài ba dòng; nhiều cấp mục.
+  - Đoạn văn tiếng Việt dài có chữ hoa và dấu chồng (Ở, Ỷ, Ữ).
+  - Bảng dài qua trang và bảng rộng; hình kèm chú thích.
+  - Chú thích cuối trang, trích dẫn, phương trình, tham chiếu chéo, hộp nhấn mạnh.
+  - Thiếu metadata tùy chọn (không tác giả, không ngày); tên hai tác giả và đơn vị dài.
+
+### 5.2 Các lớp kiểm tra
+
+| Lớp | Kiểm tra | Tự động |
+|---|---|---|
+| 1. Tĩnh | `_extension.yml` đọc được; màu và cỡ chữ trong `vcci.typ` khớp `brand-tokens.json` (so sánh bằng script, như cách `build_assets.py colours` đang làm). | Có |
+| 2. Dựng | Mọi tổ hợp {3 định dạng} × {PDF, Word} × {template, stress} dựng thành công, **không có dòng cảnh báo** (WARN cũng tính là lỗi). | Có |
+| 3. Kiểm PDF | Chỉ có Lora và Be Vietnam Pro, đều được nhúng (`pdffonts`). Khổ A4. Số trang trong khoảng dự kiến. Văn bản trích từ PDF chứa đúng các câu tiếng Việt của nguồn. **Không chữ nào tràn lề** (tọa độ từng chữ, lấy bằng `pdftotext -bbox`, phải nằm trong khung lề). | Có |
+| 4. Kiểm Word | Chỉ dùng style trong danh sách cho phép; mọi bảng mang style VCCI Table; font được nhúng. Mở bằng Word, lưu lại và xuất PDF để chắc Word không báo lỗi; chỉ chạy khi Word không mở tài liệu nào của bạn. | Có |
+| 5. So ảnh | Mỗi trang PDF được chuyển thành ảnh và so với ảnh chuẩn đã duyệt (`tests/baseline/`). Trang nào lệch quá ngưỡng thì báo kèm ảnh khác biệt. Thay đổi cố ý thì cập nhật ảnh chuẩn sau khi bạn duyệt. | Có |
+| 6. Cài mới | Tạo thư mục trống, cài extension như người dùng thật, dựng `template.qmd`. Kiểm tra gói đủ file và `.quartoignore` đúng. Thử thêm chế độ bỏ qua font hệ thống, nếu Quarto cho phép (kiểm chứng ở bước 0). | Có |
+| 7. Người xem | Danh sách kiểm tra cho mỗi lần phát hành: bìa, mục lục, ngắt trang, dòng mồ côi, tiêu đề dài, một điểm nhấn vàng mỗi trang. Tôi tự xem ảnh từng trang trước khi gửi; bạn duyệt bản cuối. | Không |
+
+Khi repo lên GitHub, có thể chạy lớp 1–3, 5 và 6 trên GitHub Actions (máy Linux). Lớp 4 cần Microsoft Word nên chỉ chạy trên máy Windows.
+
+## 6. Các bước triển khai
+
+| Bước | Nội dung | Sản phẩm | Điều kiện hoàn thành |
+|---|---|---|---|
+| 0 ✅ | Thử nghiệm kỹ thuật | Kết quả ở mục 10 | Trả lời các câu hỏi "cần kiểm chứng" ở mục 4.2 và 5.2 |
+| 1 ✅ | Nền dùng chung và bộ kiểm thử | `build.py`, `shared/vcci.typ`, `vcci.lua` (bộ lọc chung cho Typst và Word), `tests/run_tests.py` (lớp 1–4, phần Word chưa mở bằng Word) | Lớp 1–3 chạy được trên một tài liệu tối giản |
+| 2 | **Báo cáo tư vấn** | `vcci-report` (PDF và Word), `templates/report.qmd`, PDF mẫu | Mọi lớp kiểm thử đạt; **bạn duyệt PDF và Word** |
+| 3 | Working paper | `vcci-wp`, `templates/wp.qmd`, `references.bib` | Như trên; bạn duyệt số hiệu và lời miễn trừ |
+| 4 | Memo | `vcci-memo`, `templates/memo.qmd` | Như trên |
+| 5 | Biểu đồ và tài liệu | `vcci.mplstyle`, `theme_vcci.R`, scheme Stata; README; bổ sung skill `vcci-brand` và một trang trong hướng dẫn thương hiệu (phần Ứng dụng) | Biểu đồ mẫu đúng bảng màu; README chạy được từng lệnh |
+| 6 | Phát hành | Repo `quarto-vcci`, phiên bản 1.0.0 | Lớp 6 đạt khi cài từ GitHub |
+
+Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bước khi kiểm thử còn lỗi.
+
+## 7. Đề xuất cho working paper (VCCI chưa có quy định)
+
+Đây là đề xuất để VCCI quyết; template sẽ để các thông tin này thành tham số, đổi được mà không sửa mã.
+
+- **Số hiệu:** "VCCI Working Paper số 2026/01" (năm/số thứ tự), tiếng Anh "VCCI Working Paper No. 2026/01".
+- **Lời miễn trừ (bản nháp):** "Quan điểm trong bài là của tác giả, không nhất thiết phản ánh quan điểm của Liên đoàn Thương mại và Công nghiệp Việt Nam."
+- **Gợi ý trích dẫn:** sinh tự động từ tác giả, năm, tiêu đề và số hiệu.
+- **Chưa đưa vào:** ISSN và quy trình hội đồng duyệt, vì VCCI chưa có.
+
+## 8. Rủi ro và cách xử lý
+
+| Rủi ro | Cách xử lý |
+|---|---|
+| Quarto nâng cấp kéo theo Typst đổi cú pháp | Ghi `quarto-required` trong `_extension.yml`; lớp 2 và 5 phát hiện ngay khi nâng cấp. |
+| Word (Pandoc) không dựng được bìa màu, khối nền màu | Ghi rõ trong README: bản Word để sửa nội dung; bản PDF để phát hành. |
+| Font trong biểu đồ Stata | Stata dùng font cài trên máy; README hướng dẫn cài Lora và Be Vietnam Pro, scheme có font dự phòng. |
+| Người dùng sửa thẳng file trong extension | `build.py` ghi đè; README chỉ cách tùy biến qua YAML. |
+
+## 9. Cần chủ dự án quyết định
+
+1. ~~Duyệt kế hoạch~~: đã duyệt 10/10/2026.
+2. Số hiệu và lời miễn trừ cho working paper (mục 7): quyết khi tới bước 3.
+3. ~~Scheme Stata~~: làm, ở bước 5.
+4. Tài khoản GitHub để phát hành repo `quarto-vcci`: quyết khi tới bước 6.
+
+## 10. Kết quả bước 0 và bước 1 (10/10/2026)
+
+**Bước 0: trả lời các câu hỏi cần kiểm chứng**
+
+| Câu hỏi | Kết quả |
+|---|---|
+| Tên định dạng khi extension nằm trong `_extensions/vcci/` | `_extensions/vcci/vcci-report/` cho định dạng `vcci-report-typst` và `vcci-report-docx`. |
+| Dùng chung file giữa các extension | Không cần: `build.py` ghép phần dùng chung vào `typst-template.typ` của từng extension, nên vẫn chỉ có một nguồn. |
+| Logo và tài nguyên | `format-resources` chép file vào thư mục của người dùng. Vì vậy logo được **nhúng thẳng vào mã Typst** (SVG 112 KB); thư mục người dùng sạch. |
+| Hero icon | Bộ 24 SVG nặng 1,6 MB, quá lớn để nhúng hết. Cách xử lý (rút gọn SVG, hoặc chỉ nhúng icon được chọn) quyết ở bước 2. |
+| Bỏ qua font hệ thống | Đặt biến môi trường `TYPST_IGNORE_SYSTEM_FONTS=true`. Thiếu font đóng gói thì Typst báo "unknown font family", nên lớp 2 bắt được. Bộ kiểm thử luôn chạy ở chế độ này. |
+| Bảng trong Word | Thay style "Table" (style Pandoc gán cho mọi bảng) bằng bản sao của "VCCI Table" trong file Word mẫu. Không cần bộ lọc. |
+
+**Bước 1: đã có**
+
+- `quarto-vcci/build.py`:
+  - Sinh `_extensions/vcci/vcci-report/` (màu từ `brand-tokens.json`, logo, font kèm giấy phép OFL, file Word mẫu).
+  - Đồng bộ từng file thay vì xóa thư mục, vì Dropbox hay khóa thư mục.
+  - `--check` phát hiện file sinh ra bị sửa tay hoặc đã cũ.
+- `src/shared/vcci.typ` (trang, chữ, tiêu đề, bảng, chú thích, logo, gạch vàng, nhãn, đoạn dẫn, hộp nhấn mạnh) và `src/shared/vcci.lua` (khối `::: lead`, `::: highlight`, `::: label` cho cả Typst và Word).
+- Nhãn tiếng Việt: Hình, Bảng, Mục lục, Tài liệu tham khảo…; ngày viết "10 tháng 10 năm 2026".
+- `tests/run_tests.py`: 19 kiểm tra trên tài liệu thử và 4 kiểm tra tự kiểm. **Lần chạy cuối: 23/23 đạt.**
+
+**Lỗi bộ kiểm thử đã bắt được trong lúc làm**
+
+1. Bản Word dùng 7 style của Pandoc (BodyText, FirstParagraph, Compact, Author, Date, ImageCaption, TOCHeading) mà file Word mẫu không định nghĩa, nên Word sẽ thay bằng Normal. Đã bổ sung 20 style Pandoc, kế thừa từ style VCCI.
+2. Phần tự kiểm phát hiện chính bộ kiểm thử bỏ sót hai lỗi. Cảnh báo của Quarto có mã màu ANSI nên không khớp mẫu tìm kiếm. Chữ tràn ra ngoài trang thì bị ghi vào mục "sát mép" thay vì mục "tràn lề". Cả hai đã sửa.
+
+**Chuyển sang bước 2**
+
+- Hộp `callout` mặc định của Quarto trong bản Word được dựng bằng bảng, nên sẽ nhận style VCCI Table (hàng đầu nền xanh). Cần mở bằng Word để xem và xử lý (lớp 4 bằng Word thật).
+- Chưa có lớp 5 (so ảnh với ảnh chuẩn) và lớp 6 (cài mới); làm khi bố cục báo cáo đã được duyệt, vì ảnh chuẩn phải là bản bạn đã duyệt.
+

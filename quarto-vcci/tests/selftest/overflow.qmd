@@ -1,0 +1,8 @@
+---
+title: "Tự kiểm tra: chữ tràn lề"
+test:
+  formats: [vcci-report-typst]
+  expect-fail: ["side margins"]
+---
+
+Mã định danh không ngắt dòng: VCCI-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789-0123456789.
