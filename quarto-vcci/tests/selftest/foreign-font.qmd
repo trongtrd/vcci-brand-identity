@@ -1,0 +1,10 @@
+---
+title: "Tự kiểm tra: font ngoài bộ nhận diện"
+test:
+  formats: [vcci-report-typst]
+  expect-fail: ["only brand fonts"]
+---
+
+```{=typst}
+#text(font: "Libertinus Serif")[Đoạn này dùng font ngoài bộ nhận diện.]
+```

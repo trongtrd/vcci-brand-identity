@@ -10,8 +10,9 @@ Repo này gồm nhiều loại nội dung với quyền sử dụng khác nhau.
 | Font Lora, Be Vietnam Pro | `brand-assets/03_Fonts/` | SIL Open Font License 1.1. Xem `OFL.txt` trong từng thư mục font. |
 | Mã nguồn công cụ dựng | `tools/` | Giấy phép MIT (bên dưới). |
 | Script của skill cho AI agent | `skills/vcci-brand/scripts/` | Giấy phép MIT (bên dưới). Ví dụ trong `skills/vcci-brand/examples/` dùng số liệu giả lập. |
+| Extension Quarto | `quarto-vcci/` (trừ font và logo) | Giấy phép MIT (bên dưới). Font đi kèm theo SIL OFL 1.1; logo theo quy định của VCCI như trên. |
 
-## MIT License (áp dụng cho `tools/` và `skills/vcci-brand/scripts/`)
+## MIT License (áp dụng cho `tools/`, `skills/vcci-brand/scripts/` và `quarto-vcci/`)
 
 Copyright (c) 2026 VCCI Brand Identity contributors
 Developed and designed by Truong Duc Trong
