@@ -5,6 +5,8 @@ Run from the repository root:  python tools/guide/make_guide.py  (after tools/gu
 import os, re, sys, json, subprocess
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'assets'))
 import build_assets as BA
+import colour_system as CS
+SC, ST, DV = CS.system()
 
 ROOT = os.getcwd()
 G = os.path.join(ROOT, 'build', 'guide')
@@ -113,11 +115,14 @@ ul.rules li b{color:var(--blue);font-weight:600}
 """
 
 # ---------------------------------------------------------------- page helpers
-SECTIONS = {1: 'Thương hiệu', 2: 'Logo', 3: 'Màu sắc', 4: 'Kiểu chữ', 5: 'Họa tiết', 6: 'Icon & Minh họa', 7: 'Bố cục', 8: 'Ứng dụng'}
+SECTIONS = {1: 'Thương hiệu', 2: 'Logo', 3: 'Màu sắc', 4: 'Kiểu chữ', 5: 'Họa tiết', 6: 'Icon & Minh họa', 7: 'Bố cục',
+            8: 'Dữ liệu & Biểu đồ', 9: 'Ứng dụng'}
 def chrome(sec): return f'<div class="chrome"><span><b>{sec:02d}</b>&nbsp;&nbsp;{SECTIONS[sec]}</span><span>Hướng dẫn Nhận diện Thương hiệu VCCI</span></div>'
-FOOT = '<div class="foot"><span>Liên đoàn Thương mại và Công nghiệp Việt Nam · Phiên bản 1.0 · 10/2026</span><span class="n"></span></div>'
+FOOT = '<div class="foot"><span>Liên đoàn Thương mại và Công nghiệp Việt Nam · Phiên bản 1.1 · 10/2026</span><span class="n"></span></div>'
 def page(sec, body, cls=''): return f'<section class="page {cls}">{chrome(sec)}<div class="m">{body}</div>{FOOT}</section>'
+START = {}
 def opener(sec, title, intro, body):
+    START[sec] = len(P) + 1
     panel = (f'<div class="panel">{drum("#fff", BA.GOLD, .7, .16, .5)}<div class="plabel">Phần {sec:02d}</div>'
              f'<div class="num">{sec:02d}</div><div class="ttl">{title}</div><div class="intro">{intro}</div></div>')
     return f'<section class="page opener">{panel}{chrome(sec)}<div class="m">{body}</div>{FOOT}</section>'
@@ -132,7 +137,7 @@ P = []
 P.append(f'''<section class="page" style="background:var(--paper)">
  <div style="position:absolute;right:0;top:0;bottom:0;width:118mm;background:linear-gradient(160deg,#2B4FA0,#1E3D86);overflow:hidden">
    <svg viewBox="-300 -300 600 600" style="position:absolute;width:230mm;height:230mm;left:-20mm;top:-10mm">{BA.drum('#fff', BA.GOLD, .55, .16, .6)}</svg>
-   <div style="position:absolute;left:14mm;bottom:14mm;font:600 6.6pt BVP;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.65)">Phiên bản 1.0 &nbsp;·&nbsp; Tháng 10 / 2026</div>
+   <div style="position:absolute;left:14mm;bottom:14mm;font:600 6.6pt BVP;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.65)">Phiên bản 1.1 &nbsp;·&nbsp; Tháng 10 / 2026</div>
  </div>
  <img src="{LOGO}" style="position:absolute;left:20mm;top:22mm;width:92mm">
  <div style="position:absolute;left:20mm;top:84mm;width:140mm">
@@ -144,14 +149,15 @@ P.append(f'''<section class="page" style="background:var(--paper)">
 </section>''')
 
 # ================================================================ 02 CONTENTS + HOW TO USE
-toc = [(1, 'Thương hiệu', 'Định vị, tính cách, giọng điệu', 3), (2, 'Logo', 'Cấu trúc, dựng hình, phiên bản, quy tắc', 5),
-       (3, 'Màu sắc', 'Bảng màu, tỉ lệ, độ tương phản', 11), (4, 'Kiểu chữ', 'Hai họ chữ và thang chữ', 13),
-       (5, 'Họa tiết', 'Ngôn ngữ đồ họa từ trống đồng', 15), (6, 'Icon & Minh họa', 'Hai cấp icon, nguyên tắc minh họa', 17),
-       (7, 'Bố cục', 'Lưới, khoảng cách, sự nhất quán', 23), (8, 'Ứng dụng', 'Template, ấn phẩm, sự kiện, tài sản', 25)]
-rows = ''.join(f'''<div style="display:grid;grid-template-columns:14mm 1fr 10mm;align-items:baseline;padding:2.6mm 0;border-top:.25mm solid var(--hair)">
+toc = [(1, 'Thương hiệu', 'Định vị, tính cách, giọng điệu'), (2, 'Logo', 'Cấu trúc, dựng hình, phiên bản, quy tắc'),
+       (3, 'Màu sắc', 'Bảng màu, thang sắc độ, màu trạng thái'), (4, 'Kiểu chữ', 'Hai họ chữ và thang chữ'),
+       (5, 'Họa tiết', 'Ngôn ngữ đồ họa từ trống đồng'), (6, 'Icon & Minh họa', 'Hai cấp icon, nguyên tắc minh họa'),
+       (7, 'Bố cục', 'Lưới, khoảng cách, sự nhất quán'), (8, 'Dữ liệu & Biểu đồ', 'Màu biểu đồ, chọn biểu đồ, trình bày'),
+       (9, 'Ứng dụng', 'Template, ấn phẩm, sự kiện, tài sản')]
+rows = ''.join(f'''<div style="display:grid;grid-template-columns:14mm 1fr 10mm;align-items:baseline;padding:2.1mm 0;border-top:.25mm solid var(--hair)">
   <span style="font:500 13pt Lora;color:var(--gold);-webkit-text-stroke:.15mm var(--ink2)">{n:02d}</span>
   <span><span style="font:500 12.5pt Lora;color:var(--blue)">{t}</span><span class="small" style="margin-left:4mm">{d}</span></span>
-  <span style="text-align:right;font:500 9pt BVP;color:var(--slate)">{p:02d}</span></div>''' for n, t, d, p in toc)
+  <span style="text-align:right;font:500 9pt BVP;color:var(--slate)">@@PG{n}@@</span></div>''' for n, t, d in toc)
 P.append(f'''<section class="page"><div class="chrome"><span><b>00</b>&nbsp;&nbsp;Mở đầu</span><span>Hướng dẫn Nhận diện Thương hiệu VCCI</span></div><div class="m">
  <div class="grid" style="grid-template-columns:150mm 1fr;gap:16mm;height:100%">
   <div><h2>Mục lục</h2><div style="margin-top:6mm">{rows}</div></div>
@@ -160,7 +166,7 @@ P.append(f'''<section class="page"><div class="chrome"><span><b>00</b>&nbsp;&nbs
    <p>Tài liệu quy định cách thể hiện thương hiệu VCCI trên mọi ấn phẩm: văn bản, báo cáo, sự kiện, kênh số và quà tặng. Mục tiêu là để mọi người, dù ở đơn vị nào, đều tạo ra sản phẩm nhất quán và chuyên nghiệp.</p>
    <p>Các quy tắc có hai mức. <b style="color:var(--blue)">Bắt buộc</b> áp dụng cho logo và màu, vì đây là phần nhận diện cốt lõi. <b style="color:var(--blue)">Khuyến nghị</b> áp dụng cho bố cục và minh họa, để người thiết kế còn không gian sáng tạo.</p>
    <h3 style="margin-top:6mm">Tài sản đi kèm</h3>
-   <p>Mọi file gốc nằm trong thư mục <b>brand-assets</b>: logo (SVG, PNG, PDF, bản gốc CorelDRAW), màu (Office, Adobe, CSS), font, họa tiết, icon và template Word. Danh mục chi tiết ở trang cuối.</p>
+   <p>Mọi file gốc nằm trong thư mục <b>brand-assets</b>: logo (SVG, PNG, PDF, bản gốc CorelDRAW), màu (Office, Adobe, CSS, gồm cả thang sắc độ và màu biểu đồ), font, họa tiết, icon và template Word. Danh mục chi tiết ở trang cuối.</p>
    <h3 style="margin-top:6mm">Khi có thắc mắc</h3>
    <p>Mọi trường hợp chưa được nêu trong tài liệu cần được bộ phận phụ trách thương hiệu duyệt trước khi phát hành.</p>
   </div>
@@ -292,22 +298,92 @@ P.append(opener(3, 'Màu sắc', 'Màu xanh mang tầm vóc thể chế. Vàng v
    </div></div>
   <p class="small" style="margin-top:5mm">Khi in, luôn dùng giá trị CMYK. Mã HEX/RGB là giá trị quy đổi cho màn hình (hồ sơ màu FOGRA39). File gốc không ghi mã Pantone; khi cần in màu pha, nhờ nhà in đề xuất mã gần nhất từ CMYK và in thử trước.</p>'''))
 
-neut = [('Deep Navy', '#0B1A4F', '11 · 26 · 79', 'Nền tối', '#fff'), ('Blue Tint', '#E7ECF6', '231 · 236 · 246', 'Bề mặt giao diện', 'var(--blue)'),
+neut = [('Deep Navy', '#0B1A4F', '11 · 26 · 79', 'Nền tối', '#fff'), ('Sky', '#8FA6D6', '143 · 166 · 214', 'Chuỗi biểu đồ thứ hai, mảng nhạt', 'var(--deep)'),
+        ('Blue Tint', '#E7ECF6', '231 · 236 · 246', 'Bề mặt giao diện', 'var(--blue)'),
         ('Bronze Ink', '#9C570C', '156 · 87 · 12', 'Chữ nhãn cỡ nhỏ', '#fff'), ('Ink', '#161A26', '22 · 26 · 38', 'Chữ thân bài', '#fff'),
         ('Slate', '#5C6478', '92 · 100 · 120', 'Chữ phụ', '#fff'), ('Stone', '#E6E1D5', '230 · 225 · 213', 'Nền trung tính', 'var(--ink)'),
         ('Ivory', '#F4F0E6', '244 · 240 · 230', 'Nền nhấn', 'var(--ink)'), ('Paper', '#FBF9F4', '251 · 249 · 244', 'Nền mặc định', 'var(--ink)')]
-ncards = ''.join(f'''<div class="sw" style="background:{h};color:{fg};height:34mm;{'box-shadow:inset 0 0 0 .25mm rgba(0,0,0,.08)' if fg == 'var(--ink)' else ''}">
- <div class="nm" style="font-size:11pt">{n}</div><div class="rl">{r}</div><table><tr><td>HEX</td><td>{h}</td></tr><tr><td>RGB</td><td>{rgb}</td></tr></table></div>''' for n, h, rgb, r, fg in neut)
+ncard = lambda n, h, rgb, r, fg: f'''<div class="sw" style="background:{h};color:{fg};height:34mm;{'box-shadow:inset 0 0 0 .25mm rgba(0,0,0,.08)' if fg == 'var(--ink)' else ''}">
+ <div class="nm" style="font-size:11pt">{n}</div><div class="rl">{r}</div><table><tr><td>HEX</td><td>{h}</td></tr><tr><td>RGB</td><td>{rgb}</td></tr></table></div>'''
+ncards = (f'<div class="grid" style="grid-template-columns:repeat(4,1fr);gap:4mm">{"".join(ncard(*c) for c in neut[:4])}</div>'
+          f'<div class="grid" style="grid-template-columns:repeat(5,1fr);gap:4mm;margin-top:4mm">{"".join(ncard(*c) for c in neut[4:])}</div>')
 bar = ''.join(f'<i style="flex:{f};background:{c}"></i>' for f, c in ((44, 'var(--blue)'), (34, 'var(--paper)'), (10, 'var(--stone)'), (7, 'var(--gold)'), (5, 'var(--bronze)')))
 pairs = [('var(--blue)', 'var(--paper)', '8,1 : 1', 'AAA'), ('var(--blue)', 'var(--gold)', '5,7 : 1', 'AA'), ('var(--paper)', 'var(--ink2)', '5,3 : 1', 'AA'), ('var(--paper)', 'var(--bronze)', '3,3 : 1', 'Chỉ chữ lớn')]
 pcards = ''.join(f'<div style="background:{b};color:{f};height:16mm;border-radius:1mm;display:flex;align-items:center;justify-content:space-between;padding:0 4mm;{"box-shadow:inset 0 0 0 .25mm var(--hair)" if b == "var(--paper)" else ""}"><span style="font:500 15pt Lora">Aa</span><span style="font:700 6.4pt/1.3 BVP;letter-spacing:.1em;text-align:right">{r}<br>{l}</span></div>' for b, f, r, l in pairs)
-P.append(page(3, f'''<h2>Màu hỗ trợ, <em>tỉ lệ</em> và độ tương phản</h2>
- <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:4mm">{ncards}</div>
- <div class="grid" style="grid-template-columns:1fr 1fr;gap:12mm;margin-top:8mm">
+P.append(page(3, f'''<h2 style="margin-bottom:3mm">Màu hỗ trợ, <em>tỉ lệ</em> và độ tương phản</h2>
+ {ncards.replace('height:34mm', 'height:29mm')}
+ <div class="grid" style="grid-template-columns:1fr 1fr;gap:12mm;margin-top:6mm">
   <div><h3>Tỉ lệ màu trên một ấn phẩm</h3><div style="display:flex;height:9mm;border-radius:1mm;overflow:hidden;box-shadow:inset 0 0 0 .25mm rgba(0,0,0,.06);margin:3mm 0">{bar}</div>
    <div class="small" style="display:flex;justify-content:space-between"><span>Xanh 44%</span><span>Paper 34%</span><span>Stone 10%</span><span>Vàng 7%</span><span>Đồng 5%</span></div>
    <p class="small" style="margin-top:3mm"><b style="color:var(--blue)">Một điểm nhấn vàng</b> trên mỗi bố cục: một đường gạch, một con số hoặc một mảng icon. Vàng là chữ ký, không phải màu nền.</p></div>
   <div><h3>Phối màu chữ đạt chuẩn đọc (WCAG)</h3><div class="grid" style="grid-template-columns:1fr 1fr;gap:3mm;margin-top:3mm">{pcards}</div></div></div>'''))
+
+
+# --- tonal scales and grades
+def tcol(h): return '#fff' if CS.grade(h) >= 45 else 'var(--ink)'
+BRAND_AT = {h: n for n, h in CS.BRAND.items()}
+def scale_row(name, steps, extra=(), cols=None):
+    """One scale as a strip of cells (a dot marks a brand colour); brand colours that are not steps are listed with their grade."""
+    cells = ''
+    for k, h in steps.items():
+        g = k.split('-')[1]; tag = BRAND_AT.get(h, '')
+        tag_html = '<div style="position:absolute;right:1.8mm;top:1.6mm;font:400 7pt BVP">●</div>' if tag else ''
+        cells += (f'<div style="background:{h};color:{tcol(h)};height:19mm;padding:1.6mm 1.8mm;position:relative;'
+                  f'{"box-shadow:inset 0 0 0 .25mm rgba(0,0,0,.07);" if CS.grade(h) < 8 else ""}">'
+                  f'<div style="font:600 9.5pt BVP">{g}</div><div style="font:500 5.4pt BVP;letter-spacing:.04em;opacity:.85;position:absolute;left:1.8mm;bottom:1.5mm">{h}</div>'
+                  f'{tag_html}</div>')
+    cols = cols or len(steps)
+    members = [(BRAND_AT[h], k.replace('-', ' ').title()) for k, h in steps.items() if h in BRAND_AT]
+    note = ''.join(f'<span style="margin-right:4mm">● {n} = {k}</span>' for n, k in members)
+    note += ''.join(f'<span style="display:inline-flex;align-items:center;gap:1.4mm;margin-right:4mm"><i style="width:3mm;height:3mm;border-radius:.5mm;background:{CS.BRAND[n]}"></i>{n} = {CS.brand_grade(n)}</span>' for n in extra)
+    return (f'<div style="display:grid;grid-template-columns:18mm 1fr;gap:3mm;align-items:start;margin-bottom:3.4mm">'
+            f'<div style="font:500 11pt Lora;color:var(--blue);padding-top:1mm">{name}</div>'
+            f'<div><div style="display:grid;grid-template-columns:repeat({cols},1fr);border-radius:1mm;overflow:hidden">{cells}</div>'
+            f'<div class="small" style="margin-top:1.2mm;font-size:6.6pt">{note}</div></div></div>')
+gold_steps = SC['Gold']
+P.append(page(3, f"""<div class="grid" style="grid-template-columns:1fr 70mm;gap:10mm">
+ <div><h2 style="margin-bottom:2mm">Thang sắc độ và <em>cấp độ sáng</em></h2>
+  <p style="width:175mm">Mỗi màu chính có một thang sắc độ cho giao diện, biểu đồ và nền phân cấp. Con số trên mỗi ô là cấp độ sáng, từ 0 (trắng) đến 100 (gần đen). Màu thương hiệu giữ nguyên mã và nằm trong thang ở cấp của nó.</p>
+  <div style="margin-top:4mm">
+   {scale_row('Blue', SC['Blue'], ('Deep Navy',))}
+   {scale_row('Bronze', SC['Bronze'], ('Drum Bronze', 'Bronze Ink'))}
+   {scale_row('Slate', SC['Slate'], ('Slate', 'Ink'))}
+   {scale_row('Gold', gold_steps, ('Drum Gold',), cols=10)}
+  </div></div>
+ <div style="padding-top:12mm"><h3>Quy tắc trừ cấp độ</h3>
+  {''.join(f'<div style="border-top:.25mm solid var(--hair);padding:2.6mm 0;display:grid;grid-template-columns:19mm 1fr;gap:3mm;align-items:baseline"><div style="font:500 17pt Lora;color:var(--blue)">≥ {d}</div><div><b style="color:var(--blue);font-weight:600">{r}</b><div class="small">{u}</div></div></div>' for d, r, u in (('40', '3 : 1', 'Chữ lớn từ 18 pt, icon, đường và cột biểu đồ'), ('50', '4,5 : 1 · AA', 'Chữ thân bài, nhãn, số liệu'), ('70', '7 : 1 · AAA', 'Chữ nhỏ, bảng dày số liệu')))}
+  <div style="margin-top:4mm;padding:3.5mm 4mm;background:var(--tint);border-left:.8mm solid var(--blue)" class="small"><b style="color:var(--blue)">Ví dụ.</b> Chữ VCCI Blue (70) trên Blue Tint (5): chênh 65, đạt AA. Chữ trắng (0) trên Blue 40: chênh 40, chỉ dùng cho chữ lớn.</div>
+  <p class="small" style="margin-top:4mm">Thang sắc độ dùng cho màn hình và in kỹ thuật số (mã HEX). Khi in offset, nhờ nhà in quy đổi và in thử. Logo luôn dùng màu gốc, không dùng thang này.</p></div></div>"""))
+
+# --- status colours
+def ui_icon(slug, col, size='5.2mm'):
+    svg = open(os.path.join(ROOT, 'brand-assets', '05_Icons', 'UI', 'SVG', 'currentColor', f'VCCI_UI_{slug}.svg'), encoding='utf-8').read()
+    return svg.replace('<svg ', f'<svg style="width:{size};height:{size};color:{col};flex:none" ', 1)
+STATUS_VI = {'Error': ('Lỗi', 'close', 'Chưa đạt yêu cầu', 'Hồ sơ thiếu giấy chứng nhận đăng ký doanh nghiệp.'),
+             'Warning': ('Cảnh báo', 'alert-triangle', 'Sắp hết hạn', 'Thẻ hội viên hết hạn sau 15 ngày.'),
+             'Success': ('Thành công', 'check-circle', 'Đã gửi đăng ký', 'VCCI sẽ xác nhận qua email trong hai ngày làm việc.'),
+             'Info': ('Thông tin', 'info', 'Lưu ý', 'Có thể nộp hồ sơ C/O trực tuyến trên eCoSys.')}
+def status_card(key):
+    v = ST[key]; vi, icon, title, body = STATUS_VI[key]
+    return (f'<div><div style="display:grid;grid-template-columns:1fr 1fr;height:16mm;border-radius:1mm;overflow:hidden">'
+            f'<div style="background:{v["strong"]};color:#fff;padding:2mm 2.4mm;font:600 6.4pt BVP;letter-spacing:.06em">ĐẬM<br>{v["strong"]}</div>'
+            f'<div style="background:{v["background"]};color:{v["strong"]};padding:2mm 2.4mm;font:600 6.4pt BVP;letter-spacing:.06em">NỀN<br>{v["background"]}</div></div>'
+            f'<div style="font:500 12pt Lora;color:var(--blue);margin:3mm 0 .6mm">{vi}</div><p class="small" style="margin-bottom:3mm">{v["use"]} · chữ đậm trên nền trắng {CS.contrast(v["strong"], "#FFFFFF"):.1f} : 1</p>'
+            f'<div style="background:{v["background"]};border-left:.8mm solid {v["strong"]};border-radius:.8mm;padding:3mm 3.4mm;display:flex;gap:2.6mm">{ui_icon(icon, v["strong"])}'
+            f'<div><div style="font:600 8.6pt BVP;color:{v["strong"]}">{title}</div><div style="font:400 7.8pt/1.45 BVP;color:var(--ink)">{body}</div></div></div></div>')
+pill = lambda key, t: f'<span style="display:inline-flex;align-items:center;gap:1mm;background:{ST[key]["background"]};color:{ST[key]["strong"]};font:600 6.8pt BVP;padding:.8mm 2.2mm .8mm 1.4mm;border-radius:3mm">{ui_icon(STATUS_VI[key][1], ST[key]["strong"], "3mm")}{t}</span>'
+rows_demo = [('Hồ sơ năng lực', 'Success', 'Đạt'), ('Báo cáo tài chính 2025', 'Warning', 'Cần bổ sung'), ('Giấy phép môi trường', 'Error', 'Chưa đạt'), ('Danh sách người lao động', 'Info', 'Đang xem xét')]
+P.append(page(3, f"""<h2 style="margin-bottom:2mm">Màu <em>trạng thái</em></h2>
+ <p style="width:200mm">Dùng trên website, ứng dụng hội viên, biểu mẫu và bảng đánh giá để báo lỗi, cảnh báo, xác nhận và ghi chú. Mỗi trạng thái có một màu đậm cho chữ, icon, đường viền và một màu nền nhạt.</p>
+ <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:6mm;margin-top:4mm">{''.join(status_card(k) for k in ST)}</div>
+ <div class="grid" style="grid-template-columns:1fr 1fr;gap:12mm;margin-top:7mm">
+  <div><h3>Quy tắc</h3><ul class="rules">
+   <li>Luôn có <b>icon và chữ</b>; không báo trạng thái chỉ bằng màu.</li>
+   <li>Chỉ dùng để báo trạng thái. Không dùng trang trí, không làm nền khối lớn, không dùng làm màu chuỗi biểu đồ.</li>
+   <li>Cảnh báo dùng vàng đất, khác Drum Gold. Màu trạng thái không tính là điểm nhấn vàng của bố cục.</li>
+   <li>Thông tin dùng chính VCCI Blue trên Blue Tint.</li></ul></div>
+  <div><h3>Ví dụ: bảng đánh giá hồ sơ</h3>
+   <div style="border-top:.4mm solid var(--blue)">{''.join(f'<div style="display:grid;grid-template-columns:1fr 34mm;align-items:center;padding:2.2mm 0;border-bottom:.25mm solid var(--hair);font:400 8.4pt BVP">{a}<span>{pill(k, t)}</span></div>' for a, k, t in rows_demo)}</div></div></div>"""))
 
 # ================================================================ 06 TYPE
 P.append(opener(4, 'Kiểu chữ', 'Hai họ chữ, cả hai đều miễn phí (giấy phép SIL OFL) và hỗ trợ đầy đủ tiếng Việt. Lora mang giọng trang trọng cho tiêu đề; Be Vietnam Pro rõ ràng cho nội dung.',
@@ -457,15 +533,177 @@ P.append(page(7, f'''<h2>Năm quy tắc <em>nhất quán</em></h2>
   <div><h3>Ảnh chụp</h3><p class="small" style="font-size:8.4pt">Ảnh thật về doanh nghiệp, nhà máy, hội nghị và con người Việt Nam; ánh sáng tự nhiên; bố cục có khoảng trống để đặt chữ. Tránh ảnh stock dàn dựng, ảnh bắt tay khuôn sáo, ảnh có màu sắc quá rực.</p></div>
   <div><h3>Song ngữ</h3><p class="small" style="font-size:8.4pt">Tiếng Việt đứng trước. Bản tiếng Anh đặt bên dưới hoặc bên phải, cỡ nhỏ hơn, dùng chữ nghiêng Lora hoặc màu Slate để phân cấp. Tên chính thức: Liên đoàn Thương mại và Công nghiệp Việt Nam / Vietnam Chamber of Commerce and Industry.</p></div></div>'''))
 
+# ================================================================ 08 DATA & CHARTS
+DEMO = '<span class="cap" style="color:var(--slate)">Số liệu minh họa</span>'
+def axis_text(x, y, t, anchor='middle', size=9, col='#5C6478', weight=400, fam='BVP'):
+    return f'<text x="{x}" y="{y}" text-anchor="{anchor}" font-family="{fam}" font-weight="{weight}" font-size="{size}" fill="{col}">{t}</text>'
+
+def column_chart(vals, colours, w=300, h=170, lo=0, hi=None, labels=True, label_idx=None):
+    hi = hi or max(v for _, v in vals) * 1.15; n = len(vals)
+    x0, x1, y0, y1 = 26, w - 6, 14, h - 22
+    bw = (x1 - x0) / n * .62; step = (x1 - x0) / n
+    yv = lambda v: y1 - (v - lo) / (hi - lo) * (y1 - y0)
+    g = ''.join(f'<line x1="{x0}" x2="{x1}" y1="{yv(t):.1f}" y2="{yv(t):.1f}" stroke="#E6E1D5" stroke-width=".6"/>{axis_text(x0 - 4, yv(t) + 3, t, "end", 7.5)}'
+                for t in range(int(lo), int(hi) + 1, max(1, int((hi - lo) / 4 // 5 * 5) or 1)) if t <= hi)
+    b = ''
+    for i, ((lab, v), c) in enumerate(zip(vals, colours)):
+        x = x0 + i * step + (step - bw) / 2
+        b += f'<rect x="{x:.1f}" y="{yv(v):.1f}" width="{bw:.1f}" height="{y1 - yv(v):.1f}" fill="{c}"/>'
+        if labels and (label_idx is None or i in label_idx):
+            b += axis_text(x + bw / 2, yv(v) - 3, f'{v:g}'.replace('.', ','), size=8, col='#264896', weight=500, fam='Lora')
+        b += axis_text(x + bw / 2, y1 + 11, lab, size=7.5)
+    return f'<svg viewBox="0 0 {w} {h}" style="width:100%;display:block">{g}<line x1="{x0}" x2="{x1}" y1="{y1}" y2="{y1}" stroke="#5C6478" stroke-width=".8"/>{b}</svg>'
+
+def line_chart(series, years, w=300, h=170, lo=0, hi=100):
+    x0, x1, y0, y1 = 26, w - 70, 12, h - 22
+    xv = lambda i: x0 + i * (x1 - x0) / (len(years) - 1)
+    yv = lambda v: y1 - (v - lo) / (hi - lo) * (y1 - y0)
+    g = ''.join(f'<line x1="{x0}" x2="{x1}" y1="{yv(t):.1f}" y2="{yv(t):.1f}" stroke="#E6E1D5" stroke-width=".6"/>{axis_text(x0 - 4, yv(t) + 3, t, "end", 7.5)}' for t in range(lo, hi + 1, (hi - lo) // 4))
+    g += ''.join(axis_text(xv(i), y1 + 11, y, size=7.5) for i, y in enumerate(years))
+    out = ''
+    for name, col, vals in series:
+        pts = ' '.join(f'{xv(i):.1f},{yv(v):.1f}' for i, v in enumerate(vals))
+        out += f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>'
+        out += f'<circle cx="{xv(len(vals) - 1):.1f}" cy="{yv(vals[-1]):.1f}" r="2.4" fill="{col}"/>'
+        out += axis_text(xv(len(vals) - 1) + 6, yv(vals[-1]) + 3, name, 'start', 8, col if col != '#8FA6D6' else '#5474B7', 600)
+    return f'<svg viewBox="0 0 {w} {h}" style="width:100%;display:block">{g}{out}</svg>'
+
+def stacked_bars(rows, cats, colours, w=300, h=170):
+    x0, x1 = 84, w - 6; bh = 15; gap = (h - 40 - len(rows) * bh) / max(len(rows) - 1, 1)
+    out = ''
+    for r, (lab, vals) in enumerate(rows):
+        y = 6 + r * (bh + gap); x = x0; tot = sum(vals)
+        out += axis_text(x0 - 5, y + bh / 2 + 3, lab, 'end', 7.5, '#161A26')
+        for v, c in zip(vals, colours):
+            ww = (x1 - x0) * v / tot
+            out += f'<rect x="{x:.1f}" y="{y:.1f}" width="{ww:.1f}" height="{bh}" fill="{c}" stroke="#fff" stroke-width=".8"/>'
+            if ww > 16: out += axis_text(x + ww / 2, y + bh / 2 + 3, f'{round(100 * v / tot)}%', size=7, col='#fff' if CS.grade(c) >= 45 else '#161A26', weight=600)
+            x += ww
+    lx = x0; ly = h - 12
+    for cname, c in zip(cats, colours):
+        out += f'<rect x="{lx}" y="{ly - 6}" width="7" height="7" fill="{c}"/>' + axis_text(lx + 10, ly, cname, 'start', 7.2, '#161A26')
+        lx += 12 + len(cname) * 4.4
+    return f'<svg viewBox="0 0 {w} {h}" style="width:100%;display:block">{out}</svg>'
+
+cat = DV['categorical']
+cat_strip = ''.join(f'<div><div style="height:14mm;border-radius:1mm;background:{h};color:{"#fff" if CS.grade(h) >= 45 else "var(--ink)"};padding:1.6mm 2mm;font:600 9pt BVP">{i}</div>'
+                    f'<div style="font:500 7.4pt BVP;color:var(--ink);margin-top:1.4mm">{n}</div><div class="small" style="font-size:6.4pt">{h}</div></div>' for i, (n, h) in enumerate(cat, 1))
+principles = [('Rõ ràng', 'Mỗi biểu đồ nói một thông điệp; tiêu đề nêu thông điệp đó.'), ('Chính xác', 'Trục cột bắt đầu từ 0, khoảng chia đều, không bóp méo tỉ lệ.'),
+              ('Dễ tiếp cận', 'Không truyền tải thông tin chỉ bằng màu; ghi nhãn trực tiếp.'), ('Nhất quán', 'Cùng thứ tự màu, cùng kiểu chữ trên mọi báo cáo và slide.'),
+              ('Có nguồn', 'Ghi nguồn và năm số liệu dưới mỗi biểu đồ.')]
+P.append(opener(8, 'Dữ liệu và biểu đồ', 'VCCI công bố nhiều báo cáo số liệu. Biểu đồ phải đọc đúng, đọc nhanh, và nhìn qua là nhận ra của VCCI.',
+  f"""<h3>Năm nguyên tắc</h3>
+  <div class="grid" style="grid-template-columns:repeat(5,1fr);gap:5mm;margin-bottom:9mm">{''.join(f'<div style="border-top:.4mm solid var(--blue);padding-top:2.6mm"><div style="font:500 12pt Lora;color:var(--blue);margin-bottom:1.2mm">{a}</div><p class="small">{b}</p></div>' for a, b in principles)}</div>
+  <h3>Màu chuỗi dữ liệu · theo đúng thứ tự</h3>
+  <div class="grid" style="grid-template-columns:repeat(6,1fr);gap:3mm">{cat_strip}</div>
+  <div style="margin-top:6mm;padding:3.5mm 4.5mm;background:var(--tint);border-left:.8mm solid var(--blue)" class="small"><b style="color:var(--blue)">Vàng không phải màu chuỗi.</b> Drum Gold chỉ dùng để nhấn <b>một</b> giá trị quan trọng nhất, luôn kèm nhãn số. Tối đa sáu chuỗi; nhiều hơn thì gộp nhóm nhỏ thành "Khác" hoặc tách thành nhiều biểu đồ nhỏ.<br><b style="color:var(--blue)">Trong Office.</b> Theme Office VCCI (Word, Excel, PowerPoint) xếp accent 1–5 theo đúng thứ tự màu chuỗi, accent 6 là Drum Gold. Biểu đồ mới tự nhận màu chuỗi 1–5; nếu có chuỗi thứ sáu, đổi tay sang Deep Navy (Text/Background Dark 2).</div>
+  <h3 style="margin-top:8mm">Nhấn một giá trị</h3>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:5mm">{''.join(f'<div style="display:grid;grid-template-columns:14mm 1fr;gap:3mm;align-items:center"><i style="height:14mm;border-radius:1mm;background:{h}"></i><div><div style="font:500 10pt Lora;color:var(--blue)">{a}</div><div class="small">{b} · {h}</div></div></div>' for a, b, h in (('Giá trị nhấn', 'Drum Gold, kèm nhãn số', DV['highlight']['focus']), ('Giá trị thường', 'VCCI Blue', DV['highlight']['context']), ('Giá trị lùi', 'Slate 20, khi nhiều mục', DV['highlight']['muted'])))}</div>"""))
+
+yrs = ['2020', '2021', '2022', '2023', '2024', '2025']
+line = line_chart([('Hà Nội', cat[0][1], [61, 62, 63.5, 65, 66.8, 68.6]), ('TP.HCM', cat[1][1], [64, 65, 65.5, 66, 66.3, 66.2]), ('Đà Nẵng', cat[2][1], [66, 65, 65.5, 65.2, 64.5, 63.6])], yrs, lo=55, hi=75, h=150)
+hl_vals = list(zip(yrs, [63.2, 64.5, 65.1, 64.8, 66.0, 67.4]))
+hl = column_chart(hl_vals, [cat[0][1]] * 5 + [DV['highlight']['focus']], label_idx={5}, hi=80, h=150)
+muted = column_chart(list(zip(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'], [42, 38, 35, 33, 31, 28, 24, 20])), [DV['highlight']['muted']] * 3 + [cat[0][1]] + [DV['highlight']['muted']] * 4, label_idx={3}, hi=50, h=150)
+stack = stacked_bars([('Doanh nghiệp nhỏ', [46, 30, 16, 8]), ('Doanh nghiệp vừa', [38, 34, 19, 9]), ('Doanh nghiệp lớn', [29, 37, 24, 10])],
+                     ['Tốt', 'Khá', 'Trung bình', 'Kém'], [cat[0][1], cat[1][1], cat[4][1], cat[2][1]], h=150)
+def chart_card(title, svg, note, ok=True):
+    return (f'<div><div class="card" style="background:#fff;box-shadow:inset 0 0 0 .25mm var(--hair);padding:4mm 4mm 3mm">'
+            f'<div style="font:500 10pt/1.3 Lora;color:var(--blue);margin-bottom:2mm">{title}</div>{svg}'
+            f'<div class="small" style="font-size:6.4pt;margin-top:1mm">Nguồn: VCCI · {DEMO}</div></div>'
+            f'<p class="small" style="margin:1.6mm 0 0"><span class="{"ok" if ok else "bad"}">{"Đúng" if ok else "Sai"}</span>&nbsp; {note}</p></div>')
+P.append(page(8, f"""<div class="grid" style="grid-template-columns:1fr 66mm;gap:10mm">
+ <div><h2 style="margin-bottom:2.4mm">Màu chuỗi và <em>điểm nhấn</em></h2>
+ <div class="grid" style="grid-template-columns:1fr 1fr;gap:3.4mm 6mm">
+  {chart_card('Hà Nội vượt TP.HCM và Đà Nẵng từ năm 2024', line, 'Ba chuỗi theo thứ tự 1–2–3. Ghi tên ở cuối đường thay cho chú giải.')}
+  {chart_card('Năm 2025 đạt điểm cao nhất trong sáu năm', hl, 'Một cột vàng có nhãn số; các cột còn lại VCCI Blue.')}
+  {chart_card('Ngành D đứng thứ tư trong tám ngành', muted, 'Khi cần làm nổi một mục giữa nhiều mục: mục đó VCCI Blue, còn lại Slate 20.')}
+  {chart_card('Doanh nghiệp nhỏ đánh giá tích cực hơn', stack, 'Cơ cấu phần trăm: thang thứ bậc từ tốt (xanh) đến kém (đồng), chữ số trên mảng.')}</div></div>
+ <div style="padding-top:13mm">
+  <div><h3>Chữ trong biểu đồ</h3><ul class="rules">
+   <li><b>Tiêu đề</b> Lora Medium, nêu thông điệp chứ không chỉ tên số liệu.</li>
+   <li><b>Nhãn, trục, chú giải</b> Be Vietnam Pro Regular màu Slate; nhãn số Lora màu VCCI Blue.</li>
+   <li><b>Nguồn</b> cỡ chú thích, đặt dưới biểu đồ: "Nguồn: VCCI, Khảo sát PCI 2025".</li></ul></div>
+  <div style="margin-top:5mm"><h3>Đường nét</h3><ul class="rules">
+   <li>Lưới ngang mảnh màu Stone; bỏ lưới dọc và khung viền.</li>
+   <li>Trục đáy màu Slate. Số thập phân dùng dấu phẩy theo cách viết tiếng Việt.</li>
+   <li>Không 3D, không bóng đổ, không chuyển màu trong cột.</li></ul></div></div>"""))
+
+# --- sequential and diverging
+regions = ['Đồng bằng sông Hồng', 'Trung du và miền núi phía Bắc', 'Bắc Trung Bộ và duyên hải miền Trung', 'Tây Nguyên', 'Đông Nam Bộ', 'Đồng bằng sông Cửu Long']
+hm = [[64.1, 65.0, 65.8, 66.2, 67.5, 68.3], [60.2, 60.9, 61.8, 62.0, 63.1, 63.9], [62.0, 62.6, 63.9, 64.4, 65.2, 66.0],
+      [59.0, 59.8, 60.1, 61.2, 61.9, 62.7], [65.2, 65.9, 66.1, 67.0, 67.8, 68.9], [62.8, 63.5, 64.0, 64.9, 65.5, 66.6]]
+seq = DV['sequential_7']; lo_, hi_ = 59, 69.5
+cls = lambda v: seq[min(6, max(0, int((v - lo_) / (hi_ - lo_) * 7)))]
+heat = ''.join(f'<div style="display:grid;grid-template-columns:44mm repeat(6,1fr);gap:.8mm;margin-bottom:.8mm"><div style="font:400 7.2pt/1.25 BVP;align-self:center">{r}</div>'
+               + ''.join(f'<div style="background:{cls(v)};color:{"#fff" if CS.grade(cls(v)) >= 45 else "var(--ink)"};font:500 7pt BVP;text-align:center;padding:1.6mm 0">{f"{v:.1f}".replace(".", ",")}</div>' for v in row) + '</div>'
+               for r, row in zip(regions, hm))
+heat_head = '<div style="display:grid;grid-template-columns:44mm repeat(6,1fr);gap:.8mm;margin-bottom:1mm"><span></span>' + ''.join(f'<span class="small" style="text-align:center;font-size:6.8pt">{y}</span>' for y in yrs) + '</div>'
+div = DV['diverging_7']
+chg = [('Tiếp cận đất đai', -1.8), ('Chi phí thời gian', -0.9), ('Chi phí không chính thức', -0.3), ('Tính minh bạch', 0.2), ('Cạnh tranh bình đẳng', 0.9), ('Đào tạo lao động', 1.6), ('Hỗ trợ doanh nghiệp', 2.3)]
+def dcol(v):
+    a = abs(v); k = 0 if a < .5 else (1 if a < 1.2 else (2 if a < 2 else 3))
+    return div[3 - k] if v < 0 else div[3 + k]
+cx, sc_ = 150, 40
+dbars = ''
+for i, (lab, v) in enumerate(chg):
+    y = 6 + i * 21; x = cx if v >= 0 else cx + v * sc_; col = dcol(v) if abs(v) >= .5 else (div[2] if v < 0 else div[4])
+    dbars += f'<rect x="{x:.1f}" y="{y}" width="{abs(v) * sc_:.1f}" height="13" fill="{col}"/>'
+    dbars += axis_text(cx - 6 if v >= 0 else x - 4, y + 9.5, lab, 'end', 7.5, '#161A26')
+    dbars += axis_text(x + abs(v) * sc_ + 4 if v >= 0 else cx + 4, y + 9.5, (f'+{v:.1f}' if v > 0 else f'{v:.1f}').replace('.', ','), 'start', 7.5, '#264896' if v > 0 else '#9C570C', 600)
+dsvg = f'<svg viewBox="0 0 300 156" style="width:100%;display:block"><line x1="{cx}" x2="{cx}" y1="0" y2="152" stroke="#5C6478" stroke-width=".8"/>{dbars}</svg>'
+def ramp(cols, labels):
+    cells = ''.join(f'<i style="height:7mm;background:{c}"></i>' for c in cols)
+    return (f'<div style="display:grid;grid-template-columns:repeat({len(cols)},1fr);border-radius:1mm;overflow:hidden">{cells}</div>'
+            f'<div class="small" style="display:flex;justify-content:space-between;font-size:6.6pt;margin-top:1mm">{"".join(f"<span>{t}</span>" for t in labels)}</div>')
+P.append(page(8, f"""<h2 style="margin-bottom:3mm">Thang <em>tuần tự</em> và thang <em>phân kỳ</em></h2>
+ <div class="grid" style="grid-template-columns:1.15fr 1fr;gap:12mm">
+  <div><h3>Tuần tự · giá trị có thứ bậc, bản đồ</h3>{ramp(seq, ['Thấp', 'Blue 10 → Blue 70', 'Cao'])}
+   <p class="small" style="margin-top:3mm">Dùng cho điểm số, tỉ lệ, xếp hạng và bản đồ tô màu theo tỉnh (ví dụ PCI). Nhạt là thấp, đậm là cao. Bản đồ có ít nhóm dùng bản 5 bậc: {", ".join(DV["sequential_5"])}.</p>
+   <div class="card" style="background:#fff;box-shadow:inset 0 0 0 .25mm var(--hair);padding:4mm;margin-top:3mm">
+    <div style="font:500 10pt Lora;color:var(--blue);margin-bottom:2.4mm">Đông Nam Bộ và Đồng bằng sông Hồng dẫn đầu</div>{heat_head}{heat}
+    <div class="small" style="font-size:6.4pt;margin-top:1.6mm">Nguồn: VCCI · {DEMO}</div></div></div>
+  <div><h3>Phân kỳ · tăng và giảm quanh một mốc</h3>{ramp(div, ['Giảm', 'Ivory = không đổi', 'Tăng'])}
+   <p class="small" style="margin-top:3mm">Dùng khi số liệu xoay quanh một mốc: thay đổi so với năm trước, chênh lệch so với trung bình. Đồng là thấp hơn mốc, xanh là cao hơn; độ đậm theo độ lớn. Không dùng đỏ và xanh lá: khó phân biệt với người mù màu và trùng màu trạng thái.</p>
+   <div class="card" style="background:#fff;box-shadow:inset 0 0 0 .25mm var(--hair);padding:4mm;margin-top:3mm">
+    <div style="font:500 10pt Lora;color:var(--blue);margin-bottom:2.4mm">Đất đai và chi phí thời gian giảm điểm so với 2024</div>{dsvg}
+    <div class="small" style="font-size:6.4pt;margin-top:1.6mm">Thay đổi điểm chỉ số thành phần, 2025 so với 2024 · Nguồn: VCCI · {DEMO}</div></div></div></div>"""))
+
+# --- choosing a chart
+kinds = [('Thay đổi theo thời gian', 'Đường; cột nếu ít mốc', 'Điểm PCI qua các năm'), ('So sánh, xếp hạng', 'Cột ngang, sắp xếp theo giá trị', 'Xếp hạng 63 tỉnh, thành'),
+         ('Cơ cấu, tỉ trọng', 'Cột chồng 100%; tròn khi không quá 4 phần', 'Cơ cấu doanh nghiệp theo quy mô'), ('Chênh lệch quanh một mốc', 'Cột phân kỳ', 'Thay đổi so với năm trước'),
+         ('Phân bố', 'Cột tần suất, biểu đồ chấm', 'Phân bố điểm của doanh nghiệp'), ('Tương quan', 'Phân tán', 'Chi phí không chính thức và quy mô'),
+         ('Theo địa bàn', 'Bản đồ tô màu, bảng nhiệt', 'Chỉ số theo tỉnh hoặc vùng'), ('Một con số quan trọng', 'Số liệu nổi bật, không cần biểu đồ', 'Tỉ lệ doanh nghiệp hài lòng')]
+ktable = ''.join(f'<div style="display:grid;grid-template-columns:48mm 56mm 1fr;gap:4mm;padding:2.2mm 0;border-top:.25mm solid var(--hair);font:400 8.2pt/1.4 BVP"><b style="font-weight:600;color:var(--blue)">{a}</b><span>{b}</span><span class="small" style="font-size:7.6pt">{c}</span></div>' for a, b, c in kinds)
+bad_axis = column_chart(list(zip(['2023', '2024', '2025'], [64.8, 66.0, 67.4])), [cat[0][1]] * 3, lo=64, hi=68, w=200, h=130)
+bad_many = column_chart(list(zip(list('ABCDEFG'), [30, 26, 22, 19, 15, 12, 9])), ['#264896', '#FFCD00', '#CC713C', '#2E9E5B', '#C23B22', '#8FA6D6', '#7B4FA0'], w=200, h=130)
+pie_slices, acc = '', 0
+for v, c in zip([22, 18, 14, 12, 10, 9, 8, 7], ['#264896', '#8FA6D6', '#CC713C', '#5C6478', '#F2B18E', '#0B1A4F', '#A9C0EC', '#E09166']):
+    a0, a1 = acc / 100 * 6.2832, (acc + v) / 100 * 6.2832; acc += v
+    import math
+    pie_slices += f'<path d="M100,65 L{100 + 50 * math.sin(a0):.1f},{65 - 50 * math.cos(a0):.1f} A50,50 0 {1 if v > 50 else 0} 1 {100 + 50 * math.sin(a1):.1f},{65 - 50 * math.cos(a1):.1f} Z" fill="{c}" stroke="#fff" stroke-width="1"/>'
+bad_pie = f'<svg viewBox="0 0 200 130" style="width:100%;display:block">{pie_slices}</svg>'
+bad = lambda svg, note: f'<div><div class="card x" style="background:#fff;box-shadow:inset 0 0 0 .25mm var(--hair);padding:3mm;height:40mm;display:flex;align-items:center">{svg}</div><div class="bad" style="margin-top:2mm">Sai</div><p class="small">{note}</p></div>'
+P.append(page(8, f"""<div class="grid" style="grid-template-columns:1.3fr 1fr;gap:12mm">
+ <div><h2 style="margin-bottom:3mm">Chọn <em>biểu đồ</em></h2>
+  <div style="display:grid;grid-template-columns:48mm 56mm 1fr;gap:4mm;padding-bottom:1.6mm"><span class="cap">Muốn cho thấy</span><span class="cap">Dùng</span><span class="cap">Ví dụ</span></div>{ktable}
+  <p class="small" style="margin-top:3mm">Bảng chọn biểu đồ dựa trên hướng dẫn của GOV.UK và Văn phòng Thống kê Quốc gia Anh (ONS), điều chỉnh cho báo cáo của VCCI.</p></div>
+ <div><h2 style="margin-bottom:3mm">Những điều <em>không được làm</em></h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:5mm">
+   {bad(bad_axis, 'Trục cột không bắt đầu từ 0: chênh lệch nhỏ bị phóng to. Cần thu hẹp trục thì dùng biểu đồ đường và ghi rõ.')}
+   {bad(bad_many, 'Màu ngoài bảng, vàng làm màu chuỗi, mỗi cột một màu không mang nghĩa.')}
+   {bad(bad_pie, 'Biểu đồ tròn quá nhiều phần: không so sánh được. Dùng cột ngang sắp xếp.')}
+   <div style="padding-top:2mm"><h3>Không được</h3><ul class="rules no"><li>Hiệu ứng 3D, bóng đổ, chuyển màu</li><li>Hai trục tung trên một biểu đồ</li><li>Biểu đồ không ghi nguồn</li><li>Dùng màu trạng thái làm màu chuỗi</li></ul></div></div></div></div>"""))
+
 # ================================================================ 10 APPLICATIONS
 tpl = lambda f, w: f'<img class="shot" src="{IMG(f)}" style="width:{w}">'
-P.append(opener(8, 'Ứng dụng', 'Template Word, PowerPoint và mẫu thiết kế giúp mọi đơn vị tạo ra ấn phẩm đúng chuẩn ngay từ đầu. Các file nằm trong thư mục 06_Templates.',
+P.append(opener(9, 'Ứng dụng', 'Template Word, PowerPoint và mẫu thiết kế giúp mọi đơn vị tạo ra ấn phẩm đúng chuẩn ngay từ đầu. Các file nằm trong thư mục 06_Templates.',
   f'''<div class="grid" style="grid-template-columns:repeat(3,1fr);gap:7mm">
    <div>{tpl('tpl_letter-1.png', '100%')}<div style="font:500 11pt Lora;color:var(--blue);margin-top:3mm">Thư / Letterhead</div><p class="small">VCCI_Letterhead.dotx · thư, công văn, thư ngỏ</p></div>
    <div>{tpl('tpl_invite-1.png', '100%')}<div style="font:500 11pt Lora;color:var(--blue);margin-top:3mm">Thư mời</div><p class="small">VCCI_Invitation.dotx · thư mời sự kiện một trang</p></div>
    <div>{tpl('tpl_report-1.png', '100%')}<div style="font:500 11pt Lora;color:var(--blue);margin-top:3mm">Báo cáo</div><p class="small">VCCI_Report.dotx · bìa, mục lục, thân bài, bìa sau</p></div></div>'''))
 
-P.append(page(8, f'''<h2>Báo cáo <em>từ template</em></h2>
+P.append(page(9, f'''<h2>Báo cáo <em>từ template</em></h2>
  <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:6mm;margin-top:2mm">
   {''.join(f'<div>{tpl(f, "100%")}<p class="small" style="margin-top:2.4mm">{d}</p></div>' for f, d in [('tpl_report-2.png', 'Mục lục tự động từ Heading 1–3'), ('tpl_report-3.png', 'Mở chương: nhãn, tiêu đề, gạch vàng, đoạn dẫn, số liệu nổi bật'), ('tpl_report-4.png', 'Bảng chuẩn và biểu đồ theo màu thương hiệu'), ('tpl_report-6.png', 'Bìa sau: logo trên ô nền sáng, thông tin liên hệ')])}</div>
  <p class="small" style="margin-top:5mm">Dùng Styles có sẵn (Title, VCCI Label, Heading 1–3, VCCI Lead, Quote, VCCI Callout, Caption). Đổi hero icon trên bìa theo chủ đề báo cáo bằng lệnh <b>Change Picture</b>. Hướng dẫn đầy đủ: 06_Templates/README.md.</p>'''))
@@ -474,7 +712,7 @@ slides = [('ppt-01.png', '01 Bìa sáng', 'Họp, làm việc với đối tác'
           ('ppt-04.png', '13 Chuyển chương', 'Số chương, hero icon, hiệu ứng Fade'), ('ppt-05.png', '03 Tiêu đề và nội dung', 'Chữ 18 pt, tối đa 5 ý'),
           ('ppt-08.png', '14 Số liệu nổi bật', 'Chỉ con số đầu tiên màu vàng'), ('ppt-09.png', '07 Biểu đồ và bảng', 'Biểu đồ thật, một cột vàng làm điểm nhấn'),
           ('ppt-15.png', '06 Nội dung dày', 'Chữ 14 pt, cho bài gửi đọc'), ('ppt-17.png', '18 Kết thúc', 'Lời cảm ơn và thông tin liên hệ')]
-P.append(page(8, f'''<h2>Trình chiếu <em>từ template</em></h2>
+P.append(page(9, f'''<h2>Trình chiếu <em>từ template</em></h2>
  <p style="width:250mm">VCCI_Presentation.potx: khổ 16:9, 18 layout (11 nền sáng, 7 nền xanh), font đã nhúng, mở ra với 17 slide mẫu có ghi chú cách dùng.</p>
  <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:5mm 6mm;margin-top:3mm">
   {''.join(f'<div>{tpl(f, "100%")}<div style="font:500 9.5pt Lora;color:var(--blue);margin-top:2mm">{n}</div><p class="small" style="margin:0">{d}</p></div>' for f, n, d in slides)}</div>
@@ -483,7 +721,7 @@ P.append(page(8, f'''<h2>Trình chiếu <em>từ template</em></h2>
   <div><h3>Logo và chân trang</h3><p class="small">Logo ở bìa, slide kết thúc và góc slide nền sáng. Chân trang: Insert → Header &amp; Footer → Apply to All.</p></div>
   <div><h3>Tiết chế</h3><p class="small">Một điểm nhấn vàng mỗi slide. Hiệu ứng Fade chỉ dùng cho slide chuyển chương; không thêm hiệu ứng khác.</p></div></div>'''))
 
-P.append(page(8, f'''<h2>Kênh số và <em>sự kiện</em></h2>
+P.append(page(9, f'''<h2>Kênh số và <em>sự kiện</em></h2>
  <div class="grid" style="grid-template-columns:1.55fr .75fr .95fr;gap:6mm;align-items:start">
   <div>{tpl('mock_website.jpg', '100%')}<p class="small" style="margin-top:2.4mm">Website: logo đầy đủ trên thanh điều hướng sáng, khối hero xanh có họa tiết vòng trống.</p>
    <div style="margin-top:5mm">{tpl('mock_social.jpg', '100%')}<p class="small" style="margin-top:2.4mm">Mạng xã hội: ba khuôn mẫu Quan điểm, Cột mốc, Chương trình. Logo luôn trên ô nền sáng khi đặt trên nền xanh.</p></div></div>
@@ -491,11 +729,11 @@ P.append(page(8, f'''<h2>Kênh số và <em>sự kiện</em></h2>
   <div>{tpl('mock_poster.jpg', '100%')}<p class="small" style="margin-top:2.4mm">Poster sự kiện A2.</p>
    <div style="margin-top:4mm">{tpl('mock_badge.jpg', '100%')}<p class="small" style="margin-top:2.4mm">Thẻ đại biểu: đầu thẻ nền sáng, dải vàng ghi tên sự kiện.</p></div></div></div>'''))
 
-assets = [('01_Logo', 'Logo chính, lockup, bản ô nền sáng: SVG, PNG, PDF; bản gốc .CDR'), ('02_Colour', 'Bảng màu: Office theme, Adobe ASE, CSS, JSON'),
+assets = [('01_Logo', 'Logo chính, lockup, bản ô nền sáng: SVG, PNG, PDF; bản gốc .CDR'), ('02_Colour', 'Bảng màu, thang sắc độ, màu trạng thái, màu biểu đồ: Office theme, Adobe ASE, CSS, JSON'),
           ('03_Fonts', 'Lora, Be Vietnam Pro và giấy phép SIL OFL'), ('04_Graphics', 'Vòng trống, mặt trời 14 cánh, cung chữ C, trường chấm'),
           ('05_Icons', '48 icon nhỏ, 24 hero icon; quy cách ICON_SPEC.md'), ('06_Templates', 'Template Word (thư, báo cáo, thư mời) và PowerPoint 16:9'),
           ('07_Guidelines', 'Tài liệu này'), ('brand-tokens.json', 'Toàn bộ thông số dạng máy đọc được, cho lập trình viên')]
-P.append(page(8, f'''<div class="grid" style="grid-template-columns:1.1fr 1fr;gap:12mm">
+P.append(page(9, f'''<div class="grid" style="grid-template-columns:1.1fr 1fr;gap:12mm">
  <div><h2>Văn phòng phẩm và <em>quà tặng</em></h2>{tpl('mock_stationery.jpg', '100%')}<div class="grid" style="grid-template-columns:1fr 1fr;gap:5mm;margin-top:5mm"><div>{tpl('mock_giftbox.jpg', '100%')}</div><p class="small">Bao bì và quà tặng: hộp xanh, nhãn giấy sáng in logo đầy đủ. Không in logo chữ trắng hay chữ vàng ép kim lên bề mặt xanh.</p></div></div>
  <div><h2>Danh mục <em>tài sản</em></h2>{''.join(f'<div style="display:grid;grid-template-columns:40mm 1fr;gap:4mm;padding:2.6mm 0;border-top:.25mm solid var(--hair)"><b style="font:600 8.4pt BVP;color:var(--blue)">{a}</b><span class="small" style="font-size:8.2pt">{b}</span></div>' for a, b in assets)}
   <div style="margin-top:6mm;padding:4mm 5mm;background:var(--tint);border-left:.8mm solid var(--blue)" class="small">Cài font và bảng màu theo hướng dẫn trong <b>brand-assets/README.md</b>. Luôn lấy file từ bộ tài sản chính thức, không chụp màn hình hay sao chép logo từ website.</div></div></div>'''))
@@ -507,12 +745,13 @@ P.append(f'''<section class="page" style="background:linear-gradient(160deg,#2B4
   <img src="{LOGO}" style="width:66mm">
   <div style="margin-top:7mm;font:600 9pt BVP;color:var(--blue)">Liên đoàn Thương mại và Công nghiệp Việt Nam</div>
   <div class="small" style="font-size:8pt">Số 9 Đào Duy Anh, Đống Đa, Hà Nội · T +84 24 3574 2022 · vcci.com.vn</div>
-  <div class="small" style="font-size:7pt;margin-top:3mm">Hướng dẫn Nhận diện Thương hiệu · Phiên bản 1.0 · Tháng 10/2026</div></div>
+  <div class="small" style="font-size:7pt;margin-top:3mm">Hướng dẫn Nhận diện Thương hiệu · Phiên bản 1.1 · Tháng 10/2026</div></div>
 </section>''')
 
+P[1] = re.sub(r'@@PG(\d)@@', lambda m: f'{START[int(m.group(1))]:02d}', P[1])
 html = f'<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>VCCI Hướng dẫn Nhận diện Thương hiệu</title><style>{CSS}</style></head><body style="counter-reset:pg">{"".join(P)}</body></html>'
 hp = os.path.join(G, 'guide.html'); open(hp, 'w', encoding='utf-8').write(html)
-pdf = os.path.join(OUT_DIR, 'VCCI_Huong-dan-Nhan-dien-Thuong-hieu_v1.0.pdf')
+pdf = os.path.join(OUT_DIR, 'VCCI_Huong-dan-Nhan-dien-Thuong-hieu_v1.1.pdf')
 subprocess.run([BA.EDGE, '--headless=new', '--disable-gpu', '--allow-file-access-from-files', '--no-pdf-header-footer', '--virtual-time-budget=8000',
                 f'--print-to-pdf={pdf}', 'file:///' + hp.replace(os.sep, '/')], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 print('pages', len(P), '->', pdf, os.path.getsize(pdf) // 1024, 'KB')

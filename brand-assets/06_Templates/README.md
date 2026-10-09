@@ -1,4 +1,4 @@
-# Template Word và PowerPoint VCCI — v1.0
+# Template Word và PowerPoint VCCI — v1.1
 
 | File | Dùng cho | Cấu trúc |
 |---|---|---|
@@ -70,7 +70,7 @@ Khổ 16:9, một file có cả layout nền sáng và nền xanh, font đã nh�
 - **Chân trang:** *Insert → Header & Footer*, nhập tên bài trình bày vào ô *Footer*, đánh dấu *Slide number*, chọn *Apply to All*. Bìa, ảnh toàn khung và slide kết thúc không có chân trang.
 - **Hero icon ở slide chuyển chương:** nhấp chuột phải vào icon → *Change Picture* → chọn file trong `05_Icons/Hero/PNG/Gold-on-dark/`.
 - **Ảnh:** nhấp vào biểu tượng trong khung ảnh để chèn; ảnh tự cắt vừa khung. Chỉ dùng ảnh thật.
-- **Biểu đồ:** biểu đồ tự lấy màu theme theo thứ tự Xanh, Vàng, Nâu đồng, Slate. Muốn nhấn một giá trị, tô riêng cột đó màu vàng, các cột còn lại để xanh.
+- **Biểu đồ:** biểu đồ tự lấy màu theme theo thứ tự VCCI Blue, Sky, Nâu đồng, Slate, Bronze 20 (chuỗi thứ sáu đổi tay sang Deep Navy). Vàng không phải màu chuỗi: muốn nhấn một giá trị, tô riêng cột đó màu vàng (Accent 6) và giữ nhãn số. Trục cột bắt đầu từ 0. Template Word cũng dùng theme này nên biểu đồ chèn trong Word lấy cùng thứ tự màu.
 - **Số liệu nổi bật:** chỉ con số đầu tiên màu vàng (quy tắc một điểm nhấn vàng).
 - **Bảng:** kiểu bảng mặc định của PowerPoint đã lấy màu xanh VCCI. Để giống mẫu, tô hàng tiêu đề màu xanh, hàng tổng màu Ivory, và chỉ giữ đường kẻ ngang.
 - **Hiệu ứng:** chỉ slide chuyển chương có Fade; không thêm hiệu ứng cho các slide khác.

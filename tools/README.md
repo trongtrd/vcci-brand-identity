@@ -10,11 +10,15 @@ python tools/build.py assets guide   # một số bước
 | Bước | Script | Đầu vào | Đầu ra | Cần |
 |---|---|---|---|---|
 | `logo` | `cdr/decompress.py`, `cdr/mkvector.py` | `source/logo/Logo_VCCI.cdr` | `build/logo/vcci-logo.svg`, `vcci-drum.svg` | Python |
-| `assets` | `assets/build_assets.py` | SVG gốc ở trên (nếu chưa có thì dùng bản trong `brand-assets`) | `brand-assets/01_Logo`, `02_Colour`, `04_Graphics` | Edge |
+| `assets` | `assets/build_assets.py`, `assets/colour_system.py` | SVG gốc ở trên (nếu chưa có thì dùng bản trong `brand-assets`) | `brand-assets/01_Logo`, `02_Colour`, `04_Graphics` | Edge |
 | `board` | `board/render.py` | `board/vcci-brand-board.html` | `board/export/*`, `build/board/rects.json` | Edge |
 | `word` | `word/make_art.py`, `word/make_templates.js`, `word/finalize.py` | `brand-assets` | `brand-assets/06_Templates/Word/*` | Node.js, Word, Poppler |
 | `ppt` | `ppt/make_art.py`, `ppt/make_pptx.js`, `ppt/finalize.py` | `brand-assets` | `brand-assets/06_Templates/PowerPoint/*` | Node.js, PowerPoint |
 | `guide` | `guide/prepare_images.py`, `guide/make_guide.py` | bảng nhận diện, template, `brand-assets` | `brand-assets/07_Guidelines/*.pdf` | Edge, Poppler |
+
+## Hệ màu mở rộng
+
+`assets/colour_system.py` tính thang sắc độ (trong không gian OKLCH, theo độ sáng tương đối WCAG), màu trạng thái và màu biểu đồ, rồi kiểm tra mọi cặp màu theo quy tắc trừ cấp độ. Chạy riêng để xem bảng và kết quả kiểm tra: `python tools/assets/colour_system.py`. `python tools/assets/build_assets.py colours` chỉ tạo lại `02_Colour` (không cần Edge) và báo lỗi nếu `brand-tokens.json` (sửa tay) lệch với giá trị tính ra.
 
 ## Chương trình bên ngoài
 

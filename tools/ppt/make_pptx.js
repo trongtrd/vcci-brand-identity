@@ -218,7 +218,7 @@ note(s, 'Layout 14 – Số liệu nổi bật. Chỉ con số đầu tiên màu
 s = S('L07');
 s.addText('Chỉ số theo năm', { placeholder: 'title' });
 s.addChart(pptx.ChartType.bar, [{ name: 'Chỉ số', labels: ['2021', '2022', '2023', '2024', '2025'], values: [63.2, 64.5, 65.1, 66.0, 67.4] }], {
-  x: L, y: 2.0, w: CW - 3.7, h: 4.2, barDir: 'col', chartColors: [C.blue, C.blue, C.blue, C.blue, C.gold], valAxisMinVal: 55, valAxisMaxVal: 70, valAxisMajorUnit: 5, dataLabelFormatCode: '0.0', valAxisLabelFormatCode: '0',
+  x: L, y: 2.0, w: CW - 3.7, h: 4.2, barDir: 'col', chartColors: [C.blue, C.blue, C.blue, C.blue, C.gold], valAxisMinVal: 0, valAxisMaxVal: 80, valAxisMajorUnit: 20, dataLabelFormatCode: '0.0', valAxisLabelFormatCode: '0',
   showValue: true, dataLabelFontFace: F.serifMed, dataLabelFontSize: 12, dataLabelColor: C.blue, dataLabelPosition: 'outEnd',
   catAxisLabelFontFace: F.sans, catAxisLabelFontSize: 11, catAxisLabelColor: C.slate, valAxisLabelFontFace: F.sans, valAxisLabelFontSize: 10,
   valAxisLabelColor: C.slate, valGridLine: { color: C.stone, size: 0.75 }, catAxisLineColor: C.slate, valAxisLineShow: false, barGapWidthPct: 70,
