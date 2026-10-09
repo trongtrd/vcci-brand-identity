@@ -7,3 +7,7 @@ uharfbuzz>=0.40
 # Icon pipeline only (tools/icons)
 svgpathtools>=1.6
 requests>=2.31
+
+# Agent skill (skills/vcci-brand)
+lxml>=5
+python-pptx>=1.0

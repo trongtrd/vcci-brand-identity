@@ -20,3 +20,10 @@ desktop.ini
 # local tool caches
 .statamcp/
 .claude/
+
+# private test documents (not for publication)
+example/
+
+# quarto-vcci test outputs and Quarto caches
+quarto-vcci/tests/out/
+.quarto/
