@@ -19,6 +19,8 @@ Mọi thứ cần để làm ấn phẩm nằm trong [`brand-assets/`](brand-ass
 | [`07_Guidelines`](brand-assets/07_Guidelines) | **Hướng dẫn Nhận diện Thương hiệu VCCI** (PDF, tiếng Việt) |
 | [`brand-tokens.json`](brand-assets/brand-tokens.json) | Toàn bộ thông số (màu, tỉ lệ logo, thang chữ, khoảng cách) dạng máy đọc được |
 
+**Viết bằng Markdown hoặc Quarto?** Mẫu báo cáo, working paper và tờ trình (PDF và Word) được phát hành riêng: [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci). Cài bằng `quarto use template trongtrd/quarto-vcci`. Mã nguồn của mẫu nằm trong [`quarto-vcci/`](quarto-vcci/README.md).
+
 ### Năm quy tắc cốt lõi
 
 1. Logo chỉ có **một phiên bản màu**: chữ VCCI Blue (CMYK 100/80/0/0), trống đồng giữ màu gốc, đặt trên nền sáng.
@@ -48,7 +50,7 @@ Ví dụ (số liệu giả lập): [báo cáo](skills/vcci-brand/examples/sampl
 **Claude Code:** cài như một plugin.
 
 ```
-/plugin marketplace add <tài-khoản-GitHub>/vcci-brand-identity
+/plugin marketplace add trongtrd/vcci-brand-identity
 /plugin install vcci-brand@vcci-brand-identity
 ```
 
