@@ -1,0 +1,11 @@
+---
+title: "Tự kiểm tra: nội dung bị đẩy ra ngoài trang"
+test:
+  formats: [vcci-report-typst]
+  expect-fail: ["required Vietnamese text"]
+  must-contain: ["Dòng cuối bị đẩy ra ngoài trang"]
+---
+
+```{=typst}
+#block(breakable: false, height: 330mm)[#v(310mm) Dòng cuối bị đẩy ra ngoài trang]
+```

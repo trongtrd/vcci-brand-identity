@@ -10,6 +10,7 @@ requests>=2.31
 
 # Quarto extension tests (quarto-vcci/tests)
 PyYAML>=6
+PyMuPDF>=1.24     # reads fonts per text span in the Word-exported PDF
 
 # Agent skill (skills/vcci-brand)
 lxml>=5

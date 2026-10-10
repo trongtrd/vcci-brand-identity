@@ -1,0 +1,182 @@
+---
+title: "Rà soát toàn diện chi phí tuân thủ, thời gian xử lý hồ sơ và mức độ hài lòng của doanh nghiệp đối với thủ tục hành chính cấp tỉnh giai đoạn 2021–2026"
+report-label: "Báo cáo kiểm thử"
+short-title: "Tài liệu kiểm thử nhiều trường hợp khó"
+hero: 21
+status: "Mật"
+date: 2026-10-10
+bibliography: references.bib
+toc: true
+format:
+  vcci-report-typst: default
+  vcci-report-docx: default
+test:
+  formats: [vcci-report-typst, vcci-report-docx]
+  pages: [10, 18]
+  must-contain:
+    - "Rà soát toàn diện chi phí tuân thủ"
+    - "Ở Ỡ Ợ Ủ Ứ Ừ Ữ Ự Ỷ Ỹ ở ỡ ợ ủ ứ ừ ữ ự ỷ ỹ"
+    - "Tỉnh thứ 63"
+    - "Chi phí tuân thủ thủ tục hành chính và quyết định đầu tư"
+    - "Phụ lục"
+---
+
+# Tóm tắt {.unnumbered}
+
+::: lead
+Tài liệu này không có tác giả, có tiêu đề ba dòng, nhãn trạng thái "Mật", bảng dài qua nhiều trang và đủ năm loại hộp ghi chú. Nó tồn tại để bộ kiểm thử phát hiện lỗi bố cục.
+:::
+
+::: figures
+1.315 | Hồ sơ
+63 | Tỉnh, thành phố
+4,5 : 1 | Tương phản tối thiểu
+92% | Tỉ lệ phản hồi
+:::
+
+Chữ hoa có dấu chồng: Ở Ỡ Ợ Ủ Ứ Ừ Ữ Ự Ỷ Ỹ ở ỡ ợ ủ ứ ừ ữ ự ỷ ỹ. Trích dẫn trong câu theo @vcci2025pci và [@nguyen2024compliance, tr. 47; @worldbank2020].
+
+# Một chương có tiêu đề dài đến mức phải xuống dòng hai lần trên khổ A4 để kiểm tra khoảng cách dòng của tiêu đề chương
+
+## Một mục cấp hai cũng có tiêu đề rất dài, đủ dài để phải xuống dòng ít nhất một lần
+
+### Mục cấp ba
+
+#### Mục cấp bốn
+
+Đoạn văn dài kiểm tra ngắt dòng và căn lề. Liên đoàn Thương mại và Công nghiệp Việt Nam là tổ chức quốc gia tập hợp và đại diện cho cộng đồng doanh nghiệp, doanh nhân, người sử dụng lao động và các hiệp hội doanh nghiệp ở Việt Nam nhằm mục đích phát triển, bảo vệ và hỗ trợ cộng đồng doanh nghiệp.[^dai]
+
+[^dai]: Chú thích cuối trang dài, để kiểm tra việc chú thích không tràn lề và không đè lên chân trang. Nguồn: tổng hợp của nhóm thực hiện từ hồ sơ trên hệ thống một cửa của 63 tỉnh, thành phố trong giai đoạn 2021–2026.
+
+Phương trình đánh số (@eq-chiphi):
+
+$$
+C_i = \sum_{k=1}^{K} t_{ik} \cdot w_k + p_i
+$$ {#eq-chiphi}
+
+Một địa chỉ dài không có dấu cách để thử ngắt dòng: <https://dichvucong.gov.vn/p/home/dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1.009763>.
+
+## Bảng dài qua nhiều trang
+
+| STT | Tỉnh, thành phố | Hồ sơ | Ngày (trung vị) | Hài lòng |
+|---:|---|---:|---:|---:|
+| 1 | Tỉnh thứ 1 | 21 | 64 | 71% |
+| 2 | Tỉnh thứ 2 | 18 | 58 | 74% |
+| 3 | Tỉnh thứ 3 | 25 | 71 | 66% |
+| 4 | Tỉnh thứ 4 | 19 | 49 | 80% |
+| 5 | Tỉnh thứ 5 | 22 | 66 | 69% |
+| 6 | Tỉnh thứ 6 | 17 | 53 | 77% |
+| 7 | Tỉnh thứ 7 | 24 | 62 | 72% |
+| 8 | Tỉnh thứ 8 | 20 | 57 | 75% |
+| 9 | Tỉnh thứ 9 | 23 | 69 | 67% |
+| 10 | Tỉnh thứ 10 | 18 | 51 | 79% |
+| 11 | Tỉnh thứ 11 | 21 | 64 | 71% |
+| 12 | Tỉnh thứ 12 | 18 | 58 | 74% |
+| 13 | Tỉnh thứ 13 | 25 | 71 | 66% |
+| 14 | Tỉnh thứ 14 | 19 | 49 | 80% |
+| 15 | Tỉnh thứ 15 | 22 | 66 | 69% |
+| 16 | Tỉnh thứ 16 | 17 | 53 | 77% |
+| 17 | Tỉnh thứ 17 | 24 | 62 | 72% |
+| 18 | Tỉnh thứ 18 | 20 | 57 | 75% |
+| 19 | Tỉnh thứ 19 | 23 | 69 | 67% |
+| 20 | Tỉnh thứ 20 | 18 | 51 | 79% |
+| 21 | Tỉnh thứ 21 | 21 | 64 | 71% |
+| 22 | Tỉnh thứ 22 | 18 | 58 | 74% |
+| 23 | Tỉnh thứ 23 | 25 | 71 | 66% |
+| 24 | Tỉnh thứ 24 | 19 | 49 | 80% |
+| 25 | Tỉnh thứ 25 | 22 | 66 | 69% |
+| 26 | Tỉnh thứ 26 | 17 | 53 | 77% |
+| 27 | Tỉnh thứ 27 | 24 | 62 | 72% |
+| 28 | Tỉnh thứ 28 | 20 | 57 | 75% |
+| 29 | Tỉnh thứ 29 | 23 | 69 | 67% |
+| 30 | Tỉnh thứ 30 | 18 | 51 | 79% |
+| 31 | Tỉnh thứ 31 | 21 | 64 | 71% |
+| 32 | Tỉnh thứ 32 | 18 | 58 | 74% |
+| 33 | Tỉnh thứ 33 | 25 | 71 | 66% |
+| 34 | Tỉnh thứ 34 | 19 | 49 | 80% |
+| 35 | Tỉnh thứ 35 | 22 | 66 | 69% |
+| 36 | Tỉnh thứ 36 | 17 | 53 | 77% |
+| 37 | Tỉnh thứ 37 | 24 | 62 | 72% |
+| 38 | Tỉnh thứ 38 | 20 | 57 | 75% |
+| 39 | Tỉnh thứ 39 | 23 | 69 | 67% |
+| 40 | Tỉnh thứ 40 | 18 | 51 | 79% |
+| 41 | Tỉnh thứ 41 | 21 | 64 | 71% |
+| 42 | Tỉnh thứ 42 | 18 | 58 | 74% |
+| 43 | Tỉnh thứ 43 | 25 | 71 | 66% |
+| 44 | Tỉnh thứ 44 | 19 | 49 | 80% |
+| 45 | Tỉnh thứ 45 | 22 | 66 | 69% |
+| 46 | Tỉnh thứ 46 | 17 | 53 | 77% |
+| 47 | Tỉnh thứ 47 | 24 | 62 | 72% |
+| 48 | Tỉnh thứ 48 | 20 | 57 | 75% |
+| 49 | Tỉnh thứ 49 | 23 | 69 | 67% |
+| 50 | Tỉnh thứ 50 | 18 | 51 | 79% |
+| 51 | Tỉnh thứ 51 | 21 | 64 | 71% |
+| 52 | Tỉnh thứ 52 | 18 | 58 | 74% |
+| 53 | Tỉnh thứ 53 | 25 | 71 | 66% |
+| 54 | Tỉnh thứ 54 | 19 | 49 | 80% |
+| 55 | Tỉnh thứ 55 | 22 | 66 | 69% |
+| 56 | Tỉnh thứ 56 | 17 | 53 | 77% |
+| 57 | Tỉnh thứ 57 | 24 | 62 | 72% |
+| 58 | Tỉnh thứ 58 | 20 | 57 | 75% |
+| 59 | Tỉnh thứ 59 | 23 | 69 | 67% |
+| 60 | Tỉnh thứ 60 | 18 | 51 | 79% |
+| 61 | Tỉnh thứ 61 | 21 | 64 | 71% |
+| 62 | Tỉnh thứ 62 | 18 | 58 | 74% |
+| 63 | Tỉnh thứ 63 | 25 | 71 | 66% |
+
+: Kết quả theo tỉnh (số liệu giả lập) {#tbl-dai}
+
+## Bảng rộng
+
+| Thủ tục | 2021 | 2022 | 2023 | 2024 | 2025 | 2026 | Thay đổi | Ghi chú của nhóm thực hiện |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| Chấp thuận chủ trương đầu tư | 35 | 33 | 31 | 31 | 27 | 24 | −11 | Liên thông với thẩm định môi trường từ quý II/2025 |
+| Giao đất, cho thuê đất | 26 | 25 | 23 | 22 | 20 | 19 | −7 | Dao động lớn giữa các huyện |
+
+: Bảng có nhiều cột và ô chữ dài {#tbl-rong}
+
+# Hộp ghi chú và khối VCCI
+
+::: callout-note
+Ghi chú (thông tin).
+:::
+
+::: callout-tip
+Gợi ý (thành công).
+:::
+
+::: callout-important
+Quan trọng (lỗi).
+:::
+
+::: callout-warning
+Cảnh báo.
+:::
+
+::: callout-caution
+Thận trọng (cảnh báo).
+:::
+
+::: {.highlight title="Hộp nhấn mạnh có tiêu đề"}
+Nội dung hộp nhấn mạnh, có **chữ đậm**, *chữ nghiêng* và một danh sách:
+
+- mục thứ nhất;
+- mục thứ hai.
+:::
+
+::: label
+Nhãn đứng riêng
+:::
+
+Danh sách đánh số lồng nhau:
+
+1. Bước một
+   a. Bước một a
+   b. Bước một b
+2. Bước hai
+
+Xem @tbl-dai, @tbl-rong và @eq-chiphi.
+
+# Phụ lục {.unnumbered}
+
+Phụ lục: bảng câu hỏi khảo sát (rút gọn).
