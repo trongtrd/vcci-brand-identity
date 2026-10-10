@@ -380,7 +380,8 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 - `quarto-vcci/release.py --out <thư mục>` xuất repo phát hành:
   - extension; `template.qmd` (báo cáo); `wp.qmd`, `memo.qmd`, `charts.qmd`, `references.bib`;
   - `charts/`; các PDF mẫu trong `examples/`;
-  - README (phần đầu ở `src/release/README-head.md`, phần còn lại lấy từ các mục "Dùng …" và "Biểu đồ" của `quarto-vcci/README.md`), LICENSE, CHANGELOG, `.quartoignore` (trong `src/release/`).
+  - README: chính `quarto-vcci/README.md`, bỏ các khối `dev-only`; ảnh `examples/preview.png` dựng từ các PDF mẫu. LICENSE, CHANGELOG, `.quartoignore` lấy từ `src/release/`.
+  - Sau bản đầu, chủ dự án yêu cầu viết lại README cho mọi người dùng: cài Quarto, mở cửa sổ dòng lệnh, bốn câu hỏi của `quarto use template`, cách viết Markdown, bảng khóa YAML, trích dẫn, biểu đồ, bản Word, cập nhật, bảng lỗi thường gặp. Phần phát triển chuyển sang `quarto-vcci/DEVELOPMENT.md`. Mọi đoạn ví dụ trong README đã được dựng thử trên bản cài từ GitHub.
 - Script dừng nếu `build.py --check` lệch, nếu ba `_extension.yml` khác phiên bản, nếu CHANGELOG thiếu mục của phiên bản, hoặc nếu một câu cần thay trong README không còn (README phát triển đã đổi). Nó giữ `.git` của thư mục đích và từ chối ghi vào thư mục lạ.
 - Phiên bản 1.0.0 cho cả ba định dạng; tag `v1.0.0`; GitHub Release kèm 4 file `.docx`.
 - Người dùng cài: `quarto use template trongtrd/quarto-vcci` (cả dự án mẫu) hoặc `quarto add trongtrd/quarto-vcci` (chỉ extension).
