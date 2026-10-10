@@ -1,12 +1,12 @@
-# quarto-vcci (đang phát triển)
+# quarto-vcci
 
 Extension Quarto cho tài liệu VCCI: báo cáo tư vấn (`vcci-report`), working paper (`vcci-wp`), tờ trình (`vcci-memo`). Mỗi định dạng xuất PDF bằng Typst (bản chính) và Word (để đồng nghiệp sửa). Kế hoạch: [`docs/PLAN_QUARTO_VCCI.md`](../docs/PLAN_QUARTO_VCCI.md).
 
-Trạng thái: `vcci-report`, `vcci-wp` và `vcci-memo` (tờ trình) đã được duyệt (bước 2–4, 10/10/2026). Bước 5 (theme biểu đồ cho Python, R, Stata) đã được duyệt. Tiếp theo: bước 6 (phát hành).
+Trạng thái: phiên bản 1.0.0. Bản phát hành cho người dùng là repo [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci), sinh từ thư mục này bằng `release.py` (mục Phát hành bên dưới).
 
 ## Dùng `vcci-report`
 
-Cài extension vào thư mục dự án (khi đã phát hành lên GitHub sẽ dùng `quarto use template`):
+Người dùng cài bằng `quarto use template trongtrd/quarto-vcci`. Trong repo này, cài extension vào thư mục dự án:
 
 ```bash
 quarto add <đường-dẫn-tới>/quarto-vcci --no-prompt
@@ -144,6 +144,22 @@ Chú thích hình (`fig-cap`) nêu thông điệp của biểu đồ; nguồn s�
 
 `build.py` lấy màu, font, logo, hero icon, họa tiết từ `brand-assets/` và file Word mẫu từ `VCCI_Report.dotx`. Mỗi extension tự chứa đủ (Quarto không cho các extension dùng chung file), nên phần dùng chung được chép vào từng extension. Logo và icon được nhúng thẳng vào mã Typst, nên không có file nào bị chép vào thư mục của người dùng.
 
+### Phát hành
+
+Repo [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci) là bản sinh ra, không sửa tay. Nó nằm ngoài Dropbox, ở `C:\GitHub Projects\quarto-vcci`.
+
+1. Nâng `version` trong cả ba `src/formats/*/_extension.yml` (SemVer: 1.0.x sửa lỗi, 1.x.0 thêm tùy chọn, x.0.0 đổi khóa YAML hay bố cục) và thêm mục vào `src/release/CHANGELOG.md`.
+2. `python quarto-vcci/build.py`, rồi chạy đủ bộ kiểm thử.
+3. `python quarto-vcci/release.py --out "C:/GitHub Projects/quarto-vcci"`.
+4. Trong repo phát hành: commit, tag `vX.Y.Z`, push; tạo GitHub Release kèm các file `.docx` trong `examples/`.
+5. `python quarto-vcci/tests/run_tests.py --install-from trongtrd/quarto-vcci@vX.Y.Z`.
+
+Repo phát hành để extension ở `_extensions/<định dạng>/`, không có cấp `vcci/`. Lý do: `quarto use template` (Quarto 1.9) chỉ đọc `_extensions/<tên>` của repo mẫu; nếu có thêm cấp tổ chức thì nó không cài extension nào. Khi cài từ GitHub, Quarto tự đặt extension vào `_extensions/trongtrd/<định dạng>/`. Tên định dạng (`vcci-report-typst`…) không đổi.
+
+Nội dung do `src/release/` cung cấp: `README-head.md` (phần đầu README; phần còn lại lấy từ các mục "Dùng …" và "Biểu đồ" của file này), `LICENSE.md`, `CHANGELOG.md`, `.quartoignore`.
+
+### Dựng và kiểm thử
+
 Chạy từ thư mục gốc repo:
 
 ```bash
@@ -167,7 +183,7 @@ python quarto-vcci/tests/run_tests.py
    - Sau đó Microsoft Word mở file và xuất PDF. PDF đó phải khổ A4, mọi chữ theo font thương hiệu (trừ ký hiệu đầu dòng và phương trình).
    - Lớp này tự bỏ qua khi Word đang mở tài liệu của bạn, hoặc khi chạy với `--no-word`.
 5. **So ảnh:** mỗi trang PDF được so với ảnh chuẩn đã duyệt trong `tests/baseline/`, theo từng ô 32 × 32 điểm ảnh (khoảng 16 mm), nên chỉ một từ thay đổi cũng bị phát hiện. Trang lệch thì báo kèm ảnh khác biệt (`diff-*.png`). Thay đổi cố ý đã được duyệt thì chạy lại với `--update-baseline`.
-6. **Cài đặt:** `quarto add` vào thư mục trống, rồi dựng tài liệu mẫu ở đó.
+6. **Cài đặt:** xuất repo phát hành (`release.py`) vào thư mục tạm, rồi cài như người dùng bằng `quarto use template` và `quarto add` vào thư mục trống. Phải có đủ tài liệu mẫu và theme biểu đồ; extension giống hệt bản dựng, đúng phiên bản; không có file mà `.quartoignore` loại; mọi mẫu dựng được. `--install-from trongtrd/quarto-vcci@v1.0.0` chạy riêng lớp này với bản trên GitHub.
 7. **Tự kiểm:** các tài liệu trong `tests/selftest/` phải bị đúng kiểm tra tương ứng bắt lỗi.
 8. **Biểu đồ:**
    - Bộ biểu đồ mẫu (cột có điểm nhấn, đường, cột chồng, phân tán, sáu chuỗi, bảng nhiệt) được vẽ bằng cả ba theme.

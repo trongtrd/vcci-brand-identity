@@ -9,7 +9,9 @@ Layers (docs/PLAN_QUARTO_VCCI.md, section 5); this file implements 1-4 (Word che
              then Microsoft Word opens the file and exports a PDF, which must use only brand fonts and show the required text
              (skipped with --no-word, when Word is not installed, or when Word has documents open: never automate a user's Word)
   5 visual   every PDF page matches the approved image in tests/baseline/ (run with --update-baseline after an approved change)
-  6 install  `quarto add` installs the extension into an empty folder, as a user would; every template renders there
+  6 install  the release repository (release.py) installs with `quarto use template` and `quarto add` into an empty folder,
+             as a user would: every template and chart theme, the same extension at the released version, nothing that
+             .quartoignore excludes; every template renders there. --install-from trongtrd/quarto-vcci@vX tests GitHub
   8 charts   the sample charts (tests/charts) are drawn with the matplotlib, ggplot2 and Stata themes; every SVG uses only
              VCCI colours, no transparency, text in the brand fonts, the Vietnamese title, decimal commas, no vertical grid,
              Drum Gold for one value at most, series in brand order; the charts fixture then puts them through layers 2-5
@@ -531,24 +533,98 @@ def test_fixture(path, spec=None):
                 docx_checks(fx, fmt, os.path.join(fdir, f'{fx}.docx'), spec, os.path.join(QV, '_extensions', 'vcci', name))
                 word_checks(fx, fmt, os.path.join(fdir, f'{fx}.docx'), spec, fdir)
 
-def install_test():
-    """Layer 6: install with `quarto add` into an empty folder and render every user template there."""
+# ---------------------------------------------------------------- layer 6: installation from the release repository
+sys.path.insert(0, QV)
+import build, release
+
+# what `quarto use template` must leave in a folder named vcci-test: the report template takes the folder's name
+USER_FILES = {'vcci-test.qmd': 'report', 'wp.qmd': 'wp', 'memo.qmd': 'memo', 'charts.qmd': 'charts', 'references.bib': None}
+NOT_COPIED = ['README.md', 'LICENSE.md', 'CHANGELOG.md', 'examples', 'template.qmd']   # .quartoignore
+
+def installed_formats(folder):
+    """{format: path} of the installed extensions: _extensions/<name> (local source) or _extensions/<owner>/<name> (GitHub)."""
+    found = {}
+    for p in glob.glob(os.path.join(folder, '_extensions', '*', '_extension.yml')) + glob.glob(os.path.join(folder, '_extensions', '*', '*', '_extension.yml')):
+        found[os.path.basename(os.path.dirname(p))] = os.path.dirname(p)
+    return found
+
+def install_test(source, label='install', render=True):
+    """Layer 6: install from the release repository (a local export, or trongtrd/quarto-vcci@vX on GitHub) as a user would:
+    `quarto use template` into an empty folder must give the templates, the chart themes and an extension identical to
+    this build, at the released version, and nothing listed in .quartoignore; every template renders there.
+    `quarto add` must install the same extension."""
+    ver = release.version()
     with tempfile.TemporaryDirectory() as tmp:
-        r = run(['quarto', 'add', QV, '--no-prompt'], cwd=tmp)
-        installed = sorted(os.listdir(os.path.join(tmp, '_extensions'))) if os.path.isdir(os.path.join(tmp, '_extensions')) else []
-        record('install', None, 'quarto add installs the extension', r.returncode == 0 and bool(installed), ', '.join(installed) or ANSI.sub('', r.stderr)[-200:])
-        for f in os.listdir(os.path.join(QV, 'templates')):   # the templates and their bibliography
-            shutil.copy(os.path.join(QV, 'templates', f), tmp)
-        for f in os.listdir(CHARTS): shutil.copy(os.path.join(CHARTS, f), tmp)   # README: copy the chart theme next to the document
-        for name, spec in TEMPLATE_SPECS.items():
+        d = os.path.join(tmp, 'vcci-test')
+        os.makedirs(d)
+        r = run(['quarto', 'use', 'template', source, '--no-prompt'], cwd=d)
+        record(label, None, 'quarto use template succeeds', r.returncode == 0, ANSI.sub('', r.stderr)[-200:])
+        missing = [f for f in USER_FILES if not os.path.isfile(os.path.join(d, f))]
+        missing += [f'charts/{f}' for f in os.listdir(CHARTS) if not os.path.isfile(os.path.join(d, 'charts', f))]
+        record(label, None, 'quarto use template creates every template and chart theme', not missing, ', '.join(missing))
+        extra = [f for f in NOT_COPIED if os.path.exists(os.path.join(d, f))]
+        record(label, None, '.quartoignore keeps README, LICENSE, CHANGELOG and examples out of the user folder', not extra, ', '.join(extra))
+        ext = installed_formats(d)
+        record(label, None, 'the installed extension is identical to this build (every font, style and filter)',
+               sorted(ext) == build.FORMATS and all(build.same_tree(p, os.path.join(build.OUT, f)) for f, p in ext.items()),
+               f'installed: {", ".join(os.path.relpath(p, d) for p in ext.values()) or "none"}')
+        vers = {f: re.search(r'^version:\s*(\S+)', open(os.path.join(p, '_extension.yml'), encoding='utf-8').read(), re.M).group(1)
+                for f, p in ext.items()}
+        record(label, None, f'every installed format is version {ver}', len(vers) == len(build.FORMATS) and set(vers.values()) == {ver}, str(vers))
+        a = os.path.join(tmp, 'add')
+        os.makedirs(a)
+        r = run(['quarto', 'add', source, '--no-prompt'], cwd=a)
+        added = installed_formats(a)
+        record(label, None, 'quarto add installs the same extension', r.returncode == 0 and sorted(added) == build.FORMATS
+               and all(build.same_tree(p, os.path.join(build.OUT, f)) for f, p in added.items()), ANSI.sub('', r.stderr)[-200:])
+        if not render: return
+        for f, name in USER_FILES.items():
+            if not name: continue
+            spec = TEMPLATE_SPECS[name]
             if spec.get('needs-r') and not find_rscript(): continue
             for fmt in spec['formats']:
                 env = dict(os.environ, TYPST_IGNORE_SYSTEM_FONTS='true')
-                r = run(['quarto', 'render', name + '.qmd', '--to', fmt], cwd=tmp, env=env)
-                out = os.path.join(tmp, name + ('.pdf' if fmt.endswith('typst') else '.docx'))
+                r = run(['quarto', 'render', f, '--to', fmt], cwd=d, env=env)
+                out = os.path.join(d, f[:-4] + ('.pdf' if fmt.endswith('typst') else '.docx'))
                 warns = [l.strip() for l in ANSI.sub('', r.stdout + r.stderr).splitlines() if WARN.search(l)]
-                record('install', fmt, f'templates/{name}.qmd renders after installation, without warnings',
-                       r.returncode == 0 and os.path.exists(out) and not warns, ' | '.join(warns[:2]))
+                record(label, fmt, f'{f} renders after installation, without warnings',
+                       r.returncode == 0 and os.path.exists(out) and not warns, ' | '.join(warns[:2]) or ANSI.sub('', r.stderr)[-200:])
+
+def local_install_test():
+    """Layer 6 on a fresh local export of the release repository (before anything is pushed)."""
+    with tempfile.TemporaryDirectory() as tmp:
+        out = os.path.join(tmp, 'quarto-vcci')
+        release.export(out)
+        install_test(out)
+
+def install_selftest():
+    """Broken release exports must be caught: a missing font, and examples/ left out of .quartoignore."""
+    def broken(name, expect, damage):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = os.path.join(tmp, 'quarto-vcci')
+            release.export(out)
+            damage(out)
+            start = len(results)
+            QUIET[0] = True
+            try:
+                install_test(out, render=False)
+            finally:
+                QUIET[0] = False
+            got = results[start:]
+            del results[start:]
+            caught = [c for _, _, c, ok, _ in got if expect in c and not ok]
+            record('selftest/install', name, f'check "{expect}" catches the deliberate error', bool(caught), '' if caught else 'not detected')
+    broken('missing-font', 'identical to this build',
+           lambda out: os.remove(os.path.join(out, '_extensions', 'vcci-wp', 'fonts', 'Lora-Medium.ttf')))
+    # the layout Quarto cannot read: _extensions/vcci/<name> installs nothing with `quarto use template`
+    def nested(out):
+        os.makedirs(os.path.join(out, '_extensions', 'vcci'))
+        for f in build.FORMATS: shutil.move(os.path.join(out, '_extensions', f), os.path.join(out, '_extensions', 'vcci', f))
+    broken('nested-extensions', 'identical to this build', nested)
+    def unignore(out):
+        p = os.path.join(out, '.quartoignore')
+        open(p, 'w', encoding='utf-8').write(open(p, encoding='utf-8').read().replace('examples/\n', ''))
+    broken('examples-copied', '.quartoignore keeps', unignore)
 
 def visual_selftest():
     """Layer 5 must notice a small change: move one approved page's content down by 3 mm."""
@@ -611,6 +687,13 @@ def selftest(path):
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     os.makedirs(OUT, exist_ok=True)
+    if '--install-from' in sys.argv:   # layer 6 only, e.g. --install-from trongtrd/quarto-vcci@v1.0.0
+        source = sys.argv[sys.argv.index('--install-from') + 1]
+        print(f'installation from {source}')
+        install_test(source)
+        failed = [r for r in results if not r[3]]
+        print(f'\n{len(results) - len(failed)} passed, {len(failed)} failed')
+        sys.exit(1 if failed else 0)
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     fixtures = [os.path.join(HERE, 'fixtures', f if f.endswith('.qmd') else f + '.qmd') for f in args] \
         or sorted(glob.glob(os.path.join(HERE, 'fixtures', '*.qmd')))
@@ -624,13 +707,14 @@ def main():
         for name, spec in TEMPLATE_SPECS.items():
             test_fixture(os.path.join(QV, 'templates', name + '.qmd'), spec)
     if not args:
-        print('\ninstallation')
-        install_test()
+        print('\ninstallation (local export of the release repository)')
+        local_install_test()
         print('\nself-test (broken documents must be caught)')
         for f in sorted(glob.glob(os.path.join(HERE, 'selftest', '*.qmd'))): selftest(f)
         visual_selftest()
         chart_selftest()
         font_identity_selftest()
+        install_selftest()
     failed = [r for r in results if not r[3]]
     lines = ['# quarto-vcci test summary', '', f'{len(results) - len(failed)} passed, {len(failed)} failed', '',
              '| Fixture | Format | Check | Result | Detail |', '|---|---|---|---|---|']
