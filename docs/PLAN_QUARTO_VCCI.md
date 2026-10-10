@@ -148,7 +148,7 @@ Khi repo lên GitHub, có thể chạy lớp 1–3, 5 và 6 trên GitHub Actions
 | 3 ✅ | Working paper | `vcci-wp`, `templates/wp.qmd`, `references.bib` | Như trên; bạn duyệt số hiệu và lời miễn trừ |
 | 4 ✅ | Memo (tờ trình) | `vcci-memo`, `templates/memo.qmd` | Như trên |
 | 5 ✅ | Biểu đồ và tài liệu | `vcci.mplstyle`, `theme_vcci.R`, scheme Stata; README; bổ sung skill `vcci-brand` và một trang trong hướng dẫn thương hiệu (phần Ứng dụng) | Biểu đồ mẫu đúng bảng màu; README chạy được từng lệnh |
-| 6 | Phát hành | Repo `quarto-vcci`, phiên bản 1.0.0 | Lớp 6 đạt khi cài từ GitHub |
+| 6 ✅ | Phát hành | Repo `quarto-vcci`, phiên bản 1.0.0 | Lớp 6 đạt khi cài từ GitHub |
 
 Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bước khi kiểm thử còn lỗi.
 
@@ -175,7 +175,7 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 1. ~~Duyệt kế hoạch~~: đã duyệt 10/10/2026.
 2. Số hiệu và lời miễn trừ cho working paper (mục 7): quyết khi tới bước 3.
 3. ~~Scheme Stata~~: làm, ở bước 5.
-4. Tài khoản GitHub để phát hành repo `quarto-vcci`: quyết khi tới bước 6.
+4. ~~Tài khoản GitHub~~: `trongtrd`, repo công khai `trongtrd/quarto-vcci` (10/10/2026).
 
 ## 10. Kết quả bước 0 và bước 1 (10/10/2026)
 
@@ -367,3 +367,42 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 - Chủ dự án duyệt hình thức mã (màu, nền Ivory, không ligature). Ảnh chuẩn cho tài liệu thử `code`. Lần chạy đầy đủ cuối: 459/459 đạt; ảnh chuẩn các tài liệu đã duyệt không đổi.
 
 **Tiếp theo:** bước 6 (phát hành, cần tài khoản GitHub).
+
+## 15. Kết quả bước 6 (10/10/2026): phát hành 1.0.0
+
+**Quyết định của chủ dự án:** duyệt theo khuyến nghị.
+- Tài khoản `trongtrd`, repo công khai [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci).
+- README tiếng Việt, có đoạn tiếng Anh ngắn ở đầu.
+- Bản Word mẫu đính kèm vào GitHub Release, không để trong repo.
+- Repo phát hành đặt ngoài Dropbox: `C:\GitHub Projects\quarto-vcci`.
+
+**Đã có**
+- `quarto-vcci/release.py --out <thư mục>` xuất repo phát hành:
+  - extension; `template.qmd` (báo cáo); `wp.qmd`, `memo.qmd`, `charts.qmd`, `references.bib`;
+  - `charts/`; các PDF mẫu trong `examples/`;
+  - README (phần đầu ở `src/release/README-head.md`, phần còn lại lấy từ các mục "Dùng …" và "Biểu đồ" của `quarto-vcci/README.md`), LICENSE, CHANGELOG, `.quartoignore` (trong `src/release/`).
+- Script dừng nếu `build.py --check` lệch, nếu ba `_extension.yml` khác phiên bản, nếu CHANGELOG thiếu mục của phiên bản, hoặc nếu một câu cần thay trong README không còn (README phát triển đã đổi). Nó giữ `.git` của thư mục đích và từ chối ghi vào thư mục lạ.
+- Phiên bản 1.0.0 cho cả ba định dạng; tag `v1.0.0`; GitHub Release kèm 4 file `.docx`.
+- Người dùng cài: `quarto use template trongtrd/quarto-vcci` (cả dự án mẫu) hoặc `quarto add trongtrd/quarto-vcci` (chỉ extension).
+- `gh` 2.102.0 cài qua winget; chủ dự án tự đăng nhập (`gh auth login`).
+
+**Lỗi tìm thấy nhờ thử cài trước khi push**
+
+| Lỗi | Cách sửa |
+|---|---|
+| Với `_extensions/vcci/<định dạng>`, `quarto use template` báo "Extensions installed" nhưng không cài gì. Quarto 1.9 chỉ đọc `_extensions/<tên>` của repo mẫu (`readExtensions` trên thư mục gốc đi xuống hai cấp). | Repo phát hành để extension phẳng ở `_extensions/<định dạng>/`. Khi cài từ GitHub, Quarto tự đặt vào `_extensions/trongtrd/<định dạng>/`; tên định dạng không đổi. |
+| Theme R và Python tìm font cố định ở `_extensions/vcci/*/fonts`, nên sau khi cài từ GitHub sẽ không thấy font (máy chưa cài font). | Tìm ở cả `_extensions/*/fonts` và `_extensions/*/*/fonts`. Đã kiểm trên bản cài từ GitHub: R và Python đều thấy 3 thư mục font. |
+| `charts.qmd` để trong `charts/` không dựng được: Quarto không tìm `_extensions` ở thư mục cha khi không có project. | `charts.qmd` ở gốc, gọi `source("charts/theme_vcci.R")` (`release.py` sửa dòng này khi xuất). |
+| Stata không thấy scheme khi `do charts/vcci_graph.do` từ thư mục gốc. | README phát hành ghi `adopath + "charts"` trước; đã chạy thử bằng Stata thật. |
+| `quarto use template` không nhận file zip cục bộ trên Windows ("Url scheme 'c' not supported"). | Thử cục bộ bằng thư mục, không bằng zip. |
+
+**Kiểm thử**
+- Lớp 6 mới:
+  - Xuất repo phát hành vào thư mục tạm, cài bằng `quarto use template` và `quarto add`.
+  - Kiểm: đủ mẫu và theme biểu đồ; extension giống hệt bản dựng (từng font, style, bộ lọc); đúng phiên bản; không có file mà `.quartoignore` loại; mọi mẫu dựng được ở cả PDF và Word, không cảnh báo.
+  - `--install-from trongtrd/quarto-vcci@v1.0.0` chạy riêng lớp này với bản trên GitHub.
+- Tự kiểm mới: bản xuất thiếu một font, bản có cấu trúc `_extensions/vcci/`, bản để lọt `examples/`; cả ba đều bị bắt.
+- Lần chạy đầy đủ (Word thật, R, Stata): **469/469 đạt**.
+- Cài từ GitHub (`@v1.0.0` và bản mới nhất): **14/14 đạt** mỗi lần.
+
+**Phát hành bản sau:** quy trình 5 bước ở mục "Phát hành" của `quarto-vcci/README.md`.

@@ -81,11 +81,12 @@ Dùng khi người dùng viết bằng Markdown hoặc Quarto (nhóm nghiên c�
    | `vcci-memo` | `memo.qmd` | Tờ trình: Gửi, Từ, Về việc, chữ ký; trích dẫn Chicago |
    | biểu đồ R | `charts.qmd` | Báo cáo có biểu đồ ggplot2 chạy trong tài liệu |
 
-2. **Cài extension và dựng** trong thư mục làm việc:
+2. **Cài extension và dựng** trong thư mục làm việc. Dự án mới: `quarto use template trongtrd/quarto-vcci` (tạo mẫu báo cáo mang tên thư mục, kèm `wp.qmd`, `memo.qmd`, `charts.qmd`, `charts/`). Dự án đã có:
    ```bash
-   quarto add "<repo>/quarto-vcci" --no-prompt
+   quarto add trongtrd/quarto-vcci --no-prompt
    quarto render report.qmd
    ```
+   Không có mạng thì cài từ repo này: `quarto add "<repo>/quarto-vcci" --no-prompt`.
    Mỗi định dạng ra PDF (Typst, bản phát hành) và Word (`--to vcci-report-docx`, để đồng nghiệp sửa). Khóa YAML của từng định dạng ở `quarto-vcci/README.md`. Gửi, Từ của tờ trình là `recipient`, `sender` (không dùng `to`, `from`). Tên người Việt trong `.bib` viết trong ngoặc nhọn: `{Nguyễn Thị Hạnh}`.
 
 3. **Biểu đồ:** chép file theme từ `quarto-vcci/charts/` (hoặc `brand-assets/06_Templates/Charts/`) cạnh file mã; cách dùng đầy đủ ở `charts/README.md`.
