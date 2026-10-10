@@ -752,6 +752,6 @@ P[1] = re.sub(r'@@PG(\d)@@', lambda m: f'{START[int(m.group(1))]:02d}', P[1])
 html = f'<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>VCCI Hướng dẫn Nhận diện Thương hiệu</title><style>{CSS}</style></head><body style="counter-reset:pg">{"".join(P)}</body></html>'
 hp = os.path.join(G, 'guide.html'); open(hp, 'w', encoding='utf-8').write(html)
 pdf = os.path.join(OUT_DIR, 'VCCI_Huong-dan-Nhan-dien-Thuong-hieu_v1.1.pdf')
-subprocess.run([BA.EDGE, '--headless=new', '--disable-gpu', '--allow-file-access-from-files', '--no-pdf-header-footer', '--virtual-time-budget=8000',
-                f'--print-to-pdf={pdf}', 'file:///' + hp.replace(os.sep, '/')], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+BA.env.run_edge(['--no-pdf-header-footer', '--virtual-time-budget=8000',
+                f'--print-to-pdf={pdf}', 'file:///' + hp.replace(os.sep, '/')])
 print('pages', len(P), '->', pdf, os.path.getsize(pdf) // 1024, 'KB')

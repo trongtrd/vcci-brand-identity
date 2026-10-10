@@ -9,15 +9,14 @@ A4W, A4H = round(210 * MM), round(297 * MM)   # 1654 x 2339
 LOGO = 'file:///' + os.path.join(ROOT, 'brand-assets', '01_Logo', 'SVG', 'VCCI_Logo_Primary.svg').replace(os.sep, '/')
 
 def render(name, w, h, body, transparent=False):
-    html = os.path.join(OUT, '_t.html')
+    html = os.path.join(OUT, f'_{name}.html')   # one page per image
     open(html, 'w', encoding='utf-8').write(
         f'<!doctype html><html><head><meta charset="utf-8"><style>html,body{{margin:0;width:{w}px;height:{h}px;overflow:hidden;'
         f'background:{"transparent" if transparent else "#fff"}}}</style></head><body>{body}</body></html>')
     out = os.path.join(OUT, name)
-    args = [BA.EDGE, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files',
-            '--force-device-scale-factor=1', f'--window-size={w},{h}', '--virtual-time-budget=3000', f'--screenshot={out}']
+    args = ['--force-device-scale-factor=1', f'--window-size={w},{h}', '--virtual-time-budget=3000', f'--screenshot={out}']
     if transparent: args.insert(1, '--default-background-color=00000000')
-    subprocess.run(args + ['file:///' + html.replace(os.sep, '/')], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    BA.env.run_edge(args + ['file:///' + html.replace(os.sep, '/')])
     print(name)
 
 def ring_svg(size, c, g, w, op, gop, style):

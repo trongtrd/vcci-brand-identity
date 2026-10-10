@@ -6,13 +6,11 @@ import build_assets as BA
 OUT = os.path.join(os.getcwd(), 'build', 'ppt', 'art'); os.makedirs(OUT, exist_ok=True)
 
 def render(name, w, h, body):
-    html = os.path.join(OUT, '_t.html')
+    html = os.path.join(OUT, f'_{name}.html')   # one page per image
     open(html, 'w', encoding='utf-8').write(f'<!doctype html><html><head><meta charset="utf-8"><style>html,body{{margin:0;width:{w}px;'
                                             f'height:{h}px;overflow:hidden}}</style></head><body>{body}</body></html>')
-    subprocess.run([BA.EDGE, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files',
-                    '--force-device-scale-factor=1', f'--window-size={w},{h}', '--virtual-time-budget=3000',
-                    f'--screenshot={os.path.join(OUT, name)}', 'file:///' + html.replace(os.sep, '/')],
-                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    BA.env.run_edge(['--force-device-scale-factor=1', f'--window-size={w},{h}', '--virtual-time-budget=3000',
+                    f'--screenshot={os.path.join(OUT, name)}', 'file:///' + html.replace(os.sep, '/')])
 WA = types.SimpleNamespace(render=render)
 W, H = 2000, 1125                    # 150 dpi
 IN = 150                             # px per inch

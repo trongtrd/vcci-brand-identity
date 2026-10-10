@@ -7,6 +7,9 @@ environment variables if needed:
 """
 import os
 import shutil
+import subprocess
+import tempfile
+import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BUILD = os.path.join(ROOT, 'build')          # intermediate files (git-ignored)
@@ -32,6 +35,33 @@ EDGE = _find('VCCI_EDGE', ['msedge', 'chrome'], [
     r'%ProgramFiles%\Microsoft\Edge\Application\msedge.exe',
     r'%ProgramFiles%\Google\Chrome\Application\chrome.exe',
 ])
+# Headless Edge in its own profile (in the system temp folder: Edge cannot use one inside Dropbox). Edge's launcher can
+# return before the screenshot or PDF exists; run_edge waits for the file, so a following render cannot overwrite the
+# page while Edge is still loading it (this happened in October 2026: the report covers came out as the sample chart).
+EDGE_HEADLESS = ['--headless=new', '--user-data-dir=' + os.path.join(tempfile.gettempdir(), 'vcci-brand-edge-profile'),
+                 '--no-first-run', '--no-default-browser-check', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files']
+
+
+def run_edge(args, timeout=120):
+    """Run headless Edge. For --screenshot / --print-to-pdf, delete the target first and wait until it exists with a
+    stable size; raise if it never appears. Returns the CompletedProcess (stdout for --dump-dom)."""
+    out = next((a.split('=', 1)[1] for a in args if a.startswith(('--screenshot=', '--print-to-pdf='))), None)
+    if out and os.path.exists(out):
+        os.remove(out)
+    r = subprocess.run([EDGE, *EDGE_HEADLESS, *args], capture_output=True, text=True, encoding='utf-8', errors='replace')
+    if out:
+        start, last = time.time(), -1
+        while True:
+            size = os.path.getsize(out) if os.path.exists(out) else -1
+            if size > 0 and size == last:
+                break
+            if time.time() - start > timeout:
+                raise RuntimeError(f'Edge did not write {out}')
+            last = size
+            time.sleep(0.4)
+    return r
+
+
 PDFTOPPM = _find('VCCI_PDFTOPPM', ['pdftoppm'], [
     r'%LOCALAPPDATA%\Programs\MiKTeX\miktex\bin\x64\pdftoppm.exe',
     r'%ProgramFiles%\MiKTeX\miktex\bin\x64\pdftoppm.exe',
