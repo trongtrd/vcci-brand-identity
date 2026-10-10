@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This is a Stata 19.5 generated SVG file (http://www.stata.com) -->
+
+<svg version="1.1" width="5.500in" height="4.000in" viewBox="0 0 3960 2880" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>Stata Graph - Graph</desc>
+	<rect x="0" y="0" width="3960" height="2880" style="fill:#EAF2F3;stroke:none"/>
+	<rect x="0.00" y="0.00" width="3959.88" height="2880.00" style="fill:#EAF2F3"/>
+	<rect x="2.88" y="2.88" width="3954.12" height="2874.24" style="fill:none;stroke:#EAF2F3;stroke-width:5.76"/>
+	<rect x="390.80" y="275.35" width="3468.22" height="2343.90" style="fill:#FFFFFF"/>
+	<rect x="393.68" y="278.23" width="3462.46" height="2338.14" style="fill:none;stroke:#FFFFFF;stroke-width:5.76"/>
+	<line x1="390.80" y1="2619.25" x2="3859.02" y2="2619.25" style="stroke:#EAF2F3;stroke-width:8.64"/>
+	<line x1="390.80" y1="2058.40" x2="3859.02" y2="2058.40" style="stroke:#EAF2F3;stroke-width:8.64"/>
+	<line x1="390.80" y1="1497.67" x2="3859.02" y2="1497.67" style="stroke:#EAF2F3;stroke-width:8.64"/>
+	<line x1="390.80" y1="936.94" x2="3859.02" y2="936.94" style="stroke:#EAF2F3;stroke-width:8.64"/>
+	<rect x="558.61" y="847.22" width="334.99" height="1772.03" style="fill:#1A476F"/>
+	<rect x="561.49" y="850.10" width="329.23" height="1766.27" style="fill:none;stroke:#1A476F;stroke-width:5.76"/>
+	<rect x="1118.08" y="810.71" width="335.12" height="1808.54" style="fill:#1A476F"/>
+	<rect x="1120.96" y="813.59" width="329.36" height="1802.78" style="fill:none;stroke:#1A476F;stroke-width:5.76"/>
+	<rect x="1677.68" y="793.88" width="334.99" height="1825.37" style="fill:#1A476F"/>
+	<rect x="1680.56" y="796.76" width="329.23" height="1819.61" style="fill:none;stroke:#1A476F;stroke-width:5.76"/>
+	<rect x="2237.15" y="802.30" width="335.11" height="1816.95" style="fill:#1A476F"/>
+	<rect x="2240.03" y="805.18" width="329.36" height="1811.19" style="fill:none;stroke:#1A476F;stroke-width:5.76"/>
+	<rect x="2796.75" y="768.64" width="334.99" height="1850.62" style="fill:#1A476F"/>
+	<rect x="2799.63" y="771.52" width="329.23" height="1844.86" style="fill:none;stroke:#1A476F;stroke-width:5.76"/>
+	<rect x="3356.22" y="729.41" width="334.99" height="1889.85" style="fill:#1A476F"/>
+	<rect x="3359.10" y="732.29" width="329.23" height="1884.09" style="fill:none;stroke:#1A476F;stroke-width:5.76"/>
+	<line x1="390.80" y1="2619.25" x2="390.80" y2="275.35" style="stroke:#000000;stroke-width:5.76"/>
+	<line x1="390.80" y1="2619.25" x2="350.83" y2="2619.25" style="stroke:#000000;stroke-width:5.76"/>
+	<text x="300.72" y="2619.25" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" transform="rotate(-90 300.72,2619.25)" text-anchor="middle">0</text>
+	<line x1="390.80" y1="2058.40" x2="350.83" y2="2058.40" style="stroke:#000000;stroke-width:5.76"/>
+	<text x="300.72" y="2058.40" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" transform="rotate(-90 300.72,2058.40)" text-anchor="middle">20</text>
+	<line x1="390.80" y1="1497.67" x2="350.83" y2="1497.67" style="stroke:#000000;stroke-width:5.76"/>
+	<text x="300.72" y="1497.67" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" transform="rotate(-90 300.72,1497.67)" text-anchor="middle">40</text>
+	<line x1="390.80" y1="936.94" x2="350.83" y2="936.94" style="stroke:#000000;stroke-width:5.76"/>
+	<text x="300.72" y="936.94" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" transform="rotate(-90 300.72,936.94)" text-anchor="middle">60</text>
+	<line x1="390.80" y1="376.21" x2="350.83" y2="376.21" style="stroke:#000000;stroke-width:5.76"/>
+	<text x="300.72" y="376.21" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" transform="rotate(-90 300.72,376.21)" text-anchor="middle">80</text>
+	<text x="190.71" y="1447.30" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" transform="rotate(-90 190.71,1447.30)" text-anchor="middle">mean of score</text>
+	<line x1="390.80" y1="2619.25" x2="3859.02" y2="2619.25" style="stroke:#000000;stroke-width:5.76"/>
+	<text x="726.17" y="2729.16" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" text-anchor="middle">2020</text>
+	<text x="1285.64" y="2729.16" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" text-anchor="middle">2021</text>
+	<text x="1845.11" y="2729.16" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" text-anchor="middle">2022</text>
+	<text x="2404.71" y="2729.16" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" text-anchor="middle">2023</text>
+	<text x="2964.18" y="2729.16" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" text-anchor="middle">2024</text>
+	<text x="3523.78" y="2729.16" style="font-family:'Helvetica';font-size:99.99px;fill:#000000" text-anchor="middle">2025</text>
+	<text x="2124.91" y="215.98" style="font-family:'Helvetica';font-size:139.96px;fill:#1E2D53" text-anchor="middle">Năm 2025 đạt điểm cao nhất trong sáu năm</text>
+</svg>

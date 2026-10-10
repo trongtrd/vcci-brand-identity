@@ -29,4 +29,10 @@ for pdf, prefix in ((os.path.join(T, 'Word', 'Previews', 'VCCI_Report.pdf'), 'tp
                     (os.path.join(T, 'Word', 'Previews', 'VCCI_Invitation.pdf'), 'tpl_invite'),
                     (os.path.join(T, 'PowerPoint', 'Previews', 'VCCI_Presentation.pdf'), 'ppt')):
     subprocess.run([PDFTOPPM, '-png', '-r', '80' if prefix == 'ppt' else '110', pdf, os.path.join(IMG, prefix)], check=True)
+
+# Quarto examples (quarto-vcci/examples): first page of each format, and the chart template
+Q = os.path.join(ROOT, 'quarto-vcci', 'examples')
+for name in ('report', 'wp', 'memo', 'charts'):
+    subprocess.run([PDFTOPPM, '-png', '-r', '110', '-f', '1', '-l', '1', '-singlefile', os.path.join(Q, f'{name}.pdf'),
+                    os.path.join(IMG, f'qv_{name}')], check=True)
 print('guide images ->', IMG, len(os.listdir(IMG)), 'files')

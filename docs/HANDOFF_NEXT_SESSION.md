@@ -2,7 +2,7 @@
 
 **Dự án:** Bộ nhận diện thương hiệu VCCI (Liên đoàn Thương mại và Công nghiệp Việt Nam)
 **Chủ dự án:** Truong Duc Trong. Trao đổi bằng **tiếng Việt**.
-**Trạng thái:** Extension Quarto `quarto-vcci/` (báo cáo, working paper, tờ trình) xong bước 0–4, xem `docs/PLAN_QUARTO_VCCI.md` và `quarto-vcci/README.md`. v1.0 đã commit (nhánh `main`, chưa có remote). v1.1 (10/10/2026, chủ dự án đã duyệt): thêm Sky, thang sắc độ, màu trạng thái, chương Dữ liệu và biểu đồ (hướng dẫn PDF 36 trang); theme màu Office mới cho template Word và PowerPoint, biểu đồ mẫu trục từ 0. Xem `docs/GAP_ANALYSIS_2026-10.md`.
+**Trạng thái:** Extension Quarto `quarto-vcci/` (báo cáo, working paper, tờ trình) và theme biểu đồ cho Python, R, Stata xong bước 0–5, xem `docs/PLAN_QUARTO_VCCI.md` và `quarto-vcci/README.md`. v1.0 đã commit (nhánh `main`, chưa có remote). v1.1 (10/10/2026, chủ dự án đã duyệt): thêm Sky, thang sắc độ, màu trạng thái, chương Dữ liệu và biểu đồ (hướng dẫn PDF 36 trang; 37 trang từ bước 5, thêm trang "Tài liệu và biểu đồ từ mã"); theme màu Office mới cho template Word và PowerPoint, biểu đồ mẫu trục từ 0. Xem `docs/GAP_ANALYSIS_2026-10.md`.
 
 ---
 

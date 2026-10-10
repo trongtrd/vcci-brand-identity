@@ -2,7 +2,7 @@
 
 Extension Quarto cho tài liệu VCCI: báo cáo tư vấn (`vcci-report`), working paper (`vcci-wp`), tờ trình (`vcci-memo`). Mỗi định dạng xuất PDF bằng Typst (bản chính) và Word (để đồng nghiệp sửa). Kế hoạch: [`docs/PLAN_QUARTO_VCCI.md`](../docs/PLAN_QUARTO_VCCI.md).
 
-Trạng thái: `vcci-report`, `vcci-wp` và `vcci-memo` (tờ trình) đã được duyệt (bước 2–4, 10/10/2026). Tiếp theo: bước 5 (theme biểu đồ, tài liệu).
+Trạng thái: `vcci-report`, `vcci-wp` và `vcci-memo` (tờ trình) đã được duyệt (bước 2–4, 10/10/2026). Bước 5 (theme biểu đồ cho Python, R, Stata) đã được duyệt. Tiếp theo: bước 6 (phát hành).
 
 ## Dùng `vcci-report`
 
@@ -113,6 +113,18 @@ Chép `templates/memo.qmd`. Bản mẫu: [`examples/memo.pdf`](examples/memo.pdf
 
 Tiêu đề mục (`#`) của memo nhỏ hơn chương của báo cáo và không đánh số. Từ trang 2, đầu trang nhắc lại "Về việc".
 
+## Biểu đồ: Python, R, Stata
+
+Thư mục [`charts/`](charts/) có theme biểu đồ theo phần 08 của hướng dẫn thương hiệu: `vcci_charts.py` và `vcci.mplstyle` (matplotlib), `theme_vcci.R` (ggplot2), `scheme-vcci.scheme` và `vcci_graph.do` (Stata). Cách dùng và ví dụ cho từng công cụ: [`charts/README.md`](charts/README.md). Bản sao cho người không dùng Quarto nằm ở `brand-assets/06_Templates/Charts/`.
+
+Trong tài liệu Quarto, chép file theme cạnh file `.qmd`:
+
+- **R** (knitr): `source("theme_vcci.R")` rồi `vcci_setup()` trong khối mã đầu tiên. Biểu đồ trong bản PDF là SVG (chữ dựng bằng font của tài liệu); bản Word dùng PNG 300 dpi. Mẫu: `templates/charts.qmd`, kết quả ở [`examples/charts.pdf`](examples/charts.pdf).
+- **Python** (Jupyter): `import vcci_charts as vcci` rồi `vcci.use()`. Thêm `fig-format: svg` cho định dạng Typst và `fig-format: png` cho Word.
+- **Stata:** vẽ trong Stata (`do vcci_graph.do`), xuất `graph export ten.svg`, rồi chèn `![Chú thích](ten.svg)`.
+
+Chú thích hình (`fig-cap`) nêu thông điệp của biểu đồ; nguồn số liệu ghi dưới biểu đồ (`caption` trong ggplot, `vcci.source()`, `note()` trong Stata).
+
 ## Phát triển
 
 | Đường dẫn | Nội dung |
@@ -120,11 +132,14 @@ Tiêu đề mục (`#`) của memo nhỏ hơn chương của báo cáo và khôn
 | `src/shared/vcci.typ` | Lớp Typst dùng chung: trang, chữ, tiêu đề, bảng, chú thích, logo, hero icon, vòng trống, gạch vàng, nhãn, đoạn dẫn, hộp nhấn mạnh, thẻ số liệu, hộp `callout` theo màu trạng thái, dấu bản thảo |
 | `src/shared/vcci.lua` | Bộ lọc khối `lead`, `highlight`, `label`, `figures` cho Typst và Word; cờ `cover`/`back-cover` |
 | `src/formats/<định dạng>/` | `_extension.yml`, `template.typ`, `typst-show.typ` của từng định dạng |
+| `src/charts/` | Nguồn theme biểu đồ; `{{…}}` được thay bằng màu và font từ `brand-tokens.json` |
+| `charts/`, `brand-assets/06_Templates/Charts/` | Theme biểu đồ **sinh tự động** bằng `build.py`; không sửa tay |
 | `_extensions/vcci/<định dạng>/` | **Sinh tự động** bằng `build.py`; không sửa tay |
 | `templates/` | Tài liệu mẫu cho người dùng |
 | `tests/baseline/` | Ảnh chuẩn đã duyệt của từng trang PDF (lớp 5) |
 | `tests/fixtures/` | Tài liệu thử: `minimal` (tối giản), `stress` (tiêu đề ba dòng, bảng 63 dòng qua trang, bảng rộng, trích dẫn, phương trình, đủ loại hộp ghi chú) |
-| `tests/selftest/` | Tài liệu cố tình lỗi, để chứng minh bộ kiểm thử bắt được lỗi |
+| `tests/selftest/` | Tài liệu cố tình lỗi, để chứng minh bộ kiểm thử bắt được lỗi; `selftest/charts/` cho biểu đồ |
+| `tests/charts/` | Bộ biểu đồ mẫu vẽ bằng Python, R và Stata từ cùng số liệu (`data/`) |
 
 `build.py` lấy màu, font, logo, hero icon, họa tiết từ `brand-assets/` và file Word mẫu từ `VCCI_Report.dotx`. Mỗi extension tự chứa đủ (Quarto không cho các extension dùng chung file), nên phần dùng chung được chép vào từng extension. Logo và icon được nhúng thẳng vào mã Typst, nên không có file nào bị chép vào thư mục của người dùng.
 
@@ -153,7 +168,13 @@ python quarto-vcci/tests/run_tests.py
 5. **So ảnh:** mỗi trang PDF được so với ảnh chuẩn đã duyệt trong `tests/baseline/`, theo từng ô 32 × 32 điểm ảnh (khoảng 16 mm), nên chỉ một từ thay đổi cũng bị phát hiện. Trang lệch thì báo kèm ảnh khác biệt (`diff-*.png`). Thay đổi cố ý đã được duyệt thì chạy lại với `--update-baseline`.
 6. **Cài đặt:** `quarto add` vào thư mục trống, rồi dựng tài liệu mẫu ở đó.
 7. **Tự kiểm:** các tài liệu trong `tests/selftest/` phải bị đúng kiểm tra tương ứng bắt lỗi.
+8. **Biểu đồ:**
+   - Bộ biểu đồ mẫu (cột có điểm nhấn, đường, cột chồng, phân tán, sáu chuỗi, bảng nhiệt) được vẽ bằng cả ba theme.
+   - Từng file SVG phải: chỉ dùng màu VCCI (không màu mặc định, không màu trạng thái); không trong suốt; giữ chữ dạng chữ, bằng font thương hiệu; có tiêu đề tiếng Việt; dùng dấu phẩy thập phân; không có lưới dọc; vàng chỉ nhấn tối đa một giá trị; biểu đồ cột bắt đầu từ 0; sáu chuỗi đúng thứ tự màu.
+   - Tài liệu thử `charts-tools` chèn các biểu đồ này vào báo cáo, `charts-py` chạy khối mã Python bằng Jupyter, mẫu `templates/charts.qmd` chạy khối mã R; cả ba qua lớp 2–5.
+   - Mỗi ví dụ mã trong `charts/README.md` được chạy thật.
+   - Phần R hoặc Stata tự bỏ qua khi máy chưa cài; tắt Stata bằng `--no-stata`. Đặt `VCCI_STATA` nếu Stata cài ở chỗ khác.
 
 Kết quả nằm ở `tests/out/summary.md` (kèm PDF, DOCX, PDF do Word xuất và ảnh từng trang).
 
-Cần: Quarto ≥ 1.6 (có sẵn Typst), Python 3 với PyYAML và PyMuPDF, Poppler (`pdffonts`, `pdfinfo`, `pdftotext`, `pdftoppm`); Microsoft Word cho lớp 4.
+Cần: Quarto ≥ 1.6 (có sẵn Typst), Python 3 với PyYAML, PyMuPDF và matplotlib (Jupyter cho `charts-py`), Poppler (`pdffonts`, `pdfinfo`, `pdftotext`, `pdftoppm`); Microsoft Word cho lớp 4; R (ggplot2, svglite, ragg, systemfonts, knitr) và Stata 18+ cho lớp 8.

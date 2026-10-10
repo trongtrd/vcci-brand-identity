@@ -1,0 +1,32 @@
+# Deliberately broken charts (make_broken.py) and the layer 8 checks that must catch them.
+# spec: which sample chart's rules apply (CHART_SPECS in run_tests.py)
+py-matplotlib-default.svg:
+  spec: bar
+  expect-fail: [only VCCI colours, text kept as text, Drum Gold only marks one value, decimal comma]
+r-ggplot-default.svg:
+  spec: bar
+  expect-fail: [only VCCI colours, text kept as text]
+stata-s2color.svg:
+  spec: bar
+  expect-fail: [only VCCI colours, text kept as text]
+py-transparent.svg:
+  spec: bar
+  expect-fail: [no transparency]
+py-axis-not-zero.svg:
+  spec: bar
+  expect-fail: [value axis starts at zero]
+py-text-as-paths.svg:
+  spec: bar
+  expect-fail: [text kept as text]
+py-vertical-grid.svg:
+  spec: line
+  expect-fail: [no vertical grid lines]
+py-decimal-point.svg:
+  spec: line
+  expect-fail: [decimal comma]
+py-gold-series.svg:
+  spec: series6
+  expect-fail: [Drum Gold only marks one value, series colours in brand order]
+py-status-colours.svg:
+  spec: line
+  expect-fail: [only VCCI colours]

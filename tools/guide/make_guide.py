@@ -721,6 +721,25 @@ P.append(page(9, f'''<h2>Trình chiếu <em>từ template</em></h2>
   <div><h3>Logo và chân trang</h3><p class="small">Logo ở bìa, slide kết thúc và góc slide nền sáng. Chân trang: Insert → Header &amp; Footer → Apply to All.</p></div>
   <div><h3>Tiết chế</h3><p class="small">Một điểm nhấn vàng mỗi slide. Hiệu ứng Fade chỉ dùng cho slide chuyển chương; không thêm hiệu ứng khác.</p></div></div>'''))
 
+qv = [('qv_report.png', 'Báo cáo tư vấn', 'vcci-report · bìa, mục lục, chương, bìa sau; chú thích cuối trang'),
+      ('qv_wp.png', 'Working paper', 'vcci-wp · số hiệu, tóm tắt song ngữ, mã JEL; trích dẫn APA'),
+      ('qv_memo.png', 'Tờ trình', 'vcci-memo · Gửi, Từ, Về việc, chữ ký'),
+      ('qv_charts.png', 'Báo cáo có biểu đồ', 'Biểu đồ ggplot2 chạy ngay trong tài liệu')]
+code = [('Python · matplotlib', 'vcci_charts.py, vcci.mplstyle', ['import vcci_charts as vcci', 'vcci.use()', 'vcci.highlight(bars, -1)', 'vcci.source(fig, "Nguồn: …")']),
+        ('R · ggplot2', 'theme_vcci.R', ['source("theme_vcci.R")', 'vcci_setup()', 'fill = vcci_highlight(year == 2025)', 'labs(caption = "Nguồn: …")']),
+        ('Stata', 'scheme-vcci.scheme, vcci_graph.do', ['do vcci_graph.do', 'graph bar …, note("Nguồn: …")', 'graph export bieu-do.svg'])]
+P.append(page(9, f'''<h2>Tài liệu và biểu đồ <em>từ mã</em></h2>
+ <p style="width:250mm">Nhóm nghiên cứu soạn báo cáo, working paper và tờ trình bằng Quarto (Markdown). Một lệnh dựng ra bản PDF đúng bộ nhận diện và bản Word để đồng nghiệp sửa. Theme biểu đồ cho Python, R và Stata dùng chung màu, chữ và quy tắc của phần 08.</p>
+ <div class="grid" style="grid-template-columns:1.75fr 1fr;gap:10mm;margin-top:3mm;align-items:start">
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:5mm">
+   {''.join(f'<div>{tpl(f, "100%")}<div style="font:500 9.5pt Lora;color:var(--blue);margin-top:2.4mm">{n}</div><p class="small" style="margin:0">{d}</p></div>' for f, n, d in qv)}</div>
+  <div>{''.join(f"""<div style="padding:2.6mm 0;border-top:.25mm solid var(--hair)"><div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font:600 8.4pt BVP;color:var(--blue)">{t}</b><span class="small" style="font-size:6.6pt">{f}</span></div>
+    <div style="margin-top:1.6mm;padding:2mm 3mm;background:var(--tint);font:400 7.2pt/1.6 BVP;color:var(--ink)">{'<br>'.join(lines)}</div></div>""" for t, f, lines in code)}</div></div>
+ <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:10mm;margin-top:6mm">
+  <div><h3>Bắt đầu</h3><p class="small">Cài extension bằng lệnh <b>quarto add</b>, chép một tài liệu mẫu, rồi chạy <b>quarto render</b>. Thông tin bìa, tác giả, số hiệu khai báo ở đầu tài liệu.</p></div>
+  <div><h3>Biểu đồ</h3><p class="small">Chép file theme cạnh file mã. Màu chuỗi, lưới, chữ và dấu phẩy thập phân tự đúng; vàng chỉ nhấn một giá trị. Chú thích hình nêu thông điệp, nguồn ghi dưới biểu đồ.</p></div>
+  <div><h3>Tệp</h3><p class="small">Extension, mẫu và hướng dẫn: thư mục <b>quarto-vcci</b>. Theme biểu đồ cho người không dùng Quarto: <b>06_Templates/Charts</b>.</p></div></div>'''))
+
 P.append(page(9, f'''<h2>Kênh số và <em>sự kiện</em></h2>
  <div class="grid" style="grid-template-columns:1.55fr .75fr .95fr;gap:6mm;align-items:start">
   <div>{tpl('mock_website.jpg', '100%')}<p class="small" style="margin-top:2.4mm">Website: logo đầy đủ trên thanh điều hướng sáng, khối hero xanh có họa tiết vòng trống.</p>
@@ -731,7 +750,7 @@ P.append(page(9, f'''<h2>Kênh số và <em>sự kiện</em></h2>
 
 assets = [('01_Logo', 'Logo chính, lockup, bản ô nền sáng: SVG, PNG, PDF; bản gốc .CDR'), ('02_Colour', 'Bảng màu, thang sắc độ, màu trạng thái, màu biểu đồ: Office theme, Adobe ASE, CSS, JSON'),
           ('03_Fonts', 'Lora, Be Vietnam Pro và giấy phép SIL OFL'), ('04_Graphics', 'Vòng trống, mặt trời 14 cánh, cung chữ C, trường chấm'),
-          ('05_Icons', '48 icon nhỏ, 24 hero icon; quy cách ICON_SPEC.md'), ('06_Templates', 'Template Word (thư, báo cáo, thư mời) và PowerPoint 16:9'),
+          ('05_Icons', '48 icon nhỏ, 24 hero icon; quy cách ICON_SPEC.md'), ('06_Templates', 'Template Word (thư, báo cáo, thư mời), PowerPoint 16:9, theme biểu đồ Python, R, Stata'),
           ('07_Guidelines', 'Tài liệu này'), ('brand-tokens.json', 'Toàn bộ thông số dạng máy đọc được, cho lập trình viên')]
 P.append(page(9, f'''<div class="grid" style="grid-template-columns:1.1fr 1fr;gap:12mm">
  <div><h2>Văn phòng phẩm và <em>quà tặng</em></h2>{tpl('mock_stationery.jpg', '100%')}<div class="grid" style="grid-template-columns:1fr 1fr;gap:5mm;margin-top:5mm"><div>{tpl('mock_giftbox.jpg', '100%')}</div><p class="small">Bao bì và quà tặng: hộp xanh, nhãn giấy sáng in logo đầy đủ. Không in logo chữ trắng hay chữ vàng ép kim lên bề mặt xanh.</p></div></div>
