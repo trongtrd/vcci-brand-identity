@@ -26,6 +26,16 @@ python tools/build.py assets guide   # một số bước
 
 Script `word/finalize.py` và `ppt/finalize.py` điều khiển Word và PowerPoint qua COM. **Hãy đóng Word và PowerPoint trước khi chạy**; script sẽ dừng lại nếu phát hiện có tài liệu đang mở.
 
+## Cài skill cho agent
+
+`install_skill.py` chép `skills/vcci-brand` vào thư mục skill của Codex, Antigravity hoặc Claude Code, kèm `brand-root.txt` ghi đường dẫn bản clone này, để script của skill tìm được `brand-assets/` mà không cần `VCCI_BRAND_ROOT` (`skills/vcci-brand/scripts/word/common.py: find_brand_root`). Cách dùng ở README gốc, mục "Dùng với AI agent".
+
+`python tools/test_install_skill.py` kiểm tra script này:
+- cài vào thư mục tạm ngoài repo;
+- chạy quy trình Word và PowerPoint từ bản cài, kết quả phải giống bản chạy trong repo (trừ thời điểm tạo file);
+- `brand-root.txt` trỏ sai thì báo lỗi rõ ràng;
+- không ghi đè thư mục lạ; `--project` và `--uninstall` đúng.
+
 ## Ghi chú kỹ thuật
 
 - **Logo từ CorelDRAW:** file `.cdr` (X3) là RIFF nén zlib. `cdr/parse.py` đọc cây chunk, `cdr/tosvg.py` giải mã đường cong (`loda`), ma trận (`trfd`) và màu tô (`fild`), `cdr/mkvector.py` chuẩn hóa thành SVG với chiều cao chữ bằng 1000 đơn vị.

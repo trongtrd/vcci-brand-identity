@@ -27,10 +27,18 @@ def frag(xml):
 
 
 def find_brand_root():
-    """Directory that contains brand-assets/: $VCCI_BRAND_ROOT, else the nearest parent of this script."""
+    """Directory that contains brand-assets/: $VCCI_BRAND_ROOT; else the folder named in brand-root.txt next to SKILL.md
+    (written by tools/install_skill.py when the skill is installed outside the repository); else the nearest parent."""
     env = os.environ.get('VCCI_BRAND_ROOT')
     if env and os.path.isdir(os.path.join(env, 'brand-assets')):
         return env
+    marker = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'brand-root.txt')
+    if os.path.isfile(marker):
+        root = open(marker, encoding='utf-8').read().strip()
+        if os.path.isdir(os.path.join(root, 'brand-assets')):
+            return root
+        raise SystemExit(f'brand-root.txt points to {root}, which has no brand-assets/. Move the vcci-brand-identity clone back, '
+                         'or reinstall the skill: python tools/install_skill.py <tool> (run from the clone).')
     d = os.path.dirname(os.path.abspath(__file__))
     while True:
         if os.path.isdir(os.path.join(d, 'brand-assets')):

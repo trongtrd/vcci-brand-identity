@@ -7,7 +7,7 @@ description: Áp dụng Bộ nhận diện thương hiệu VCCI (Liên đoàn Th
 
 Skill này đưa nội dung thô vào template VCCI: báo cáo theo `VCCI_Report.dotx`, bài trình bày theo `VCCI_Presentation.potx`. Màu, font và bố cục do template và script quyết định. Agent chỉ phải xác định **cấu trúc** của nội dung và giữ nguyên câu chữ, số liệu.
 
-Script nằm trong `scripts/word/` và `scripts/ppt/` (đường dẫn tính từ thư mục skill này), cần Python 3.9+ với `lxml`, `Pillow` và (cho PowerPoint) `python-pptx`. Script tự tìm `brand-assets/` ở các thư mục cha; nếu skill được chép ra khỏi repo, đặt biến môi trường `VCCI_BRAND_ROOT` trỏ tới bản clone của repo `vcci-brand-identity`.
+Script nằm trong `scripts/word/` và `scripts/ppt/` (đường dẫn tính từ thư mục skill này), cần Python 3.9+ với `lxml`, `Pillow` và (cho PowerPoint) `python-pptx`. Script tự tìm `brand-assets/` ở các thư mục cha. Skill cài bằng `tools/install_skill.py` có file `brand-root.txt` cạnh `SKILL.md`, ghi thư mục của bản clone repo `vcci-brand-identity`: mọi đường dẫn của repo trong skill này (`brand-assets/`, `quarto-vcci/`, `docs/`) tính từ thư mục đó. Biến môi trường `VCCI_BRAND_ROOT`, nếu có, được ưu tiên.
 
 Bước hoàn thiện (`finalize.py`) cần Microsoft Word hoặc PowerPoint trên Windows. Script tự dừng nếu người dùng đang mở tài liệu trong ứng dụng đó: khi ấy nhờ người dùng đóng ứng dụng, **không bao giờ tắt Word hay PowerPoint của người dùng**. Không có Office thì bỏ qua bước này và nói rõ là chưa tự kiểm tra bằng hình.
 
