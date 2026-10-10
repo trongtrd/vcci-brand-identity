@@ -1,8 +1,8 @@
 # quarto-vcci (đang phát triển)
 
-Extension Quarto cho tài liệu VCCI: báo cáo tư vấn (`vcci-report`), working paper (`vcci-wp`), memo (`vcci-memo`). Mỗi định dạng xuất PDF bằng Typst (bản chính) và Word (để đồng nghiệp sửa). Kế hoạch: [`docs/PLAN_QUARTO_VCCI.md`](../docs/PLAN_QUARTO_VCCI.md).
+Extension Quarto cho tài liệu VCCI: báo cáo tư vấn (`vcci-report`), working paper (`vcci-wp`), tờ trình (`vcci-memo`). Mỗi định dạng xuất PDF bằng Typst (bản chính) và Word (để đồng nghiệp sửa). Kế hoạch: [`docs/PLAN_QUARTO_VCCI.md`](../docs/PLAN_QUARTO_VCCI.md).
 
-Trạng thái: `vcci-report` đã xong và được duyệt (bước 2, 10/10/2026). `vcci-wp` và `vcci-memo` làm ở bước 3 và 4.
+Trạng thái: `vcci-report`, `vcci-wp` và `vcci-memo` (tờ trình) đã được duyệt (bước 2–4, 10/10/2026). Tiếp theo: bước 5 (theme biểu đồ, tài liệu).
 
 ## Dùng `vcci-report`
 
@@ -37,7 +37,7 @@ Bản mẫu đã dựng: [`examples/report.pdf`](examples/report.pdf) và [`exam
 | `contact` | Thay địa chỉ liên hệ mặc định của VCCI | Bìa sau |
 | `cover: false`, `back-cover: false` | Bỏ bìa trước (cùng trang thông tin) hoặc bìa sau | |
 | `toc: true` | Mục lục | Sau trang thông tin |
-| `bibliography` | Tài liệu tham khảo, trích dẫn kiểu tác giả–năm (APA) | Cuối tài liệu |
+| `bibliography` | Tài liệu tham khảo; trích dẫn kiểu Chicago chú thích cuối trang | Chú thích, cuối tài liệu |
 
 ### Khối nội dung VCCI
 
@@ -65,6 +65,7 @@ Hộp `callout-note`, `-tip`, `-warning`, `-important`, `-caution` của Quarto 
 ### Lưu ý
 
 - **Bảng rộng:** Pandoc chia độ rộng cột theo số dấu `-` ở dòng phân cách khi bảng có dòng dài. Cột có chữ dài thì cho nhiều dấu `-` hơn, ví dụ `|-----------|--:|--:|`.
+- **Trích dẫn:** báo cáo và tờ trình dùng Chicago chú thích cuối trang (lần đầu đầy đủ, các lần sau rút gọn); luôn viết trong ngoặc vuông, `[@khoa]` hay `[@khoa, tr. 12]`, vì `@khoa` đứng trần sẽ in cả nguồn giữa câu. Working paper dùng APA (tác giả–năm), nơi `@khoa` cho "Tác giả (năm)" trong câu. Kiểu Chicago là bản tùy biến `vcci-chicago-notes.csl`: không đặt dấu phẩy trước "và" khi có hai tác giả. Với `@techreport`, thêm `type = {Báo cáo kỹ thuật}` để không hiện "technical report". Trong file `.bib`, viết tên người Việt trong ngoặc nhọn, `author = {{Nguyễn Thị Hạnh} and {Trần Đức Long}}`, để tên không bị đảo thành "Thị Hạnh Nguyễn" hay viết tắt thành "Nguyễn, T. H.".
 - **Tài liệu tham khảo** được Quarto đặt ở cuối tài liệu (sau phụ lục) với tiêu đề "Tài liệu tham khảo"; không tự thêm mục này.
 - **Bản Word:**
   - Không có bìa màu như PDF; trang đầu là tiêu đề, tác giả, ngày.
@@ -93,6 +94,24 @@ Trang đầu gồm: tên bộ và số hiệu, tiêu đề, tác giả (đơn v�
 | `status`, `short-title`, `version`, `toc` | Như `vcci-report` |
 
 Trong bản Word, tên bộ và số hiệu nằm trên dòng ngày; từ khóa, tóm tắt thứ hai, mã JEL, trích dẫn và lời miễn trừ nằm ở đầu thân bài.
+
+## Dùng `vcci-memo` (tờ trình)
+
+Chép `templates/memo.qmd`. Bản mẫu: [`examples/memo.pdf`](examples/memo.pdf), [`examples/memo.docx`](examples/memo.docx), bản tiếng Anh hai trang [`examples/memo-en.pdf`](examples/memo-en.pdf).
+
+| Khóa | Ý nghĩa |
+|---|---|
+| `title` | Nội dung "Về việc" |
+| `recipient`, `sender`, `copy-to` | Gửi, Từ, Đồng gửi (`to` và `from` là khóa riêng của Pandoc nên không dùng được); không có `sender` thì lấy `author` |
+| `date` | Ngày |
+| `priority` | Ví dụ "Khẩn": nhãn cạnh chữ "TỜ TRÌNH" |
+| `status` | Ví dụ "Nội bộ", "Mật": dấu chìm mọi trang |
+| `signature` | `name` và `title` (chức vụ), đặt bên phải cuối memo |
+| `attachments` | Danh sách tài liệu kèm theo |
+| `memo-label` | Thay chữ "Tờ trình" (tiếng Anh: "Memo") |
+| `lang: en` | Memo tiếng Anh ("MEMO", To, From, Subject…); thêm `date-format: "D MMMM YYYY"` |
+
+Tiêu đề mục (`#`) của memo nhỏ hơn chương của báo cáo và không đánh số. Từ trang 2, đầu trang nhắc lại "Về việc".
 
 ## Phát triển
 
@@ -131,7 +150,7 @@ python quarto-vcci/tests/run_tests.py
    - Khổ **A4** ở mọi section; mọi style đều được định nghĩa; bảng dùng VCCI Table; font được nhúng.
    - Sau đó Microsoft Word mở file và xuất PDF. PDF đó phải khổ A4, mọi chữ theo font thương hiệu (trừ ký hiệu đầu dòng và phương trình).
    - Lớp này tự bỏ qua khi Word đang mở tài liệu của bạn, hoặc khi chạy với `--no-word`.
-5. **So ảnh:** mỗi trang PDF được so với ảnh chuẩn đã duyệt trong `tests/baseline/`. Trang lệch quá ngưỡng thì báo kèm ảnh khác biệt (`diff-*.png`). Thay đổi cố ý đã được duyệt thì chạy lại với `--update-baseline`.
+5. **So ảnh:** mỗi trang PDF được so với ảnh chuẩn đã duyệt trong `tests/baseline/`, theo từng ô 32 × 32 điểm ảnh (khoảng 16 mm), nên chỉ một từ thay đổi cũng bị phát hiện. Trang lệch thì báo kèm ảnh khác biệt (`diff-*.png`). Thay đổi cố ý đã được duyệt thì chạy lại với `--update-baseline`.
 6. **Cài đặt:** `quarto add` vào thư mục trống, rồi dựng tài liệu mẫu ở đó.
 7. **Tự kiểm:** các tài liệu trong `tests/selftest/` phải bị đúng kiểm tra tương ứng bắt lỗi.
 

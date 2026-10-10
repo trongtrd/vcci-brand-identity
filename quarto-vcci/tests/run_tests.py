@@ -41,6 +41,9 @@ WARN = re.compile(r'^(WARN|WARNING|ERROR)\b|(^|\.\.\.)(warning|error): ')
 TEMPLATE_SPECS = {
     'report': {'formats': ['vcci-report-typst', 'vcci-report-docx'], 'pages': [6, 12],
                'must-contain': ['Đánh giá chi phí tuân thủ thủ tục đầu tư', 'Ba khuyến nghị ưu tiên', 'Lộ trình đề xuất']},
+    'memo': {'formats': ['vcci-memo-typst', 'vcci-memo-docx'], 'pages': [1, 2],
+             'must-contain': ['Tờ trình', 'Gửi', 'Chủ tịch VCCI', 'Về việc', 'Góp ý dự thảo Nghị định',
+                              'Trưởng Ban Pháp chế', 'Tài liệu kèm theo', 'Bảng tổng hợp ý kiến doanh nghiệp']},
     'wp': {'formats': ['vcci-wp-typst', 'vcci-wp-docx'], 'pages': [2, 5],
            'must-contain': ['VCCI Working Paper số 2026/01', 'Từ khóa', 'Keywords', 'Mã JEL: D22, H11, K23, O17',
                             'Trích dẫn đề nghị', 'không nhất thiết phản ánh quan điểm', 'Bảng 2', 'Tài liệu tham khảo']},
@@ -99,6 +102,7 @@ def pdf_checks(fx, fmt, pdf, spec, outdir):
     visible = norm(' '.join(t for _, _, words in pages_words for *_, t in words))
     # compared without spaces: pdftotext splits letter-spaced labels ("A B ST R ACT") into several words
     missing = [s for s in spec.get('must-contain', []) if norm(s).replace(' ', '') not in visible.replace(' ', '')]
+    record(fx, fmt, 'no broken characters (U+FFFD)', '\ufffd' not in visible)
     record(fx, fmt, 'required Vietnamese text present and visible', not missing, ' | '.join(missing))
     edge, side, overlap = [], [], []
     for pno, (w, h, words) in enumerate(pages_words, 1):
@@ -127,14 +131,21 @@ def pdf_checks(fx, fmt, pdf, spec, outdir):
 WORD_COM = os.path.join(ROOT, 'tools', 'word', 'word_com.ps1')
 
 BASELINE = os.path.join(HERE, 'baseline')
-VISUAL_LIMIT = 1.5   # mean absolute grey-level difference per page (0-255); text moving one line is far above this
+# Typst renders identically every time, so an unchanged page differs by exactly 0. A page fails when any 32 x 32 px
+# tile (about 16 mm at 50 dpi) differs by more than TILE_LIMIT grey levels on average: one changed word is enough.
+TILE, TILE_LIMIT = 32, 4.0
 
 def page_diff(a, b):
-    from PIL import Image, ImageChops, ImageStat
+    """Largest mean grey-level difference over the page's tiles (0-255), and the difference image."""
+    import numpy
+    from PIL import Image, ImageChops
     ia, ib = Image.open(a).convert('L'), Image.open(b).convert('L')
     if ia.size != ib.size: return 255.0, None
     d = ImageChops.difference(ia, ib)
-    return ImageStat.Stat(d).mean[0], d
+    arr = numpy.asarray(d, dtype=float)
+    h, w = arr.shape
+    worst = max(arr[y:y + TILE, x:x + TILE].mean() for y in range(0, h, TILE) for x in range(0, w, TILE))
+    return worst, d
 
 def visual_checks(fx, fmt, outdir):
     pages = sorted(glob.glob(os.path.join(outdir, 'page-*.png')), key=lambda f: int(f.rsplit('-', 1)[1][:-4]))
@@ -153,7 +164,7 @@ def visual_checks(fx, fmt, outdir):
     changed = []
     for r_, p_ in zip(ref, pages):
         score, d = page_diff(r_, p_)
-        if score > VISUAL_LIMIT:
+        if score > TILE_LIMIT:
             changed.append(f'{os.path.basename(p_)} ({score:.1f})')
             if d is not None: d.point(lambda v: 255 - min(255, v * 4)).save(p_.replace('page-', 'diff-'))
     record(fx, fmt, 'pages look like the approved version', not changed, ', '.join(changed[:5]))
@@ -225,6 +236,7 @@ def docx_checks(fx, fmt, docx, spec, ext_dir):
     record(fx, fmt, 'fonts embedded', any(n.startswith('word/fonts/') for n in z.namelist()))
     parts = [doc] + [z.read(n).decode('utf-8') for n in ('word/footnotes.xml', 'word/endnotes.xml') if n in z.namelist()]
     plain = norm(''.join(t for p in parts for t in re.findall(r'<w:t[^>]*>([^<]*)</w:t>', p)))
+    record(fx, fmt, 'no broken characters (U+FFFD)', '\ufffd' not in plain)   # e.g. a byte-wise string.upper in Lua
     missing = [s for s in spec.get('must-contain', []) if norm(s).replace(' ', '') not in plain.replace(' ', '')]
     record(fx, fmt, 'required Vietnamese text present', not missing, ' | '.join(missing))
 
@@ -294,7 +306,14 @@ def visual_selftest():
         p = os.path.join(tmp, 'page-1.png'); shifted.save(p)
         score, _ = page_diff(ref[-2], p)
         record('selftest/visual', None, 'check "pages look like the approved version" catches content moved 3 mm',
-               score > VISUAL_LIMIT, f'score {score:.2f}')
+               score > TILE_LIMIT, f'score {score:.2f}')
+        # one changed word: a 40 x 8 px mark (about 20 x 4 mm) in the text area
+        from PIL import ImageDraw
+        im = Image.open(ref[-2]).convert('RGB'); ImageDraw.Draw(im).rectangle((120, 300, 160, 308), fill=(22, 26, 38))
+        p = os.path.join(tmp, 'page-2.png'); im.save(p)
+        score, _ = page_diff(ref[-2], p)
+        record('selftest/visual', None, 'check "pages look like the approved version" catches one changed word',
+               score > TILE_LIMIT, f'score {score:.2f}')
 
 def selftest(path):
     fx = os.path.splitext(os.path.basename(path))[0]

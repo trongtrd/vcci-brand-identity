@@ -146,7 +146,7 @@ Khi repo lên GitHub, có thể chạy lớp 1–3, 5 và 6 trên GitHub Actions
 | 1 ✅ | Nền dùng chung và bộ kiểm thử | `build.py`, `shared/vcci.typ`, `vcci.lua` (bộ lọc chung cho Typst và Word), `tests/run_tests.py` (lớp 1–4, phần Word chưa mở bằng Word) | Lớp 1–3 chạy được trên một tài liệu tối giản |
 | 2 ✅ | **Báo cáo tư vấn** | `vcci-report` (PDF và Word), `templates/report.qmd`, PDF mẫu | Mọi lớp kiểm thử đạt; **bạn duyệt PDF và Word** |
 | 3 ✅ | Working paper | `vcci-wp`, `templates/wp.qmd`, `references.bib` | Như trên; bạn duyệt số hiệu và lời miễn trừ |
-| 4 | Memo | `vcci-memo`, `templates/memo.qmd` | Như trên |
+| 4 ✅ | Memo (tờ trình) | `vcci-memo`, `templates/memo.qmd` | Như trên |
 | 5 | Biểu đồ và tài liệu | `vcci.mplstyle`, `theme_vcci.R`, scheme Stata; README; bổ sung skill `vcci-brand` và một trang trong hướng dẫn thương hiệu (phần Ứng dụng) | Biểu đồ mẫu đúng bảng màu; README chạy được từng lệnh |
 | 6 | Phát hành | Repo `quarto-vcci`, phiên bản 1.0.0 | Lớp 6 đạt khi cài từ GitHub |
 
@@ -263,4 +263,36 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 - Chủ dự án duyệt bố cục, số hiệu dạng "2026/01" và lời miễn trừ mặc định.
 - Theo cho phép của chủ dự án, `apa.csl` (APA 7, citation-style-language/styles, CC BY-SA 3.0) được kèm vào extension. Bản Word của báo cáo và working paper giờ trình bày tài liệu tham khảo theo APA như bản PDF.
 - Ảnh chuẩn cho `wp` và `wp-en` đã tạo; ảnh chuẩn của báo cáo không đổi.
+
+## 13. Kết quả bước 4 (10/10/2026): `vcci-memo` (tờ trình), chủ dự án đã duyệt
+
+**Định dạng**
+- Trang 1: logo, chữ "GHI NHỚ" kèm nhãn mức độ ("Khẩn"); khối Gửi, Từ, Đồng gửi, Ngày, Về việc; gạch vàng.
+- Thân memo có tiêu đề mục gọn; chữ ký bên phải; tài liệu kèm theo.
+- Từ trang 2, đầu trang nhắc lại "Về việc"; chân trang "Trang X / N"; dấu chìm "Nội bộ"/"Mật".
+- Song ngữ (`lang: en`).
+- Khóa `recipient`, `sender`, `copy-to`, vì `to` và `from` là khóa riêng của Pandoc (lỗi "cannot produce pdf output from chủ tịch vcci").
+
+**Kiểm thử: 204/204 đạt**
+- Thêm tài liệu thử `memo-en` (hai trang) và mẫu `templates/memo.qmd`.
+- Kiểm tra mới: không có ký tự hỏng (U+FFFD) trong PDF, Word và PDF do Word xuất; có tự kiểm đi kèm.
+- Lỗi tìm thấy:
+  - `string.upper` của Lua xử lý theo byte, làm hỏng "GHI NHỚ · KHẨN" trong bản Word thành ký tự lỗi. Kiểm tra chữ trong Word bắt được; đã bỏ, vì style VCCI Label tự viết hoa.
+  - Tiêu đề mục memo trong Word to như chương báo cáo; đã hạ một cấp.
+  - Nhãn "Tài liệu kèm theo" bị tách khỏi danh sách ở cuối trang; style VCCI Label giờ luôn đi liền đoạn sau (cho cả ba định dạng).
+
+**Quyết định của chủ dự án sau khi xem bản đầu (10/10/2026)**
+- Tên tiếng Việt của memo là **"Tờ trình"** (bản tiếng Anh giữ "Memo"), vì định dạng này là văn bản đệ trình nội bộ.
+- Kiểu trích dẫn: **báo cáo và tờ trình dùng Chicago chú thích cuối trang** (văn phong chính sách, ứng dụng); **working paper giữ APA**.
+- Chicago dùng `vcci-chicago-notes.csl`, bản tùy biến từ `chicago-notes-bibliography.csl` (CSL project, CC BY-SA 3.0; tải theo phép của chủ dự án), dùng cho cả PDF (Typst đọc CSL) lẫn Word. Hai chỗ tùy biến:
+  - Không có dấu phẩy trước "và" khi có hai tác giả.
+  - Với `@techreport`, khai báo `type = {Báo cáo kỹ thuật}` trong `.bib` để thay "technical report".
+- Tên người Việt trong `.bib` viết trong ngoặc nhọn `{Nguyễn Thị Hạnh}` để không bị đảo hay viết tắt.
+
+**Kiểm thử**
+- 207/207 đạt khi chạy đầy đủ (trước khi cập nhật ảnh chuẩn, chỉ các trang cố ý thay đổi bị báo).
+- Phép so ảnh giờ so theo ô 32 × 32 px; phần tự kiểm xác nhận một từ thay đổi cũng bị bắt.
+- Ảnh chuẩn cập nhật cho các trang có trích dẫn; thêm ảnh chuẩn cho `memo` và `memo-en`.
+
+**Bước tiếp theo: bước 5** (theme biểu đồ R, matplotlib, scheme Stata; README; skill `vcci-brand`; một trang trong hướng dẫn thương hiệu), rồi bước 6 (phát hành).
 

@@ -1,0 +1,44 @@
+---
+title: "Góp ý dự thảo Nghị định sửa đổi quy định về thủ tục đầu tư"
+recipient: "Chủ tịch VCCI"
+sender: "Ban Pháp chế"
+copy-to: "Văn phòng; Ban Quan hệ quốc tế"
+date: 2026-10-10
+priority: "Khẩn"            # bỏ nếu không khẩn
+status: "Nội bộ"           # dấu chìm trên mọi trang; bỏ nếu không cần
+signature:
+  name: "Nguyễn Văn An"
+  title: "Trưởng Ban Pháp chế"
+attachments:
+  - "Dự thảo Nghị định (bản ngày 02/10/2026)"
+  - "Bảng tổng hợp ý kiến doanh nghiệp"
+format:
+  vcci-memo-typst: default
+  vcci-memo-docx: default
+---
+
+::: lead
+Ban Pháp chế đề nghị VCCI gửi văn bản góp ý trước ngày 20/10/2026, tập trung vào ba điểm làm tăng chi phí tuân thủ của doanh nghiệp.
+:::
+
+# Bối cảnh
+
+Bộ Kế hoạch và Đầu tư lấy ý kiến dự thảo Nghị định đến hết ngày 25/10/2026. Qua khảo sát nhanh 120 doanh nghiệp, Ban ghi nhận ba nội dung doanh nghiệp quan tâm nhất.
+
+# Đề xuất
+
+1. Giữ thời hạn thẩm định hồ sơ chấp thuận chủ trương đầu tư ở mức 15 ngày, không kéo dài lên 25 ngày như dự thảo.
+2. Bỏ yêu cầu nộp bản sao chứng thực khi hồ sơ đã nộp trực tuyến.
+3. Quy định rõ thời hạn trả lời khi cơ quan yêu cầu bổ sung hồ sơ.
+
+| Nội dung | Dự thảo | Đề xuất của VCCI |
+|---|---|---|
+| Thời hạn thẩm định | 25 ngày | 15 ngày |
+| Bản sao chứng thực | Bắt buộc | Bỏ khi nộp trực tuyến |
+| Yêu cầu bổ sung hồ sơ | Không giới hạn số lần | Một lần, nêu đủ nội dung |
+
+: So sánh dự thảo và đề xuất {#tbl-dexuat}
+
+# Việc cần Chủ tịch quyết định
+
+Cho ý kiến về ba đề xuất trên để Ban hoàn thiện văn bản góp ý trước ngày 15/10/2026.

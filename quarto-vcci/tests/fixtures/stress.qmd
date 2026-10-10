@@ -34,7 +34,7 @@ Tài liệu này không có tác giả, có tiêu đề ba dòng, nhãn trạng 
 92% | Tỉ lệ phản hồi
 :::
 
-Chữ hoa có dấu chồng: Ở Ỡ Ợ Ủ Ứ Ừ Ữ Ự Ỷ Ỹ ở ỡ ợ ủ ứ ừ ữ ự ỷ ỹ. Trích dẫn trong câu theo @vcci2025pci và [@nguyen2024compliance, tr. 47; @worldbank2020].
+Chữ hoa có dấu chồng: Ở Ỡ Ợ Ủ Ứ Ừ Ữ Ự Ỷ Ỹ ở ỡ ợ ủ ứ ừ ữ ự ỷ ỹ. Trích dẫn thành chú thích cuối trang [@vcci2025pci], kèm số trang và nhiều nguồn [@nguyen2024compliance, tr. 47; @worldbank2020], nhắc lại nguồn đầu [@vcci2025pci].
 
 # Một chương có tiêu đề dài đến mức phải xuống dòng hai lần trên khổ A4 để kiểm tra khoảng cách dòng của tiêu đề chương
 

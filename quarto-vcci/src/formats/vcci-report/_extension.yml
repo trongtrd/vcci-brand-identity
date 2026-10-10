@@ -45,10 +45,10 @@ contributes:
         - typst-show.typ
       font-paths:
         - fonts
-      bibliographystyle: apa
+      bibliographystyle: vcci-chicago-notes.csl   # citations as footnotes (policy writing); the working paper uses APA
       section-numbering: "1.1"
     docx:
       reference-doc: vcci-reference.docx
-      csl: apa.csl             # the PDF uses Typst's built-in APA
+      csl: vcci-chicago-notes.csl
       number-sections: true
       number-depth: 1          # chapters only, as in the PDF
