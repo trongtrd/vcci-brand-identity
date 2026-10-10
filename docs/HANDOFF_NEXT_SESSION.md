@@ -2,7 +2,7 @@
 
 **Dự án:** Bộ nhận diện thương hiệu VCCI (Liên đoàn Thương mại và Công nghiệp Việt Nam)
 **Chủ dự án:** Truong Duc Trong. Trao đổi bằng **tiếng Việt**.
-**Trạng thái (10/10/2026):** v1.1 của bộ nhận diện đã duyệt (thêm Sky, thang sắc độ, màu trạng thái, chương Dữ liệu và biểu đồ, theme màu Office mới). Extension Quarto `quarto-vcci/` xong bước 0–5 và đã duyệt: báo cáo, working paper, tờ trình; theme biểu đồ cho Python, R, Stata; font JetBrains Mono cho mã. Hướng dẫn thương hiệu 37 trang. Nhánh `main`, chưa có remote; thư mục làm việc sạch. Việc tiếp theo: bước 6 (phát hành `quarto-vcci`), cần tài khoản GitHub của chủ dự án. Xem `docs/PLAN_QUARTO_VCCI.md` (mục 10–14) và `quarto-vcci/README.md`.
+**Trạng thái (10/10/2026):** v1.1 của bộ nhận diện đã duyệt (thêm Sky, thang sắc độ, màu trạng thái, chương Dữ liệu và biểu đồ, theme màu Office mới). Extension Quarto `quarto-vcci/` xong cả bước 0–6: báo cáo, working paper, tờ trình; theme biểu đồ cho Python, R, Stata; font JetBrains Mono cho mã. Bản 1.0.0 đã phát hành tại [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci) (công khai), sinh bằng `quarto-vcci/release.py`; bản sao làm việc của repo phát hành ở `C:\GitHub Projects\quarto-vcci`. Hướng dẫn thương hiệu 37 trang. Repo bộ nhận diện này: nhánh `main`, chưa có remote. Xem `docs/PLAN_QUARTO_VCCI.md` (mục 10–15) và `quarto-vcci/README.md`.
 
 ---
 
@@ -51,18 +51,17 @@
 - Phần mềm cho `quarto-vcci`: Quarto 1.9 (có Typst), Python 3.14 (matplotlib, Jupyter, fontTools, PyMuPDF), R 4.6.1 (ggplot2 4.0, svglite, ragg, systemfonts; chưa có reticulate), Stata MP 19 (`C:\Program Files\StataNow19\StataMP-64.exe`). Các bẫy kỹ thuật đã gặp ghi ở mục 14 của `docs/PLAN_QUARTO_VCCI.md`.
 - `tools/assets/build_assets.py` xóa và dựng lại cả `02_Colour`, nên theme biểu đồ đặt ở `06_Templates/Charts`.
 - `example/` chứa tài liệu thật của chủ dự án để thử skill; git bỏ qua, **không** đưa lên GitHub.
-- Máy chưa có **GitHub CLI (`gh`)**. Git Credential Manager có sẵn; git identity: `Trong Truong <trongtrd@gmail.com>`.
+- **GitHub CLI** 2.102.0 (`C:\Program Files\GitHub CLI\gh.exe`; terminal mở trước khi cài chưa có trong PATH, trong PowerShell gọi bằng `& "…\gh.exe"`) đã đăng nhập tài khoản `trongtrd`. Git Credential Manager có sẵn; git identity: `Trong Truong <trongtrd@gmail.com>`.
 
 ## 5. Việc còn mở
 
 | # | Việc | Ghi chú |
 |---|---|---|
-| 1 | **Đưa repo lên GitHub (công khai)** | Chủ dự án sẽ tự làm, hoặc yêu cầu trong phiên mới. Cách làm: tạo repo trống `vcci-brand-identity` trên github.com, chạy `git remote add origin <URL>`, rồi `git push -u origin main`. Lần đầu Git Credential Manager mở cửa sổ đăng nhập để chủ dự án tự đăng nhập. Nếu dùng `gh`, phải cài qua winget và để chủ dự án tự chạy `gh auth login`. |
+| 1 | **Đưa repo lên GitHub (công khai)** | Chủ dự án sẽ tự làm, hoặc yêu cầu trong phiên mới. Cách làm: tạo repo trống `vcci-brand-identity` trên github.com, chạy `git remote add origin <URL>`, rồi `git push -u origin main`. Lần đầu Git Credential Manager mở cửa sổ đăng nhập để chủ dự án tự đăng nhập. Hoặc dùng `gh repo create` (đã cài và đăng nhập). |
 | 2 | Kiểm tra font nhúng trên máy chưa cài font | Mở các file `.dotx`, `.potx` trên một máy khác. Nếu font bị thay thế, khuyến nghị cài font từ `03_Fonts`. |
 | 3 | Chạy lại pipeline icon (`tools/icons`) | Đường dẫn đã được sửa sau khi đổi cấu trúc nhưng chưa chạy lại. Cần thêm `svgpathtools`, `requests` và `sharp`. Không ảnh hưởng bộ icon đã bàn giao. |
 | 4 | Xem lại nội dung | Nhờ VCCI duyệt các đoạn định vị và giọng điệu trong hướng dẫn (trang 3–4). Mã Pantone cần nhà in đề xuất từ CMYK. |
 | 5 | Mở rộng skill `vcci-brand` | Đã có báo cáo Word, bài trình bày PowerPoint, phần C (Quarto và theme biểu đồ). Tiếp theo: vẽ lại biểu đồ dạng ảnh trong báo cáo Word theo bảng màu VCCI; thư, thư mời. |
-| 7 | **Bước 6 của `quarto-vcci`: phát hành** | Repo GitHub riêng có `_extensions/` ở gốc để dùng `quarto use template <tài-khoản>/quarto-vcci`; phiên bản 1.0.0. Cần chủ dự án cho biết tài khoản GitHub. Khi làm: xem lại `.quartoignore`, đưa `templates/` và `charts/` vào bản phát hành, chạy lớp 6 (cài đặt) từ GitHub. |
 | 6 | (Tùy chọn) Mở rộng | Ví dụ template Excel, chữ ký email, nền Zoom/Teams, mẫu bài mạng xã hội, chứng nhận. |
 
 ## 6. Cách làm việc đã thống nhất với chủ dự án
