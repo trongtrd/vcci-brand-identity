@@ -44,6 +44,21 @@
 // Print type scale from the brand guidelines (section 04): H1 Lora Medium 22 pt, H2 Lora SemiBold 14 pt,
 // H3 / label Be Vietnam Pro SemiBold 8.5 pt uppercase, body Be Vietnam Pro 10 pt (leading 1.4), caption 7.5 pt.
 
+// Words the templates write themselves, by document language (Quarto's own labels come from _extension.yml)
+#let VCCI-LABELS = (
+  vi: (org: "Liên đoàn Thương mại và Công nghiệp Việt Nam", contents: "Mục lục", chapter: "Chương", page: "Trang",
+       report: "Báo cáo", client: "Thực hiện cho", team: "Nhóm thực hiện", version: "Phiên bản", citation: "Trích dẫn",
+       suggested-citation: "Trích dẫn đề nghị", disclaimer: "Lưu ý", abstract: "Tóm tắt", keywords: "Từ khóa",
+       jel: "Mã JEL", number: "số", number-cap: "Số", correspondence: "Tác giả liên hệ", city: "Hà Nội", acknowledgements: "Lời cảm ơn",
+       wp-disclaimer: "Quan điểm trong bài là của tác giả, không nhất thiết phản ánh quan điểm của Liên đoàn Thương mại và Công nghiệp Việt Nam."),
+  en: (org: "Vietnam Chamber of Commerce and Industry", contents: "Contents", chapter: "Chapter", page: "Page",
+       report: "Report", client: "Prepared for", team: "Team", version: "Version", citation: "Citation",
+       suggested-citation: "Suggested citation", disclaimer: "Disclaimer", abstract: "Abstract", keywords: "Keywords",
+       jel: "JEL classification", number: "No.", number-cap: "No.", correspondence: "Corresponding author", city: "Hanoi", acknowledgements: "Acknowledgements",
+       wp-disclaimer: "The views expressed are those of the authors and do not necessarily reflect the views of the Vietnam Chamber of Commerce and Industry."),
+)
+#let vcci-l(lang, key) = VCCI-LABELS.at(if lang in VCCI-LABELS { lang } else { "en" }).at(key)
+
 // The blue used on every VCCI cover and blue page (as in the Word and PowerPoint templates)
 #let VCCI-COVER-BLUE = gradient.linear(rgb("#2B4FA0"), rgb("#1E3D86"), angle: 70deg)
 
@@ -120,7 +135,7 @@
   set document(keywords: ("VCCI",))
   let default-footer = context {
     set text(font: VCCI-FONT.text, size: 7pt, fill: VCCI.slate, tracking: 0.04em)
-    grid(columns: (1fr, auto), [Liên đoàn Thương mại và Công nghiệp Việt Nam], counter(page).display("1"))
+    grid(columns: (1fr, auto), vcci-l(lang, "org"), counter(page).display("1"))
   }
   set page(paper: "a4", margin: margin, numbering: "1", header: header,
     footer: if footer == auto { default-footer } else { footer },
@@ -162,7 +177,7 @@
 #let vcci-report(
   title: none,
   subtitle: none,
-  label: "Báo cáo",
+  label: none,
   client: none,
   date: none,
   version: none,
@@ -175,7 +190,7 @@
   disclaimer: none,
   contact: none,
   abstract: none,
-  abstract-title: "Tóm tắt",
+  abstract-title: none,
   cover: true,
   back-cover: true,
   lang: "vi",
@@ -190,6 +205,8 @@
   set document(author: authors.map(a => content-to-string(a.name)).join(", ")) if authors != none and authors != ()
   let year = if date != none { content-to-string(date).find(regex("\d{4}")) } else { none }
   let running = if short-title != none { short-title } else { title }
+  let L = key => vcci-l(lang, key)
+  if label == none { label = L("report") }
 
   // inner pages: logo left, short title right, hairline; footer: web left, "Trang X / N" right
   let header = context {
@@ -204,7 +221,7 @@
     set text(font: VCCI-FONT.text, size: 7pt, fill: VCCI.slate, tracking: 0.04em)
     let end = query(<vcci-report-end>)
     let total = if end.len() > 0 { counter(page).at(end.first().location()).first() } else { counter(page).final().first() }
-    grid(columns: (1fr, auto), [vcci.com.vn], [Trang #counter(page).display("1") / #total])
+    grid(columns: (1fr, auto), [vcci.com.vn], [#L("page") #counter(page).display("1") / #total])
   }
 
   show: vcci-base.with(lang: lang, region: region, fontsize: fontsize, margin: (x: 22mm, top: 26mm, bottom: 22mm),
@@ -217,7 +234,7 @@
     v(6mm)
     if it.numbering != none {
       let n = counter(heading).get().first()
-      vcci-label([Chương #if n < 10 [0]#n])
+      vcci-label([#L("chapter") #if n < 10 [0]#n])
     }
     block(above: 3mm, below: 0mm, { set text(font: VCCI-FONT.display, size: 26pt, weight: 500, fill: VCCI.blue); set par(leading: 0.5em); it.body })
     vcci-gold-rule()
@@ -259,9 +276,9 @@
         place(top + left, dx: 22mm, dy: 27mm, block(width: 120mm, {
           set text(fill: white, size: 9pt)
           if date != none or version != none {
-            text(weight: 600, size: 10pt, [#date#if version != none [ · Phiên bản #version]])
+            text(weight: 600, size: 10pt, [#date#if version != none [ · #L("version") #version]])
           }
-          if client != none { block(above: 3mm, text(fill: white.transparentize(18%), [Thực hiện cho: #client])) }
+          if client != none { block(above: 3mm, text(fill: white.transparentize(18%), [#L("client"): #client])) }
           if authors != none and authors != () {
             block(above: 2mm, text(fill: white.transparentize(18%), authors.map(a => a.name).join(", ")))
           }
@@ -274,22 +291,22 @@
       set text(size: 8.5pt)
       align(bottom, block(width: 120mm, {
         let row(k, v) = if v != none { block(above: 3.5mm, { vcci-label(k, fill: VCCI.slate); linebreak(); v }) }
-        row([Báo cáo], title)
-        row([Thực hiện cho], client)
-        row([Nhóm thực hiện], if team != none { team } else if authors != none and authors != () {
+        row(L("report"), title)
+        row(L("client"), client)
+        row(L("team"), if team != none { team } else if authors != none and authors != () {
           authors.map(a => if a.affiliation != [] [#a.name (#a.affiliation)] else [#a.name]).join([; ]) })
-        row([Phiên bản], if version != none or date != none [#if version != none [#version · ]#date])
-        row([Trích dẫn], citation)
-        row([Lưu ý], disclaimer)
-        block(above: 6mm, text(fill: VCCI.slate, [© #if year != none [#year ]Liên đoàn Thương mại và Công nghiệp Việt Nam (VCCI)]))
+        row(L("version"), if version != none or date != none [#if version != none [#version · ]#date])
+        row(L("citation"), citation)
+        row(L("disclaimer"), disclaimer)
+        block(above: 6mm, text(fill: VCCI.slate, [© #if year != none [#year ]#L("org") (VCCI)]))
       }))
     })
     counter(page).update(1)
   }
 
-  if abstract != none { vcci-callout(title: abstract-title, abstract) }
+  if abstract != none { vcci-callout(title: if abstract-title != none { abstract-title } else { L("abstract") }, abstract) }
   if toc {
-    outline(title: if toc_title == none { [Mục lục] } else { toc_title }, depth: toc_depth, indent: 4mm)
+    outline(title: if toc_title == none { L("contents") } else { toc_title }, depth: toc_depth, indent: 4mm)
   }
 
   doc
@@ -305,7 +322,7 @@
         inset: (x: 10mm, y: 10mm), {
           vcci-logo(width: 62mm)
           v(6mm)
-          text(weight: 600, size: 9pt, fill: VCCI.blue)[Liên đoàn Thương mại và Công nghiệp Việt Nam]
+          text(weight: 600, size: 9pt, fill: VCCI.blue, L("org"))
           v(1mm)
           text(size: 8pt, fill: VCCI.slate, if contact != none { contact } else { VCCI-CONTACT })
         }))

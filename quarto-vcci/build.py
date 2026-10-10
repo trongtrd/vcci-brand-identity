@@ -136,9 +136,10 @@ def build(out_root):
         template = open(os.path.join(src, 'template.typ'), encoding='utf-8').read()
         open(os.path.join(dst, 'typst-template.typ'), 'w', encoding='utf-8', newline='\n').write(
             tokens_typ() + logos + shared_typ + '\n' + template)
-        for f in ('_extension.yml', 'typst-show.typ'):
-            shutil.copy(os.path.join(src, f), os.path.join(dst, f))
-        shutil.copy(os.path.join(SRC, 'shared', 'vcci.lua'), os.path.join(dst, 'vcci.lua'))
+        for f in os.listdir(src):   # _extension.yml, typst-show.typ and format-specific filters
+            if f != 'template.typ': shutil.copy(os.path.join(src, f), os.path.join(dst, f))
+        for f in ('vcci.lua', 'apa.csl'):   # apa.csl: APA 7 for Word (CC BY-SA 3.0, citation-style-language/styles)
+            shutil.copy(os.path.join(SRC, 'shared', f), os.path.join(dst, f))
         for f in fonts:
             name = os.path.basename(f)
             if name == 'OFL.txt': name = f'OFL-{os.path.basename(os.path.dirname(f))}.txt'
@@ -146,7 +147,7 @@ def build(out_root):
         reference_docx(os.path.join(dst, 'vcci-reference.docx'))
 
 
-TEXT = ('.typ', '.yml', '.lua', '.txt')
+TEXT = ('.typ', '.yml', '.lua', '.txt', '.csl')
 
 def same_file(a, b):
     """Byte comparison; text files ignore line endings (git core.autocrlf rewrites them on checkout)."""

@@ -14,22 +14,23 @@ contributes:
       filters:
         - vcci.lua
       language:
-        toc-title-document: "Mục lục"
-        section-title-abstract: "Tóm tắt"
-        section-title-appendices: "Phụ lục"
-        section-title-footnotes: "Chú thích"
-        section-title-references: "Tài liệu tham khảo"
-        callout-note-title: "Ghi chú"
-        callout-tip-title: "Gợi ý"
-        callout-important-title: "Quan trọng"
-        callout-warning-title: "Cảnh báo"
-        callout-caution-title: "Thận trọng"
-        crossref-fig-title: "Hình"
-        crossref-tbl-title: "Bảng"
-        crossref-eq-prefix: "Phương trình"
-        crossref-sec-prefix: "Mục"
-        crossref-ch-prefix: "Chương"
-        crossref-apx-prefix: "Phụ lục"
+        vi:
+          toc-title-document: "Mục lục"
+          section-title-abstract: "Tóm tắt"
+          section-title-appendices: "Phụ lục"
+          section-title-footnotes: "Chú thích"
+          section-title-references: "Tài liệu tham khảo"
+          callout-note-title: "Ghi chú"
+          callout-tip-title: "Gợi ý"
+          callout-important-title: "Quan trọng"
+          callout-warning-title: "Cảnh báo"
+          callout-caution-title: "Thận trọng"
+          crossref-fig-title: "Hình"
+          crossref-tbl-title: "Bảng"
+          crossref-eq-prefix: "Phương trình"
+          crossref-sec-prefix: "Mục"
+          crossref-ch-prefix: "Chương"
+          crossref-apx-prefix: "Phụ lục"
       knitr:
         opts_chunk:
           echo: false
@@ -48,5 +49,6 @@ contributes:
       section-numbering: "1.1"
     docx:
       reference-doc: vcci-reference.docx
+      csl: apa.csl             # the PDF uses Typst's built-in APA
       number-sections: true
       number-depth: 1          # chapters only, as in the PDF
