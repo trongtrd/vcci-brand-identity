@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Nếu bộ nhận diện này có ích cho công việc của bạn, có thể ghi nguồn như sau. Đây không phải bộ nhận diện chính thức của VCCI."
+title: "Bộ nhận diện thương hiệu VCCI (vcci-brand-identity)"
+type: software
+authors:
+  - name: "Trương Đức Trọng"
+version: "1.1"
+date-released: "2026-10-10"
+repository-code: "https://github.com/trongtrd/vcci-brand-identity"
+url: "https://github.com/trongtrd/vcci-brand-identity"
+abstract: "Bộ nhận diện thương hiệu phi chính thức cho Liên đoàn Thương mại và Công nghiệp Việt Nam (VCCI): logo, màu sắc, kiểu chữ, họa tiết, icon, template Word và PowerPoint, theme biểu đồ, skill cho AI agent và tài liệu hướng dẫn. Làm phi thương mại, để phục vụ công việc."
+keywords:
+  - VCCI
+  - brand identity
+  - design system
+  - Word
+  - PowerPoint
+  - Quarto

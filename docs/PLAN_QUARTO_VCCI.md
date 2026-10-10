@@ -175,7 +175,7 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 1. ~~Duyệt kế hoạch~~: đã duyệt 10/10/2026.
 2. Số hiệu và lời miễn trừ cho working paper (mục 7): quyết khi tới bước 3.
 3. ~~Scheme Stata~~: làm, ở bước 5.
-4. ~~Tài khoản GitHub~~: `trongtrd`, repo công khai `trongtrd/quarto-vcci` (10/10/2026).
+4. ~~Tài khoản GitHub~~: `trongtrd`, repo công khai `trongtrd/vcci-quarto` (10/10/2026).
 
 ## 10. Kết quả bước 0 và bước 1 (10/10/2026)
 
@@ -371,10 +371,10 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 ## 15. Kết quả bước 6 (10/10/2026): phát hành 1.0.0
 
 **Quyết định của chủ dự án:** duyệt theo khuyến nghị.
-- Tài khoản `trongtrd`, repo công khai [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci).
+- Tài khoản `trongtrd`, repo công khai [trongtrd/vcci-quarto](https://github.com/trongtrd/vcci-quarto).
 - README tiếng Việt, có đoạn tiếng Anh ngắn ở đầu.
 - Bản Word mẫu đính kèm vào GitHub Release, không để trong repo.
-- Repo phát hành đặt ngoài Dropbox: `C:\GitHub Projects\quarto-vcci`.
+- Repo phát hành đặt ngoài Dropbox: `C:\GitHub Projects\vcci-quarto`.
 
 **Đã có**
 - `quarto-vcci/release.py --out <thư mục>` xuất repo phát hành:
@@ -384,7 +384,7 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
   - Sau bản đầu, chủ dự án yêu cầu viết lại README cho mọi người dùng: cài Quarto, mở cửa sổ dòng lệnh, bốn câu hỏi của `quarto use template`, cách viết Markdown, bảng khóa YAML, trích dẫn, biểu đồ, bản Word, cập nhật, bảng lỗi thường gặp. Phần phát triển chuyển sang `quarto-vcci/DEVELOPMENT.md`. Mọi đoạn ví dụ trong README đã được dựng thử trên bản cài từ GitHub.
 - Script dừng nếu `build.py --check` lệch, nếu ba `_extension.yml` khác phiên bản, nếu CHANGELOG thiếu mục của phiên bản, hoặc nếu một câu cần thay trong README không còn (README phát triển đã đổi). Nó giữ `.git` của thư mục đích và từ chối ghi vào thư mục lạ.
 - Phiên bản 1.0.0 cho cả ba định dạng; tag `v1.0.0`; GitHub Release kèm 4 file `.docx`.
-- Người dùng cài: `quarto use template trongtrd/quarto-vcci` (cả dự án mẫu) hoặc `quarto add trongtrd/quarto-vcci` (chỉ extension).
+- Người dùng cài: `quarto use template trongtrd/vcci-quarto` (cả dự án mẫu) hoặc `quarto add trongtrd/vcci-quarto` (chỉ extension).
 - `gh` 2.102.0 cài qua winget; chủ dự án tự đăng nhập (`gh auth login`).
 
 **Lỗi tìm thấy nhờ thử cài trước khi push**
@@ -401,7 +401,7 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 - Lớp 6 mới:
   - Xuất repo phát hành vào thư mục tạm, cài bằng `quarto use template` và `quarto add`.
   - Kiểm: đủ mẫu và theme biểu đồ; extension giống hệt bản dựng (từng font, style, bộ lọc); đúng phiên bản; không có file mà `.quartoignore` loại; mọi mẫu dựng được ở cả PDF và Word, không cảnh báo.
-  - `--install-from trongtrd/quarto-vcci@v1.0.0` chạy riêng lớp này với bản trên GitHub.
+  - `--install-from trongtrd/vcci-quarto@v1.0.0` chạy riêng lớp này với bản trên GitHub.
 - Tự kiểm mới: bản xuất thiếu một font, bản có cấu trúc `_extensions/vcci/`, bản để lọt `examples/`; cả ba đều bị bắt.
 - Lần chạy đầy đủ (Word thật, R, Stata): **469/469 đạt**.
 - Cài từ GitHub (`@v1.0.0` và bản mới nhất): **14/14 đạt** mỗi lần.

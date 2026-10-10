@@ -3,11 +3,11 @@
 | Nội dung | Vị trí | Quyền |
 |---|---|---|
 | Mã nguồn: bố cục Typst, bộ lọc Lua, cấu hình, theme biểu đồ, tài liệu mẫu | Mọi file trừ các mục dưới đây | Giấy phép MIT (bên dưới). |
-| Logo VCCI, tên và nhãn hiệu VCCI; hero icon và họa tiết của bộ nhận diện | Nhúng trong `typst-template.typ` và `vcci-reference.docx` của từng định dạng | Thuộc sở hữu của Liên đoàn Thương mại và Công nghiệp Việt Nam. Được chia sẻ với sự cho phép của VCCI; **không cấp phép sử dụng lại** ngoài tài liệu của VCCI. Logo và nhãn hiệu không thuộc phạm vi giấy phép MIT. |
+| Logo VCCI, tên và nhãn hiệu VCCI; hero icon và họa tiết của bộ nhận diện | Nhúng trong `typst-template.typ` và `vcci-reference.docx` của từng định dạng | Thuộc sở hữu của Liên đoàn Thương mại và Công nghiệp Việt Nam. **Không cấp phép sử dụng lại** ngoài tài liệu của VCCI. Logo và nhãn hiệu không thuộc phạm vi giấy phép MIT. |
 | Font Lora, Be Vietnam Pro, JetBrains Mono | `_extensions/*/fonts/` | SIL Open Font License 1.1, xem `OFL-*.txt` cạnh font. |
 | Kiểu trích dẫn `apa.csl` (APA 7) và `vcci-chicago-notes.csl` (Chicago chú thích, bản tùy biến cho VCCI) | `_extensions/*/` | Từ dự án Citation Style Language, theo CC BY-SA 3.0. |
 
-*Code is MIT-licensed. The VCCI logo, name, trademarks, hero icons and graphics are the property of VCCI, shared with its permission and not licensed for reuse outside VCCI documents. Fonts: SIL OFL 1.1. CSL styles: CC BY-SA 3.0.*
+*Code is MIT-licensed. The VCCI logo, name, trademarks, hero icons and graphics are the property of VCCI and not licensed for reuse outside VCCI documents. Fonts: SIL OFL 1.1. CSL styles: CC BY-SA 3.0.*
 
 ## MIT License
 

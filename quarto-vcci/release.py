@@ -1,6 +1,6 @@
-"""Export quarto-vcci as the release repository used by `quarto use template trongtrd/quarto-vcci`.
+"""Export quarto-vcci as the release repository used by `quarto use template trongtrd/vcci-quarto`.
 
-    python quarto-vcci/release.py --out "C:/GitHub Projects/quarto-vcci"
+    python quarto-vcci/release.py --out "C:/GitHub Projects/vcci-quarto"
 
 The release repository is generated, never edited by hand. Its layout:
   _extensions/<format>/            the built extensions (build.py --check must pass first); users get _extensions/trongtrd/<format>
@@ -10,7 +10,7 @@ The release repository is generated, never edited by hand. Its layout:
   examples/*.pdf, preview.png      rendered samples and the README picture made from them (the .docx samples go to the
                                    GitHub release instead)
   README.md                        quarto-vcci/README.md without its <!-- dev-only --> blocks
-  LICENSE.md, CHANGELOG.md, .quartoignore   from src/release/
+  LICENSE.md, CHANGELOG.md, CITATION.cff, .quartoignore   from src/release/ (CITATION.cff gives GitHub's "Cite this repository")
 The version comes from the three src/formats/*/_extension.yml, which must agree.
 Everything in --out except .git/ is replaced, so the folder always matches this export.
 """
@@ -19,11 +19,11 @@ import argparse, os, re, shutil, subprocess, sys, tempfile
 import build
 
 HERE = build.HERE
-REPO = 'trongtrd/quarto-vcci'
+REPO = 'trongtrd/vcci-quarto'
 SRC_RELEASE = os.path.join(HERE, 'src', 'release')
 TEMPLATES = {'template.qmd': 'report.qmd', 'wp.qmd': 'wp.qmd', 'memo.qmd': 'memo.qmd', 'references.bib': 'references.bib',
              'charts.qmd': 'charts.qmd'}
-EXPECTED = ['.quartoignore', 'CHANGELOG.md', 'LICENSE.md', 'README.md', '_extensions', 'charts', 'charts.qmd', 'examples',
+EXPECTED = ['.quartoignore', 'CHANGELOG.md', 'CITATION.cff', 'LICENSE.md', 'README.md', '_extensions', 'charts', 'charts.qmd', 'examples',
             'memo.qmd', 'references.bib', 'template.qmd', 'wp.qmd']
 
 
@@ -111,7 +111,9 @@ def stage(dst, ver):
     os.makedirs(os.path.join(dst, 'examples'))
     for f in sorted(os.listdir(os.path.join(HERE, 'examples'))):
         if f.endswith(('.pdf', '.png')): shutil.copy2(os.path.join(HERE, 'examples', f), os.path.join(dst, 'examples', f))
-    for f in ('LICENSE.md', '.quartoignore'):
+    cff = open(os.path.join(SRC_RELEASE, 'CITATION.cff'), encoding='utf-8').read()
+    if re.search(r'^version:\s*"?([^"\s]+)', cff, re.M).group(1) != ver: sys.exit(f'release.py: CITATION.cff must name version {ver}')
+    for f in ('LICENSE.md', 'CITATION.cff', '.quartoignore'):
         shutil.copy2(os.path.join(SRC_RELEASE, f), os.path.join(dst, f))
     changelog = open(os.path.join(SRC_RELEASE, 'CHANGELOG.md'), encoding='utf-8').read()
     if f'## {ver} ' not in changelog: sys.exit(f'release.py: CHANGELOG.md has no entry for {ver}')
@@ -149,5 +151,5 @@ if __name__ == '__main__':
     a = ap.parse_args()
     ver = export(os.path.abspath(a.out))
     docx = sorted(f for f in os.listdir(os.path.join(HERE, 'examples')) if f.endswith('.docx'))
-    print(f'exported quarto-vcci {ver} -> {os.path.abspath(a.out)}')
+    print(f'exported vcci-quarto {ver} -> {os.path.abspath(a.out)}')
     print('attach to the GitHub release v' + ver + ':', ', '.join(f'examples/{f}' for f in docx))

@@ -26,7 +26,7 @@ Mọi thứ cần để làm một ấn phẩm đều nằm trong [`brand-assets
 | [`07_Guidelines`](brand-assets/07_Guidelines) | **Hướng dẫn Nhận diện Thương hiệu VCCI** (PDF, tiếng Việt) |
 | [`brand-tokens.json`](brand-assets/brand-tokens.json) | Mọi thông số (màu, tỉ lệ logo, cỡ chữ, khoảng cách) ở dạng phần mềm đọc trực tiếp được |
 
-**Viết bằng Markdown hoặc Quarto?** Mẫu báo cáo, working paper và tờ trình (xuất PDF và Word) được phát hành ở một repo riêng, [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci). Cài bằng lệnh `quarto use template trongtrd/quarto-vcci`. Mã nguồn của mẫu nằm trong thư mục [`quarto-vcci/`](quarto-vcci/README.md) của repo này.
+**Viết bằng Markdown hoặc Quarto?** Mẫu báo cáo, working paper và tờ trình (xuất PDF và Word) được phát hành ở một repo riêng, [trongtrd/vcci-quarto](https://github.com/trongtrd/vcci-quarto) (tên cũ: quarto-vcci). Cài bằng lệnh `quarto use template trongtrd/vcci-quarto`. Mã nguồn của mẫu nằm trong thư mục [`quarto-vcci/`](quarto-vcci/README.md) của repo này.
 
 ### Năm quy tắc cần nhớ
 
@@ -99,14 +99,14 @@ Với Codex còn một cách không cần cài: mở Codex ngay trong thư mục
 
 Chỉ cần nói yêu cầu, chẳng hạn *"Định dạng bao_cao_tho.docx thành báo cáo VCCI"* hoặc *"Chuyển slide_tho.pptx sang mẫu trình bày VCCI"*. Agent tự nhận ra yêu cầu nào cần dùng skill. Trong Codex, có thể gọi thẳng skill bằng `$vcci-brand`.
 
-Bước 4 của quy trình (xuất PDF và ảnh từng trang để agent tự soát) cần Microsoft Word hoặc PowerPoint trên Windows. Trên macOS hay Linux, agent vẫn tạo được file `.docx` và `.pptx` nhưng bỏ qua bước tự soát này, nên bạn hãy mở file ra xem lại. Thư, công văn và thư mời vẫn làm tay bằng template. Báo cáo, working paper và tờ trình viết bằng Markdown thì dùng [quarto-vcci](https://github.com/trongtrd/quarto-vcci), không cần agent.
+Bước 4 của quy trình (xuất PDF và ảnh từng trang để agent tự soát) cần Microsoft Word hoặc PowerPoint trên Windows. Trên macOS hay Linux, agent vẫn tạo được file `.docx` và `.pptx` nhưng bỏ qua bước tự soát này, nên bạn hãy mở file ra xem lại. Thư, công văn và thư mời vẫn làm tay bằng template. Báo cáo, working paper và tờ trình viết bằng Markdown thì dùng [vcci-quarto](https://github.com/trongtrd/vcci-quarto), không cần agent.
 
 ## Cấu trúc repo
 
 ```
 brand-assets/    Sản phẩm để dùng: logo, màu, font, họa tiết, icon, template, hướng dẫn
 board/           Bảng nhận diện một trang (HTML) và bản xuất PNG, PDF
-quarto-vcci/     Mã nguồn mẫu Quarto (bản phát hành: trongtrd/quarto-vcci)
+quarto-vcci/     Mã nguồn mẫu Quarto (bản phát hành: trongtrd/vcci-quarto)
 skills/          Skill cho AI agent (vcci-brand); .claude-plugin/ khai báo plugin cho Claude Code
 docs/            Nhật ký các quyết định thiết kế, kế hoạch, hồ sơ bàn giao bộ icon
 source/          File gốc: logo CorelDRAW và các bản logo cũ
@@ -135,15 +135,14 @@ Có thể chạy riêng từng bước: `logo`, `assets`, `board`, `word`, `ppt`
 ## Người thực hiện
 
 - Phát triển và thiết kế: **Trương Đức Trọng**.
-- Hệ thống nhận diện, logo dạng vector, template và tài liệu hướng dẫn được làm với sự hỗ trợ của Claude (Anthropic).
-- Bộ icon v1 được làm với sự hỗ trợ của một agent ChatGPT, theo [hồ sơ bàn giao](docs/handoff-icons/). Icon giao diện dựa trên bộ [Lucide](https://lucide.dev) (giấy phép ISC).
+- Icon giao diện dựa trên bộ [Lucide](https://lucide.dev) (giấy phép ISC).
 - Font: [Lora](https://github.com/cyrealtype/Lora-Cyrillic), [Be Vietnam Pro](https://github.com/bettergui/BeVietnamPro) và [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono), giấy phép SIL Open Font License 1.1.
 
 ## Lưu ý
 
-Bộ nhận diện này do Trương Đức Trọng làm, phi thương mại, để phục vụ công việc. Đây **không phải** bộ nhận diện thương hiệu chính thức của VCCI và không thay cho các quy định hay ấn phẩm chính thức của VCCI.
+Bộ nhận diện này do Trương Đức Trọng phát triển, phi thương mại, để phục vụ công việc. Đây **không phải** bộ nhận diện thương hiệu chính thức của VCCI và không thay cho các quy định hay ấn phẩm chính thức của VCCI.
 
-*English: an unofficial, non-commercial brand identity kit made by Truong Duc Trong for work use. It is not an official VCCI product.*
+*English: an unofficial, non-commercial brand identity kit developed by Truong Duc Trong for work use. It is not an official VCCI product.*
 
 ## Giấy phép
 

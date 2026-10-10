@@ -11,7 +11,7 @@ Layers (docs/PLAN_QUARTO_VCCI.md, section 5); this file implements 1-4 (Word che
   5 visual   every PDF page matches the approved image in tests/baseline/ (run with --update-baseline after an approved change)
   6 install  the release repository (release.py) installs with `quarto use template` and `quarto add` into an empty folder,
              as a user would: every template and chart theme, the same extension at the released version, nothing that
-             .quartoignore excludes; every template renders there. --install-from trongtrd/quarto-vcci@vX tests GitHub
+             .quartoignore excludes; every template renders there. --install-from trongtrd/vcci-quarto@vX tests GitHub
   8 charts   the sample charts (tests/charts) are drawn with the matplotlib, ggplot2 and Stata themes; every SVG uses only
              VCCI colours, no transparency, text in the brand fonts, the Vietnamese title, decimal commas, no vertical grid,
              Drum Gold for one value at most, series in brand order; the charts fixture then puts them through layers 2-5
@@ -539,7 +539,7 @@ import build, release
 
 # what `quarto use template` must leave in a folder named vcci-test: the report template takes the folder's name
 USER_FILES = {'vcci-test.qmd': 'report', 'wp.qmd': 'wp', 'memo.qmd': 'memo', 'charts.qmd': 'charts', 'references.bib': None}
-NOT_COPIED = ['README.md', 'LICENSE.md', 'CHANGELOG.md', 'examples', 'template.qmd']   # .quartoignore
+NOT_COPIED = ['README.md', 'LICENSE.md', 'CHANGELOG.md', 'CITATION.cff', 'examples', 'template.qmd']   # .quartoignore
 
 def installed_formats(folder):
     """{format: path} of the installed extensions: _extensions/<name> (local source) or _extensions/<owner>/<name> (GitHub)."""
@@ -549,7 +549,7 @@ def installed_formats(folder):
     return found
 
 def install_test(source, label='install', render=True):
-    """Layer 6: install from the release repository (a local export, or trongtrd/quarto-vcci@vX on GitHub) as a user would:
+    """Layer 6: install from the release repository (a local export, or trongtrd/vcci-quarto@vX on GitHub) as a user would:
     `quarto use template` into an empty folder must give the templates, the chart themes and an extension identical to
     this build, at the released version, and nothing listed in .quartoignore; every template renders there.
     `quarto add` must install the same extension."""
@@ -563,7 +563,7 @@ def install_test(source, label='install', render=True):
         missing += [f'charts/{f}' for f in os.listdir(CHARTS) if not os.path.isfile(os.path.join(d, 'charts', f))]
         record(label, None, 'quarto use template creates every template and chart theme', not missing, ', '.join(missing))
         extra = [f for f in NOT_COPIED if os.path.exists(os.path.join(d, f))]
-        record(label, None, '.quartoignore keeps README, LICENSE, CHANGELOG and examples out of the user folder', not extra, ', '.join(extra))
+        record(label, None, '.quartoignore keeps README, LICENSE, CHANGELOG, CITATION and examples out of the user folder', not extra, ', '.join(extra))
         ext = installed_formats(d)
         record(label, None, 'the installed extension is identical to this build (every font, style and filter)',
                sorted(ext) == build.FORMATS and all(build.same_tree(p, os.path.join(build.OUT, f)) for f, p in ext.items()),
@@ -687,7 +687,7 @@ def selftest(path):
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     os.makedirs(OUT, exist_ok=True)
-    if '--install-from' in sys.argv:   # layer 6 only, e.g. --install-from trongtrd/quarto-vcci@v1.0.0
+    if '--install-from' in sys.argv:   # layer 6 only, e.g. --install-from trongtrd/vcci-quarto@v1.0.0
         source = sys.argv[sys.argv.index('--install-from') + 1]
         print(f'installation from {source}')
         install_test(source)
