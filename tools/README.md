@@ -44,7 +44,7 @@ Script `word/finalize.py` và `ppt/finalize.py` điều khiển Word và PowerPo
 
 ## Bộ icon (`tools/icons/`)
 
-Pipeline riêng do agent ChatGPT viết khi làm bộ icon v1. Kết quả đã được duyệt và nằm trong `brand-assets/05_Icons`; chỉ chạy lại khi cần sửa icon. Đường dẫn đã được cập nhật theo cấu trúc repo mới nhưng pipeline **chưa được chạy lại** sau khi chuyển thư mục; thứ tự dưới đây là thứ tự tham khảo.
+Quy trình riêng, do agent ChatGPT viết khi làm bộ icon v1. Kết quả đã được duyệt và nằm trong `brand-assets/05_Icons`; chỉ chạy lại khi cần sửa icon. Đường dẫn đã được cập nhật theo cấu trúc repo mới nhưng quy trình này **chưa được chạy lại** sau khi chuyển thư mục; thứ tự dưới đây là thứ tự tham khảo.
 
 ```bash
 python tools/icons/build_icons.py    # dựng SVG vào build/icons/review

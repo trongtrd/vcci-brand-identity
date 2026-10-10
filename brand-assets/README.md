@@ -1,9 +1,11 @@
-# Bộ tài sản thương hiệu VCCI — v1.1
+# Bộ file nhận diện thương hiệu VCCI (v1.1)
 
 Liên đoàn Thương mại và Công nghiệp Việt Nam · Vietnam Chamber of Commerce and Industry
-Cập nhật: 10/10/2026 (v1.1: thêm Sky, thang sắc độ, màu trạng thái, màu biểu đồ) · Nguồn gốc logo: `Logo_VCCI.cdr` (CorelDRAW X3), giải mã sang vector SVG.
+Cập nhật ngày 10/10/2026 (v1.1: thêm màu Sky, thang sắc độ, màu trạng thái, màu biểu đồ). Logo lấy từ file gốc `Logo_VCCI.cdr` (CorelDRAW X3) và chuyển sang dạng vector SVG.
 
-Thông số máy đọc được (màu, tỉ lệ, kiểu chữ, quy tắc): xem [`brand-tokens.json`](brand-tokens.json).
+Mọi thông số (màu, tỉ lệ, kiểu chữ, quy tắc) ở dạng phần mềm đọc trực tiếp được: xem [`brand-tokens.json`](brand-tokens.json).
+
+Đây không phải bộ nhận diện chính thức của VCCI; xem mục [Lưu ý](../README.md#lưu-ý) trong README của repo.
 
 ## Quy tắc bắt buộc về logo
 
@@ -18,17 +20,17 @@ Thông số máy đọc được (màu, tỉ lệ, kiểu chữ, quy tắc): xem
 
 | Thư mục | Nội dung | Dùng khi |
 |---|---|---|
-| `01_Logo/SVG` | Logo chính, bản trên ô nền sáng, lockup ngang song ngữ, lockup đứng tiếng Việt và tiếng Anh | Web, thiết kế, mọi cỡ |
+| `01_Logo/SVG` | Logo chính; logo trên ô nền sáng; logo kèm tên song ngữ xếp ngang; logo kèm tên xếp dọc (bản tiếng Việt, bản tiếng Anh) | Web, thiết kế, mọi cỡ |
 | `01_Logo/PNG` | Như trên, nền trong suốt, rộng 600 / 1200 / 2400 / 4800 px | Word, PowerPoint, mạng xã hội |
-| `01_Logo/PDF` | Như trên, vector, khổ rộng 100 mm | Gửi nhà in, chèn vào tài liệu |
+| `01_Logo/PDF` | Như trên, dạng vector, rộng 100 mm | Gửi nhà in, chèn vào tài liệu |
 | `01_Logo/Source` | File gốc CorelDRAW (CMYK) | **Bản gốc khi in ấn** |
-| `01_Logo/_Construction-only` | Trống đồng tách riêng | Chỉ để dựng hình và thiết kế họa tiết; không dùng thay logo |
-| `02_Colour` | Bảng màu, thang sắc độ, màu trạng thái và màu biểu đồ dạng JSON, CSS, ASE (Adobe, chia nhóm), Office theme | Thiết kế, web, Word/PowerPoint |
+| `01_Logo/_Construction-only` | Trống đồng tách riêng | Chỉ dùng khi dựng hình và thiết kế họa tiết; không dùng thay logo |
+| `02_Colour` | Bảng màu, thang sắc độ, màu trạng thái và màu biểu đồ, dạng JSON, CSS, ASE (Adobe, chia nhóm) và theme màu Office | Thiết kế, web, Word/PowerPoint |
 | `03_Fonts` | Lora, Be Vietnam Pro; JetBrains Mono cho mã nguồn (giấy phép SIL OFL 1.1, dùng thương mại miễn phí) | Cài vào máy |
-| `04_Graphics` | Họa tiết vòng trống, sao 14 cánh, pattern cung chữ C, trường chấm | Bìa, sân khấu, nền trang |
-| `05_Icons` | 48 icon nhỏ (UI) và 24 hero icon theo nghiệp vụ VCCI; SVG và PNG; quy cách trong `ICON_SPEC.md` | Tài liệu, slide, web, sự kiện |
-| `06_Templates` | Template Word (letterhead, báo cáo, thư mời) và PowerPoint 16:9 (18 layout); đã nhúng font; theme biểu đồ cho Python, R, Stata (`Charts/`); xem `06_Templates/README.md` | Soạn văn bản, trình chiếu, vẽ biểu đồ |
-| `07_Guidelines` | Hướng dẫn Nhận diện Thương hiệu VCCI v1.1 (PDF, 37 trang, tiếng Việt) | Tham chiếu cho mọi người làm ấn phẩm |
+| `04_Graphics` | Họa tiết vòng trống, sao 14 cánh, cung chữ C lặp lại, trường chấm | Bìa, sân khấu, nền trang |
+| `05_Icons` | 48 icon giao diện và 24 hero icon (hình minh họa lớn) theo lĩnh vực hoạt động của VCCI; SVG và PNG; quy cách trong `ICON_SPEC.md` | Tài liệu, slide, web, sự kiện |
+| `06_Templates` | Template Word (giấy tiêu đề thư, báo cáo, thư mời) và PowerPoint 16:9 (18 layout); đã nhúng font; theme biểu đồ cho Python, R, Stata (`Charts/`); xem `06_Templates/README.md` | Soạn văn bản, trình chiếu, vẽ biểu đồ |
+| `07_Guidelines` | Hướng dẫn Nhận diện Thương hiệu VCCI v1.1 (PDF, 37 trang, tiếng Việt) | Tài liệu tra cứu cho người làm ấn phẩm |
 
 ## Màu
 
@@ -62,6 +64,6 @@ Mã HEX được quy đổi từ CMYK gốc theo hồ sơ màu FOGRA39. Khi in, 
 ## Ghi chú kỹ thuật
 
 - Vòng ngăn giữa chữ C và trống đồng là **trong suốt**, nên sẽ mang màu nền. Vì logo luôn đặt trên nền sáng hoặc ô nền sáng, vòng này luôn hiện thành một viền sáng.
-- Chữ trong các lockup đã được chuyển thành đường vector, nên mở trên máy chưa cài font vẫn hiển thị đúng.
+- Chữ trong các bản logo kèm tên đã được chuyển thành nét vector, nên mở trên máy chưa cài font vẫn hiển thị đúng.
 - Thang màu được tính và kiểm tra độ tương phản bằng `tools/assets/colour_system.py`; chỉ tạo lại `02_Colour` bằng `python tools/assets/build_assets.py colours`.
 - Toàn bộ gói được tạo lại bằng `python tools/build.py logo assets` (chạy từ thư mục gốc của repo; xem `tools/README.md`).
