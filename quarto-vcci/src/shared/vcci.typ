@@ -4,6 +4,21 @@
 // Print type scale from the brand guidelines (section 04): H1 Lora Medium 22 pt, H2 Lora SemiBold 14 pt,
 // H3 / label Be Vietnam Pro SemiBold 8.5 pt uppercase, body Be Vietnam Pro 10 pt (leading 1.4), caption 7.5 pt.
 
+// Words the templates write themselves, by document language (Quarto's own labels come from _extension.yml)
+#let VCCI-LABELS = (
+  vi: (org: "Liên đoàn Thương mại và Công nghiệp Việt Nam", contents: "Mục lục", chapter: "Chương", page: "Trang",
+       report: "Báo cáo", client: "Thực hiện cho", team: "Nhóm thực hiện", version: "Phiên bản", citation: "Trích dẫn",
+       suggested-citation: "Trích dẫn đề nghị", disclaimer: "Lưu ý", abstract: "Tóm tắt", keywords: "Từ khóa",
+       jel: "Mã JEL", number: "số", number-cap: "Số", correspondence: "Tác giả liên hệ", city: "Hà Nội", acknowledgements: "Lời cảm ơn",
+       wp-disclaimer: "Quan điểm trong bài là của tác giả, không nhất thiết phản ánh quan điểm của Liên đoàn Thương mại và Công nghiệp Việt Nam."),
+  en: (org: "Vietnam Chamber of Commerce and Industry", contents: "Contents", chapter: "Chapter", page: "Page",
+       report: "Report", client: "Prepared for", team: "Team", version: "Version", citation: "Citation",
+       suggested-citation: "Suggested citation", disclaimer: "Disclaimer", abstract: "Abstract", keywords: "Keywords",
+       jel: "JEL classification", number: "No.", number-cap: "No.", correspondence: "Corresponding author", city: "Hanoi", acknowledgements: "Acknowledgements",
+       wp-disclaimer: "The views expressed are those of the authors and do not necessarily reflect the views of the Vietnam Chamber of Commerce and Industry."),
+)
+#let vcci-l(lang, key) = VCCI-LABELS.at(if lang in VCCI-LABELS { lang } else { "en" }).at(key)
+
 // The blue used on every VCCI cover and blue page (as in the Word and PowerPoint templates)
 #let VCCI-COVER-BLUE = gradient.linear(rgb("#2B4FA0"), rgb("#1E3D86"), angle: 70deg)
 
@@ -80,7 +95,7 @@
   set document(keywords: ("VCCI",))
   let default-footer = context {
     set text(font: VCCI-FONT.text, size: 7pt, fill: VCCI.slate, tracking: 0.04em)
-    grid(columns: (1fr, auto), [Liên đoàn Thương mại và Công nghiệp Việt Nam], counter(page).display("1"))
+    grid(columns: (1fr, auto), vcci-l(lang, "org"), counter(page).display("1"))
   }
   set page(paper: "a4", margin: margin, numbering: "1", header: header,
     footer: if footer == auto { default-footer } else { footer },

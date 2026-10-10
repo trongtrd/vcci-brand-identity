@@ -49,6 +49,16 @@ local function figure_items(el)
 end
 
 function Meta(m)
+  -- Word: Quarto titles the bibliography only in PDF; give it the same title in the document language
+  if quarto.doc.is_format('docx') and not m['reference-section-title'] then
+    local lang = m.lang and pandoc.utils.stringify(m.lang):sub(1, 2) or 'vi'
+    m['reference-section-title'] = lang == 'vi' and 'Tài liệu tham khảo' or 'References'
+  end
+  -- Word: Pandoc's own Vietnamese abstract title is "Tóm tắt nội dung"; the PDF says "Tóm tắt"
+  if quarto.doc.is_format('docx') and not m['abstract-title'] then
+    local lang = m.lang and pandoc.utils.stringify(m.lang):sub(1, 2) or 'vi'
+    if lang == 'vi' then m['abstract-title'] = 'Tóm tắt' end
+  end
   if m.cover == false then m['vcci-no-cover'] = true end
   if m['back-cover'] == false then m['vcci-no-back-cover'] = true end
   return m

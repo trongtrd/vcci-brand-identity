@@ -145,7 +145,7 @@ Khi repo lên GitHub, có thể chạy lớp 1–3, 5 và 6 trên GitHub Actions
 | 0 ✅ | Thử nghiệm kỹ thuật | Kết quả ở mục 10 | Trả lời các câu hỏi "cần kiểm chứng" ở mục 4.2 và 5.2 |
 | 1 ✅ | Nền dùng chung và bộ kiểm thử | `build.py`, `shared/vcci.typ`, `vcci.lua` (bộ lọc chung cho Typst và Word), `tests/run_tests.py` (lớp 1–4, phần Word chưa mở bằng Word) | Lớp 1–3 chạy được trên một tài liệu tối giản |
 | 2 ✅ | **Báo cáo tư vấn** | `vcci-report` (PDF và Word), `templates/report.qmd`, PDF mẫu | Mọi lớp kiểm thử đạt; **bạn duyệt PDF và Word** |
-| 3 | Working paper | `vcci-wp`, `templates/wp.qmd`, `references.bib` | Như trên; bạn duyệt số hiệu và lời miễn trừ |
+| 3 ✅ | Working paper | `vcci-wp`, `templates/wp.qmd`, `references.bib` | Như trên; bạn duyệt số hiệu và lời miễn trừ |
 | 4 | Memo | `vcci-memo`, `templates/memo.qmd` | Như trên |
 | 5 | Biểu đồ và tài liệu | `vcci.mplstyle`, `theme_vcci.R`, scheme Stata; README; bổ sung skill `vcci-brand` và một trang trong hướng dẫn thương hiệu (phần Ứng dụng) | Biểu đồ mẫu đúng bảng màu; README chạy được từng lệnh |
 | 6 | Phát hành | Repo `quarto-vcci`, phiên bản 1.0.0 | Lớp 6 đạt khi cài từ GitHub |
@@ -243,4 +243,24 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 - Kiểm tra khổ A4 cho bản Word (kích thước trang trong `.docx` và PDF do Word xuất). Mọi tài liệu VCCI dùng khổ **A4**, không dùng Letter.
 - Bìa giữ theo bìa template Word, để báo cáo làm bằng Word và bằng Quarto cùng một nhận diện.
 - Kết quả: 87/87 kiểm tra đạt.
+
+## 12. Kết quả bước 3 (10/10/2026): `vcci-wp`, chủ dự án đã duyệt
+
+**Định dạng**
+- Trang đầu không bìa màu: logo, "VCCI Working Paper" và số hiệu, tiêu đề, gạch vàng, tác giả (đơn vị, email, \* tác giả liên hệ), ngày.
+- Tóm tắt và từ khóa song ngữ, mã JEL; chân trang đầu có trích dẫn đề nghị (tự sinh nếu không khai báo), tác giả liên hệ, lời miễn trừ, ©.
+- Thân bài đánh số 1, 1.1; đầu trang có tên bộ và số hiệu; phương trình đánh số; APA.
+- Hỗ trợ bài tiếng Anh (`lang: en`): nhãn của template và của Quarto đều chuyển sang tiếng Anh. Nhãn Quarto tiếng Việt khai báo theo ngôn ngữ (`language: vi:`), nên `vcci-report` cũng dùng được cho báo cáo tiếng Anh.
+- Đề xuất cho VCCI quyết (đều là tham số): số hiệu dạng "2026/01"; lời miễn trừ "Quan điểm trong bài là của tác giả, không nhất thiết phản ánh quan điểm của Liên đoàn Thương mại và Công nghiệp Việt Nam."
+
+**Kiểm thử: 136/136 đạt**
+- Thêm tài liệu thử `wp-en` (bài tiếng Anh) và mẫu `templates/wp.qmd`.
+- Phép so ảnh xác nhận việc tái cấu trúc nhãn không làm đổi báo cáo tiếng Việt đã duyệt.
+- Sửa nhờ kiểm thử: bản Word không có tiêu đề "Tài liệu tham khảo"; tiêu đề tóm tắt tiếng Việt của Pandoc là "Tóm tắt nội dung"; dòng tên bộ và số hiệu nằm lạc giữa hai bản tóm tắt; kiểm thử cài đặt chưa chép `references.bib`.
+- Chỉnh bộ kiểm thử: so chữ không phân biệt hoa thường và bỏ khoảng trắng, vì nhãn in hoa có giãn chữ bị `pdftotext` tách thành "A B ST R ACT".
+
+**Sau khi duyệt**
+- Chủ dự án duyệt bố cục, số hiệu dạng "2026/01" và lời miễn trừ mặc định.
+- Theo cho phép của chủ dự án, `apa.csl` (APA 7, citation-style-language/styles, CC BY-SA 3.0) được kèm vào extension. Bản Word của báo cáo và working paper giờ trình bày tài liệu tham khảo theo APA như bản PDF.
+- Ảnh chuẩn cho `wp` và `wp-en` đã tạo; ảnh chuẩn của báo cáo không đổi.
 

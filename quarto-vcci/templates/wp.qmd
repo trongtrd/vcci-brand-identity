@@ -1,0 +1,77 @@
+---
+title: "Chi phí tuân thủ thủ tục hành chính và quyết định mở rộng đầu tư của doanh nghiệp tư nhân"
+subtitle: "Bằng chứng từ khảo sát doanh nghiệp cấp tỉnh 2021–2025"
+short-title: "Chi phí tuân thủ và mở rộng đầu tư"
+wp-number: "2026/01"
+author:
+  - name: Nguyễn Văn An
+    email: an.nguyen@vcci.com.vn
+    affiliations:
+      - name: Ban Pháp chế, VCCI
+    attributes:
+      corresponding: true
+  - name: Trần Thị Bình
+    affiliations:
+      - name: Viện Nghiên cứu Kinh tế, Đại học Quốc gia Hà Nội
+date: 2026-10-10
+abstract: |
+  Bài viết ước lượng tác động của chi phí tuân thủ thủ tục hành chính lên quyết định mở rộng đầu tư của doanh nghiệp tư nhân, sử dụng dữ liệu khảo sát 8.400 doanh nghiệp tại 63 tỉnh, thành phố giai đoạn 2021–2025. Một ngày chờ thêm để hoàn tất thủ tục làm giảm 0,6 điểm phần trăm xác suất doanh nghiệp mở rộng đầu tư trong năm tiếp theo. Tác động mạnh hơn ở doanh nghiệp nhỏ và doanh nghiệp mới thành lập.
+keywords: [chi phí tuân thủ, thủ tục hành chính, đầu tư tư nhân, Việt Nam]
+abstract-en: |
+  This paper estimates the effect of administrative compliance costs on private firms' decisions to expand investment, using survey data on 8,400 firms in 63 provinces over 2021–2025. One additional day needed to complete procedures lowers the probability that a firm expands investment in the following year by 0.6 percentage points. The effect is larger for small and newly established firms.
+keywords-en: [compliance costs, administrative procedures, private investment, Vietnam]
+jel: [D22, H11, K23, O17]
+thanks: "Nhóm tác giả cảm ơn các doanh nghiệp đã tham gia khảo sát. Số liệu trong tài liệu mẫu này là giả lập."
+bibliography: references.bib
+format:
+  vcci-wp-typst: default
+  vcci-wp-docx: default
+---
+
+# Giới thiệu
+
+Chi phí tuân thủ thủ tục hành chính là một trong những rào cản được doanh nghiệp nhắc đến nhiều nhất trong các khảo sát về môi trường kinh doanh [@vcci2025pci]. Nghiên cứu trước cho thấy thời gian chờ đợi kéo dài làm tăng chi phí cơ hội của vốn và trì hoãn quyết định đầu tư [@nguyen2024compliance].
+
+Bài viết đóng góp theo hai hướng. Thứ nhất, chúng tôi đo chi phí tuân thủ bằng thời gian xử lý thực tế từ hồ sơ hành chính thay vì đánh giá chủ quan. Thứ hai, chúng tôi khai thác khác biệt về tiến độ cải cách giữa các tỉnh để nhận diện tác động.
+
+# Dữ liệu và phương pháp
+
+## Dữ liệu
+
+Dữ liệu gồm khảo sát doanh nghiệp hằng năm và hồ sơ thủ tục trên hệ thống một cửa của 63 tỉnh, thành phố (@tbl-mota).
+
+| Biến | Trung bình | Độ lệch chuẩn | Số quan sát |
+|---|---:|---:|---:|
+| Mở rộng đầu tư (0/1) | 0,31 | 0,46 | 8.400 |
+| Thời gian thủ tục (ngày) | 58,2 | 17,9 | 8.400 |
+| Quy mô lao động (log) | 3,12 | 1,08 | 8.400 |
+
+: Thống kê mô tả {#tbl-mota}
+
+## Mô hình
+
+Chúng tôi ước lượng mô hình xác suất tuyến tính với hiệu ứng cố định tỉnh và năm:
+
+$$
+y_{ipt} = \beta\, d_{pt} + X_{it}'\gamma + \alpha_p + \tau_t + \varepsilon_{ipt}
+$$ {#eq-mohinh}
+
+trong đó $y_{ipt}$ cho biết doanh nghiệp $i$ ở tỉnh $p$ có mở rộng đầu tư trong năm $t+1$ hay không, và $d_{pt}$ là thời gian xử lý thủ tục trung vị của tỉnh.
+
+# Kết quả
+
+Hệ số $\beta$ trong @eq-mohinh bằng −0,006 và có ý nghĩa thống kê ở mức 1% (@tbl-ketqua).
+
+| | (1) | (2) | (3) |
+|---|---:|---:|---:|
+| Thời gian thủ tục | −0,008*** | −0,006*** | −0,006*** |
+| | (0,002) | (0,002) | (0,002) |
+| Biến kiểm soát | Không | Có | Có |
+| Hiệu ứng cố định tỉnh, năm | Có | Có | Có |
+| Số quan sát | 8.400 | 8.400 | 8.400 |
+
+: Ước lượng tác động của thời gian thủ tục. Sai số chuẩn theo cụm tỉnh trong ngoặc; *** p < 0,01 {#tbl-ketqua}
+
+# Kết luận
+
+Rút ngắn thời gian xử lý thủ tục có thể khuyến khích doanh nghiệp tư nhân mở rộng đầu tư, đặc biệt ở nhóm doanh nghiệp nhỏ.

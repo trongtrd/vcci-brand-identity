@@ -1,0 +1,56 @@
+title: VCCI Working Paper
+author: Liên đoàn Thương mại và Công nghiệp Việt Nam (VCCI)
+version: 0.1.0
+quarto-required: ">=1.6.0"
+contributes:
+  formats:
+    common:
+      lang: vi
+      papersize: a4
+      date-format: "D [tháng] M [năm] YYYY"
+      toc-depth: 2
+      toc: false
+      fig-width: 6.5
+      fig-height: 3.6
+      filters:
+        - vcci.lua
+        - vcci-wp.lua
+      language:
+        vi:
+          toc-title-document: "Mục lục"
+          section-title-abstract: "Tóm tắt"
+          section-title-appendices: "Phụ lục"
+          section-title-footnotes: "Chú thích"
+          section-title-references: "Tài liệu tham khảo"
+          callout-note-title: "Ghi chú"
+          callout-tip-title: "Gợi ý"
+          callout-important-title: "Quan trọng"
+          callout-warning-title: "Cảnh báo"
+          callout-caution-title: "Thận trọng"
+          crossref-fig-title: "Hình"
+          crossref-tbl-title: "Bảng"
+          crossref-eq-prefix: "Phương trình"
+          crossref-sec-prefix: "Mục"
+          crossref-ch-prefix: "Chương"
+          crossref-apx-prefix: "Phụ lục"
+      knitr:
+        opts_chunk:
+          echo: false
+          warning: false
+          message: false
+      execute:
+        echo: false
+        warning: false
+    typst:
+      template-partials:
+        - typst-template.typ
+        - typst-show.typ
+      font-paths:
+        - fonts
+      bibliographystyle: apa
+      section-numbering: "1.1"
+    docx:
+      reference-doc: vcci-reference.docx
+      csl: apa.csl             # the PDF uses Typst's built-in APA
+      number-sections: true
+      number-depth: 2          # sections 1 and 1.1, as in the PDF

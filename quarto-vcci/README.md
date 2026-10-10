@@ -72,6 +72,28 @@ Hộp `callout-note`, `-tip`, `-warning`, `-important`, `-caution` của Quarto 
   - Danh sách đặt trong `::: highlight` nằm ngoài hộp, vì Pandoc chỉ áp style cho đoạn văn, không cho mục danh sách.
 - **Phương trình** dùng font toán của Typst (PDF) hoặc Cambria Math (Word), vì Lora và Be Vietnam Pro không có ký hiệu toán.
 
+## Dùng `vcci-wp` (working paper)
+
+Chép `templates/wp.qmd` (kèm `templates/references.bib`) làm điểm bắt đầu. Bản mẫu: [`examples/wp.pdf`](examples/wp.pdf), [`examples/wp.docx`](examples/wp.docx), bản tiếng Anh [`examples/wp-en.pdf`](examples/wp-en.pdf).
+
+Trang đầu gồm: tên bộ và số hiệu, tiêu đề, tác giả (đơn vị, email), ngày, tóm tắt kèm từ khóa (một hoặc hai ngôn ngữ), mã JEL. Chân trang đầu có trích dẫn đề nghị, tác giả liên hệ, lời miễn trừ. Thân bài đánh số mục 1, 1.1; phương trình đánh số; tài liệu tham khảo kiểu APA ở cuối.
+
+| Khóa | Ý nghĩa |
+|---|---|
+| `wp-number` | Số hiệu, ví dụ `"2026/01"`: hiện "VCCI Working Paper số 2026/01" (tiếng Anh: "No. 2026/01") |
+| `wp-series` | Tên bộ, mặc định "VCCI Working Paper" |
+| `lang` | `vi` (mặc định) hoặc `en`. Bản tiếng Anh nên thêm `date-format: "D MMMM YYYY"` |
+| `author` | `name`, `email`, `affiliations`; `attributes: {corresponding: true}` đánh dấu \* tác giả liên hệ |
+| `abstract`, `keywords` | Tóm tắt và từ khóa theo ngôn ngữ của bài |
+| `abstract-en`, `keywords-en` | Tóm tắt tiếng Anh cho bài tiếng Việt (bài tiếng Anh dùng `abstract-vi`, `keywords-vi`) |
+| `jel` | Mã JEL, ví dụ `[D22, K23]` |
+| `thanks` | Lời cảm ơn: chú thích † ở tiêu đề |
+| `citation-text` | Thay gợi ý trích dẫn tự sinh ("Tác giả (năm). Tiêu đề. VCCI Working Paper số …. Hà Nội: VCCI.") |
+| `disclaimer` | Thay lời miễn trừ mặc định |
+| `status`, `short-title`, `version`, `toc` | Như `vcci-report` |
+
+Trong bản Word, tên bộ và số hiệu nằm trên dòng ngày; từ khóa, tóm tắt thứ hai, mã JEL, trích dẫn và lời miễn trừ nằm ở đầu thân bài.
+
 ## Phát triển
 
 | Đường dẫn | Nội dung |

@@ -1,0 +1,46 @@
+---
+title: "Compliance Costs and Private Investment: Evidence from Vietnamese Provinces"
+wp-number: "2026/02"
+lang: en
+date: 2026-10-10
+date-format: "D MMMM YYYY"
+author:
+  - name: Nguyễn Văn An
+    email: an.nguyen@vcci.com.vn
+    affiliations:
+      - name: VCCI Legal Department
+    attributes:
+      corresponding: true
+abstract: |
+  We estimate the effect of administrative compliance costs on private investment using survey data on 8,400 firms.
+keywords: [compliance costs, private investment, Vietnam]
+abstract-vi: |
+  Bài viết ước lượng tác động của chi phí tuân thủ lên đầu tư tư nhân, sử dụng dữ liệu khảo sát 8.400 doanh nghiệp.
+keywords-vi: [chi phí tuân thủ, đầu tư tư nhân, Việt Nam]
+jel: [D22, K23]
+format:
+  vcci-wp-typst: default
+  vcci-wp-docx: default
+test:
+  formats: [vcci-wp-typst, vcci-wp-docx]
+  pages: [2, 3]
+  must-contain:
+    - "No. 2026/02"
+    - "Abstract"
+    - "Tóm tắt"
+    - "JEL classification: D22, K23"
+    - "Suggested citation"
+    - "do not necessarily reflect the views of the Vietnam Chamber of Commerce and Industry"
+    - "Table 1"
+    - "10 October 2026"
+---
+
+# Introduction
+
+An English working paper: Quarto's own labels stay in English (@tbl-a).
+
+| Variable | Mean |
+|---|---:|
+| Investment (0/1) | 0.31 |
+
+: Descriptive statistics {#tbl-a}

@@ -41,6 +41,9 @@ WARN = re.compile(r'^(WARN|WARNING|ERROR)\b|(^|\.\.\.)(warning|error): ')
 TEMPLATE_SPECS = {
     'report': {'formats': ['vcci-report-typst', 'vcci-report-docx'], 'pages': [6, 12],
                'must-contain': ['Đánh giá chi phí tuân thủ thủ tục đầu tư', 'Ba khuyến nghị ưu tiên', 'Lộ trình đề xuất']},
+    'wp': {'formats': ['vcci-wp-typst', 'vcci-wp-docx'], 'pages': [2, 5],
+           'must-contain': ['VCCI Working Paper số 2026/01', 'Từ khóa', 'Keywords', 'Mã JEL: D22, H11, K23, O17',
+                            'Trích dẫn đề nghị', 'không nhất thiết phản ánh quan điểm', 'Bảng 2', 'Tài liệu tham khảo']},
 }
 
 results = []   # (fixture, format, check, ok, detail)
@@ -53,7 +56,8 @@ def run(cmd, cwd=None, env=None):
     return subprocess.run(cmd, cwd=cwd, env=env, capture_output=True, text=True, encoding='utf-8', errors='replace')
 
 def norm(s):
-    return re.sub(r'\s+', ' ', unicodedata.normalize('NFC', s)).strip()
+    # case-insensitive: labels are set in capitals by their style ("TÓM TẮT"), the words are the same
+    return re.sub(r'\s+', ' ', unicodedata.normalize('NFC', s)).strip().casefold()
 
 # ---------------------------------------------------------------- layer 1
 def layer1():
@@ -93,7 +97,8 @@ def pdf_checks(fx, fmt, pdf, spec, outdir):
                  re.findall(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">(.*?)</word>', body)]
         pages_words.append((float(w), float(h), words))
     visible = norm(' '.join(t for _, _, words in pages_words for *_, t in words))
-    missing = [s for s in spec.get('must-contain', []) if norm(s) not in visible]
+    # compared without spaces: pdftotext splits letter-spaced labels ("A B ST R ACT") into several words
+    missing = [s for s in spec.get('must-contain', []) if norm(s).replace(' ', '') not in visible.replace(' ', '')]
     record(fx, fmt, 'required Vietnamese text present and visible', not missing, ' | '.join(missing))
     edge, side, overlap = [], [], []
     for pno, (w, h, words) in enumerate(pages_words, 1):
@@ -265,8 +270,9 @@ def install_test():
         r = run(['quarto', 'add', QV, '--no-prompt'], cwd=tmp)
         installed = sorted(os.listdir(os.path.join(tmp, '_extensions'))) if os.path.isdir(os.path.join(tmp, '_extensions')) else []
         record('install', None, 'quarto add installs the extension', r.returncode == 0 and bool(installed), ', '.join(installed) or ANSI.sub('', r.stderr)[-200:])
+        for f in os.listdir(os.path.join(QV, 'templates')):   # the templates and their bibliography
+            shutil.copy(os.path.join(QV, 'templates', f), tmp)
         for name, spec in TEMPLATE_SPECS.items():
-            shutil.copy(os.path.join(QV, 'templates', name + '.qmd'), tmp)
             for fmt in spec['formats']:
                 env = dict(os.environ, TYPST_IGNORE_SYSTEM_FONTS='true')
                 r = run(['quarto', 'render', name + '.qmd', '--to', fmt], cwd=tmp, env=env)
