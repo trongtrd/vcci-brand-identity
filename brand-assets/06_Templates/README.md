@@ -75,6 +75,10 @@ Khổ 16:9, một file có cả layout nền sáng và nền xanh, font đã nh�
 - **Bảng:** kiểu bảng mặc định của PowerPoint đã lấy màu xanh VCCI. Để giống mẫu, tô hàng tiêu đề màu xanh, hàng tổng màu Ivory, và chỉ giữ đường kẻ ngang.
 - **Hiệu ứng:** chỉ slide chuyển chương có Fade; không thêm hiệu ứng cho các slide khác.
 
+## Theme biểu đồ (thư mục `Charts/`)
+
+Theme cho matplotlib (`vcci_charts.py`, `vcci.mplstyle`), ggplot2 (`theme_vcci.R`) và Stata (`scheme-vcci.scheme`, `vcci_graph.do`): biểu đồ vẽ bằng mã có cùng màu chuỗi, chữ, lưới và dấu phẩy thập phân như biểu đồ trong Word và PowerPoint. Cách dùng: `Charts/README.md`. Các file này được sinh từ `brand-tokens.json` bằng `python quarto-vcci/build.py`; không sửa tay.
+
 ## Dựng lại template
 
 - Word: `python tools/build.py word` (đóng Word trước khi chạy).

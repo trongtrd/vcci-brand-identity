@@ -1,6 +1,6 @@
 # Bộ nhận diện thương hiệu VCCI
 
-Hệ thống nhận diện thương hiệu cho **Liên đoàn Thương mại và Công nghiệp Việt Nam** (VCCI · Vietnam Chamber of Commerce and Industry): logo, màu sắc, kiểu chữ, họa tiết trống đồng, bộ icon, template Word và PowerPoint, và tài liệu hướng dẫn 36 trang. Repo chứa cả sản phẩm hoàn chỉnh lẫn công cụ để dựng lại toàn bộ từ file logo gốc.
+Hệ thống nhận diện thương hiệu cho **Liên đoàn Thương mại và Công nghiệp Việt Nam** (VCCI · Vietnam Chamber of Commerce and Industry): logo, màu sắc, kiểu chữ, họa tiết trống đồng, bộ icon, template Word và PowerPoint, theme biểu đồ cho Python, R và Stata, extension Quarto cho báo cáo, working paper và tờ trình, và tài liệu hướng dẫn 37 trang. Repo chứa cả sản phẩm hoàn chỉnh lẫn công cụ để dựng lại toàn bộ từ file logo gốc.
 
 ![Bảng nhận diện thương hiệu VCCI](board/export/VCCI-Brand-Identity-Board_preview.jpg)
 

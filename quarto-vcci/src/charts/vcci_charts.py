@@ -1,0 +1,146 @@
+"""VCCI charts for matplotlib: brand style, fonts, colour maps and the Vietnamese decimal comma.
+
+    import matplotlib.pyplot as plt
+    import vcci_charts as vcci
+
+    vcci.use()                          # vcci.use("en") for a decimal point
+    fig, ax = plt.subplots()
+    bars = ax.bar(years, values)
+    vcci.highlight(bars, -1)            # one value in Drum Gold, with its label
+    vcci.title(ax, "Năm 2025 đạt điểm cao nhất trong sáu năm")
+    vcci.source(fig, "Nguồn: VCCI, Khảo sát PCI 2025")
+
+Brand guide, section 08: at most six series, in the order of SERIES; Drum Gold only marks one value and always
+carries its label; bar and column axes start at zero; label series directly; cite the source under every chart.
+Colour maps: "vcci_seq" (7 classes) and "vcci_seq_c" for ordered values, light = low; "vcci_div" and "vcci_div_c"
+around a reference, Bronze = below, Ivory = at, Blue = above.
+"""
+import glob, os
+import matplotlib as mpl
+from matplotlib import font_manager, ticker
+from matplotlib.colors import LinearSegmentedColormap, ListedColormap
+
+{{PY-TOKENS}}
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+STYLE = os.path.join(HERE, 'vcci.mplstyle')
+CMAPS = {
+    'vcci_seq': ListedColormap(SEQUENTIAL, name='vcci_seq'),
+    'vcci_seq_c': LinearSegmentedColormap.from_list('vcci_seq_c', SEQUENTIAL),
+    'vcci_div': ListedColormap(DIVERGING, name='vcci_div'),
+    'vcci_div_c': LinearSegmentedColormap.from_list('vcci_div_c', DIVERGING),
+}
+_lang = ['vi']
+
+
+def _has_fonts():
+    names = {f.name for f in font_manager.fontManager.ttflist}
+    return {DISPLAY_FONT, TEXT_FONT} <= names
+
+
+def load_fonts(fonts_dir=None):
+    """Make Lora and Be Vietnam Pro known to matplotlib. Looks in fonts_dir, $VCCI_FONTS, the quarto-vcci extension
+    (_extensions/vcci/*/fonts) and the brand system (brand-assets/03_Fonts), in this folder and up to four above."""
+    dirs = [fonts_dir, os.environ.get('VCCI_FONTS'), os.path.join(HERE, 'fonts')]
+    d = os.getcwd()
+    for _ in range(5):
+        dirs += glob.glob(os.path.join(d, '_extensions', 'vcci', '*', 'fonts'))
+        dirs += glob.glob(os.path.join(d, 'brand-assets', '03_Fonts', '*'))
+        d = os.path.dirname(d)
+    for folder in filter(None, dirs):
+        for f in sorted(glob.glob(os.path.join(folder, '*.ttf'))):
+            font_manager.fontManager.addfont(f)
+        if _has_fonts(): return True
+    return _has_fonts()
+
+
+def use(lang='vi', fonts_dir=None):
+    """Apply the VCCI style. lang "vi": decimal comma (2,5) and thousands point (12.500); "en": 2.5 and 12,500."""
+    if not load_fonts(fonts_dir):
+        import warnings
+        warnings.warn('vcci_charts: Lora and Be Vietnam Pro not found; install them or pass fonts_dir')
+    mpl.style.use(STYLE)
+    for name, cmap in CMAPS.items():
+        if name not in mpl.colormaps: mpl.colormaps.register(cmap)
+    mpl.rcParams['image.cmap'] = 'vcci_seq_c'
+    _lang[0] = lang
+    # axis numbers: decimal comma, no thousands separator (years stay 2025). Through the formatter's locale hook,
+    # without changing the process locale.
+    mpl.rcParams['axes.formatter.use_locale'] = lang == 'vi'
+    if not getattr(ticker.ScalarFormatter, '_vcci', False):
+        plain = ticker.ScalarFormatter._format_maybe_minus_and_locale
+        def comma(self, fmt, arg):
+            if self._useLocale and _lang[0] == 'vi':
+                return self.fix_minus((fmt % arg).replace('.', ','))
+            return plain(self, fmt, arg)
+        ticker.ScalarFormatter._format_maybe_minus_and_locale = comma
+        ticker.ScalarFormatter._vcci = True
+
+
+def number(x, digits=1):
+    """A number as written in the document's language: 12.500,5 (vi) or 12,500.5 (en)."""
+    s = f'{x:,.{digits}f}'
+    return s.replace(',', ' ').replace('.', ',').replace(' ', '.') if _lang[0] == 'vi' else s
+
+
+def title(ax, text, subtitle=None):
+    """Chart title in Lora Medium, VCCI Blue, left-aligned: it states the message, not just the measure.
+    In a Quarto document the figure caption (fig-cap) usually plays this role."""
+    ax._vcci_title = (text, subtitle)
+    above = mpl.rcParams['axes.titlepad']
+    if getattr(ax, '_vcci_legend', False): above += 16
+    if getattr(ax, '_vcci_sub', None): ax._vcci_sub.remove(); ax._vcci_sub = None
+    if subtitle:
+        ax._vcci_sub = ax.annotate(subtitle, xy=(0, 1), xycoords='axes fraction', xytext=(0, above), textcoords='offset points',
+                    ha='left', va='bottom', color=COLOURS['Slate'], fontsize=8.5)
+        above += 14
+    ax.set_title(text, loc='left', fontfamily=DISPLAY_FONT, fontweight=500, color=COLOURS['VCCI Blue'],
+                 fontsize=mpl.rcParams['axes.titlesize'], pad=above)
+
+
+def legend(ax, **kwargs):
+    """Legend in one row above the plot, under the title. Naming lines directly (line_labels) reads better."""
+    handles, labels = ax.get_legend_handles_labels()
+    ax.legend(handles, labels, ncols=len(labels), loc='lower left', bbox_to_anchor=(0, 1.02), **kwargs)
+    ax._vcci_legend = True
+    if getattr(ax, '_vcci_title', None): title(ax, *ax._vcci_title)
+
+
+def source(fig, text):
+    """Source line under the chart, caption size, Slate: "Nguồn: VCCI, Khảo sát PCI 2025"."""
+    fig.text(0, 0, text, ha='left', va='top', fontsize=7.5, color=COLOURS['Slate'], transform=fig.transFigure)
+
+
+def label(ax, bars, digits=1, which=None):
+    """Value labels in Lora, VCCI Blue, above (or right of) the bars; which: indexes to label (default all)."""
+    idx = range(len(bars)) if which is None else [i % len(bars) for i in ([which] if isinstance(which, int) else which)]
+    for i in idx:
+        b = bars[i]
+        horizontal = getattr(bars, 'orientation', 'vertical') == 'horizontal'
+        v = b.get_width() if horizontal else b.get_height()
+        ax.annotate(number(v, digits), xy=(b.get_x() + b.get_width() if horizontal else b.get_x() + b.get_width() / 2,
+                                           b.get_y() + b.get_height() / 2 if horizontal else b.get_y() + b.get_height()),
+                    xytext=(3, 0) if horizontal else (0, 3), textcoords='offset points',
+                    ha='left' if horizontal else 'center', va='center' if horizontal else 'bottom',
+                    fontfamily=DISPLAY_FONT, fontweight=500, fontsize=8.5, color=COLOURS['VCCI Blue'])
+
+
+def highlight(bars, index, digits=1, others=None):
+    """The one value that matters in Drum Gold, with its label. others: colour for the rest
+    (default VCCI Blue; MUTED when one item stands out among many)."""
+    for i, b in enumerate(bars):
+        b.set_facecolor(HIGHLIGHT['focus'] if i == index % len(bars) else (others or HIGHLIGHT['context']))
+    label(bars[0].axes, bars, digits, which=index)
+
+
+def line_labels(ax, digits=None):
+    """Name each line at its last point, in the line's colour, instead of a legend."""
+    for line in ax.get_lines():
+        name = line.get_label()
+        if name.startswith('_'): continue
+        x, y = line.get_xdata()[-1], line.get_ydata()[-1]
+        colour = line.get_color()
+        if colour.upper() == COLOURS['Sky']: colour = SKY_TEXT   # Sky is too light for small text
+        text = name if digits is None else f'{name} {number(y, digits)}'
+        ax.annotate(text, xy=(x, y), xytext=(5, 0), textcoords='offset points', va='center', ha='left',
+                    color=colour, fontsize=8, fontweight=600)

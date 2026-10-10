@@ -1,0 +1,37 @@
+region,order,year,score
+Đồng bằng sông Hồng,1,2020,64.1
+Đồng bằng sông Hồng,1,2021,65.0
+Đồng bằng sông Hồng,1,2022,65.8
+Đồng bằng sông Hồng,1,2023,66.2
+Đồng bằng sông Hồng,1,2024,67.5
+Đồng bằng sông Hồng,1,2025,68.3
+Trung du và miền núi phía Bắc,2,2020,60.2
+Trung du và miền núi phía Bắc,2,2021,60.9
+Trung du và miền núi phía Bắc,2,2022,61.8
+Trung du và miền núi phía Bắc,2,2023,62.0
+Trung du và miền núi phía Bắc,2,2024,63.1
+Trung du và miền núi phía Bắc,2,2025,63.9
+Bắc Trung Bộ và duyên hải miền Trung,3,2020,62.0
+Bắc Trung Bộ và duyên hải miền Trung,3,2021,62.6
+Bắc Trung Bộ và duyên hải miền Trung,3,2022,63.9
+Bắc Trung Bộ và duyên hải miền Trung,3,2023,64.4
+Bắc Trung Bộ và duyên hải miền Trung,3,2024,65.2
+Bắc Trung Bộ và duyên hải miền Trung,3,2025,66.0
+Tây Nguyên,4,2020,59.0
+Tây Nguyên,4,2021,59.8
+Tây Nguyên,4,2022,60.1
+Tây Nguyên,4,2023,61.2
+Tây Nguyên,4,2024,61.9
+Tây Nguyên,4,2025,62.7
+Đông Nam Bộ,5,2020,65.2
+Đông Nam Bộ,5,2021,65.9
+Đông Nam Bộ,5,2022,66.1
+Đông Nam Bộ,5,2023,67.0
+Đông Nam Bộ,5,2024,67.8
+Đông Nam Bộ,5,2025,68.9
+Đồng bằng sông Cửu Long,6,2020,62.8
+Đồng bằng sông Cửu Long,6,2021,63.5
+Đồng bằng sông Cửu Long,6,2022,64.0
+Đồng bằng sông Cửu Long,6,2023,64.9
+Đồng bằng sông Cửu Long,6,2024,65.5
+Đồng bằng sông Cửu Long,6,2025,66.6

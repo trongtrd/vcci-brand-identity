@@ -1,7 +1,7 @@
 """Build the quarto-vcci extensions from the brand system.
 
-    python quarto-vcci/build.py            write _extensions/vcci/<format>/ from src/ and brand-assets/
-    python quarto-vcci/build.py --check    exit 1 if the committed _extensions/ differ from a fresh build
+    python quarto-vcci/build.py            write _extensions/vcci/<format>/ and the chart themes from src/ and brand-assets/
+    python quarto-vcci/build.py --check    exit 1 if the committed _extensions/ or chart themes differ from a fresh build
 
 Single source:
   brand-assets/brand-tokens.json, 03_Fonts, 01_Logo, 06_Templates/Word/VCCI_Report.dotx   (brand system)
@@ -9,6 +9,8 @@ Single source:
   quarto-vcci/src/formats/<format>/   _extension.yml, template.typ, typst-show.typ
 Each extension is self-contained (Quarto cannot share files between extensions), so the shared parts are copied in:
   typst-template.typ = generated tokens + logo + shared/vcci.typ + formats/<format>/template.typ
+Chart themes (matplotlib, ggplot2, Stata): quarto-vcci/src/charts/ with {{...}} filled from brand-tokens.json ->
+  quarto-vcci/charts/ and brand-assets/06_Templates/Charts/ (for users without Quarto)
 """
 import filecmp, json, os, re, shutil, sys, tempfile, time, zipfile
 
@@ -124,6 +126,77 @@ def reference_docx(dst):
             out.writestr(zipfile.ZipInfo(n, date_time=(2026, 1, 1, 0, 0, 0)), files[n], zipfile.ZIP_DEFLATED)
 
 
+CHART_OUTS = [os.path.join(HERE, 'charts'), os.path.join(ASSETS, '06_Templates', 'Charts')]
+CHART_COMMENT = {'.mplstyle': '##', '.py': '#', '.R': '#', '.scheme': '*', '.do': '*', '.md': None}
+
+
+def chart_tokens():
+    """Named colours for the chart themes: brand colours, tonal steps ("Blue 10", "Bronze 20"), chart palettes."""
+    t = json.load(open(os.path.join(ASSETS, 'brand-tokens.json'), encoding='utf-8'))
+    col, dv = t['colour'], t['dataviz']
+    named = {n: v['hex'] for n, v in col.items() if isinstance(v, dict) and 'hex' in v}
+    for scale, steps in col['scales'].items():
+        if scale != 'note': named.update({f'{scale.title()} {g}': h for g, h in steps.items()})
+    named.update({n: h for n, h in dv['categorical']})
+    named['Muted'] = dv['highlight']['muted']
+    return t, named
+
+
+def chart_files(dst):
+    """quarto-vcci/src/charts -> theme files for matplotlib, ggplot2 and Stata with the brand colours filled in."""
+    t, named = chart_tokens()
+    dv, ty = t['dataviz'], t['typography']
+    series = [h for _, h in dv['categorical']]
+    rgb = lambda h: ' '.join(str(int(h[i:i + 2], 16)) for i in (1, 3, 5))
+    seq, seq5, div, hl = dv['sequential_7'], dv['sequential_5'], dv['diverging_7'], dv['highlight']
+    display, text = ty['display']['family'], ty['text']['family']
+    py_list = lambda xs: '[' + ', '.join(f"'{x}'" for x in xs) + ']'
+    r_vec = lambda xs: 'c(' + ', '.join(f'"{x}"' for x in xs) + ')'
+    keep = ['VCCI Blue', 'Sky', 'Drum Bronze', 'Slate', 'Bronze 20', 'Deep Navy', 'Drum Gold', 'Ink', 'Stone', 'Ivory', 'Paper',
+            'Blue Tint', 'Muted']
+    blocks = {
+        'PY-TOKENS': '\n'.join([
+            "COLOURS = {" + ', '.join(f"'{n}': '{named[n]}'" for n in keep) + '}',
+            f'SERIES = {py_list(series)}            # in this order; at most six',
+            f'SEQUENTIAL = {py_list(seq)}',
+            f'SEQUENTIAL_5 = {py_list(seq5)}',
+            f'DIVERGING = {py_list(div)}',
+            f"HIGHLIGHT = {{'focus': '{hl['focus']}', 'context': '{hl['context']}', 'muted': '{hl['muted']}'}}",
+            f"SKY_TEXT = '{named['Blue 50']}'                # Sky as small text: one step darker",
+            f"DISPLAY_FONT, TEXT_FONT = '{display}', '{text}'"]),
+        'R-TOKENS': '\n'.join([
+            'vcci_colours <- c(' + ', '.join(f'"{n}" = "{named[n]}"' for n in keep) + ')',
+            f'vcci_series <- {r_vec(series)}   # in this order; at most six',
+            f'vcci_sequential <- {r_vec(seq)}',
+            f'vcci_sequential_5 <- {r_vec(seq5)}',
+            f'vcci_diverging <- {r_vec(div)}',
+            f'vcci_highlight_colours <- list(focus = "{hl["focus"]}", context = "{hl["context"]}", muted = "{hl["muted"]}")',
+            f'vcci_font <- list(display = "{display}", text = "{text}")']),
+        # Stata needs 15 series colours: beyond the sixth they turn muted grey, a visible sign of too many series
+        'STATA-SERIES': '\n'.join(f'color p{i}{" " * (3 - len(str(i)))}"{rgb(series[i - 1] if i <= len(series) else hl["muted"])}"'
+                                  for i in range(1, 16)),
+        'STATA-GLOBALS': '\n'.join(
+            ['* colours for one highlighted value, ordered values and values around a reference (RGB)',
+             f'global VCCI_GOLD "{rgb(hl["focus"])}"', f'global VCCI_BLUE "{rgb(hl["context"])}"', f'global VCCI_MUTED "{rgb(hl["muted"])}"']
+            + [f'global VCCI_S{i} "{rgb(h)}"' for i, h in enumerate(series, 1)]
+            + [f'global VCCI_SEQ{i} "{rgb(h)}"' for i, h in enumerate(seq, 1)]
+            + [f'global VCCI_DIV{i} "{rgb(h)}"' for i, h in enumerate(div, 1)]
+            + [f'global VCCI_DISPLAY "{display}"', f'global VCCI_TEXT "{text}"']),
+        'series': ', '.join(f"'{h[1:]}'" for h in series),
+        'TEXT-FONT': text,
+    }
+    src = os.path.join(SRC, 'charts')
+    os.makedirs(dst)
+    for f in sorted(os.listdir(src)):
+        s = open(os.path.join(src, f), encoding='utf-8').read()
+        for k, v in blocks.items(): s = s.replace('{{' + k + '}}', v)
+        s = re.sub(r'\{\{rgb ([^}]+)\}\}', lambda m: rgb(named[m.group(1)]), s)
+        s = re.sub(r'\{\{([^}]+)\}\}', lambda m: named[m.group(1)][1:], s)   # bare hex (mplstyle: '#' starts a comment)
+        c = CHART_COMMENT[os.path.splitext(f)[1]]
+        if c: s = f'{c} GENERATED by quarto-vcci/build.py from brand-tokens.json {t["version"]} and quarto-vcci/src/charts. Do not edit.\n' + s
+        open(os.path.join(dst, f), 'w', encoding='utf-8', newline='\n').write(s)
+
+
 def build(out_root):
     shared_typ = open(os.path.join(SRC, 'shared', 'vcci.typ'), encoding='utf-8').read()
     logos = (svg_const('VCCI-LOGO', os.path.join(ASSETS, '01_Logo', 'SVG', 'VCCI_Logo_Primary.svg'))
@@ -150,7 +223,7 @@ def build(out_root):
         reference_docx(os.path.join(dst, 'vcci-reference.docx'))
 
 
-TEXT = ('.typ', '.yml', '.lua', '.txt', '.csl')
+TEXT = ('.typ', '.yml', '.lua', '.txt', '.csl', '.mplstyle', '.py', '.R', '.scheme', '.do', '.md')
 
 def same_file(a, b):
     """Byte comparison; text files ignore line endings (git core.autocrlf rewrites them on checkout)."""
@@ -185,11 +258,17 @@ def sync(src, dst):
 if __name__ == '__main__':
     if '--check' in sys.argv:
         with tempfile.TemporaryDirectory() as tmp:
-            build(tmp)
-            ok = os.path.isdir(OUT) and same_tree(tmp, OUT)
+            build(os.path.join(tmp, 'ext'))
+            chart_files(os.path.join(tmp, 'charts'))
+            ok = os.path.isdir(OUT) and same_tree(os.path.join(tmp, 'ext'), OUT)
+            charts_ok = all(os.path.isdir(d) and same_tree(os.path.join(tmp, 'charts'), d) for d in CHART_OUTS)
         print('extensions up to date' if ok else 'extensions OUT OF DATE: run python quarto-vcci/build.py')
-        sys.exit(0 if ok else 1)
+        print('chart themes up to date' if charts_ok else 'chart themes OUT OF DATE: run python quarto-vcci/build.py')
+        sys.exit(0 if ok and charts_ok else 1)
     with tempfile.TemporaryDirectory() as tmp:
-        build(tmp)
-        sync(tmp, OUT)
+        build(os.path.join(tmp, 'ext'))
+        sync(os.path.join(tmp, 'ext'), OUT)
+        chart_files(os.path.join(tmp, 'charts'))
+        for d in CHART_OUTS: sync(os.path.join(tmp, 'charts'), d)
     print('built', ', '.join(FORMATS), '->', OUT)
+    print('built chart themes ->', ', '.join(CHART_OUTS))

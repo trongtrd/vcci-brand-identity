@@ -1,0 +1,64 @@
+---
+title: "Biểu đồ VCCI từ Python, R và Stata"
+subtitle: "Tài liệu kiểm thử cho theme biểu đồ (lớp 8)"
+date: 2026-10-10
+cover: false
+back-cover: false
+format:
+  vcci-report-typst: default
+  vcci-report-docx: default
+test:
+  formats: [vcci-report-typst, vcci-report-docx]
+  pages: [6, 12]
+  charts: [py, r, stata]   # needs the sample charts of layer 8 (copied into charts/)
+  must-contain:
+    - "Cùng biểu đồ, ba công cụ"
+    - "Python: cột có một giá trị nhấn"
+    - "Stata: phân tán hai nhóm"     # (not a caption with "ứ": the text layer of Word's PDF drops it there; the page shows it)
+  must-contain-pdf:          # inside the charts: text in the PDF, pictures in Word
+    - "Năm 2025 đạt điểm cao nhất trong sáu năm"
+    - "Hà Nội vượt TP.HCM và Đà Nẵng từ năm 2024"
+    - "Doanh nghiệp nhỏ đánh giá tích cực hơn"
+    - "Chi phí không chính thức tăng theo quy mô"
+    - "Sáu ngành theo thứ tự màu chuỗi"
+    - "Đông Nam Bộ dẫn đầu, Tây Nguyên cải thiện nhanh"
+    - "Nguồn: VCCI · Số liệu minh họa"
+---
+
+# Cùng biểu đồ, ba công cụ
+
+Mỗi biểu đồ được vẽ bằng matplotlib (vcci_charts.py), ggplot2 (theme_vcci.R) và Stata (scheme-vcci.scheme) từ cùng một bộ số liệu, rồi chèn vào báo cáo dưới dạng SVG. Chữ trong biểu đồ được dựng bằng font của tài liệu.
+
+![Python: cột có một giá trị nhấn](charts/py-bar.svg){#fig-py-bar}
+
+![R: cột có một giá trị nhấn](charts/r-bar.svg){#fig-r-bar}
+
+![Stata: cột có một giá trị nhấn](charts/stata-bar.svg){#fig-stata-bar}
+
+![Python: ba đường, ghi tên ở cuối](charts/py-line.svg)
+
+![R: ba đường, ghi tên ở cuối](charts/r-line.svg)
+
+![Stata: ba đường, ghi tên ở cuối](charts/stata-line.svg)
+
+![Python: cơ cấu phần trăm](charts/py-stack.svg)
+
+![R: cơ cấu phần trăm](charts/r-stack.svg)
+
+![Stata: cơ cấu phần trăm](charts/stata-stack.svg)
+
+![Python: phân tán hai nhóm](charts/py-scatter.svg)
+
+![R: phân tán hai nhóm](charts/r-scatter.svg)
+
+![Stata: phân tán hai nhóm](charts/stata-scatter.svg)
+
+![Python: sáu chuỗi theo thứ tự màu](charts/py-series6.svg)
+
+![R: sáu chuỗi theo thứ tự màu](charts/r-series6.svg)
+
+![Stata: sáu chuỗi theo thứ tự màu](charts/stata-series6.svg)
+
+![Python: bảng nhiệt bảy lớp](charts/py-heat.svg)
+
+![R: bảng nhiệt bảy lớp](charts/r-heat.svg)

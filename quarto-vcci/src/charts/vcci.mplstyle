@@ -1,0 +1,72 @@
+## VCCI chart style for matplotlib. Brand guide section 08 "Data and charts".
+## Prefer vcci_charts.use(): it also loads the brand fonts, the colour maps and the Vietnamese decimal comma.
+## Alone:  plt.style.use("vcci.mplstyle")
+
+## series colours in this order (at most six); Drum Gold is never a series colour
+axes.prop_cycle: cycler('color', [{{series}}])
+
+## text: Be Vietnam Pro, Slate for labels and axes (titles in Lora: vcci_charts.title)
+font.family: sans-serif
+font.sans-serif: Be Vietnam Pro, DejaVu Sans
+font.size: 8.5
+text.color: {{Ink}}
+axes.labelcolor: {{Slate}}
+axes.labelsize: 8.5
+axes.titlesize: 11
+axes.titleweight: 500
+axes.titlecolor: {{VCCI Blue}}
+axes.titlelocation: left
+axes.titlepad: 10
+legend.fontsize: 8
+legend.frameon: False
+legend.loc: upper left
+legend.handlelength: 1.2
+legend.borderaxespad: 0
+
+## lines: thin Stone horizontal grid, Slate base axis; no vertical grid, no frame
+axes.facecolor: white
+axes.edgecolor: {{Slate}}
+axes.linewidth: 0.8
+axes.spines.top: False
+axes.spines.right: False
+axes.spines.left: False
+axes.grid: True
+axes.grid.axis: y
+axes.axisbelow: True
+grid.color: {{Stone}}
+grid.linewidth: 0.5
+grid.alpha: 1
+xtick.color: {{Slate}}
+xtick.labelcolor: {{Slate}}
+xtick.labelsize: 8
+xtick.major.size: 3
+xtick.major.width: 0.8
+xtick.minor.visible: False
+ytick.color: {{Slate}}
+ytick.labelcolor: {{Slate}}
+ytick.labelsize: 8
+ytick.major.size: 0
+ytick.major.pad: 4
+ytick.minor.visible: False
+
+## marks: no 3D, shadows or gradients
+lines.linewidth: 1.8
+lines.solid_capstyle: round
+lines.solid_joinstyle: round
+lines.markersize: 5
+patch.linewidth: 0
+patch.force_edgecolor: False
+scatter.edgecolors: face
+hist.bins: auto
+image.cmap: Blues
+
+## figure: full text width of a VCCI report (166 mm); white ground
+figure.figsize: 6.5, 3.6
+figure.facecolor: white
+figure.dpi: 100
+savefig.dpi: 300
+savefig.facecolor: white
+savefig.bbox: tight
+savefig.pad_inches: 0.06
+## SVG keeps text as text, so the document's fonts set it
+svg.fonttype: none

@@ -1,0 +1,88 @@
+---
+title: "Biểu đồ theo bộ nhận diện VCCI"
+subtitle: "Mẫu dùng theme_vcci() cho ggplot2 trong Quarto"
+author:
+  - name: Nhóm Nghiên cứu
+    affiliations:
+      - name: VCCI
+date: 2026-10-10
+cover: false
+back-cover: false
+format:
+  vcci-report-typst: default
+  vcci-report-docx: default
+---
+
+```{r}
+#| label: setup
+library(ggplot2)
+source("theme_vcci.R", encoding = "UTF-8")   # chép theme_vcci.R (thư mục charts/ của quarto-vcci) cạnh file này
+vcci_setup()   # font, màu, dấu phẩy thập phân, SVG cho PDF; bài tiếng Anh: vcci_setup("en")
+```
+
+# Biểu đồ trong báo cáo
+
+::: lead
+Mỗi biểu đồ nói một thông điệp. Chú thích hình (fig-cap) nêu thông điệp đó; nguồn số liệu ghi ngay dưới biểu đồ (caption).
+:::
+
+vcci_setup() đặt theme_vcci() làm mặc định: chữ Be Vietnam Pro màu Slate, lưới ngang mảnh, trục đáy, không khung. Màu chuỗi tự theo thứ tự VCCI Blue, Sky, Drum Bronze, Slate, Bronze 20, Deep Navy. Nhãn số dùng Lora màu VCCI Blue.
+
+```{r}
+#| label: fig-score
+#| fig-cap: "Năm 2025 đạt điểm cao nhất trong sáu năm"
+d <- data.frame(year = 2020:2025, score = c(63.2, 64.5, 65.1, 64.8, 66.0, 67.4))
+ggplot(d, aes(factor(year), score, fill = vcci_highlight(year == 2025))) +
+  geom_col(width = 0.62) + scale_fill_identity() +
+  geom_text(data = subset(d, year == 2025), aes(label = label_vcci(accuracy = 0.1)(score)), vjust = -0.6) +
+  scale_y_continuous(limits = c(0, 80), expand = c(0, 0)) +
+  labs(x = NULL, y = NULL, caption = "Nguồn: VCCI, Khảo sát PCI (số liệu minh họa)")
+```
+
+Chỉ một giá trị màu vàng, luôn kèm nhãn số (vcci_highlight). Trục cột bắt đầu từ 0.
+
+```{r}
+#| label: fig-cities
+#| fig-cap: "Hà Nội vượt TP.HCM và Đà Nẵng từ năm 2024"
+d <- data.frame(year = rep(2020:2025, 3), city = rep(c("Hà Nội", "TP.HCM", "Đà Nẵng"), each = 6),
+                score = c(61, 62, 63.5, 65, 66.8, 68.6, 64, 65, 65.5, 66, 66.3, 66.2, 66, 65, 65.5, 65.2, 64.5, 63.6))
+d$city <- factor(d$city, levels = unique(d$city))
+ggplot(d, aes(year, score, colour = city)) + geom_line() +
+  geom_text(data = subset(d, year == 2025), aes(label = city), hjust = 0, nudge_x = 0.08,
+            family = vcci_font$text, fontface = "bold", size = 8 / .pt) +
+  scale_colour_vcci(guide = "none") +
+  scale_x_continuous(breaks = 2020:2025, expand = expansion(add = c(0.2, 0.8))) +
+  labs(x = NULL, y = NULL, caption = "Nguồn: VCCI, Khảo sát PCI (số liệu minh họa)")
+```
+
+Ghi tên ở cuối đường thay cho chú giải. Số thập phân trên trục dùng dấu phẩy.
+
+```{r}
+#| label: fig-rating
+#| fig-cap: "Doanh nghiệp nhỏ đánh giá tích cực hơn"
+#| fig-height: 2.6
+d <- data.frame(group = rep(c("Doanh nghiệp nhỏ", "Doanh nghiệp vừa", "Doanh nghiệp lớn"), each = 4),
+                rating = rep(c("Tốt", "Khá", "Trung bình", "Kém"), 3),
+                share = c(46, 30, 16, 8, 38, 34, 19, 9, 29, 37, 24, 10))
+d$rating <- factor(d$rating, levels = c("Tốt", "Khá", "Trung bình", "Kém"))
+d$group <- factor(d$group, levels = rev(unique(d$group)))
+ggplot(d, aes(share, group, fill = rating)) +
+  geom_col(width = 0.55, position = position_stack(reverse = TRUE)) +
+  geom_text(aes(label = paste0(share, "%"), group = rating, colour = rating == "Khá"), position = position_stack(vjust = 0.5, reverse = TRUE),
+            family = vcci_font$text, fontface = "bold", size = 7.5 / .pt) +
+  scale_colour_manual(values = c(`FALSE` = "white", `TRUE` = vcci_colours[["Ink"]]), guide = "none") +   # chữ tối trên Sky
+  scale_x_continuous(expand = c(0, 0)) +
+  labs(x = NULL, y = NULL, caption = "Nguồn: VCCI (số liệu minh họa)") +
+  theme(axis.text.x = element_blank(), axis.line.x = element_blank(), axis.ticks.x = element_blank(),
+        panel.grid.major.y = element_blank())
+```
+
+# Các hàm có sẵn
+
+| Hàm | Dùng khi |
+|-----------------------------|-------------------------------------------|
+| scale_colour_vcci(), scale_fill_vcci() | Các chuỗi dữ liệu, tối đa sáu |
+| scale_fill_vcci_seq(), scale_fill_vcci_seq_c() | Giá trị có thứ tự (nhạt là thấp), theo lớp hoặc liên tục |
+| scale_fill_vcci_div(), scale_fill_vcci_div_c() | Giá trị quanh một mốc: đồng là giảm, xanh là tăng |
+| vcci_highlight() | Nhấn một giá trị bằng vàng |
+| label_vcci(), label_vcci_percent() | Số viết kiểu Việt Nam: 12.500,5 và 38% |

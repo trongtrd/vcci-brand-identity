@@ -1,0 +1,128 @@
+*! VCCI chart scheme for Stata. Brand guide section 08 "Data and charts".
+*  Use through vcci_graph.do, which also sets the brand fonts (a scheme cannot) and the decimal comma.
+*  Series colours in this order, at most six; Drum Gold is never a series colour (vcci_graph.do: $VCCI_GOLD).
+
+#include stcolor
+
+sequence 2610
+label "VCCI"
+
+* ---- colours
+{{STATA-SERIES}}
+
+color background   white
+color plotregion   white
+color plotregion_line white
+color foreground   "{{rgb Slate}}"
+color text         "{{rgb Ink}}"
+color body         "{{rgb Ink}}"
+color small_body   "{{rgb Slate}}"
+color heading      "{{rgb VCCI Blue}}"
+color subheading   "{{rgb Slate}}"
+color axis_title   "{{rgb Slate}}"
+color label        "{{rgb Ink}}"
+color key_label    "{{rgb Ink}}"
+color tick_label   "{{rgb Slate}}"
+color tick_biglabel "{{rgb Slate}}"
+color matrix_label "{{rgb Ink}}"
+color filled_text  "{{rgb Ink}}"
+color text_option  "{{rgb Ink}}"
+color box          white
+color textbox      white
+color mat_label_box white
+color bylabel_outline white
+color legend       white
+color legend_line  white
+color clegend      white
+color clegend_line white
+color axisline     "{{rgb Slate}}"
+color tick         "{{rgb Slate}}"
+color minortick    "{{rgb Slate}}"
+color grid         "{{rgb Stone}}"
+color major_grid   "{{rgb Stone}}"
+color minor_grid   "{{rgb Stone}}"
+color xyline       "{{rgb Slate}}"
+color refline      "{{rgb Slate}}"
+color refmarkline  "{{rgb Slate}}"
+color pbarlabel    "{{rgb VCCI Blue}}"
+color histogram    "{{rgb VCCI Blue}}"
+color histogram_line white
+color histback     "{{rgb Sky}}"
+color matrix       "{{rgb VCCI Blue}}"
+color matrixmarkline "{{rgb VCCI Blue}}"
+color ci_line      "{{rgb Sky}}"
+color ci_arealine  "{{rgb Blue Tint}}"
+color ci_area      "{{rgb Blue Tint}}"
+color ci_symbol    "{{rgb Sky}}"
+color ci2_line     "{{rgb Bronze 20}}"
+color ci2_arealine "{{rgb Bronze 20}}"
+color ci2_area     "{{rgb Bronze 20}}"
+color ci2_symbol   "{{rgb Bronze 20}}"
+color contour_begin "{{rgb Blue 10}}"
+color contour_end  "{{rgb VCCI Blue}}"
+color pieline      white
+
+* no shading, transparency or 3D: every mark in its full colour
+intensity          full
+intensity p        inten100
+intensity bar      full
+intensity histogram inten100
+intensity pie      inten100
+
+* ---- lines: thin Stone horizontal grid, Slate base axis; no vertical grid, no frames, no y axis line or ticks
+yesno draw_major_hgrid      no
+yesno draw_major_vgrid      yes
+yesno draw_major_nlt_vgrid  yes
+yesno grid_draw_max         yes
+axisstyle vertical_default  vertical_nolinetick
+axisstyle bar_scale_vert    vertical_nolinetick
+linepattern major_grid      solid
+linewidth major_grid        .19
+linewidth axisline          .31
+linewidth tick              .31
+linewidth p                 .69
+linewidth pbar              none
+linewidth histogram         .19
+linestyle legend            none
+linestyle plotregion        none
+linestyle box               none
+anglestyle vertical_tick    horizontal
+
+* ---- text sizes (graph 6.5 x 3.6 in, the text width of a VCCI report)
+graphsize x           6.5
+graphsize y           3.6
+gsize heading         medlarge
+gsize subheading      medsmall
+gsize body            small
+gsize small_body      small
+gsize axis_title      small
+gsize tick_label      small
+gsize tick_biglabel   small
+gsize key_label       small
+gsize label           small
+gsize note            vsmall
+gsize pbarlabel       small
+
+* title, subtitle and source note left-aligned across the whole graph, like the brand guide
+clockdir title_position     11
+clockdir subtitle_position  11
+clockdir note_position      7
+clockdir caption_position   7
+yesno title_span            yes
+yesno subtitle_span         yes
+yesno note_span             yes
+yesno caption_span          yes
+horizontal heading          left
+horizontal subheading       left
+horizontal small_body       left
+
+* legend on top, one row, no frame
+clockdir legend_position   12
+numstyle legend_rows       1
+numstyle legend_cols       6
+gsize legend_key_xsize     5
+gsize legend_key_ysize     2
+
+* markers: filled circles in the series colour
+symbol p          circle
+symbolsize p      small

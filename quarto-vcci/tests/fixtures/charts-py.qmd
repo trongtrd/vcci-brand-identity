@@ -1,0 +1,42 @@
+---
+title: "Biểu đồ matplotlib trong Quarto"
+subtitle: "Tài liệu kiểm thử: khối mã Python chạy bằng Jupyter"
+date: 2026-10-10
+cover: false
+back-cover: false
+jupyter: python3
+format:
+  vcci-report-typst:
+    fig-format: svg
+  vcci-report-docx:
+    fig-format: png
+    fig-dpi: 300
+test:
+  formats: [vcci-report-typst, vcci-report-docx]
+  pages: [1, 2]
+  must-contain:
+    - "Năm 2025 đạt điểm cao nhất trong sáu năm"
+  must-contain-pdf:
+    - "67,4"
+    - "Nguồn: VCCI · Số liệu minh họa"
+---
+
+```{python}
+#| label: setup
+import matplotlib.pyplot as plt
+import vcci_charts as vcci   # vcci_charts.py và vcci.mplstyle (thư mục charts/ của quarto-vcci) cạnh file này
+vcci.use()
+```
+
+# Một biểu đồ
+
+```{python}
+#| label: fig-score
+#| fig-cap: "Năm 2025 đạt điểm cao nhất trong sáu năm"
+fig, ax = plt.subplots()
+bars = ax.bar(["2020", "2021", "2022", "2023", "2024", "2025"], [63.2, 64.5, 65.1, 64.8, 66.0, 67.4], width=0.62)
+vcci.highlight(bars, -1)
+ax.set_ylim(0, 80)
+vcci.source(fig, "Nguồn: VCCI · Số liệu minh họa")
+plt.show()
+```

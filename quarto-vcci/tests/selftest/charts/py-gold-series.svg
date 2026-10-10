@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="386.4275pt" height="245.91pt" viewBox="0 0 386.4275 245.91" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.1, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 245.91 
+L 386.4275 245.91 
+L 386.4275 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 19.4075 224.97 
+L 382.1075 224.97 
+L 382.1075 25.386 
+L 19.4075 25.386 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mdeea131b2c" d="M 0 0 
+L 0 3 
+" style="stroke: #5c6478; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mdeea131b2c" x="35.893864" y="224.97" style="fill: #5c6478; stroke: #5c6478; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #5c6478" x="35.893864" y="239.47" transform="rotate(-0 35.893864 239.47)">2020</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mdeea131b2c" x="101.839318" y="224.97" style="fill: #5c6478; stroke: #5c6478; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #5c6478" x="101.839318" y="239.47" transform="rotate(-0 101.839318 239.47)">2021</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mdeea131b2c" x="167.784773" y="224.97" style="fill: #5c6478; stroke: #5c6478; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #5c6478" x="167.784773" y="239.47" transform="rotate(-0 167.784773 239.47)">2022</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mdeea131b2c" x="233.730227" y="224.97" style="fill: #5c6478; stroke: #5c6478; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #5c6478" x="233.730227" y="239.47" transform="rotate(-0 233.730227 239.47)">2023</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mdeea131b2c" x="299.675682" y="224.97" style="fill: #5c6478; stroke: #5c6478; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #5c6478" x="299.675682" y="239.47" transform="rotate(-0 299.675682 239.47)">2024</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mdeea131b2c" x="365.621136" y="224.97" style="fill: #5c6478; stroke: #5c6478; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #5c6478" x="365.621136" y="239.47" transform="rotate(-0 365.621136 239.47)">2025</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7">
+      <path d="M 19.4075 215.898 
+L 382.1075 215.898 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_8"/>
+     <g id="text_7">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="219.898" transform="rotate(-0 15.4075 219.898)">40</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <path d="M 19.4075 193.218 
+L 382.1075 193.218 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_10"/>
+     <g id="text_8">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="197.218" transform="rotate(-0 15.4075 197.218)">45</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_11">
+      <path d="M 19.4075 170.538 
+L 382.1075 170.538 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_12"/>
+     <g id="text_9">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="174.538" transform="rotate(-0 15.4075 174.538)">50</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_13">
+      <path d="M 19.4075 147.858 
+L 382.1075 147.858 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_14"/>
+     <g id="text_10">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="151.858" transform="rotate(-0 15.4075 151.858)">55</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15">
+      <path d="M 19.4075 125.178 
+L 382.1075 125.178 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_16"/>
+     <g id="text_11">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="129.178" transform="rotate(-0 15.4075 129.178)">60</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_17">
+      <path d="M 19.4075 102.498 
+L 382.1075 102.498 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_18"/>
+     <g id="text_12">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="106.498" transform="rotate(-0 15.4075 106.498)">65</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_19">
+      <path d="M 19.4075 79.818 
+L 382.1075 79.818 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_20"/>
+     <g id="text_13">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="83.818" transform="rotate(-0 15.4075 83.818)">70</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_21">
+      <path d="M 19.4075 57.138 
+L 382.1075 57.138 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_22"/>
+     <g id="text_14">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="61.138" transform="rotate(-0 15.4075 61.138)">75</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_23">
+      <path d="M 19.4075 34.458 
+L 382.1075 34.458 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #e6e1d5; stroke-width: 0.5; stroke-linecap: round"/>
+     </g>
+     <g id="line2d_24"/>
+     <g id="text_15">
+      <text style="font-size: 8px; font-family: 'Be Vietnam Pro', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #5c6478" x="15.4075" y="38.458" transform="rotate(-0 15.4075 38.458)">80</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_25">
+    <path d="M 35.893864 215.898 
+L 101.839318 211.362 
+L 167.784773 206.826 
+L 233.730227 202.29 
+L 299.675682 197.754 
+L 365.621136 193.218 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #264896; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_26">
+    <path d="M 35.893864 184.146 
+L 101.839318 179.61 
+L 167.784773 175.074 
+L 233.730227 170.538 
+L 299.675682 166.002 
+L 365.621136 161.466 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #ffcd00; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_27">
+    <path d="M 35.893864 152.394 
+L 101.839318 147.858 
+L 167.784773 143.322 
+L 233.730227 138.786 
+L 299.675682 134.25 
+L 365.621136 129.714 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #cc713c; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_28">
+    <path d="M 35.893864 120.642 
+L 101.839318 116.106 
+L 167.784773 111.57 
+L 233.730227 107.034 
+L 299.675682 102.498 
+L 365.621136 97.962 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #5c6478; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_29">
+    <path d="M 35.893864 88.89 
+L 101.839318 84.354 
+L 167.784773 79.818 
+L 233.730227 75.282 
+L 299.675682 70.746 
+L 365.621136 66.21 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #f2b18e; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_30">
+    <path d="M 35.893864 57.138 
+L 101.839318 52.602 
+L 167.784773 48.066 
+L 233.730227 43.53 
+L 299.675682 38.994 
+L 365.621136 34.458 
+" clip-path="url(#pb8df146f9e)" style="fill: none; stroke: #0b1a4f; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 19.4075 224.97 
+L 382.1075 224.97 
+" style="fill: none; stroke: #5c6478; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 500; font-size: 11px; font-family: 'Lora'; text-anchor: start; fill: #264896" x="19.4075" y="15.386" transform="rotate(-0 19.4075 15.386)">Sáu ngành theo thứ tự màu chuỗi</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pb8df146f9e">
+   <rect x="19.4075" y="25.386" width="362.7" height="199.584"/>
+  </clipPath>
+ </defs>
+</svg>

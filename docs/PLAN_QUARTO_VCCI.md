@@ -147,7 +147,7 @@ Khi repo lên GitHub, có thể chạy lớp 1–3, 5 và 6 trên GitHub Actions
 | 2 ✅ | **Báo cáo tư vấn** | `vcci-report` (PDF và Word), `templates/report.qmd`, PDF mẫu | Mọi lớp kiểm thử đạt; **bạn duyệt PDF và Word** |
 | 3 ✅ | Working paper | `vcci-wp`, `templates/wp.qmd`, `references.bib` | Như trên; bạn duyệt số hiệu và lời miễn trừ |
 | 4 ✅ | Memo (tờ trình) | `vcci-memo`, `templates/memo.qmd` | Như trên |
-| 5 | Biểu đồ và tài liệu | `vcci.mplstyle`, `theme_vcci.R`, scheme Stata; README; bổ sung skill `vcci-brand` và một trang trong hướng dẫn thương hiệu (phần Ứng dụng) | Biểu đồ mẫu đúng bảng màu; README chạy được từng lệnh |
+| 5 ✅ | Biểu đồ và tài liệu | `vcci.mplstyle`, `theme_vcci.R`, scheme Stata; README; bổ sung skill `vcci-brand` và một trang trong hướng dẫn thương hiệu (phần Ứng dụng) | Biểu đồ mẫu đúng bảng màu; README chạy được từng lệnh |
 | 6 | Phát hành | Repo `quarto-vcci`, phiên bản 1.0.0 | Lớp 6 đạt khi cài từ GitHub |
 
 Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bước khi kiểm thử còn lỗi.
@@ -296,3 +296,62 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 
 **Bước tiếp theo: bước 5** (theme biểu đồ R, matplotlib, scheme Stata; README; skill `vcci-brand`; một trang trong hướng dẫn thương hiệu), rồi bước 6 (phát hành).
 
+
+## 14. Kết quả bước 5 (10/10/2026): theme biểu đồ và tài liệu, chủ dự án đã duyệt
+
+**Quyết định của chủ dự án trước khi làm**
+- Nguồn theme nằm ở `quarto-vcci/src/charts/`, `build.py` sinh bản dùng vào `quarto-vcci/charts/` và chép một bản cho người không dùng Quarto.
+- Theme R là một file dùng bằng `source()`, chưa làm thành gói.
+- Mặc định dấu phẩy thập phân; bài tiếng Anh chọn dấu chấm.
+- Có mẫu `templates/charts.qmd` với khối mã R. Khối Python chạy được bằng Jupyter nên có thêm tài liệu thử `charts-py`; R và Python không trộn trong một tài liệu (máy chưa có reticulate).
+
+**Đã có**
+- `vcci_charts.py` và `vcci.mplstyle` (matplotlib), `theme_vcci.R` (ggplot2), `scheme-vcci.scheme` và `vcci_graph.do` (Stata). Mã màu và tên font được `build.py` điền từ `brand-tokens.json`; `--check` báo khi bản sinh ra lệch nguồn.
+- Bản sao nằm ở `brand-assets/06_Templates/Charts/`, không phải `02_Colour/`, vì `build_assets.py` xóa và dựng lại cả thư mục `02_Colour`.
+- `charts/README.md` có cách dùng và ví dụ cho từng công cụ.
+- Mục "Biểu đồ" và lớp kiểm thử 8 trong `quarto-vcci/README.md`.
+- Phần C của skill `vcci-brand` và một dòng trong `AGENTS.md`.
+- Trang 34 "Tài liệu và biểu đồ từ mã" trong hướng dẫn thương hiệu (phần 09); hướng dẫn giờ có 37 trang.
+
+**Lớp kiểm thử 8**
+- Cùng một bộ số liệu (`tests/charts/data/`) được vẽ bằng cả ba công cụ, gồm sáu biểu đồ: cột có một giá trị nhấn vàng, ba đường, cột ngang chồng, phân tán, sáu chuỗi, bảng nhiệt. Stata không vẽ bảng nhiệt vì không có lệnh sẵn.
+- Mỗi SVG phải đạt:
+  - chỉ dùng màu VCCI; không trong suốt;
+  - chữ giữ dạng chữ, đúng font thương hiệu; có tiêu đề tiếng Việt;
+  - dấu phẩy thập phân; không lưới dọc;
+  - vàng nhấn tối đa một giá trị; cột bắt đầu từ 0; sáu chuỗi đúng thứ tự màu.
+- `charts-tools` chèn 17 biểu đồ vào báo cáo, `charts-py` chạy matplotlib qua Jupyter, `templates/charts.qmd` chạy ggplot2 qua knitr. Cả ba qua các lớp 2–5, kể cả Word thật.
+- Mỗi ví dụ mã trong `charts/README.md` được chạy thật.
+- Tự kiểm có 11 file lỗi cố ý trong `tests/selftest/charts/`:
+  - biểu đồ để mặc định của matplotlib, ggplot2 và Stata;
+  - trong suốt; trục không từ 0; chữ chuyển thành nét;
+  - lưới dọc; dấu chấm thập phân;
+  - vàng làm màu chuỗi; màu trạng thái làm màu chuỗi;
+  - README có ví dụ hỏng.
+
+**Lỗi tìm thấy nhờ xem ảnh và kiểm thử**
+
+| Lỗi | Cách sửa |
+|---|---|
+| matplotlib ghi năm thành "2.020" (dấu chấm hàng nghìn của locale tiếng Việt) | Chỉ đổi dấu thập phân, không nhóm hàng nghìn trên trục; không đổi locale của tiến trình |
+| Nét trong ggplot mảnh hơn thiết kế 25% (R tính độ dày nét theo 1/96 inch, không theo pt) | Quy đổi trong `theme_vcci()` |
+| Cột ggplot có viền xanh (màu viền mặc định đặt qua `element_geom`) | Chỉ đặt màu nền |
+| Tên font "Lora Medium" trong SVG: Typst không nhận, lặng lẽ thay bằng Libertinus | Tiêu đề ggplot dùng "Lora"; lớp 3 bắt được font lạ |
+| Stata: tiêu đề căn giữa, còn đường trục dọc, nét mảnh, nhãn trục tung to hơn trục hoành | Sửa trong scheme (vị trí 11, trục `vertical_nolinetick`, độ dày tính theo kích thước biểu đồ, `tick_biglabel`) |
+| Stata vẽ cột vàng hai lần (nền và viền rộng 0), bị đếm là hai điểm nhấn | Kiểm tra đếm theo hình, bỏ qua viền rộng 0 |
+| Nhãn phần trăm của biểu đồ cột chồng trong mẫu R nằm sai mảng | Thêm `group` trong mẫu |
+| Tài liệu thử `charts` trùng tên với mẫu `charts` | Đổi thành `charts-tools` |
+
+**Giới hạn và quan sát**
+- Theme matplotlib, ggplot2 và Stata cho cùng nhận diện nhưng không giống hệt điểm ảnh: khoảng cách lề và vị trí chú giải theo mặc định của từng công cụ. Chú giải của Stata nằm giữa, không căn trái.
+- Tiêu đề trong biểu đồ ggplot dạng SVG là Lora Regular, không phải Medium (svglite chỉ ghi được độ đậm "bold").
+- Poppler (`pdftoppm`) vẽ một vạch mảnh cạnh một số cột và đường trong SVG đã chèn. PDF chỉ chứa hình tô màu (đã kiểm bằng PyMuPDF); MuPDF hiển thị sạch.
+- Lớp chữ của PDF do Word xuất làm mất chữ "ứ" trong một số chú thích hình. Trang in vẫn hiển thị đúng.
+- Lora và Be Vietnam Pro không có font đơn cách. Chữ trong định dạng mã (`` `...` ``) được Typst dựng bằng DejaVu Sans Mono và Word dựng bằng Consolas, nên lớp 3 báo lỗi. Các mẫu không dùng định dạng mã. Chủ dự án đồng ý cho phép một font đơn cách mã nguồn mở (OFL) cho mã; việc chọn và tải font làm sau bước 5.
+
+**Sau khi duyệt**
+- Chủ dự án duyệt theme, mẫu biểu đồ, trang 34 của hướng dẫn và lớp kiểm thử 8.
+- Ảnh chuẩn (lớp 5) cho `charts-tools`, `charts-py` và mẫu `charts`. Vẽ lại bằng cả ba công cụ và so lại: khớp từng điểm ảnh.
+- Lần chạy đầy đủ cuối (có Word thật và Stata): 425/425 đạt.
+
+**Tiếp theo:** font đơn cách cho mã (cần tải font, hỏi trước), rồi bước 6 (phát hành, cần tài khoản GitHub).

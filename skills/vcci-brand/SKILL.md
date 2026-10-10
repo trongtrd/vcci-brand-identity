@@ -1,9 +1,9 @@
 ---
 name: vcci-brand
-description: Áp dụng Bộ nhận diện thương hiệu VCCI (Liên đoàn Thương mại và Công nghiệp Việt Nam) cho tài liệu. Dùng khi người dùng muốn định dạng một file Word thô thành báo cáo VCCI, chuyển một file PowerPoint thô (hoặc dàn ý, báo cáo) thành bài trình bày VCCI, hoặc hỏi về logo, màu, font, quy tắc thương hiệu VCCI. Use for any request to turn a raw .docx into a VCCI-branded report, a raw .pptx or outline into a VCCI-branded presentation, or to apply VCCI brand colours, fonts and logo rules.
+description: Áp dụng Bộ nhận diện thương hiệu VCCI (Liên đoàn Thương mại và Công nghiệp Việt Nam) cho tài liệu. Dùng khi người dùng muốn định dạng một file Word thô thành báo cáo VCCI, chuyển một file PowerPoint thô (hoặc dàn ý, báo cáo) thành bài trình bày VCCI, soạn báo cáo, working paper, tờ trình VCCI bằng Quarto, vẽ biểu đồ theo màu VCCI bằng Python (matplotlib), R (ggplot2) hay Stata, hoặc hỏi về logo, màu, font, quy tắc thương hiệu VCCI. Use for any request to turn a raw .docx into a VCCI-branded report, a raw .pptx or outline into a VCCI-branded presentation, to write a VCCI report, working paper or memo in Quarto, to style charts in matplotlib, ggplot2 or Stata with the VCCI theme, or to apply VCCI brand colours, fonts and logo rules.
 ---
 
-# VCCI Brand: báo cáo Word và bài trình bày PowerPoint
+# VCCI Brand: báo cáo Word, bài trình bày PowerPoint, tài liệu Quarto và biểu đồ
 
 Skill này đưa nội dung thô vào template VCCI: báo cáo theo `VCCI_Report.dotx`, bài trình bày theo `VCCI_Presentation.potx`. Màu, font và bố cục do template và script quyết định. Agent chỉ phải xác định **cấu trúc** của nội dung và giữ nguyên câu chữ, số liệu.
 
@@ -68,6 +68,34 @@ Ví dụ: [examples/sample-report.md](examples/sample-report.md) → [examples/s
 
 Ví dụ: [examples/sample-deck.md](examples/sample-deck.md) → [examples/sample-deck_VCCI.pdf](examples/sample-deck_VCCI.pdf) (số liệu giả lập).
 
+## C. Tài liệu Quarto và biểu đồ bằng mã
+
+Dùng khi người dùng viết bằng Markdown hoặc Quarto (nhóm nghiên cứu), cần working paper hay tờ trình, hoặc vẽ biểu đồ bằng Python, R, Stata. Extension nằm trong `quarto-vcci/` của repo; hướng dẫn đầy đủ ở `quarto-vcci/README.md`.
+
+1. **Chọn định dạng** và chép mẫu tương ứng từ `quarto-vcci/templates/`:
+
+   | Định dạng | Mẫu | Dùng cho |
+   |---|---|---|
+   | `vcci-report` | `report.qmd` | Báo cáo tư vấn: bìa, mục lục, chương, bìa sau; trích dẫn Chicago chú thích cuối trang |
+   | `vcci-wp` | `wp.qmd`, `references.bib` | Working paper: số hiệu, tóm tắt song ngữ, mã JEL; trích dẫn APA |
+   | `vcci-memo` | `memo.qmd` | Tờ trình: Gửi, Từ, Về việc, chữ ký; trích dẫn Chicago |
+   | biểu đồ R | `charts.qmd` | Báo cáo có biểu đồ ggplot2 chạy trong tài liệu |
+
+2. **Cài extension và dựng** trong thư mục làm việc:
+   ```bash
+   quarto add "<repo>/quarto-vcci" --no-prompt
+   quarto render report.qmd
+   ```
+   Mỗi định dạng ra PDF (Typst, bản phát hành) và Word (`--to vcci-report-docx`, để đồng nghiệp sửa). Khóa YAML của từng định dạng ở `quarto-vcci/README.md`. Gửi, Từ của tờ trình là `recipient`, `sender` (không dùng `to`, `from`). Tên người Việt trong `.bib` viết trong ngoặc nhọn: `{Nguyễn Thị Hạnh}`.
+
+3. **Biểu đồ:** chép file theme từ `quarto-vcci/charts/` (hoặc `brand-assets/06_Templates/Charts/`) cạnh file mã; cách dùng đầy đủ ở `charts/README.md`.
+   - Python: `import vcci_charts as vcci; vcci.use()`, rồi `vcci.highlight()`, `vcci.title()`, `vcci.source()`.
+   - R: `source("theme_vcci.R"); vcci_setup()`, rồi `vcci_highlight()`, `scale_fill_vcci()`, `label_vcci()`.
+   - Stata: `do vcci_graph.do`, rồi `graph export ten.svg`.
+   - Trong tài liệu Quarto, chú thích hình (`fig-cap`) nêu thông điệp; nguồn ghi dưới biểu đồ. Bài tiếng Anh: `vcci.use("en")`, `vcci_setup("en")`, `do vcci_graph.do en`.
+
+4. **Tự kiểm tra:** xem ảnh từng trang PDF (bìa, bảng dài, biểu đồ, chú thích cuối trang). Không viết chữ trong định dạng mã (`` `...` ``) vì Lora và Be Vietnam Pro không có font đơn cách; tên hàm viết như chữ thường.
+
 ## Báo cáo lại cho người dùng
 
 Đường dẫn file kết quả (`.docx`/`.pptx` và `.pdf`), những gì đã đổi về cấu trúc (slide tách, biểu đồ dựng lại, chương thêm), những gì giữ nguyên dạng ảnh, và những chỗ `[cần bổ sung]`. **Không bịa nội dung**: thiếu thông tin thì ghi `[cần bổ sung]`.
@@ -82,4 +110,4 @@ Ví dụ: [examples/sample-deck.md](examples/sample-deck.md) → [examples/sampl
 
 ## Phạm vi hiện tại
 
-Có script cho **báo cáo Word** và **bài trình bày PowerPoint**. Thư, công văn (`VCCI_Letterhead.dotx`) và thư mời (`VCCI_Invitation.dotx`) có trong `brand-assets/06_Templates/` để dùng thủ công.
+Có script cho **báo cáo Word** và **bài trình bày PowerPoint**; extension Quarto cho **báo cáo, working paper, tờ trình**; theme biểu đồ cho **matplotlib, ggplot2, Stata**. Thư, công văn (`VCCI_Letterhead.dotx`) và thư mời (`VCCI_Invitation.dotx`) có trong `brand-assets/06_Templates/` để dùng thủ công.
