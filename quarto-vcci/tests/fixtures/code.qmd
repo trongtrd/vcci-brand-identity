@@ -1,0 +1,40 @@
+---
+title: "Mã nguồn trong working paper"
+author:
+  - name: Nguyễn Văn An
+    affiliations:
+      - name: VCCI
+date: 2026-10-10
+wp-number: "2026/99"
+abstract: "Tài liệu kiểm thử: khối mã và chữ dạng mã dùng JetBrains Mono, có dấu tiếng Việt."
+format:
+  vcci-wp-typst: default
+  vcci-wp-docx: default
+test:
+  formats: [vcci-wp-typst, vcci-wp-docx]
+  pages: [1, 3]
+  must-contain:
+    - "Lệnh quarto render report.qmd dựng bản PDF"
+    - "vcci_setup()"
+    - "# Đọc số liệu khảo sát PCI 2025"
+    - "pci <- read.csv(\"pci_2025.csv\")"
+    - "ĂÂĐÊÔƠƯ Ở Ỷ Ữ"
+---
+
+# Chữ dạng mã trong câu
+
+Lệnh `quarto render report.qmd` dựng bản PDF; hàm `vcci_setup()` đặt theme biểu đồ. Tên file như `theme_vcci.R` cũng viết dạng mã.
+
+# Khối mã
+
+```r
+# Đọc số liệu khảo sát PCI 2025
+pci <- read.csv("pci_2025.csv")
+summary(pci$diem)   # điểm trung bình theo tỉnh
+```
+
+```stata
+* Ghi chú tiếng Việt có dấu: ĂÂĐÊÔƠƯ Ở Ỷ Ữ
+do vcci_graph.do
+graph bar diem, over(vung)
+```

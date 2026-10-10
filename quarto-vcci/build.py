@@ -41,7 +41,7 @@ def tokens_typ():
     lines.append('#let VCCI-SEQUENTIAL = (' + ', '.join(f'rgb("{h}")' for h in dv['sequential_7']) + ',)')
     lines.append('#let VCCI-DIVERGING = (' + ', '.join(f'rgb("{h}")' for h in dv['diverging_7']) + ',)')
     ty = t['typography']
-    lines.append(f'#let VCCI-FONT = (display: "{ty["display"]["family"]}", text: "{ty["text"]["family"]}")')
+    lines.append(f'#let VCCI-FONT = (display: "{ty["display"]["family"]}", text: "{ty["text"]["family"]}", code: "{ty["code"]["family"]}")')
     return '\n'.join(lines) + '\n'
 
 
@@ -90,13 +90,58 @@ PANDOC_STYLES = [
     ('Figure', 'Figure', 'paragraph', 'Normal', '<w:pPr><w:keepNext/></w:pPr>'),
     ('CaptionedFigure', 'Captioned Figure', 'paragraph', 'Figure', ''),
     ('TOCHeading', 'TOC Heading', 'paragraph', 'VCCITOCHeading', ''),
-    ('SourceCode', 'Source Code', 'paragraph', 'Normal', '<w:rPr><w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/><w:sz w:val="17"/></w:rPr>'),
+    ('SourceCode', 'Source Code', 'paragraph', 'Normal', '<w:rPr><w:rFonts w:ascii="JetBrains Mono" w:hAnsi="JetBrains Mono" w:cs="JetBrains Mono"/><w:sz w:val="16"/></w:rPr>'),
     ('DefinitionTerm', 'Definition Term', 'paragraph', 'Normal', '<w:rPr><w:b/></w:rPr>'),
     ('Definition', 'Definition', 'paragraph', 'Normal', ''),
     ('BodyTextChar', 'Body Text Char', 'character', 'DefaultParagraphFont', ''),
-    ('VerbatimChar', 'Verbatim Char', 'character', 'DefaultParagraphFont', '<w:rPr><w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/></w:rPr>'),
+    ('VerbatimChar', 'Verbatim Char', 'character', 'DefaultParagraphFont', '<w:rPr><w:rFonts w:ascii="JetBrains Mono" w:hAnsi="JetBrains Mono" w:cs="JetBrains Mono"/><w:sz w:val="18"/></w:rPr>'),
     ('SectionNumber', 'Section Number', 'character', 'DefaultParagraphFont', ''),
 ]
+
+
+def highlight_theme():
+    """Pandoc syntax-highlighting theme in brand colours (PDF and Word): keywords VCCI Blue, strings and numbers
+    Bronze Ink, comments Slate, errors in the status colour; Ivory ground."""
+    t = json.load(open(os.path.join(ASSETS, 'brand-tokens.json'), encoding='utf-8'))
+    c = {n: v['hex'] for n, v in t['colour'].items() if isinstance(v, dict) and 'hex' in v}
+    error = t['colour']['status']['Error']['strong']
+    style = lambda col, bold=False, italic=False: {'text-color': col, 'background-color': None, 'bold': bold, 'italic': italic, 'underline': False}
+    groups = {
+        ('Keyword', 'ControlFlow', 'Import'): style(c['VCCI Blue'], bold=True),
+        ('Function', 'BuiltIn', 'DataType', 'Extension', 'Preprocessor', 'Attribute'): style(c['VCCI Blue']),
+        ('String', 'Char', 'SpecialChar', 'SpecialString', 'VerbatimString', 'DecVal', 'BaseN', 'Float', 'Constant'): style(c['Bronze Ink']),
+        ('Comment', 'Documentation', 'CommentVar', 'Annotation', 'Information', 'Warning'): style(c['Slate']),   # no italic: only Regular and Bold are bundled
+        ('Alert', 'Error'): style(error, bold=True),
+        ('Variable', 'Operator', 'Other', 'RegionMarker', 'Normal'): style(c['Ink']),
+    }
+    theme = {'text-color': c['Ink'], 'background-color': c['Ivory'], 'line-number-color': c['Slate'],
+             'line-number-background-color': None,
+             'text-styles': {k: v for names, v in groups.items() for k in names}}
+    return json.dumps(theme, indent=2) + '\n'
+
+
+CODE_FONT_KEYS = {'Regular': '{5A1C3E2B-7D44-4F0A-9B61-2C8E5F3A9D10}', 'Bold': '{8E3F6B1D-2A57-4C9E-A0D3-6B4F1E7C2A85}'}
+
+
+def embed_code_font(files):
+    """Embed JetBrains Mono (code) in the reference document, obfuscated as Word does (ECMA-376 Part 1, 17.8.1),
+    so code shows in its font on computers without it. Fixed font keys keep builds reproducible."""
+    ft = files['word/fontTable.xml'].decode('utf-8')
+    rels = files['word/_rels/fontTable.xml.rels'].decode('utf-8')
+    embeds = ''
+    for slot, guid in CODE_FONT_KEYS.items():
+        h = guid.strip('{}').replace('-', '')
+        key = [int(h[i:i + 2], 16) for i in range(30, -1, -2)]
+        data = bytearray(open(os.path.join(ASSETS, '03_Fonts', 'JetBrainsMono', f'JetBrainsMono-{slot}.ttf'), 'rb').read())
+        for i in range(32): data[i] ^= key[i % 16]
+        files[f'word/fonts/code{slot}.odttf'] = bytes(data)
+        rels = rels.replace('</Relationships>', f'<Relationship Id="rIdVcciCode{slot}" Type="http://schemas.openxmlformats.org/officeDocument/'
+                                                f'2006/relationships/font" Target="fonts/code{slot}.odttf"/></Relationships>')
+        embeds += f'<w:embed{slot} r:id="rIdVcciCode{slot}" w:fontKey="{guid}"/>'
+    ft = ft.replace('</w:fonts>', '<w:font w:name="JetBrains Mono"><w:charset w:val="00"/><w:family w:val="modern"/>'
+                                  f'<w:pitch w:val="fixed"/>{embeds}</w:font></w:fonts>')
+    files['word/fontTable.xml'] = ft.encode('utf-8')
+    files['word/_rels/fontTable.xml.rels'] = rels.encode('utf-8')
 
 
 def reference_docx(dst):
@@ -120,6 +165,7 @@ def reference_docx(dst):
         st = st.replace('</w:styles>', f'<w:style w:type="{kind}" w:customStyle="1" w:styleId="{sid}"><w:name w:val="{name}"/>'
                                        f'<w:basedOn w:val="{based}"/><w:qFormat/>{extra}</w:style></w:styles>')
     files['word/styles.xml'] = st.encode('utf-8')
+    embed_code_font(files)
     # body of the reference document is irrelevant to Pandoc; keep it, but give zip entries a fixed date so builds are reproducible
     with zipfile.ZipFile(dst, 'w', zipfile.ZIP_DEFLATED) as out:
         for n in files:
@@ -203,7 +249,7 @@ def build(out_root):
              + svg_const('VCCI-LOGO-PLATE', os.path.join(ASSETS, '01_Logo', 'SVG', 'VCCI_Logo_Primary_Plate.svg'))
              + svg_const('VCCI-LOCKUP', os.path.join(ASSETS, '01_Logo', 'SVG', 'VCCI_Lockup_Horizontal_VI-EN.svg'))
              + ring_const() + heroes_const())
-    fonts = [os.path.join(ASSETS, '03_Fonts', fam, f) for fam in ('Lora', 'BeVietnamPro')
+    fonts = [os.path.join(ASSETS, '03_Fonts', fam, f) for fam in ('Lora', 'BeVietnamPro', 'JetBrainsMono')
              for f in sorted(os.listdir(os.path.join(ASSETS, '03_Fonts', fam))) if f.endswith(('.ttf', '.txt'))]
     for fmt in FORMATS:
         src, dst = os.path.join(SRC, 'formats', fmt), os.path.join(out_root, fmt)
@@ -221,9 +267,10 @@ def build(out_root):
             if name == 'OFL.txt': name = f'OFL-{os.path.basename(os.path.dirname(f))}.txt'
             shutil.copy(f, os.path.join(dst, 'fonts', name))
         reference_docx(os.path.join(dst, 'vcci-reference.docx'))
+        open(os.path.join(dst, 'vcci.theme'), 'w', encoding='utf-8', newline='\n').write(highlight_theme())
 
 
-TEXT = ('.typ', '.yml', '.lua', '.txt', '.csl', '.mplstyle', '.py', '.R', '.scheme', '.do', '.md')
+TEXT = ('.typ', '.yml', '.lua', '.txt', '.csl', '.theme', '.mplstyle', '.py', '.R', '.scheme', '.do', '.md')
 
 def same_file(a, b):
     """Byte comparison; text files ignore line endings (git core.autocrlf rewrites them on checkout)."""

@@ -347,11 +347,23 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 - Tiêu đề trong biểu đồ ggplot dạng SVG là Lora Regular, không phải Medium (svglite chỉ ghi được độ đậm "bold").
 - Poppler (`pdftoppm`) vẽ một vạch mảnh cạnh một số cột và đường trong SVG đã chèn. PDF chỉ chứa hình tô màu (đã kiểm bằng PyMuPDF); MuPDF hiển thị sạch.
 - Lớp chữ của PDF do Word xuất làm mất chữ "ứ" trong một số chú thích hình. Trang in vẫn hiển thị đúng.
-- Lora và Be Vietnam Pro không có font đơn cách. Chữ trong định dạng mã (`` `...` ``) được Typst dựng bằng DejaVu Sans Mono và Word dựng bằng Consolas, nên lớp 3 báo lỗi. Các mẫu không dùng định dạng mã. Chủ dự án đồng ý cho phép một font đơn cách mã nguồn mở (OFL) cho mã; việc chọn và tải font làm sau bước 5.
+- Lora và Be Vietnam Pro không có font đơn cách, nên chữ dạng mã từng dùng DejaVu Sans Mono (Typst) và Consolas (Word). Đã xử lý bằng JetBrains Mono, xem phần "Font cho mã" bên dưới.
 
 **Sau khi duyệt**
 - Chủ dự án duyệt theme, mẫu biểu đồ, trang 34 của hướng dẫn và lớp kiểm thử 8.
 - Ảnh chuẩn (lớp 5) cho `charts-tools`, `charts-py` và mẫu `charts`. Vẽ lại bằng cả ba công cụ và so lại: khớp từng điểm ảnh.
 - Lần chạy đầy đủ cuối (có Word thật và Stata): 425/425 đạt.
 
-**Tiếp theo:** font đơn cách cho mã (cần tải font, hỏi trước), rồi bước 6 (phát hành, cần tài khoản GitHub).
+**Font cho mã (10/10/2026, chủ dự án cho phép tải và duyệt)**
+- JetBrains Mono v2.304 (bản phát hành chính thức trên GitHub của JetBrains, SIL OFL 1.1). Chỉ lấy Regular và Bold; đã kiểm đủ dấu tiếng Việt. Font nằm ở `brand-assets/03_Fonts/JetBrainsMono` và được đóng gói vào cả ba định dạng.
+- Typst: `show raw` dùng JetBrains Mono, tắt ligature (`<-` không thành mũi tên).
+- Word: style Source Code và Verbatim Char dùng JetBrains Mono; font được nhúng (đã làm rối như Word) vào `vcci-reference.docx` với khóa cố định, nên bản dựng lặp lại được.
+- `vcci.theme` (sinh từ `brand-tokens.json`) thay theme tô cú pháp mặc định của Quarto (xanh lá, đỏ, tím) bằng màu VCCI, nền Ivory, cho cả PDF lẫn Word.
+- Kiểm thử:
+  - Thêm tài liệu thử `code` (working paper có mã R và Stata, chữ có dấu).
+  - Thêm tự kiểm `foreign-code-font` (mã bị ép sang DejaVu Sans Mono phải bị bắt).
+  - Word đổi tên font nhúng thành `___WRD_EMBED_SUB_52` khi xuất PDF. Bộ kiểm thử giờ nhận diện font theo hình nét chữ, có tự kiểm: JetBrains Mono phải được nhận đúng, DejaVu Sans Mono không được nhận nhầm.
+  - Đọc chữ trong `.docx` giờ giải mã `&lt;`.
+- Chủ dự án duyệt hình thức mã (màu, nền Ivory, không ligature). Ảnh chuẩn cho tài liệu thử `code`. Lần chạy đầy đủ cuối: 459/459 đạt; ảnh chuẩn các tài liệu đã duyệt không đổi.
+
+**Tiếp theo:** bước 6 (phát hành, cần tài khoản GitHub).

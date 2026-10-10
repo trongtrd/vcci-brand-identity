@@ -94,7 +94,7 @@ Dùng khi người dùng viết bằng Markdown hoặc Quarto (nhóm nghiên c�
    - Stata: `do vcci_graph.do`, rồi `graph export ten.svg`.
    - Trong tài liệu Quarto, chú thích hình (`fig-cap`) nêu thông điệp; nguồn ghi dưới biểu đồ. Bài tiếng Anh: `vcci.use("en")`, `vcci_setup("en")`, `do vcci_graph.do en`.
 
-4. **Tự kiểm tra:** xem ảnh từng trang PDF (bìa, bảng dài, biểu đồ, chú thích cuối trang). Không viết chữ trong định dạng mã (`` `...` ``) vì Lora và Be Vietnam Pro không có font đơn cách; tên hàm viết như chữ thường.
+4. **Tự kiểm tra:** xem ảnh từng trang PDF (bìa, bảng dài, biểu đồ, chú thích cuối trang). Mã, lệnh, tên file viết trong định dạng mã (`` `...` `` hoặc khối ```` ``` ````): extension đặt chúng bằng JetBrains Mono, tô cú pháp theo màu VCCI.
 
 ## Báo cáo lại cho người dùng
 

@@ -10,6 +10,7 @@ contributes:
       date-format: "D [tháng] M [năm] YYYY"
       toc-depth: 2
       fig-width: 6.5
+      highlight-style: vcci.theme   # code: brand colours, Ivory ground (built from brand-tokens.json)
       fig-height: 3.6
       filters:
         - vcci.lua

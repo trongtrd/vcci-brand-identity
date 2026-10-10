@@ -24,7 +24,7 @@ Thông số máy đọc được (màu, tỉ lệ, kiểu chữ, quy tắc): xem
 | `01_Logo/Source` | File gốc CorelDRAW (CMYK) | **Bản gốc khi in ấn** |
 | `01_Logo/_Construction-only` | Trống đồng tách riêng | Chỉ để dựng hình và thiết kế họa tiết; không dùng thay logo |
 | `02_Colour` | Bảng màu, thang sắc độ, màu trạng thái và màu biểu đồ dạng JSON, CSS, ASE (Adobe, chia nhóm), Office theme | Thiết kế, web, Word/PowerPoint |
-| `03_Fonts` | Lora, Be Vietnam Pro (giấy phép SIL OFL 1.1, dùng thương mại miễn phí) | Cài vào máy |
+| `03_Fonts` | Lora, Be Vietnam Pro; JetBrains Mono cho mã nguồn (giấy phép SIL OFL 1.1, dùng thương mại miễn phí) | Cài vào máy |
 | `04_Graphics` | Họa tiết vòng trống, sao 14 cánh, pattern cung chữ C, trường chấm | Bìa, sân khấu, nền trang |
 | `05_Icons` | 48 icon nhỏ (UI) và 24 hero icon theo nghiệp vụ VCCI; SVG và PNG; quy cách trong `ICON_SPEC.md` | Tài liệu, slide, web, sự kiện |
 | `06_Templates` | Template Word (letterhead, báo cáo, thư mời) và PowerPoint 16:9 (18 layout); đã nhúng font; theme biểu đồ cho Python, R, Stata (`Charts/`); xem `06_Templates/README.md` | Soạn văn bản, trình chiếu, vẽ biểu đồ |
