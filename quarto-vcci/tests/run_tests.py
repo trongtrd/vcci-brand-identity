@@ -21,7 +21,7 @@ named check fails on them, which proves the checks catch the errors they are mea
 Text is read from the word boxes of each page, so text pushed off a page counts as missing.
 Results: quarto-vcci/tests/out/<fixture>/ (outputs, page images) and quarto-vcci/tests/out/summary.md.
 """
-import glob, json, os, re, shutil, subprocess, sys, tempfile, unicodedata, zipfile
+import glob, html, json, os, re, shutil, subprocess, sys, tempfile, unicodedata, zipfile
 import yaml
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -37,7 +37,7 @@ MM = 72 / 25.4
 SIDE_MARGIN_MM = 22          # body text must stay inside the side margins (vcci-base default)
 SAFE_EDGE_MM = 8             # nothing (header, footer, cover text) within 8 mm of the paper edge
 # FontAwesome: Quarto's callout icons. NewCMMath: Typst's maths font (the brand fonts have no OpenType MATH table)
-FONT_OK = re.compile(r'^(Lora|LoraItalic|BeVietnamPro|FontAwesome|NewCMMath)')
+FONT_OK = re.compile(r'^(Lora|LoraItalic|BeVietnamPro|JetBrainsMono|FontAwesome|NewCMMath)')   # JetBrains Mono: code
 ANSI = re.compile(r'\x1b\[[0-9;]*m')   # Quarto colours its warnings
 WARN = re.compile(r'^(WARN|WARNING|ERROR)\b|(^|\.\.\.)(warning|error): ')
 
@@ -412,12 +412,16 @@ def word_checks(fx, fmt, docx, spec, outdir):
     # Cambria Math: Word's equation font (the brand fonts have no OpenType MATH table)
     import pymupdf
     bad = set()
-    for page in pymupdf.open(pdf):
+    doc = pymupdf.open(pdf)
+    # Word renames a font it takes from the document's embedded copies ("___WRD_EMBED_SUB_52"): identify it by its outlines
+    real = {f[3]: embedded_font_name(doc, f[0]) for p in doc for f in p.get_fonts() if '___WRD_EMBED_SUB' in f[3]}
+    for page in doc:
         for block in page.get_text('dict')['blocks']:
             for line in block.get('lines', []):
                 for span in line['spans']:
-                    font = span['font'].split('+')[-1].replace(' ', '')
-                    if not re.match(r'^(Lora|BeVietnam|CambriaMath)', font) and span['text'].strip(' •·◦▪	-'):
+                    font = next((v for k, v in real.items() if k.endswith(span['font'].split('+')[-1])), span['font'])
+                    font = font.split('+')[-1].replace(' ', '')
+                    if not re.match(r'^(Lora|BeVietnam|JetBrainsMono|CambriaMath)', font) and span['text'].strip(' •·◦▪	-'):
                         bad.add(f'{font}: "{span["text"][:20]}"')
     record(fx, fmt, 'Word PDF sets all text in brand fonts', not bad, ', '.join(sorted(bad)[:5]))
     txt = os.path.join(outdir, 'word-text.txt')
@@ -426,6 +430,29 @@ def word_checks(fx, fmt, docx, spec, outdir):
     missing = [s for s in spec.get('must-contain', []) if norm(s) not in text]
     record(fx, fmt, 'Word PDF shows the required text', not missing, ' | '.join(missing))
     run([PDFTOPPM, '-png', '-r', '50', pdf, os.path.join(outdir, 'word-page')])
+
+BRAND_FONTS = []   # (name, TTFont) of every font in brand-assets/03_Fonts, loaded once
+
+def embedded_font_name(doc, xref):
+    """The brand font whose glyph outlines a font program in the PDF carries, or the program's own name."""
+    import io
+    from fontTools.ttLib import TTFont
+    def outlines(font):   # every non-empty glyph as its point list (subsets renumber glyphs and may drop cmap)
+        glyf = font['glyf']
+        return {tuple(glyf[g].getCoordinates(glyf)[0].array.tolist()) for g in font.getGlyphOrder()
+                if glyf[g].numberOfContours != 0} - {()}
+    name, _, _, buf = doc.extract_font(xref)
+    try:
+        sub = outlines(TTFont(io.BytesIO(buf)))
+    except Exception:
+        return name
+    if not BRAND_FONTS:
+        BRAND_FONTS.extend((os.path.splitext(os.path.basename(f))[0], outlines(TTFont(f)))
+                           for f in sorted(glob.glob(os.path.join(ROOT, 'brand-assets', '03_Fonts', '*', '*.ttf'))))
+    for brand, ref in BRAND_FONTS:
+        if sub and sub <= ref:
+            return brand
+    return name
 
 def docx_checks(fx, fmt, docx, spec, ext_dir):
     z = zipfile.ZipFile(docx)
@@ -446,11 +473,11 @@ def docx_checks(fx, fmt, docx, spec, ext_dir):
     tbl = re.findall(r'w:tblStyle w:val="([^"]+)"', doc)
     record(fx, fmt, 'tables use the VCCI table style', all(t == 'Table' for t in tbl), ', '.join(sorted(set(tbl))))
     fonts = sorted(set(re.findall(r'w:rFonts [^>]*w:ascii="([^"]+)"', doc)) - {'Lora', 'Lora Medium', 'Lora SemiBold', 'Be Vietnam Pro',
-                                                                           'Be Vietnam Pro Medium', 'Be Vietnam Pro SemiBold'})
+                                                                           'Be Vietnam Pro Medium', 'Be Vietnam Pro SemiBold', 'JetBrains Mono'})
     record(fx, fmt, 'no direct fonts outside the brand', not fonts, ', '.join(fonts))
     record(fx, fmt, 'fonts embedded', any(n.startswith('word/fonts/') for n in z.namelist()))
     parts = [doc] + [z.read(n).decode('utf-8') for n in ('word/footnotes.xml', 'word/endnotes.xml') if n in z.namelist()]
-    plain = norm(''.join(t for p in parts for t in re.findall(r'<w:t[^>]*>([^<]*)</w:t>', p)))
+    plain = norm(html.unescape(''.join(t for p in parts for t in re.findall(r'<w:t[^>]*>([^<]*)</w:t>', p))))   # "&lt;-" is "<-"
     record(fx, fmt, 'no broken characters (U+FFFD)', '\ufffd' not in plain)   # e.g. a byte-wise string.upper in Lua
     missing = [s for s in spec.get('must-contain', []) if norm(s).replace(' ', '') not in plain.replace(' ', '')]
     record(fx, fmt, 'required Vietnamese text present', not missing, ' | '.join(missing))
@@ -545,6 +572,27 @@ def visual_selftest():
         record('selftest/visual', None, 'check "pages look like the approved version" catches one changed word',
                score > TILE_LIMIT, f'score {score:.2f}')
 
+def font_identity_selftest():
+    """Word renames embedded fonts; identifying them by outlines must name JetBrains Mono and must not
+    mistake another monospace font (DejaVu Sans Mono, built into Typst) for a brand font."""
+    import pymupdf
+    fonts = os.path.join(QV, '_extensions', 'vcci', 'vcci-report', 'fonts')
+    with tempfile.TemporaryDirectory() as tmp:
+        src = os.path.join(tmp, 't.typ')
+        open(src, 'w', encoding='utf-8').write('#text(font: "JetBrains Mono")[pci_2025 Đà Nẵng]\n\n'
+                                                '#text(font: "DejaVu Sans Mono")[pci_2025 Da Nang]\n')
+        run(['quarto', 'typst', 'compile', '--ignore-system-fonts', '--font-path', fonts, src, os.path.join(tmp, 't.pdf')])
+        doc = pymupdf.open(os.path.join(tmp, 't.pdf'))
+        try:
+            found = {f[3].split('+')[-1]: embedded_font_name(doc, f[0]) for f in doc[0].get_fonts()}
+        finally:
+            doc.close()
+    jb = [v for k, v in found.items() if k.startswith('JetBrains')]
+    dv = [v for k, v in found.items() if k.startswith('DejaVu')]
+    record('selftest/fonts', None, 'renamed-font check identifies JetBrains Mono by its outlines', jb == ['JetBrainsMono-Regular'], str(found))
+    record('selftest/fonts', None, 'renamed-font check does not take DejaVu Sans Mono for a brand font',
+           bool(dv) and not any(v.split('-')[0] in ('Lora', 'BeVietnamPro', 'JetBrainsMono') for v in dv), str(found))
+
 def selftest(path):
     fx = os.path.splitext(os.path.basename(path))[0]
     expect = yaml.safe_load(open(path, encoding='utf-8').read().split('---')[1])['test']['expect-fail']
@@ -582,6 +630,7 @@ def main():
         for f in sorted(glob.glob(os.path.join(HERE, 'selftest', '*.qmd'))): selftest(f)
         visual_selftest()
         chart_selftest()
+        font_identity_selftest()
     failed = [r for r in results if not r[3]]
     lines = ['# quarto-vcci test summary', '', f'{len(results) - len(failed)} passed, {len(failed)} failed', '',
              '| Fixture | Format | Check | Result | Detail |', '|---|---|---|---|---|']

@@ -1,0 +1,16 @@
+---
+title: "Tự kiểm tra: mã dùng font đơn cách ngoài bộ nhận diện"
+test:
+  formats: [vcci-report-typst]
+  expect-fail: ["only brand fonts"]
+---
+
+```{=typst}
+#show raw: set text(font: "DejaVu Sans Mono")
+```
+
+Khối mã này bị ép sang DejaVu Sans Mono thay vì JetBrains Mono:
+
+```r
+pci <- read.csv("pci_2025.csv")
+```

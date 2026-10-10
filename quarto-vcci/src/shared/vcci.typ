@@ -125,6 +125,9 @@
   show figure.caption: set text(size: 8pt, fill: VCCI.slate)
   show figure.caption: it => align(left, it)
   show link: set text(fill: VCCI.blue)
+  // code: JetBrains Mono (the brand fonts have no monospace), no ligatures (R's "<-" stays two characters);
+  // colours and the Ivory ground come from the highlighting theme vcci.theme
+  show raw: set text(font: VCCI-FONT.code, size: 0.9em, ligatures: false, features: (calt: 0))
   show footnote.entry: set text(size: 7.5pt)
   set footnote.entry(separator: line(length: 20mm, stroke: 0.5pt + VCCI.gold))
   doc

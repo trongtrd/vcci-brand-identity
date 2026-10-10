@@ -72,6 +72,7 @@ Hộp `callout-note`, `-tip`, `-warning`, `-important`, `-caution` của Quarto 
   - Mục lục cần cập nhật một lần: nhấp vào mục lục rồi nhấn F9.
   - Danh sách đặt trong `::: highlight` nằm ngoài hộp, vì Pandoc chỉ áp style cho đoạn văn, không cho mục danh sách.
 - **Phương trình** dùng font toán của Typst (PDF) hoặc Cambria Math (Word), vì Lora và Be Vietnam Pro không có ký hiệu toán.
+- **Mã nguồn** (`` `...` `` và khối ```` ``` ````) dùng JetBrains Mono, được đóng gói kèm extension và nhúng vào bản Word. Tô cú pháp theo màu VCCI (theme `vcci.theme`, sinh từ `brand-tokens.json`), nền Ivory; ligature tắt nên `<-` của R vẫn là hai ký tự. Trong khối mã không có chữ nghiêng, vì chỉ đóng gói kiểu Regular và Bold.
 
 ## Dùng `vcci-wp` (working paper)
 
@@ -137,7 +138,7 @@ Chú thích hình (`fig-cap`) nêu thông điệp của biểu đồ; nguồn s�
 | `_extensions/vcci/<định dạng>/` | **Sinh tự động** bằng `build.py`; không sửa tay |
 | `templates/` | Tài liệu mẫu cho người dùng |
 | `tests/baseline/` | Ảnh chuẩn đã duyệt của từng trang PDF (lớp 5) |
-| `tests/fixtures/` | Tài liệu thử: `minimal` (tối giản), `stress` (tiêu đề ba dòng, bảng 63 dòng qua trang, bảng rộng, trích dẫn, phương trình, đủ loại hộp ghi chú) |
+| `tests/fixtures/` | Tài liệu thử: `minimal` (tối giản), `stress` (tiêu đề ba dòng, bảng 63 dòng qua trang, bảng rộng, trích dẫn, phương trình, đủ loại hộp ghi chú), `code` (mã nguồn), `charts-tools`, `charts-py` (biểu đồ) |
 | `tests/selftest/` | Tài liệu cố tình lỗi, để chứng minh bộ kiểm thử bắt được lỗi; `selftest/charts/` cho biểu đồ |
 | `tests/charts/` | Bộ biểu đồ mẫu vẽ bằng Python, R và Stata từ cùng số liệu (`data/`) |
 

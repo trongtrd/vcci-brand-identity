@@ -11,6 +11,7 @@ contributes:
       toc-depth: 2
       toc: false
       fig-width: 6.5
+      highlight-style: vcci.theme   # code: brand colours, Ivory ground (built from brand-tokens.json)
       fig-height: 3.6
       filters:
         - vcci.lua

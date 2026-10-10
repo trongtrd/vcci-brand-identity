@@ -749,7 +749,7 @@ P.append(page(9, f'''<h2>Kênh số và <em>sự kiện</em></h2>
    <div style="margin-top:4mm">{tpl('mock_badge.jpg', '100%')}<p class="small" style="margin-top:2.4mm">Thẻ đại biểu: đầu thẻ nền sáng, dải vàng ghi tên sự kiện.</p></div></div></div>'''))
 
 assets = [('01_Logo', 'Logo chính, lockup, bản ô nền sáng: SVG, PNG, PDF; bản gốc .CDR'), ('02_Colour', 'Bảng màu, thang sắc độ, màu trạng thái, màu biểu đồ: Office theme, Adobe ASE, CSS, JSON'),
-          ('03_Fonts', 'Lora, Be Vietnam Pro và giấy phép SIL OFL'), ('04_Graphics', 'Vòng trống, mặt trời 14 cánh, cung chữ C, trường chấm'),
+          ('03_Fonts', 'Lora, Be Vietnam Pro, JetBrains Mono (mã nguồn) và giấy phép SIL OFL'), ('04_Graphics', 'Vòng trống, mặt trời 14 cánh, cung chữ C, trường chấm'),
           ('05_Icons', '48 icon nhỏ, 24 hero icon; quy cách ICON_SPEC.md'), ('06_Templates', 'Template Word (thư, báo cáo, thư mời), PowerPoint 16:9, theme biểu đồ Python, R, Stata'),
           ('07_Guidelines', 'Tài liệu này'), ('brand-tokens.json', 'Toàn bộ thông số dạng máy đọc được, cho lập trình viên')]
 P.append(page(9, f'''<div class="grid" style="grid-template-columns:1.1fr 1fr;gap:12mm">

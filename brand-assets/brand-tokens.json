@@ -75,6 +75,7 @@
   "typography": {
     "display": {"family": "Lora", "weights": [400, 500, 600], "use": "headlines, statements"},
     "text": {"family": "Be Vietnam Pro", "weights": [300, 400, 500, 600], "use": "body, UI, labels, data"},
+    "code": {"family": "JetBrains Mono", "weights": [400, 700], "use": "code, commands, file names (monospace; SIL OFL; quarto-vcci)"},
     "scale": {
       "display": "Lora Medium 64/68", "heading": "Lora Medium 40/48", "title": "Lora SemiBold 28/36",
       "subhead": "Be Vietnam Pro SemiBold 20/28", "body": "Be Vietnam Pro Regular 16/26",
