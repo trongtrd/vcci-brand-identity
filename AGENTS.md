@@ -8,3 +8,4 @@ Repo này là Bộ nhận diện thương hiệu VCCI. Để tạo tài liệu t
 - Quy tắc thương hiệu bắt buộc: phần "Quy tắc thương hiệu bắt buộc" trong skill và [`docs/DECISIONS.md`](docs/DECISIONS.md). Không thay đổi các quyết định đã chốt.
 - Không điều khiển Word hay PowerPoint khi người dùng đang mở tài liệu; không tắt tiến trình Office của người dùng.
 - Sửa chính bộ nhận diện (logo, template, tài liệu hướng dẫn): xem [`tools/README.md`](tools/README.md).
+- Cài skill cho agent ở thư mục khác (Codex, Antigravity, Claude Code): `python tools/install_skill.py <codex|antigravity|antigravity-cli|claude>`; hướng dẫn ở README, mục "Dùng với AI agent". Sửa `tools/install_skill.py` hay `find_brand_root` thì chạy `python tools/test_install_skill.py`.

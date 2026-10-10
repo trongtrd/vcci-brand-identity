@@ -61,6 +61,7 @@
 | 3 | Chạy lại pipeline icon (`tools/icons`) | Đường dẫn đã được sửa sau khi đổi cấu trúc nhưng chưa chạy lại. Cần thêm `svgpathtools`, `requests` và `sharp`. Không ảnh hưởng bộ icon đã bàn giao. |
 | 4 | Xem lại nội dung | Nhờ VCCI duyệt các đoạn định vị và giọng điệu trong hướng dẫn (trang 3–4). Mã Pantone cần nhà in đề xuất từ CMYK. |
 | 5 | Mở rộng skill `vcci-brand` | Đã có báo cáo Word, bài trình bày PowerPoint, phần C (Quarto và theme biểu đồ). Tiếp theo: vẽ lại biểu đồ dạng ảnh trong báo cáo Word theo bảng màu VCCI; thư, thư mời. |
+| 8 | Thử skill trong Codex và Antigravity | `tools/install_skill.py` cài skill theo thư mục mà tài liệu chính thức của OpenAI (`~/.agents/skills`) và Google (`~/.gemini/config/skills`, `.agents/skills`) ghi (10/2026); đã kiểm bằng `tools/test_install_skill.py` (15/15) nhưng chưa chạy thật trong hai công cụ này vì máy chưa cài. |
 | 6 | (Tùy chọn) Mở rộng | Ví dụ template Excel, chữ ký email, nền Zoom/Teams, mẫu bài mạng xã hội, chứng nhận. |
 
 ## 6. Cách làm việc đã thống nhất với chủ dự án

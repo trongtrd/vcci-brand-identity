@@ -31,7 +31,7 @@ Mọi thứ cần để làm ấn phẩm nằm trong [`brand-assets/`](brand-ass
 
 Chi tiết trong [tài liệu hướng dẫn](brand-assets/07_Guidelines/VCCI_Huong-dan-Nhan-dien-Thuong-hieu_v1.1.pdf).
 
-## Dùng với AI agent (Claude Code, Codex)
+## Dùng với AI agent (Claude Code, Codex, Antigravity)
 
 Repo có sẵn skill [`vcci-brand`](skills/vcci-brand/SKILL.md) để agent chuyển tài liệu thô sang bộ nhận diện VCCI:
 
@@ -47,18 +47,52 @@ Quy trình gồm bốn bước:
 
 Ví dụ (số liệu giả lập): [báo cáo](skills/vcci-brand/examples/sample-report_VCCI.pdf), [bài trình bày](skills/vcci-brand/examples/sample-deck_VCCI.pdf).
 
-**Claude Code:** cài như một plugin.
+### Cài đặt theo công cụ
+
+| Công cụ | Cách cài |
+|---|---|
+| **Claude Code** | Plugin, hai lệnh trong Claude Code (bên dưới) |
+| **Codex** (OpenAI: ứng dụng, CLI, extension IDE) | `python tools/install_skill.py codex` |
+| **Antigravity** (Google) | `python tools/install_skill.py antigravity`; bản dòng lệnh: `antigravity-cli` |
+| Agent khác đọc được skill dạng `SKILL.md` | `python tools/install_skill.py --dest <thư-mục-skill-của-agent>/vcci-brand` |
+| ChatGPT trên web, điện thoại | Không dùng được: ChatGPT chạy mã trên máy chủ, không có template của repo và không có Word, PowerPoint. Người có gói ChatGPT dùng **Codex** (chạy trên máy của mình) |
+
+**Claude Code:** gõ trong Claude Code:
 
 ```
 /plugin marketplace add trongtrd/vcci-brand-identity
 /plugin install vcci-brand@vcci-brand-identity
 ```
 
-Sau đó chỉ cần yêu cầu, ví dụ: *"Định dạng bao_cao_tho.docx thành báo cáo VCCI"* hoặc *"Chuyển slide_tho.pptx sang mẫu trình bày VCCI"*.
+**Codex, Antigravity và agent khác:**
 
-**Codex và các agent khác:** clone repo này. Khi làm việc trong thư mục repo, agent đọc [`AGENTS.md`](AGENTS.md). Để dùng skill ở thư mục khác, chép `skills/vcci-brand` vào thư mục skill của agent và đặt biến môi trường `VCCI_BRAND_ROOT` trỏ tới bản clone, để script tìm được template và icon.
+1. Cài Python 3.9 trở lên ([python.org](https://www.python.org/downloads/); trên Windows, đánh dấu "Add python.exe to PATH" khi cài), rồi cài ba thư viện:
+   ```bash
+   python -m pip install lxml pillow python-pptx
+   ```
+   Trên macOS, dùng `python3` thay cho `python` ở mọi lệnh.
+2. Tải repo về một chỗ cố định, ví dụ thư mục Documents. Có Git thì:
+   ```bash
+   git clone https://github.com/trongtrd/vcci-brand-identity.git
+   cd vcci-brand-identity
+   ```
+   Không có Git: trên trang repo, bấm **Code → Download ZIP**, giải nén, rồi mở cửa sổ dòng lệnh trong thư mục vừa giải nén.
+3. Cài skill cho công cụ của bạn (chạy trong thư mục repo):
+   ```bash
+   python tools/install_skill.py codex
+   ```
+   Thay `codex` bằng `antigravity`, `antigravity-cli` hoặc `claude` (Claude Code không qua plugin). Muốn skill chỉ có trong một dự án: `python tools/install_skill.py --project <thư-mục-dự-án>`; lệnh này chép vào `<thư-mục-dự-án>/.agents/skills/`, nơi cả Codex và Antigravity đều tìm skill.
+4. Khởi động lại agent.
 
-Script cần Python 3.9 trở lên, `lxml`, `Pillow` và `python-pptx` (`pip install lxml pillow python-pptx`). Thư, công văn và thư mời vẫn dùng template thủ công.
+Lệnh cài chép skill sang thư mục của agent và ghi kèm đường dẫn tới thư mục repo, nơi để template, logo và icon. Vì vậy **đừng xóa hay di chuyển thư mục repo**. Nếu đã di chuyển, chạy lại lệnh cài từ chỗ mới. Cập nhật: `git pull` (hoặc tải ZIP mới), rồi chạy lại lệnh cài. Gỡ: thêm `--uninstall` vào lệnh cài.
+
+Codex còn có cách không cần cài: mở Codex ngay trong thư mục repo, Codex đọc [`AGENTS.md`](AGENTS.md) và dùng skill trong `skills/vcci-brand`.
+
+### Sử dụng
+
+Yêu cầu bằng lời, ví dụ: *"Định dạng bao_cao_tho.docx thành báo cáo VCCI"* hoặc *"Chuyển slide_tho.pptx sang mẫu trình bày VCCI"*. Agent tự chọn skill theo mô tả. Trong Codex có thể gọi thẳng bằng `$vcci-brand`.
+
+Bước 4 của quy trình (xuất PDF và ảnh từng trang để agent tự kiểm tra) cần Microsoft Word hoặc PowerPoint trên Windows. Trên macOS, Linux, agent vẫn dựng được file `.docx`, `.pptx` nhưng bỏ qua bước tự kiểm này; hãy mở file để xem lại. Thư, công văn và thư mời vẫn dùng template thủ công. Báo cáo, working paper và tờ trình viết bằng Markdown thì dùng [quarto-vcci](https://github.com/trongtrd/quarto-vcci), không cần agent.
 
 ## Cấu trúc repo
 
