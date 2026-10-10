@@ -7,8 +7,10 @@ The release repository is generated, never edited by hand. Its layout:
   template.qmd                     templates/report.qmd (quarto use template renames it to <folder>.qmd)
   wp.qmd, memo.qmd, references.bib, charts.qmd
   charts/                          chart themes and their README
-  examples/*.pdf                   rendered samples (the .docx samples go to the GitHub release instead)
-  README.md, LICENSE.md, CHANGELOG.md, .quartoignore   from src/release/; README.md also takes the user sections of README.md
+  examples/*.pdf, preview.png      rendered samples and the README picture made from them (the .docx samples go to the
+                                   GitHub release instead)
+  README.md                        quarto-vcci/README.md without its <!-- dev-only --> blocks
+  LICENSE.md, CHANGELOG.md, .quartoignore   from src/release/
 The version comes from the three src/formats/*/_extension.yml, which must agree.
 Everything in --out except .git/ is replaced, so the folder always matches this export.
 """
@@ -41,29 +43,17 @@ def replace(s, old, new, where):
 
 
 def readme(ver):
-    head = open(os.path.join(SRC_RELEASE, 'README-head.md'), encoding='utf-8').read().replace('{{VERSION}}', ver)
-    dev = open(os.path.join(HERE, 'README.md'), encoding='utf-8').read()
-    body = dev[dev.index('## Dùng `vcci-report`'):dev.index('## Phát triển')]
-    w = 'README.md'
-    body = replace(body, 'Người dùng cài bằng `quarto use template trongtrd/quarto-vcci`. Trong repo này, cài extension vào thư mục dự án:\n\n'
-                         '```bash\nquarto add <đường-dẫn-tới>/quarto-vcci --no-prompt\n```\n\n'
-                         'Chép `templates/report.qmd` làm điểm bắt đầu, rồi dựng:\n\n```bash\nquarto render report.qmd\n```',
-                   'Bắt đầu từ `<tên-thư-mục>.qmd` do `quarto use template` tạo ra (trong repo này là `template.qmd`).', w)
-    body = replace(body, 'Chép `templates/wp.qmd` (kèm `templates/references.bib`) làm điểm bắt đầu.',
-                   'Bắt đầu từ `wp.qmd` (kèm `references.bib`).', w)
-    body = replace(body, 'Chép `templates/memo.qmd`.', 'Bắt đầu từ `memo.qmd`.', w)
-    body = replace(body, ' Bản sao cho người không dùng Quarto nằm ở `brand-assets/06_Templates/Charts/`.', '', w)
-    body = replace(body, 'Trong tài liệu Quarto, chép file theme cạnh file `.qmd`:',
-                   'Trong tài liệu Quarto, gọi file theme trong `charts/` (hoặc chép file cạnh file `.qmd`):', w)
-    body = replace(body, '`source("theme_vcci.R")`', '`source("charts/theme_vcci.R")`', w)
-    body = replace(body, 'Mẫu: `templates/charts.qmd`', 'Mẫu: `charts.qmd`', w)
-    body = replace(body, '`import vcci_charts as vcci`', '`sys.path.insert(0, "charts")`, `import vcci_charts as vcci`', w)
-    body = replace(body, '(`do vcci_graph.do`)', '(`adopath + "charts"` để Stata tìm thấy scheme, rồi `do charts/vcci_graph.do`)', w)
-    # the Word samples are attached to the GitHub release, not kept in the repository
-    body = re.sub(r'\[`examples/([\w-]+\.docx)`\]\(examples/[\w-]+\.docx\)',
-                  lambda m: f'[`{m.group(1)}`](https://github.com/{REPO}/releases/download/v{ver}/{m.group(1)})', body)
-    if 'templates/' in body or '](../' in body: sys.exit('release.py: README still refers to the development repository')
-    return head + body.rstrip() + '\n'
+    """README.md is written for users of the release repository; blocks between <!-- dev-only --> and
+    <!-- /dev-only --> concern this source folder only and are dropped."""
+    s = open(os.path.join(HERE, 'README.md'), encoding='utf-8').read()
+    s = re.sub(r'<!-- dev-only -->.*?<!-- /dev-only -->\n\n?', '', s, flags=re.S)
+    if 'dev-only' in s: sys.exit('release.py: unbalanced dev-only block in README.md')
+    if 'templates/' in s or '](../' in s or 'brand-assets' in s or 'DEVELOPMENT.md' in s:
+        sys.exit('release.py: README.md refers to the development repository outside a dev-only block')
+    # the README pins and links this version (installation, Word samples attached to the release)
+    stale = sorted(set(re.findall(r'@v(\d+\.\d+\.\d+)|/download/v(\d+\.\d+\.\d+)/', s)) - {(ver, ''), ('', ver)})
+    if stale or f'@v{ver}' not in s: sys.exit(f'release.py: README.md must name version {ver}, found {stale}')
+    return s
 
 
 def charts_readme(text):
@@ -86,6 +76,24 @@ def charts_qmd(text):
                    'source("charts/theme_vcci.R", encoding = "UTF-8")', 'templates/charts.qmd')
 
 
+PREVIEW = [('report.pdf', 0), ('report.pdf', 5), ('wp.pdf', 0), ('memo.pdf', 0)]   # cover, a chapter, first pages
+
+def preview():
+    """examples/preview.png for the README: four sample pages side by side, drawn from the sample PDFs."""
+    import pymupdf
+    from PIL import Image
+    pages = []
+    for f, n in PREVIEW:
+        pix = pymupdf.open(os.path.join(HERE, 'examples', f))[n].get_pixmap(dpi=48)
+        pages.append(Image.frombytes('RGB', (pix.width, pix.height), pix.samples))
+    gap, pad = 24, 24
+    out = Image.new('RGB', (sum(p.width for p in pages) + gap * (len(pages) - 1) + 2 * pad, max(p.height for p in pages) + 2 * pad), '#E9E4D8')
+    x = pad
+    for p in pages:
+        out.paste(p, (x, pad)); x += p.width + gap
+    out.save(os.path.join(HERE, 'examples', 'preview.png'), optimize=True)
+
+
 def stage(dst, ver):
     # flat: `quarto use template` reads <repo>/_extensions/<name> only (Quarto 1.9, readExtensions on the staged repo), and
     # installs to _extensions/<GitHub owner>/<name> itself; _extensions/vcci/<name> would install nothing
@@ -102,7 +110,7 @@ def stage(dst, ver):
         open(os.path.join(dst, 'charts', f), 'w', encoding='utf-8', newline='\n').write(text)
     os.makedirs(os.path.join(dst, 'examples'))
     for f in sorted(os.listdir(os.path.join(HERE, 'examples'))):
-        if f.endswith('.pdf'): shutil.copy2(os.path.join(HERE, 'examples', f), os.path.join(dst, 'examples', f))
+        if f.endswith(('.pdf', '.png')): shutil.copy2(os.path.join(HERE, 'examples', f), os.path.join(dst, 'examples', f))
     for f in ('LICENSE.md', '.quartoignore'):
         shutil.copy2(os.path.join(SRC_RELEASE, f), os.path.join(dst, f))
     changelog = open(os.path.join(SRC_RELEASE, 'CHANGELOG.md'), encoding='utf-8').read()
@@ -120,6 +128,7 @@ def export(out):
     if existing and not {'_extensions', 'template.qmd', '.quartoignore'} <= existing:
         sys.exit(f'release.py: {out} is not empty and is not a quarto-vcci release; refusing to replace it')
     ver = version()
+    preview()
     with tempfile.TemporaryDirectory() as tmp:
         stage(tmp, ver)
         os.makedirs(out, exist_ok=True)
