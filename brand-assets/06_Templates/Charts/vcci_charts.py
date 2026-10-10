@@ -48,11 +48,11 @@ def _has_fonts():
 
 def load_fonts(fonts_dir=None):
     """Make Lora and Be Vietnam Pro known to matplotlib. Looks in fonts_dir, $VCCI_FONTS, the quarto-vcci extension
-    (_extensions/vcci/*/fonts) and the brand system (brand-assets/03_Fonts), in this folder and up to four above."""
+    (_extensions/[owner/]vcci-*/fonts) and the brand system (brand-assets/03_Fonts), in this folder and up to four above."""
     dirs = [fonts_dir, os.environ.get('VCCI_FONTS'), os.path.join(HERE, 'fonts')]
     d = os.getcwd()
     for _ in range(5):
-        dirs += glob.glob(os.path.join(d, '_extensions', 'vcci', '*', 'fonts'))
+        dirs += glob.glob(os.path.join(d, '_extensions', '*', 'fonts')) + glob.glob(os.path.join(d, '_extensions', '*', '*', 'fonts'))
         dirs += glob.glob(os.path.join(d, 'brand-assets', '03_Fonts', '*'))
         d = os.path.dirname(d)
     for folder in filter(None, dirs):

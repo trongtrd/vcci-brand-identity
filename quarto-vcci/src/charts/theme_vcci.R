@@ -13,14 +13,14 @@
 
 {{R-TOKENS}}
 
-# Lora and Be Vietnam Pro: installed fonts first, then the quarto-vcci extension (_extensions/vcci/*/fonts) or the
+# Lora and Be Vietnam Pro: installed fonts first, then the quarto-vcci extension (_extensions/[owner/]vcci-*/fonts) or the
 # brand system (brand-assets/03_Fonts) in this folder or up to four above, or fonts_dir.
 vcci_fonts <- function(fonts_dir = NULL) {
   have <- function(f) f %in% c(systemfonts::system_fonts()$family, systemfonts::registry_fonts()$family)
   dirs <- c(fonts_dir, Sys.getenv("VCCI_FONTS"))
   d <- normalizePath(getwd(), winslash = "/")
   for (i in 1:5) {
-    dirs <- c(dirs, Sys.glob(file.path(d, "_extensions", "vcci", "*", "fonts")), Sys.glob(file.path(d, "brand-assets", "03_Fonts", "*")))
+    dirs <- c(dirs, Sys.glob(file.path(d, "_extensions", c("*", "*/*"), "fonts")), Sys.glob(file.path(d, "brand-assets", "03_Fonts", "*")))
     d <- dirname(d)
   }
   dirs <- dirs[nzchar(dirs) & dir.exists(dirs)]

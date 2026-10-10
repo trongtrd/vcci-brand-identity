@@ -8,7 +8,7 @@ Biểu đồ vẽ bằng Python, R hay Stata có cùng màu, chữ và đường
 | `theme_vcci.R` | R | ggplot2 ≥ 3.5 (bản 4.0 tự đặt màu mặc định cho mọi biểu đồ), scales, systemfonts; svglite hoặc ragg để xuất file |
 | `scheme-vcci.scheme`, `vcci_graph.do` | Stata | Stata 18 trở lên |
 
-**Font.** Cài Lora và Be Vietnam Pro từ `brand-assets/03_Fonts`. Nếu chưa cài, Python và R tự tìm font trong extension Quarto (`_extensions/vcci/*/fonts`) hoặc trong `brand-assets/03_Fonts`, ở thư mục làm việc và tối đa bốn cấp phía trên. Stata chỉ dùng font đã cài.
+**Font.** Cài Lora và Be Vietnam Pro từ `brand-assets/03_Fonts`. Nếu chưa cài, Python và R tự tìm font trong extension Quarto (thư mục `fonts` trong `_extensions/`) hoặc trong `brand-assets/03_Fonts`, ở thư mục làm việc và tối đa bốn cấp phía trên. Stata chỉ dùng font đã cài.
 
 **Cách dùng chung.** Chép các file của công cụ mình dùng vào cạnh file mã hoặc tài liệu Quarto. Mặc định số viết theo tiếng Việt: 2,5 và 12.500. Bài tiếng Anh chọn `"en"`.
 
