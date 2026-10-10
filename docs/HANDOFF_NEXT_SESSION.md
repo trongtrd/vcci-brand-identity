@@ -2,7 +2,7 @@
 
 **Dự án:** Bộ nhận diện thương hiệu VCCI (Liên đoàn Thương mại và Công nghiệp Việt Nam)
 **Chủ dự án:** Truong Duc Trong. Trao đổi bằng **tiếng Việt**.
-**Trạng thái (10/10/2026):** v1.1 của bộ nhận diện đã duyệt (thêm Sky, thang sắc độ, màu trạng thái, chương Dữ liệu và biểu đồ, theme màu Office mới). Extension Quarto `quarto-vcci/` xong cả bước 0–6: báo cáo, working paper, tờ trình; theme biểu đồ cho Python, R, Stata; font JetBrains Mono cho mã. Bản 1.0.0 đã phát hành tại [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci) (công khai), sinh bằng `quarto-vcci/release.py`; bản sao làm việc của repo phát hành ở `C:\GitHub Projects\quarto-vcci`. Hướng dẫn thương hiệu 37 trang. Repo bộ nhận diện này: nhánh `main`, chưa có remote. Xem `docs/PLAN_QUARTO_VCCI.md` (mục 10–15) và `quarto-vcci/README.md`.
+**Trạng thái (10/10/2026):** v1.1 của bộ nhận diện đã duyệt (thêm Sky, thang sắc độ, màu trạng thái, chương Dữ liệu và biểu đồ, theme màu Office mới). Extension Quarto `quarto-vcci/` xong cả bước 0–6: báo cáo, working paper, tờ trình; theme biểu đồ cho Python, R, Stata; font JetBrains Mono cho mã. Bản 1.0.0 đã phát hành tại [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci) (công khai), sinh bằng `quarto-vcci/release.py`; bản sao làm việc của repo phát hành ở `C:\GitHub Projects\quarto-vcci`. Hướng dẫn thương hiệu 37 trang. Repo bộ nhận diện này: [trongtrd/vcci-brand-identity](https://github.com/trongtrd/vcci-brand-identity) (công khai), nhánh `main`. Xem `docs/PLAN_QUARTO_VCCI.md` (mục 10–15) và `quarto-vcci/README.md`.
 
 ---
 
@@ -57,7 +57,6 @@
 
 | # | Việc | Ghi chú |
 |---|---|---|
-| 1 | **Đưa repo lên GitHub (công khai)** | Chủ dự án sẽ tự làm, hoặc yêu cầu trong phiên mới. Cách làm: tạo repo trống `vcci-brand-identity` trên github.com, chạy `git remote add origin <URL>`, rồi `git push -u origin main`. Lần đầu Git Credential Manager mở cửa sổ đăng nhập để chủ dự án tự đăng nhập. Hoặc dùng `gh repo create` (đã cài và đăng nhập). |
 | 2 | Kiểm tra font nhúng trên máy chưa cài font | Mở các file `.dotx`, `.potx` trên một máy khác. Nếu font bị thay thế, khuyến nghị cài font từ `03_Fonts`. |
 | 3 | Chạy lại pipeline icon (`tools/icons`) | Đường dẫn đã được sửa sau khi đổi cấu trúc nhưng chưa chạy lại. Cần thêm `svgpathtools`, `requests` và `sharp`. Không ảnh hưởng bộ icon đã bàn giao. |
 | 4 | Xem lại nội dung | Nhờ VCCI duyệt các đoạn định vị và giọng điệu trong hướng dẫn (trang 3–4). Mã Pantone cần nhà in đề xuất từ CMYK. |
