@@ -10,11 +10,13 @@
        report: "Báo cáo", client: "Thực hiện cho", team: "Nhóm thực hiện", version: "Phiên bản", citation: "Trích dẫn",
        suggested-citation: "Trích dẫn đề nghị", disclaimer: "Lưu ý", abstract: "Tóm tắt", keywords: "Từ khóa",
        jel: "Mã JEL", number: "số", number-cap: "Số", correspondence: "Tác giả liên hệ", city: "Hà Nội", acknowledgements: "Lời cảm ơn",
+       memo: "Tờ trình", to: "Gửi", from: "Từ", cc: "Đồng gửi", date: "Ngày", subject: "Về việc", attachments: "Tài liệu kèm theo",
        wp-disclaimer: "Quan điểm trong bài là của tác giả, không nhất thiết phản ánh quan điểm của Liên đoàn Thương mại và Công nghiệp Việt Nam."),
   en: (org: "Vietnam Chamber of Commerce and Industry", contents: "Contents", chapter: "Chapter", page: "Page",
        report: "Report", client: "Prepared for", team: "Team", version: "Version", citation: "Citation",
        suggested-citation: "Suggested citation", disclaimer: "Disclaimer", abstract: "Abstract", keywords: "Keywords",
        jel: "JEL classification", number: "No.", number-cap: "No.", correspondence: "Corresponding author", city: "Hanoi", acknowledgements: "Acknowledgements",
+       memo: "Memo", to: "To", from: "From", cc: "Cc", date: "Date", subject: "Subject", attachments: "Attachments",
        wp-disclaimer: "The views expressed are those of the authors and do not necessarily reflect the views of the Vietnam Chamber of Commerce and Industry."),
 )
 #let vcci-l(lang, key) = VCCI-LABELS.at(if lang in VCCI-LABELS { lang } else { "en" }).at(key)

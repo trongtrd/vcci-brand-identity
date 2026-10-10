@@ -110,6 +110,8 @@ def reference_docx(dst):
     clone = re.sub(r'<w:name w:val="[^"]*"/>', '<w:name w:val="Table"/>', clone, count=1)
     st = re.sub(r'<w:style w:type="table"[^>]*w:styleId="Table".*?</w:style>', '', st, flags=re.S)
     st = st.replace('</w:styles>', clone + '</w:styles>')
+    # a label always stays with what it introduces
+    st = re.sub(r'(w:styleId="VCCILabel".*?<w:pPr>)', r'\1<w:keepNext/>', st, count=1, flags=re.S)
     # Pandoc's own paragraph and character styles, based on the VCCI ones (Word falls back to Normal for undefined styles)
     for sid, name, kind, based, extra in PANDOC_STYLES:
         if f'w:styleId="{sid}"' in st: continue
@@ -138,7 +140,8 @@ def build(out_root):
             tokens_typ() + logos + shared_typ + '\n' + template)
         for f in os.listdir(src):   # _extension.yml, typst-show.typ and format-specific filters
             if f != 'template.typ': shutil.copy(os.path.join(src, f), os.path.join(dst, f))
-        for f in ('vcci.lua', 'apa.csl'):   # apa.csl: APA 7 for Word (CC BY-SA 3.0, citation-style-language/styles)
+        # citation styles (CC BY-SA 3.0, citation-style-language/styles): APA 7; Chicago notes, VCCI variant
+        for f in ('vcci.lua', 'apa.csl', 'vcci-chicago-notes.csl'):
             shutil.copy(os.path.join(SRC, 'shared', f), os.path.join(dst, f))
         for f in fonts:
             name = os.path.basename(f)

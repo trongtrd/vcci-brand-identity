@@ -1,0 +1,63 @@
+---
+title: "Comments on the draft decree on investment procedures: a subject long enough to wrap onto a second line"
+lang: en
+date: 2026-10-10
+date-format: "D MMMM YYYY"
+recipient: "VCCI President"
+sender: "Legal Department"
+copy-to: "Office; International Relations Department; Research Department"
+priority: "Urgent"
+signature:
+  name: "Nguyen Van An"
+  title: "Director, Legal Department"
+attachments:
+  - "Draft decree (2 October 2026)"
+format:
+  vcci-memo-typst: default
+  vcci-memo-docx: default
+test:
+  formats: [vcci-memo-typst, vcci-memo-docx]
+  pages: [2, 3]
+  must-contain:
+    - "Memo"
+    - "To"
+    - "VCCI President"
+    - "Subject"
+    - "Director, Legal Department"
+    - "Attachments"
+    - "10 October 2026"
+---
+
+# Summary
+
+## Point 1
+
+The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. 
+
+## Point 2
+
+The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. 
+
+## Point 3
+
+The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. 
+
+## Point 4
+
+The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. 
+
+## Point 5
+
+The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. 
+
+## Point 6
+
+The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. 
+
+## Point 7
+
+The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. 
+
+## Point 8
+
+The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. The Legal Department reviewed the draft decree with 120 member firms. Firms asked for shorter appraisal periods, one consolidated request for missing documents, and online filing without certified copies. 

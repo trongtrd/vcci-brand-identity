@@ -1,0 +1,8 @@
+---
+title: "Tự kiểm tra: ký tự hỏng"
+test:
+  formats: [vcci-memo-typst, vcci-memo-docx]
+  expect-fail: ["no broken characters"]
+---
+
+Chữ bị hỏng mã: NH�
