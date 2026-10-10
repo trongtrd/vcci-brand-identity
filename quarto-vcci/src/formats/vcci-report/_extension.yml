@@ -44,7 +44,9 @@ contributes:
         - typst-show.typ
       font-paths:
         - fonts
+      bibliographystyle: apa
       section-numbering: "1.1"
     docx:
       reference-doc: vcci-reference.docx
       number-sections: true
+      number-depth: 1          # chapters only, as in the PDF

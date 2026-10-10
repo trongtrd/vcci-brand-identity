@@ -144,7 +144,7 @@ Khi repo lên GitHub, có thể chạy lớp 1–3, 5 và 6 trên GitHub Actions
 |---|---|---|---|
 | 0 ✅ | Thử nghiệm kỹ thuật | Kết quả ở mục 10 | Trả lời các câu hỏi "cần kiểm chứng" ở mục 4.2 và 5.2 |
 | 1 ✅ | Nền dùng chung và bộ kiểm thử | `build.py`, `shared/vcci.typ`, `vcci.lua` (bộ lọc chung cho Typst và Word), `tests/run_tests.py` (lớp 1–4, phần Word chưa mở bằng Word) | Lớp 1–3 chạy được trên một tài liệu tối giản |
-| 2 | **Báo cáo tư vấn** | `vcci-report` (PDF và Word), `templates/report.qmd`, PDF mẫu | Mọi lớp kiểm thử đạt; **bạn duyệt PDF và Word** |
+| 2 ✅ | **Báo cáo tư vấn** | `vcci-report` (PDF và Word), `templates/report.qmd`, PDF mẫu | Mọi lớp kiểm thử đạt; **bạn duyệt PDF và Word** |
 | 3 | Working paper | `vcci-wp`, `templates/wp.qmd`, `references.bib` | Như trên; bạn duyệt số hiệu và lời miễn trừ |
 | 4 | Memo | `vcci-memo`, `templates/memo.qmd` | Như trên |
 | 5 | Biểu đồ và tài liệu | `vcci.mplstyle`, `theme_vcci.R`, scheme Stata; README; bổ sung skill `vcci-brand` và một trang trong hướng dẫn thương hiệu (phần Ứng dụng) | Biểu đồ mẫu đúng bảng màu; README chạy được từng lệnh |
@@ -209,4 +209,38 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 
 - Hộp `callout` mặc định của Quarto trong bản Word được dựng bằng bảng, nên sẽ nhận style VCCI Table (hàng đầu nền xanh). Cần mở bằng Word để xem và xử lý (lớp 4 bằng Word thật).
 - Chưa có lớp 5 (so ảnh với ảnh chuẩn) và lớp 6 (cài mới); làm khi bố cục báo cáo đã được duyệt, vì ảnh chuẩn phải là bản bạn đã duyệt.
+
+## 11. Kết quả bước 2 (10/10/2026): `vcci-report`, chủ dự án đã duyệt
+
+**Đã có**
+- Bìa theo `VCCI_Report.dotx`: lockup, nhãn, tiêu đề, khối xanh có vòng trống, gạch vàng, ngày và phiên bản, bên đặt hàng, hero icon.
+- Trang thông tin (bên đặt hàng, nhóm thực hiện, phiên bản, trích dẫn, lưu ý), mục lục.
+- Chương mở trang mới có nhãn "CHƯƠNG 01" và gạch vàng; đầu trang có logo và tên rút gọn; chân trang "Trang X / N".
+- Khối `lead`, `figures`, `highlight`, `label`; hộp `callout` của Quarto theo màu trạng thái VCCI; dấu "Bản thảo"/"Mật"; bìa sau.
+- Bảng dài ngắt trang và lặp hàng tiêu đề; trích dẫn kiểu APA.
+- Bản Word: style VCCI, bảng VCCI Table, chỉ đánh số chương như bản PDF.
+- Mẫu: `templates/report.qmd`, kết quả ở `examples/`; hướng dẫn trong `quarto-vcci/README.md`.
+
+**Bộ kiểm thử mở rộng (74/74 đạt)**
+- Tài liệu thử `stress`; lớp 4 bằng Word thật; lớp cài đặt `quarto add` (thay cho lớp 6 cũ).
+- Kiểm tra mới: chữ phải **nhìn thấy được**; không chữ nào đè lên nhau. Mỗi kiểm tra mới có tài liệu cố tình lỗi trong `tests/selftest/`.
+
+**Lỗi tìm thấy và đã sửa nhờ kiểm thử và xem ảnh**
+
+| Lỗi | Phát hiện bởi |
+|---|---|
+| Bảng 63 dòng bị cắt sau dòng 41, phần còn lại nằm ngoài trang | Ảnh trang; sau đó kiểm tra "chữ đè" bắt được bảng chạm chân trang. Kiểm tra "đủ chữ" cũ vẫn đạt vì đọc cả chữ ngoài trang, nên đã đổi sang chỉ đọc chữ nhìn thấy |
+| Thẻ số liệu gộp thành một thẻ cao hết trang | Ảnh trang |
+| Tiêu đề bìa và chương nhiều dòng quá sát (giãn dòng tính theo cỡ chữ 10 pt thay vì cỡ tiêu đề) | Ảnh phóng to |
+| Nhãn "Bản thảo" màu vàng thành điểm nhấn vàng thứ hai | Xem theo quy tắc thương hiệu |
+| Word đặt ký hiệu đầu dòng bằng Symbol/Arial, phương trình bằng Cambria Math | Lớp 4 (Word thật); cho phép riêng cho các ký hiệu này, chữ thường vẫn phải theo font thương hiệu |
+| Template Word và PowerPoint mất hình nền khi dựng lại v1.1 (Edge chạy bất đồng bộ) | Ảnh xem trước của template; đã sửa ở commit `636fde3` |
+
+**Giới hạn đã ghi trong README:** bản Word không có bìa màu; mục lục Word cần F9; danh sách trong `::: highlight` nằm ngoài hộp ở bản Word; tài liệu tham khảo luôn ở cuối.
+
+**Sau khi duyệt**
+- Lớp 5 (so ảnh) dùng bản đã duyệt làm ảnh chuẩn. Có phép tự kiểm: nội dung dịch xuống 3 mm phải bị bắt.
+- Kiểm tra khổ A4 cho bản Word (kích thước trang trong `.docx` và PDF do Word xuất). Mọi tài liệu VCCI dùng khổ **A4**, không dùng Letter.
+- Bìa giữ theo bìa template Word, để báo cáo làm bằng Word và bằng Quarto cùng một nhận diện.
+- Kết quả: 87/87 kiểm tra đạt.
 

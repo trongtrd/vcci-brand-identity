@@ -5,10 +5,16 @@ Layers (docs/PLAN_QUARTO_VCCI.md, section 5); this file implements 1-4 (Word che
   2 render   every fixture x format renders in a clean folder with system fonts ignored; any warning fails
   3 PDF      only brand fonts, all embedded; A4; page count in range; required Vietnamese text present;
              no word outside the page's safe area, no body word outside the side margins
-  4 Word     only styles defined in the reference document; tables use the VCCI table style; no direct fonts; fonts embedded
-A fixture declares what to check in its front matter under `test:` (formats, pages, must-contain).
+  4 Word     only styles defined in the reference document; tables use the VCCI table style; no direct fonts; fonts embedded;
+             then Microsoft Word opens the file and exports a PDF, which must use only brand fonts and show the required text
+             (skipped with --no-word, when Word is not installed, or when Word has documents open: never automate a user's Word)
+  5 visual   every PDF page matches the approved image in tests/baseline/ (run with --update-baseline after an approved change)
+  6 install  `quarto add` installs the extension into an empty folder, as a user would; every template renders there
+A fixture declares what to check in its front matter under `test:` (formats, pages, must-contain). The user templates
+(quarto-vcci/templates/) carry no test key; their checks are in TEMPLATE_SPECS below.
 Self-test (tests/selftest/): deliberately broken documents with `expect-fail: [check, ...]`; the run fails unless each
 named check fails on them, which proves the checks catch the errors they are meant to catch.
+Text is read from the word boxes of each page, so text pushed off a page counts as missing.
 Results: quarto-vcci/tests/out/<fixture>/ (outputs, page images) and quarto-vcci/tests/out/summary.md.
 """
 import glob, os, re, shutil, subprocess, sys, tempfile, unicodedata, zipfile
@@ -26,9 +32,16 @@ tool = lambda name: os.path.join(POPPLER, name) if POPPLER else name
 MM = 72 / 25.4
 SIDE_MARGIN_MM = 22          # body text must stay inside the side margins (vcci-base default)
 SAFE_EDGE_MM = 8             # nothing (header, footer, cover text) within 8 mm of the paper edge
-FONT_OK = re.compile(r'^(Lora|LoraItalic|BeVietnamPro|FontAwesome)')   # FontAwesome: Quarto's callout icons
+# FontAwesome: Quarto's callout icons. NewCMMath: Typst's maths font (the brand fonts have no OpenType MATH table)
+FONT_OK = re.compile(r'^(Lora|LoraItalic|BeVietnamPro|FontAwesome|NewCMMath)')
 ANSI = re.compile(r'\x1b\[[0-9;]*m')   # Quarto colours its warnings
 WARN = re.compile(r'^(WARN|WARNING|ERROR)\b|(^|\.\.\.)(warning|error): ')
+
+# templates users receive: checked without a `test:` key in the file
+TEMPLATE_SPECS = {
+    'report': {'formats': ['vcci-report-typst', 'vcci-report-docx'], 'pages': [6, 12],
+               'must-contain': ['Đánh giá chi phí tuân thủ thủ tục đầu tư', 'Ba khuyến nghị ưu tiên', 'Lộ trình đề xuất']},
+}
 
 results = []   # (fixture, format, check, ok, detail)
 QUIET = [False]
@@ -69,27 +82,119 @@ def pdf_checks(fx, fmt, pdf, spec, outdir):
            size.group(0) if size else 'no size')
     lo, hi = spec.get('pages', [1, 999])
     record(fx, fmt, f'page count {lo}-{hi}', lo <= pages <= hi, f'{pages} pages')
-    txt = os.path.join(outdir, 'text.txt')
-    run([tool('pdftotext'), '-enc', 'UTF-8', pdf, txt])
-    text = norm(open(txt, encoding='utf-8').read())
-    missing = [s for s in spec.get('must-contain', []) if norm(s) not in text]
-    record(fx, fmt, 'required Vietnamese text present', not missing, ' | '.join(missing))
-    # word boxes: nothing near the paper edge; body words inside the side margins
+    # word boxes of what is visible on the page (text pushed off the page has no box)
     bbox = os.path.join(outdir, 'bbox.html')
     run([tool('pdftotext'), '-enc', 'UTF-8', '-bbox', pdf, bbox])
     html = open(bbox, encoding='utf-8').read()
-    edge, side = [], []
-    for pno, (w, h, body) in enumerate(re.findall(r'<page width="([\d.]+)" height="([\d.]+)">(.*?)</page>', html, re.S), 1):
-        w, h = float(w), float(h)
-        for x0, y0, x1, y1, word in re.findall(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">(.*?)</word>', body):
-            x0, y0, x1, y1 = map(float, (x0, y0, x1, y1))
+    unesc = lambda t: t.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"')
+    pages_words = []
+    for w, h, body in re.findall(r'<page width="([\d.]+)" height="([\d.]+)">(.*?)</page>', html, re.S):
+        words = [(float(a), float(b), float(c), float(d), unesc(t)) for a, b, c, d, t in
+                 re.findall(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">(.*?)</word>', body)]
+        pages_words.append((float(w), float(h), words))
+    visible = norm(' '.join(t for _, _, words in pages_words for *_, t in words))
+    missing = [s for s in spec.get('must-contain', []) if norm(s) not in visible]
+    record(fx, fmt, 'required Vietnamese text present and visible', not missing, ' | '.join(missing))
+    edge, side, overlap = [], [], []
+    for pno, (w, h, words) in enumerate(pages_words, 1):
+        for x0, y0, x1, y1, word in words:
             if x0 < SAFE_EDGE_MM * MM or y0 < SAFE_EDGE_MM * MM or x1 > w - SAFE_EDGE_MM * MM or y1 > h - SAFE_EDGE_MM * MM:
                 edge.append(f'p{pno} "{word}"')
             if x0 < SIDE_MARGIN_MM * MM - 1 or x1 > w - SIDE_MARGIN_MM * MM + 1:
                 side.append(f'p{pno} "{word}" x={x0:.0f}-{x1:.0f}')
+        # colliding words: two boxes sharing more than 30% of the smaller one. The status mark ("BẢN THẢO") is
+        # deliberately behind the text and is set very large, so words taller than 30 pt are left out.
+        body = [b for b in words if b[3] - b[1] < 30]
+        for a in range(len(body)):
+            ax0, ay0, ax1, ay1, at = body[a]
+            for b in range(a + 1, len(body)):
+                bx0, by0, bx1, by1, bt = body[b]
+                ix, iy = min(ax1, bx1) - max(ax0, bx0), min(ay1, by1) - max(ay0, by0)
+                if ix > 0 and iy > 0:
+                    small = min((ax1 - ax0) * (ay1 - ay0), (bx1 - bx0) * (by1 - by0))
+                    if small > 0 and ix * iy > 0.3 * small:
+                        overlap.append(f'p{pno} "{at}"/"{bt}"')
     record(fx, fmt, f'no text within {SAFE_EDGE_MM} mm of the paper edge', not edge, ', '.join(edge[:5]))
     record(fx, fmt, f'no text outside the {SIDE_MARGIN_MM} mm side margins', not side, ', '.join(side[:5]))
+    record(fx, fmt, 'no overlapping text', not overlap, ', '.join(overlap[:5]))
     run([PDFTOPPM, '-png', '-r', '50', pdf, os.path.join(outdir, 'page')])
+
+WORD_COM = os.path.join(ROOT, 'tools', 'word', 'word_com.ps1')
+
+BASELINE = os.path.join(HERE, 'baseline')
+VISUAL_LIMIT = 1.5   # mean absolute grey-level difference per page (0-255); text moving one line is far above this
+
+def page_diff(a, b):
+    from PIL import Image, ImageChops, ImageStat
+    ia, ib = Image.open(a).convert('L'), Image.open(b).convert('L')
+    if ia.size != ib.size: return 255.0, None
+    d = ImageChops.difference(ia, ib)
+    return ImageStat.Stat(d).mean[0], d
+
+def visual_checks(fx, fmt, outdir):
+    pages = sorted(glob.glob(os.path.join(outdir, 'page-*.png')), key=lambda f: int(f.rsplit('-', 1)[1][:-4]))
+    base = os.path.join(BASELINE, fx, fmt)
+    if '--update-baseline' in sys.argv:
+        os.makedirs(base, exist_ok=True)
+        for old in glob.glob(os.path.join(base, '*.png')): os.remove(old)
+        for f in pages: shutil.copy(f, base)
+        print(f'  [BASE] {fmt} · baseline updated ({len(pages)} pages)')
+        return
+    ref = sorted(glob.glob(os.path.join(base, 'page-*.png')), key=lambda f: int(f.rsplit('-', 1)[1][:-4]))
+    if not ref:
+        print(f'  [SKIP] {fmt} · no approved baseline yet')
+        return
+    record(fx, fmt, 'same page count as the approved version', len(ref) == len(pages), f'{len(pages)} pages, approved {len(ref)}')
+    changed = []
+    for r_, p_ in zip(ref, pages):
+        score, d = page_diff(r_, p_)
+        if score > VISUAL_LIMIT:
+            changed.append(f'{os.path.basename(p_)} ({score:.1f})')
+            if d is not None: d.point(lambda v: 255 - min(255, v * 4)).save(p_.replace('page-', 'diff-'))
+    record(fx, fmt, 'pages look like the approved version', not changed, ', '.join(changed[:5]))
+
+def word_state():
+    """'ok', or why Word must not be used now."""
+    if '--no-word' in sys.argv: return 'skipped (--no-word)'
+    if sys.platform != 'win32': return 'skipped (needs Windows)'
+    r = run(['powershell', '-NoProfile', '-Command', "Get-Process WINWORD -ErrorAction SilentlyContinue | "
+             "ForEach-Object { $_.MainWindowTitle }"])
+    if any(t.strip() for t in r.stdout.splitlines()): return 'skipped (Word has documents open)'
+    r = run(['powershell', '-NoProfile', '-Command', "[bool](Get-Item 'Registry::HKEY_CLASSES_ROOT\\Word.Application' -ErrorAction SilentlyContinue)"])
+    return 'ok' if 'True' in r.stdout else 'skipped (Word not installed)'
+
+def word_checks(fx, fmt, docx, spec, outdir):
+    state = word_state()
+    if state != 'ok':
+        print(f'  [SKIP] {fmt} · Word: {state}')
+        return
+    pdf = os.path.join(outdir, f'{fx}-word.pdf')
+    if os.path.exists(pdf): os.remove(pdf)
+    run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', WORD_COM, '-Mode', 'pdf', '-InFile', docx, '-OutFile', pdf])
+    ok = os.path.exists(pdf)
+    record(fx, fmt, 'Word opens the file and exports PDF', ok)
+    if not ok: return
+    size = re.search(r'Page size:\s+([\d.]+) x ([\d.]+)', run([tool('pdfinfo'), pdf]).stdout)
+    record(fx, fmt, 'Word PDF is A4', bool(size) and abs(float(size.group(1)) - 595.3) < 1.5 and abs(float(size.group(2)) - 841.9) < 1.5,
+           size.group(0) if size else 'no size')
+    # Word sets list bullets in Symbol (and the space after them in Arial): allowed for those marks only, never for text.
+    # Cambria Math: Word's equation font (the brand fonts have no OpenType MATH table)
+    import pymupdf
+    bad = set()
+    for page in pymupdf.open(pdf):
+        for block in page.get_text('dict')['blocks']:
+            for line in block.get('lines', []):
+                for span in line['spans']:
+                    font = span['font'].split('+')[-1].replace(' ', '')
+                    if not re.match(r'^(Lora|BeVietnam|CambriaMath)', font) and span['text'].strip(' •·◦▪	-'):
+                        bad.add(f'{font}: "{span["text"][:20]}"')
+    record(fx, fmt, 'Word PDF sets all text in brand fonts', not bad, ', '.join(sorted(bad)[:5]))
+    txt = os.path.join(outdir, 'word-text.txt')
+    run([tool('pdftotext'), '-enc', 'UTF-8', pdf, txt])
+    text = norm(open(txt, encoding='utf-8').read())
+    missing = [s for s in spec.get('must-contain', []) if norm(s) not in text]
+    record(fx, fmt, 'Word PDF shows the required text', not missing, ' | '.join(missing))
+    run([PDFTOPPM, '-png', '-r', '50', pdf, os.path.join(outdir, 'word-page')])
 
 def docx_checks(fx, fmt, docx, spec, ext_dir):
     z = zipfile.ZipFile(docx)
@@ -104,6 +209,9 @@ def docx_checks(fx, fmt, docx, spec, ext_dir):
     foreign_vcci = sorted(s for s in used if s.startswith('VCCI') and s not in ref_styles)
     record(fx, fmt, 'every paragraph/character style is defined', not undefined, ', '.join(undefined))
     record(fx, fmt, 'VCCI styles come from the reference document', not foreign_vcci, ', '.join(foreign_vcci))
+    sizes = set(re.findall(r'<w:pgSz [^>]*/>', doc))
+    a4 = all(re.search(r'w:w="11906"', x) and re.search(r'w:h="16838"', x) for x in sizes) and sizes
+    record(fx, fmt, 'A4 paper (210 x 297 mm) in every section', bool(a4), ', '.join(sizes))
     tbl = re.findall(r'w:tblStyle w:val="([^"]+)"', doc)
     record(fx, fmt, 'tables use the VCCI table style', all(t == 'Table' for t in tbl), ', '.join(sorted(set(tbl))))
     fonts = sorted(set(re.findall(r'w:rFonts [^>]*w:ascii="([^"]+)"', doc)) - {'Lora', 'Lora Medium', 'Lora SemiBold', 'Be Vietnam Pro',
@@ -115,10 +223,10 @@ def docx_checks(fx, fmt, docx, spec, ext_dir):
     missing = [s for s in spec.get('must-contain', []) if norm(s).replace(' ', '') not in plain.replace(' ', '')]
     record(fx, fmt, 'required Vietnamese text present', not missing, ' | '.join(missing))
 
-def test_fixture(path):
+def test_fixture(path, spec=None):
     fx = os.path.splitext(os.path.basename(path))[0]
     src = open(path, encoding='utf-8').read()
-    spec = yaml.safe_load(src.split('---')[1]).get('test', {})
+    if spec is None: spec = yaml.safe_load(src.split('---')[1]).get('test', {})
     if not QUIET[0]: print(f'\n{fx}', flush=True)
     outdir = os.path.join(OUT, fx)
     os.makedirs(outdir, exist_ok=True)
@@ -145,9 +253,42 @@ def test_fixture(path):
             shutil.copy(out, fdir)
             if ext == 'pdf':
                 pdf_checks(fx, fmt, os.path.join(fdir, f'{fx}.pdf'), spec, fdir)
+                if not QUIET[0]: visual_checks(fx, fmt, fdir)
             else:
                 name = fmt.rsplit('-', 1)[0]
                 docx_checks(fx, fmt, os.path.join(fdir, f'{fx}.docx'), spec, os.path.join(QV, '_extensions', 'vcci', name))
+                word_checks(fx, fmt, os.path.join(fdir, f'{fx}.docx'), spec, fdir)
+
+def install_test():
+    """Layer 6: install with `quarto add` into an empty folder and render every user template there."""
+    with tempfile.TemporaryDirectory() as tmp:
+        r = run(['quarto', 'add', QV, '--no-prompt'], cwd=tmp)
+        installed = sorted(os.listdir(os.path.join(tmp, '_extensions'))) if os.path.isdir(os.path.join(tmp, '_extensions')) else []
+        record('install', None, 'quarto add installs the extension', r.returncode == 0 and bool(installed), ', '.join(installed) or ANSI.sub('', r.stderr)[-200:])
+        for name, spec in TEMPLATE_SPECS.items():
+            shutil.copy(os.path.join(QV, 'templates', name + '.qmd'), tmp)
+            for fmt in spec['formats']:
+                env = dict(os.environ, TYPST_IGNORE_SYSTEM_FONTS='true')
+                r = run(['quarto', 'render', name + '.qmd', '--to', fmt], cwd=tmp, env=env)
+                out = os.path.join(tmp, name + ('.pdf' if fmt.endswith('typst') else '.docx'))
+                warns = [l.strip() for l in ANSI.sub('', r.stdout + r.stderr).splitlines() if WARN.search(l)]
+                record('install', fmt, f'templates/{name}.qmd renders after installation, without warnings',
+                       r.returncode == 0 and os.path.exists(out) and not warns, ' | '.join(warns[:2]))
+
+def visual_selftest():
+    """Layer 5 must notice a small change: move one approved page's content down by 3 mm."""
+    from PIL import Image, ImageChops
+    ref = sorted(glob.glob(os.path.join(BASELINE, 'report', 'vcci-report-typst', 'page-*.png')))
+    if not ref:
+        print('  [SKIP] visual self-test: no baseline')
+        return
+    with tempfile.TemporaryDirectory() as tmp:
+        im = Image.open(ref[-2]).convert('RGB')
+        shifted = ImageChops.offset(im, 0, 6)
+        p = os.path.join(tmp, 'page-1.png'); shifted.save(p)
+        score, _ = page_diff(ref[-2], p)
+        record('selftest/visual', None, 'check "pages look like the approved version" catches content moved 3 mm',
+               score > VISUAL_LIMIT, f'score {score:.2f}')
 
 def selftest(path):
     fx = os.path.splitext(os.path.basename(path))[0]
@@ -167,14 +308,21 @@ def selftest(path):
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     os.makedirs(OUT, exist_ok=True)
-    fixtures = [os.path.join(HERE, 'fixtures', f if f.endswith('.qmd') else f + '.qmd') for f in sys.argv[1:]] \
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    fixtures = [os.path.join(HERE, 'fixtures', f if f.endswith('.qmd') else f + '.qmd') for f in args] \
         or sorted(glob.glob(os.path.join(HERE, 'fixtures', '*.qmd')))
     print('static checks')
     layer1()
     for f in fixtures: test_fixture(f)
-    if not sys.argv[1:]:
+    if not args:
+        for name, spec in TEMPLATE_SPECS.items():
+            test_fixture(os.path.join(QV, 'templates', name + '.qmd'), spec)
+    if not args:
+        print('\ninstallation')
+        install_test()
         print('\nself-test (broken documents must be caught)')
         for f in sorted(glob.glob(os.path.join(HERE, 'selftest', '*.qmd'))): selftest(f)
+        visual_selftest()
     failed = [r for r in results if not r[3]]
     lines = ['# quarto-vcci test summary', '', f'{len(results) - len(failed)} passed, {len(failed)} failed', '',
              '| Fixture | Format | Check | Result | Detail |', '|---|---|---|---|---|']

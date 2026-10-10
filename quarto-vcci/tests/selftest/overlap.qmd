@@ -1,0 +1,12 @@
+---
+title: "Tự kiểm tra: chữ đè lên chữ"
+test:
+  formats: [vcci-report-typst]
+  expect-fail: ["no overlapping text"]
+---
+
+Đoạn văn bình thường nằm ở đầu trang nội dung.
+
+```{=typst}
+#place(top + left)[Chữ đặt đè lên đoạn văn bình thường]
+```

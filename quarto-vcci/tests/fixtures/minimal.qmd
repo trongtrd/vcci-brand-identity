@@ -12,7 +12,7 @@ format:
   vcci-report-docx: default
 test:
   formats: [vcci-report-typst, vcci-report-docx]
-  pages: [2, 5]
+  pages: [5, 8]      # cover, imprint and back cover included
   must-contain:
     - "Liên đoàn Thương mại và Công nghiệp Việt Nam khảo sát 12.500 doanh nghiệp"
     - "ĂÂĐÊÔƠƯ ăâđêôơư Ở Ỷ Ữ ự ỹ"

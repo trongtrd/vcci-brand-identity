@@ -8,6 +8,39 @@ $endif$
 $if(report-label)$
   label: [$report-label$],
 $endif$
+$if(client)$
+  client: [$client$],
+$endif$
+$if(version)$
+  version: [$version$],
+$endif$
+$if(status)$
+  status: [$status$],
+$endif$
+$if(hero)$
+  hero: "$hero$",
+$endif$
+$if(short-title)$
+  short-title: [$short-title$],
+$endif$
+$if(team)$
+  team: [$team$],
+$endif$
+$if(citation-text)$
+  citation: [$citation-text$],
+$endif$
+$if(disclaimer)$
+  disclaimer: [$disclaimer$],
+$endif$
+$if(contact)$
+  contact: [$contact$],
+$endif$
+$if(vcci-no-cover)$
+  cover: false,
+$endif$
+$if(vcci-no-back-cover)$
+  back-cover: false,
+$endif$
 $if(by-author)$
   authors: (
 $for(by-author)$
@@ -32,9 +65,6 @@ $if(region)$
 $endif$
 $if(fontsize)$
   fontsize: $fontsize$,
-$endif$
-$if(section-numbering)$
-  sectionnumbering: "$section-numbering$",
 $endif$
 $if(toc)$
   toc: $toc$,

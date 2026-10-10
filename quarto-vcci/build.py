@@ -43,9 +43,33 @@ def tokens_typ():
     return '\n'.join(lines) + '\n'
 
 
+def typst_str(s):
+    return '"' + s.strip().replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+
 def svg_const(name, path):
-    svg = open(path, encoding='utf-8').read().strip()
-    return f'#let {name} = "' + svg.replace('\\', '\\\\').replace('"', '\\"') + '"\n'
+    return f'#let {name} = {typst_str(open(path, encoding="utf-8").read())}\n'
+
+
+def ring_const():
+    """Drum-ring line art (white lines, gold star) on a transparent ground, for blue fields."""
+    svg = open(os.path.join(ASSETS, '04_Graphics', 'VCCI_Drum-Ring_Line_Gold-on-Blue.svg'), encoding='utf-8').read()
+    svg = re.sub(r'<rect [^>]*/>', '', svg, count=1)
+    svg = svg.replace('opacity="0.22"', 'opacity="0.15"').replace('opacity="0.75"', 'opacity="0.5"')   # as subtle as the Word covers
+    return f'#let VCCI-RING = {typst_str(svg)}\n'
+
+
+def heroes_const():
+    """The 24 hero icons, gold (for blue fields) and blue-gold (for light pages), keyed "01".."24"."""
+    base = os.path.join(ASSETS, '05_Icons', 'Hero', 'SVG')
+    entries = []
+    for f in sorted(os.listdir(os.path.join(base, 'Gold-on-dark'))):
+        m = re.match(r'VCCI_Hero_(\d\d)_(.+)\.svg$', f)
+        if not m: continue
+        gold = open(os.path.join(base, 'Gold-on-dark', f), encoding='utf-8').read()
+        blue = open(os.path.join(base, 'Blue-Gold', f), encoding='utf-8').read()
+        entries.append(f'"{m.group(1)}": (slug: "{m.group(2)}", gold: {typst_str(gold)}, blue: {typst_str(blue)})')
+    return '#let VCCI-HERO = (\n  ' + ',\n  '.join(entries) + ',\n)\n'
 
 
 # styleId, name, type, basedOn, extra XML (pPr/rPr). Sizes in half-points; colours from the brand palette.
@@ -101,7 +125,9 @@ def reference_docx(dst):
 def build(out_root):
     shared_typ = open(os.path.join(SRC, 'shared', 'vcci.typ'), encoding='utf-8').read()
     logos = (svg_const('VCCI-LOGO', os.path.join(ASSETS, '01_Logo', 'SVG', 'VCCI_Logo_Primary.svg'))
-             + svg_const('VCCI-LOGO-PLATE', os.path.join(ASSETS, '01_Logo', 'SVG', 'VCCI_Logo_Primary_Plate.svg')))
+             + svg_const('VCCI-LOGO-PLATE', os.path.join(ASSETS, '01_Logo', 'SVG', 'VCCI_Logo_Primary_Plate.svg'))
+             + svg_const('VCCI-LOCKUP', os.path.join(ASSETS, '01_Logo', 'SVG', 'VCCI_Lockup_Horizontal_VI-EN.svg'))
+             + ring_const() + heroes_const())
     fonts = [os.path.join(ASSETS, '03_Fonts', fam, f) for fam in ('Lora', 'BeVietnamPro')
              for f in sorted(os.listdir(os.path.join(ASSETS, '03_Fonts', fam))) if f.endswith(('.ttf', '.txt'))]
     for fmt in FORMATS:

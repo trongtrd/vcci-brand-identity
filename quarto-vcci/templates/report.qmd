@@ -1,0 +1,112 @@
+---
+title: "Đánh giá chi phí tuân thủ thủ tục đầu tư tại tỉnh Hòa Bình Xanh"
+subtitle: "Báo cáo tư vấn cho Ủy ban nhân dân tỉnh về cải cách thủ tục hành chính giai đoạn 2026–2030"
+short-title: "Chi phí tuân thủ thủ tục đầu tư"
+report-label: "Báo cáo tư vấn"
+client: "Ủy ban nhân dân tỉnh Hòa Bình Xanh"
+version: "1.0"
+status: "Bản thảo"       # bỏ dòng này khi phát hành
+hero: 4                  # hero icon trên bìa, số 1–24 (xem brand-assets/05_Icons)
+author:
+  - name: Nguyễn Văn An
+    affiliations:
+      - name: Ban Pháp chế, VCCI
+  - name: Trần Thị Bình
+    affiliations:
+      - name: Ban Pháp chế, VCCI
+date: 2026-10-10
+citation-text: "VCCI (2026). Đánh giá chi phí tuân thủ thủ tục đầu tư tại tỉnh Hòa Bình Xanh. Hà Nội: Liên đoàn Thương mại và Công nghiệp Việt Nam."
+disclaimer: "Số liệu trong tài liệu mẫu này là giả lập. Quan điểm trong báo cáo là của nhóm thực hiện, không nhất thiết phản ánh quan điểm của bên đặt hàng."
+toc: true
+format:
+  vcci-report-typst: default
+  vcci-report-docx: default
+---
+
+# Tóm tắt {.unnumbered}
+
+::: lead
+Doanh nghiệp tại tỉnh mất trung bình 64 ngày để hoàn tất thủ tục đầu tư, dài hơn 40% so với nhóm tỉnh dẫn đầu. Ba thủ tục chiếm hai phần ba thời gian chờ.
+:::
+
+::: figures
+64 ngày | Thời gian hoàn tất thủ tục đầu tư (trung vị)
+38% | Doanh nghiệp phải đi lại từ ba lần trở lên
+12 | Thủ tục có thể chuyển sang trực tuyến toàn trình
+:::
+
+Báo cáo đánh giá chi phí tuân thủ của 420 doanh nghiệp đã thực hiện thủ tục đầu tư trong giai đoạn 2024–2026 và đề xuất lộ trình cải cách cho Ủy ban nhân dân tỉnh.
+
+::: {.highlight title="Ba khuyến nghị ưu tiên"}
+1. Liên thông thủ tục chấp thuận chủ trương đầu tư với thẩm định môi trường.
+2. Công bố thời hạn xử lý thực tế của từng sở, ngành mỗi quý.
+3. Đưa 12 thủ tục sang dịch vụ công trực tuyến toàn trình trong năm 2027.
+:::
+
+# Bối cảnh và phương pháp
+
+## Bối cảnh
+
+Tỉnh đặt mục tiêu thu hút vốn đầu tư tư nhân tăng 15% mỗi năm. Khảo sát năm 2025 cho thấy thủ tục đầu tư là rào cản lớn nhất mà doanh nghiệp mới gia nhập thị trường nêu ra.
+
+## Phương pháp
+
+### Nguồn dữ liệu
+
+Nhóm thực hiện kết hợp ba nguồn: khảo sát doanh nghiệp, hồ sơ thủ tục trên hệ thống một cửa, và phỏng vấn sâu cán bộ các sở, ngành.
+
+| Nguồn | Quy mô | Thời gian |
+|---|---:|---|
+| Khảo sát doanh nghiệp | 420 phiếu | 03–06/2026 |
+| Hồ sơ trên hệ thống một cửa | 1.315 hồ sơ | 2024–2026 |
+| Phỏng vấn sâu | 26 cuộc | 05–07/2026 |
+
+: Nguồn dữ liệu của báo cáo {#tbl-nguon}
+
+::: callout-note
+Số liệu trong tài liệu mẫu này là giả lập, chỉ để minh họa định dạng.
+:::
+
+# Kết quả
+
+## Thời gian và chi phí
+
+Thời gian hoàn tất thủ tục giảm từ 78 ngày năm 2024 xuống 64 ngày năm 2026, nhưng vẫn cao hơn nhóm tỉnh dẫn đầu (@tbl-thoigian).
+
+| Thủ tục | 2024 | 2025 | 2026 | Thay đổi |
+|---|---:|---:|---:|---:|
+| Chấp thuận chủ trương đầu tư | 31 | 27 | 24 | −7 |
+| Giao đất, cho thuê đất | 22 | 20 | 19 | −3 |
+| Thẩm định môi trường | 15 | 13 | 12 | −3 |
+| Cấp phép xây dựng | 10 | 9 | 9 | −1 |
+| **Tổng** | **78** | **69** | **64** | **−14** |
+
+: Thời gian xử lý trung vị theo thủ tục (ngày) {#tbl-thoigian}
+
+## Khó khăn doanh nghiệp nêu ra
+
+- Yêu cầu bổ sung hồ sơ nhiều lần, mỗi lần một nội dung khác nhau.
+- Không biết hồ sơ đang ở bước nào và ai đang xử lý.
+- Thời hạn xử lý ghi trên giấy hẹn không được tuân thủ.[^khaosat]
+
+[^khaosat]: Câu hỏi mở số 14 của phiếu khảo sát; 212 doanh nghiệp trả lời.
+
+::: callout-warning
+Thủ tục giao đất, cho thuê đất có thời gian chờ dao động lớn nhất giữa các huyện.
+:::
+
+# Khuyến nghị
+
+## Lộ trình 2026–2030
+
+| Giai đoạn | Việc chính | Đơn vị chủ trì |
+|---|---|---|
+| 2026–2027 | Liên thông chủ trương đầu tư và môi trường | Sở Kế hoạch và Đầu tư |
+| 2027 | Trực tuyến toàn trình 12 thủ tục | Văn phòng UBND tỉnh |
+| 2028–2030 | Công bố thời hạn xử lý thực tế hằng quý | Các sở, ngành |
+
+: Lộ trình đề xuất {#tbl-lotrinh}
+
+::: callout-tip
+Công bố thời hạn xử lý thực tế là biện pháp ít tốn kém nhất và có tác động nhanh nhất.
+:::
