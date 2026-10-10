@@ -2,7 +2,7 @@
 
 **Dự án:** Bộ nhận diện thương hiệu VCCI (Liên đoàn Thương mại và Công nghiệp Việt Nam)
 **Chủ dự án:** Truong Duc Trong. Trao đổi bằng **tiếng Việt**.
-**Trạng thái:** Extension Quarto `quarto-vcci/` (báo cáo, working paper, tờ trình) và theme biểu đồ cho Python, R, Stata xong bước 0–5, xem `docs/PLAN_QUARTO_VCCI.md` và `quarto-vcci/README.md`. v1.0 đã commit (nhánh `main`, chưa có remote). v1.1 (10/10/2026, chủ dự án đã duyệt): thêm Sky, thang sắc độ, màu trạng thái, chương Dữ liệu và biểu đồ (hướng dẫn PDF 36 trang; 37 trang từ bước 5, thêm trang "Tài liệu và biểu đồ từ mã"); theme màu Office mới cho template Word và PowerPoint, biểu đồ mẫu trục từ 0. Xem `docs/GAP_ANALYSIS_2026-10.md`.
+**Trạng thái (10/10/2026):** v1.1 của bộ nhận diện đã duyệt (thêm Sky, thang sắc độ, màu trạng thái, chương Dữ liệu và biểu đồ, theme màu Office mới). Extension Quarto `quarto-vcci/` xong bước 0–5 và đã duyệt: báo cáo, working paper, tờ trình; theme biểu đồ cho Python, R, Stata; font JetBrains Mono cho mã. Hướng dẫn thương hiệu 37 trang. Nhánh `main`, chưa có remote; thư mục làm việc sạch. Việc tiếp theo: bước 6 (phát hành `quarto-vcci`), cần tài khoản GitHub của chủ dự án. Xem `docs/PLAN_QUARTO_VCCI.md` (mục 10–14) và `quarto-vcci/README.md`.
 
 ---
 
@@ -19,13 +19,15 @@
 |---|---|---|
 | Logo vector giải mã từ file CorelDRAW gốc | `brand-assets/01_Logo` | SVG, PNG, PDF; 6 phiên bản (chính, ô nền sáng, lockup ngang và đứng song ngữ) |
 | Màu | `brand-assets/02_Colour` | Office theme, ASE, CSS, JSON |
-| Font | `brand-assets/03_Fonts` | Lora, Be Vietnam Pro (OFL) |
+| Font | `brand-assets/03_Fonts` | Lora, Be Vietnam Pro; JetBrains Mono chỉ cho mã nguồn (đều OFL) |
 | Họa tiết trống đồng | `brand-assets/04_Graphics` | 5 họa tiết |
 | Bộ icon v1 | `brand-assets/05_Icons` | 48 UI (dựa trên Lucide) và 24 hero; do agent ChatGPT làm theo `docs/handoff-icons/` |
 | Template Word | `brand-assets/06_Templates/Word` | Letterhead, Báo cáo, Thư mời; kiểu bảng VCCI Table / Light / Tint; font nhúng |
 | Skill cho AI agent `vcci-brand` | `skills/vcci-brand`, `.claude-plugin/`, `AGENTS.md` | Word thô → báo cáo VCCI; PowerPoint thô hoặc dàn ý → bài trình bày VCCI (extract → biên tập Markdown → render → finalize). Đã thử với một tham luận và một bài trình bày thật, cùng hai ví dụ giả lập (06/10/2026) |
 | Template PowerPoint | `brand-assets/06_Templates/PowerPoint` | 16:9, 18 layout, 17 slide mẫu, font nhúng |
-| Hướng dẫn thương hiệu | `brand-assets/07_Guidelines` | PDF 30 trang, tiếng Việt, A4 ngang |
+| Hướng dẫn thương hiệu | `brand-assets/07_Guidelines` | PDF 37 trang, tiếng Việt, A4 ngang; trang 34 về Quarto và biểu đồ |
+| Extension Quarto `quarto-vcci` | `quarto-vcci/` | `vcci-report`, `vcci-wp`, `vcci-memo`; PDF bằng Typst và Word; mẫu trong `templates/`, kết quả trong `examples/`; bộ kiểm thử 8 lớp (`tests/run_tests.py`) |
+| Theme biểu đồ | `quarto-vcci/charts/`, bản sao ở `brand-assets/06_Templates/Charts/` | matplotlib, ggplot2, Stata; sinh từ `brand-tokens.json` bằng `quarto-vcci/build.py` |
 | Bảng nhận diện (poster) | `board/` | HTML và bản xuất PNG 2×, PDF, ảnh xem trước |
 
 ## 3. Quy tắc bắt buộc (tóm tắt từ DECISIONS.md)
@@ -46,6 +48,8 @@
 - **Font Lora và Be Vietnam Pro đã được cài trên máy này**, nên việc nhúng font chưa được kiểm chứng trên máy không có font.
 - Với pptxgenjs, tên slide master phải là **ASCII**. Tên có dấu làm hỏng tên file ảnh bên trong file và PowerPoint sẽ từ chối mở. Tên tiếng Việt được gán lại trong `tools/ppt/finalize.py`, theo `tools/ppt/layout_names.json`.
 - `build/` là thư mục trung gian, git bỏ qua. `.statamcp/` là log debug do máy chủ MCP Stata tự tạo; vô hại, git bỏ qua, có thể xóa.
+- Phần mềm cho `quarto-vcci`: Quarto 1.9 (có Typst), Python 3.14 (matplotlib, Jupyter, fontTools, PyMuPDF), R 4.6.1 (ggplot2 4.0, svglite, ragg, systemfonts; chưa có reticulate), Stata MP 19 (`C:\Program Files\StataNow19\StataMP-64.exe`). Các bẫy kỹ thuật đã gặp ghi ở mục 14 của `docs/PLAN_QUARTO_VCCI.md`.
+- `tools/assets/build_assets.py` xóa và dựng lại cả `02_Colour`, nên theme biểu đồ đặt ở `06_Templates/Charts`.
 - `example/` chứa tài liệu thật của chủ dự án để thử skill; git bỏ qua, **không** đưa lên GitHub.
 - Máy chưa có **GitHub CLI (`gh`)**. Git Credential Manager có sẵn; git identity: `Trong Truong <trongtrd@gmail.com>`.
 
@@ -57,7 +61,8 @@
 | 2 | Kiểm tra font nhúng trên máy chưa cài font | Mở các file `.dotx`, `.potx` trên một máy khác. Nếu font bị thay thế, khuyến nghị cài font từ `03_Fonts`. |
 | 3 | Chạy lại pipeline icon (`tools/icons`) | Đường dẫn đã được sửa sau khi đổi cấu trúc nhưng chưa chạy lại. Cần thêm `svgpathtools`, `requests` và `sharp`. Không ảnh hưởng bộ icon đã bàn giao. |
 | 4 | Xem lại nội dung | Nhờ VCCI duyệt các đoạn định vị và giọng điệu trong hướng dẫn (trang 3–4). Mã Pantone cần nhà in đề xuất từ CMYK. |
-| 5 | Mở rộng skill `vcci-brand` | Đã có báo cáo Word và bài trình bày PowerPoint. Tiếp theo: vẽ lại biểu đồ dạng ảnh trong báo cáo theo bảng màu VCCI; thư, thư mời. |
+| 5 | Mở rộng skill `vcci-brand` | Đã có báo cáo Word, bài trình bày PowerPoint, phần C (Quarto và theme biểu đồ). Tiếp theo: vẽ lại biểu đồ dạng ảnh trong báo cáo Word theo bảng màu VCCI; thư, thư mời. |
+| 7 | **Bước 6 của `quarto-vcci`: phát hành** | Repo GitHub riêng có `_extensions/` ở gốc để dùng `quarto use template <tài-khoản>/quarto-vcci`; phiên bản 1.0.0. Cần chủ dự án cho biết tài khoản GitHub. Khi làm: xem lại `.quartoignore`, đưa `templates/` và `charts/` vào bản phát hành, chạy lớp 6 (cài đặt) từ GitHub. |
 | 6 | (Tùy chọn) Mở rộng | Ví dụ template Excel, chữ ký email, nền Zoom/Teams, mẫu bài mạng xã hội, chứng nhận. |
 
 ## 6. Cách làm việc đã thống nhất với chủ dự án
@@ -65,4 +70,6 @@
 - Trả lời bằng tiếng Việt, ngắn gọn, nêu rõ việc gì đã kiểm chứng và việc gì chưa.
 - Với yêu cầu lớn hoặc chưa rõ, **hỏi trước** (chủ dự án thích hình thức hỏi theo vòng, mỗi câu kèm khuyến nghị).
 - Sau mỗi thay đổi hình ảnh: render lại và tự xem kết quả trước khi báo cáo.
-- Chỉ commit hoặc push khi chủ dự án yêu cầu.
+- Chỉ commit hoặc push khi chủ dự án yêu cầu, hoặc khi chủ dự án đã duyệt bước đó.
+- Mỗi kiểm tra tự động mới phải kèm một tài liệu cố tình lỗi trong `quarto-vcci/tests/selftest/`.
+- Tải file từ Internet: hỏi trước, tải vào thư mục riêng, đọc rồi mới dùng.
