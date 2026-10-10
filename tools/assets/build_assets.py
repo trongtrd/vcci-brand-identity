@@ -187,18 +187,17 @@ def dot_field(W, H):
 
 # ---------------------------------------------------------------- rasterise / pdf via Edge
 def edge(args):
-    subprocess.run([EDGE, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files'] + args,
-                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+    env.run_edge(args)
 
 def to_png(svg_path, png_base, widths=(600, 1200, 2400, 4800)):
     src = open(svg_path, encoding='utf-8').read()
     vw, vh = map(float, re.search(r'viewBox="[\d.-]+ [\d.-]+ ([\d.]+) ([\d.]+)"', src).groups())
     big = max(widths); bh = round(big * vh / vw)
-    html = env.build('assets', '_r.html')
+    html = env.build('assets', f'_r_{os.path.basename(png_base)}.html')
     open(html, 'w', encoding='utf-8').write(
         f'<!doctype html><html><body style="margin:0;background:transparent">'
         f'<img src="file:///{svg_path.replace(os.sep, "/")}" style="display:block;width:{big}px;height:{bh}px"></body></html>')
-    tmp = env.build('assets', '_r.png')
+    tmp = env.build('assets', f'_r_{os.path.basename(png_base)}.png')
     edge(['--default-background-color=00000000', '--force-device-scale-factor=1', f'--window-size={big},{bh}',
           '--virtual-time-budget=3000', f'--screenshot={tmp}', 'file:///' + html.replace(os.sep, '/')])
     im = Image.open(tmp).convert('RGBA').crop((0, 0, big, bh))
@@ -210,7 +209,7 @@ def to_pdf(svg_path, pdf_path):
     src = open(svg_path, encoding='utf-8').read()
     vw, vh = map(float, re.search(r'viewBox="[\d.-]+ [\d.-]+ ([\d.]+) ([\d.]+)"', src).groups())
     wmm = 100.0; hmm = wmm * vh / vw    # 100 mm wide artboard, scales losslessly (vector)
-    html = env.build('assets', '_p.html')
+    html = env.build('assets', f'_p_{os.path.basename(pdf_path)}.html')
     open(html, 'w', encoding='utf-8').write(
         f'<!doctype html><html><head><style>@page{{size:{wmm}mm {hmm:.3f}mm;margin:0}}html,body{{margin:0}}'
         f'img{{display:block;width:{wmm}mm;height:{hmm:.3f}mm}}</style></head><body>'

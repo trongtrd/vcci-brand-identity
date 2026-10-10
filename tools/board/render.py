@@ -10,7 +10,7 @@ import json, os, re, subprocess, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 import numpy as np
 from PIL import Image
-from env import ROOT, EDGE, build
+from env import ROOT, build, run_edge
 
 Image.MAX_IMAGE_PIXELS = None
 HTML = os.path.join(ROOT, 'board', 'vcci-brand-board.html')
@@ -20,8 +20,7 @@ BG = np.array([0xEE, 0xEA, 0xE0])          # board background colour
 
 
 def edge(*args):
-    return subprocess.run([EDGE, '--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files', *args],
-                          capture_output=True, text=True, encoding='utf-8', errors='replace')
+    return run_edge(list(args))
 
 
 def screenshot(scale, out):
@@ -46,7 +45,11 @@ def measure():
         dom = edge('--window-size=2400,9800', '--virtual-time-budget=5000', '--dump-dom', URL(tmp)).stdout
     finally:
         os.remove(tmp)
-    rects = json.loads(re.search(r'<pre id="rects">(.*?)</pre>', dom, re.S).group(1))
+    m = re.search(r'<pre id="rects">(.*?)</pre>', dom, re.S)
+    if not m:   # Edge's launcher can return before the browser prints the DOM (seen with Edge open, October 2026)
+        raise RuntimeError('Edge --dump-dom returned no DOM; the card positions for the guide could not be measured. '
+                           'Try again with all Edge windows closed.')
+    rects = json.loads(m.group(1))
     json.dump(rects, open(build('board', 'rects.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     return rects
 

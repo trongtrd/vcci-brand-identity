@@ -74,6 +74,12 @@ build/           File trung gian khi dựng (không đưa lên git)
 
 Yêu cầu: Windows; Python 3.12 trở lên; Node.js 18 trở lên; Microsoft Edge; Poppler (`pdftoppm`); Microsoft Word và PowerPoint cho bước template.
 
+Trên Windows, nên clone với tùy chọn đường dẫn dài. Một số tên file icon dài, nên clone vào thư mục sâu có thể vượt giới hạn 260 ký tự và báo lỗi "Filename too long":
+
+```bash
+git -c core.longpaths=true clone <địa-chỉ-repo>
+```
+
 ```bash
 pip install -r requirements.txt
 npm install
