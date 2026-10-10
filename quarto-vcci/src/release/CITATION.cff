@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Nếu bộ mẫu này có ích cho công việc của bạn, có thể ghi nguồn như sau. Đây không phải bộ mẫu chính thức của VCCI."
+title: "vcci-quarto: Mẫu tài liệu VCCI cho Quarto"
+type: software
+authors:
+  - name: "Trương Đức Trọng"
+version: "1.0.0"
+date-released: "2026-10-10"
+repository-code: "https://github.com/trongtrd/vcci-quarto"
+url: "https://github.com/trongtrd/vcci-quarto"
+license: MIT
+abstract: "Mẫu Quarto phi chính thức cho báo cáo, working paper và tờ trình theo bộ nhận diện thương hiệu VCCI, xuất PDF khổ A4 (Typst) và Word, kèm theme biểu đồ cho matplotlib, ggplot2 và Stata. Làm phi thương mại, để phục vụ công việc."
+keywords:
+  - Quarto
+  - Typst
+  - template
+  - VCCI
+  - Vietnamese

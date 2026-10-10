@@ -1,7 +1,7 @@
-# quarto-vcci: mẫu tài liệu VCCI cho Quarto
+# vcci-quarto: mẫu tài liệu VCCI cho Quarto
 
 <!-- dev-only -->
-> Đây là thư mục nguồn trong repo bộ nhận diện. Người dùng cài bản phát hành từ [trongtrd/quarto-vcci](https://github.com/trongtrd/quarto-vcci) như hướng dẫn dưới đây. Ở đây, các tài liệu mẫu nằm trong `templates/` (`report.qmd` là mẫu báo cáo). Người sửa extension xem [DEVELOPMENT.md](DEVELOPMENT.md).
+> Đây là thư mục nguồn trong repo bộ nhận diện. Người dùng cài bản phát hành từ [trongtrd/vcci-quarto](https://github.com/trongtrd/vcci-quarto) như hướng dẫn dưới đây. Ở đây, các tài liệu mẫu nằm trong `templates/` (`report.qmd` là mẫu báo cáo). Người sửa extension xem [DEVELOPMENT.md](DEVELOPMENT.md).
 <!-- /dev-only -->
 
 Bộ mẫu này giúp viết báo cáo, working paper và tờ trình theo bộ nhận diện thương hiệu của Liên đoàn Thương mại và Công nghiệp Việt Nam (VCCI). Bạn soạn nội dung bằng văn bản thường (Markdown), chạy một lệnh và nhận về hai file:
@@ -11,15 +11,15 @@ Bộ mẫu này giúp viết báo cáo, working paper và tờ trình theo bộ 
 
 > **Lưu ý:** đây không phải bộ mẫu chính thức của VCCI. Bộ mẫu được làm phi thương mại, để phục vụ công việc. Xem mục [Lưu ý](#lưu-ý).
 
-*English: Quarto templates for VCCI (Vietnam Chamber of Commerce and Industry) reports, working papers and memos, rendered to an A4 PDF (Typst) and Word. Every format also supports English (`lang: en`). Install with `quarto use template trongtrd/quarto-vcci`. Unofficial: a non-commercial project by Truong Duc Trong for work use, not an official VCCI product.*
+*English: Quarto templates for VCCI (Vietnam Chamber of Commerce and Industry) reports, working papers and memos, rendered to an A4 PDF (Typst) and Word. Every format also supports English (`lang: en`). Install with `quarto use template trongtrd/vcci-quarto`. Unofficial: a non-commercial project by Truong Duc Trong for work use, not an official VCCI product.*
 
 ![Bìa báo cáo, một trang chương, trang đầu working paper và tờ trình](examples/preview.png)
 
 | Loại tài liệu | Dùng khi | Bản mẫu |
 |---|---|---|
-| **Báo cáo** (`vcci-report`) | Báo cáo tư vấn, báo cáo nghiên cứu: có bìa, mục lục, chương, bìa sau | [PDF](examples/report.pdf) · [Word](https://github.com/trongtrd/quarto-vcci/releases/download/v1.0.0/report.docx) |
-| **Working paper** (`vcci-wp`) | Bài nghiên cứu: số hiệu, tóm tắt song ngữ, mã JEL, trích dẫn APA | [PDF](examples/wp.pdf) · [tiếng Anh](examples/wp-en.pdf) · [Word](https://github.com/trongtrd/quarto-vcci/releases/download/v1.0.0/wp.docx) |
-| **Tờ trình** (`vcci-memo`) | Văn bản đệ trình nội bộ 1–2 trang: Gửi, Từ, Về việc, chữ ký | [PDF](examples/memo.pdf) · [tiếng Anh](examples/memo-en.pdf) · [Word](https://github.com/trongtrd/quarto-vcci/releases/download/v1.0.0/memo.docx) |
+| **Báo cáo** (`vcci-report`) | Báo cáo tư vấn, báo cáo nghiên cứu: có bìa, mục lục, chương, bìa sau | [PDF](examples/report.pdf) · [Word](https://github.com/trongtrd/vcci-quarto/releases/download/v1.0.0/report.docx) |
+| **Working paper** (`vcci-wp`) | Bài nghiên cứu: số hiệu, tóm tắt song ngữ, mã JEL, trích dẫn APA | [PDF](examples/wp.pdf) · [tiếng Anh](examples/wp-en.pdf) · [Word](https://github.com/trongtrd/vcci-quarto/releases/download/v1.0.0/wp.docx) |
+| **Tờ trình** (`vcci-memo`) | Văn bản đệ trình nội bộ 1–2 trang: Gửi, Từ, Về việc, chữ ký | [PDF](examples/memo.pdf) · [tiếng Anh](examples/memo-en.pdf) · [Word](https://github.com/trongtrd/vcci-quarto/releases/download/v1.0.0/memo.docx) |
 | **Biểu đồ** | Theme cho matplotlib (Python), ggplot2 (R), Stata | [PDF](examples/charts.pdf) |
 
 ## Mục lục
@@ -66,7 +66,7 @@ Không cần cài font, LaTeX hay Microsoft Word: bộ mẫu đã kèm font Lora
 ### Bước 2. Tạo dự án từ mẫu
 
 ```bash
-quarto use template trongtrd/quarto-vcci
+quarto use template trongtrd/vcci-quarto
 ```
 
 Quarto sẽ hỏi bốn câu:
@@ -300,18 +300,20 @@ Bản Word dùng các style của VCCI (tiêu đề, bảng VCCI Table, hộp nh
 **Cập nhật bộ mẫu lên bản mới** (chạy trong thư mục dự án, trả lời Y khi được hỏi):
 
 ```bash
-quarto add trongtrd/quarto-vcci
+quarto add trongtrd/vcci-quarto
 ```
 
-Lệnh này chỉ thay thư mục `_extensions/`, không đụng tới các file `.qmd` của bạn. Những gì thay đổi ở mỗi bản được ghi trong [CHANGELOG](https://github.com/trongtrd/quarto-vcci/blob/main/CHANGELOG.md).
+Lệnh này chỉ thay thư mục `_extensions/`, không đụng tới các file `.qmd` của bạn. Những gì thay đổi ở mỗi bản được ghi trong [CHANGELOG](https://github.com/trongtrd/vcci-quarto/blob/main/CHANGELOG.md).
 
 **Dùng cố định một phiên bản** (chẳng hạn khi sau này cần xuất lại tài liệu y hệt):
 
 ```bash
-quarto use template trongtrd/quarto-vcci@v1.0.0
+quarto use template trongtrd/vcci-quarto@v1.0.0
 ```
 
-**Dùng cho một dự án đã có**, không cần các file mẫu: chạy `quarto add trongtrd/quarto-vcci` trong thư mục dự án, rồi khai báo định dạng ở đầu file `.qmd`:
+**Tên cũ của repo:** trước ngày 10/10/2026, repo này tên là `quarto-vcci`. Các lệnh dùng tên cũ (`quarto use template trongtrd/quarto-vcci`, `quarto add trongtrd/quarto-vcci`) vẫn chạy vì GitHub tự chuyển sang tên mới, nhưng nên dùng tên mới.
+
+**Dùng cho một dự án đã có**, không cần các file mẫu: chạy `quarto add trongtrd/vcci-quarto` trong thư mục dự án, rồi khai báo định dạng ở đầu file `.qmd`:
 
 ```yaml
 format:
@@ -324,7 +326,7 @@ format:
 | Hiện tượng | Cách xử lý |
 |---|---|
 | `quarto` không được nhận ra ("not recognized", "command not found") | Quarto chưa cài, hoặc cửa sổ dòng lệnh mở trước khi cài. Đóng và mở cửa sổ mới. |
-| `Unable to read the extension 'vcci-report'` | File `.qmd` không nằm cùng thư mục với `_extensions/`. Chuyển file vào thư mục dự án, hoặc chạy `quarto add trongtrd/quarto-vcci` ở thư mục của file. |
+| `Unable to read the extension 'vcci-report'` | File `.qmd` không nằm cùng thư mục với `_extensions/`. Chuyển file vào thư mục dự án, hoặc chạy `quarto add trongtrd/vcci-quarto` ở thư mục của file. |
 | `quarto use template` báo thư mục không trống | Trả lời **Y** khi được hỏi tạo thư mục con, hoặc chạy lệnh trong một thư mục trống. |
 | Báo lỗi khi ghi file PDF hay Word | File đang mở trong Acrobat hay Word. Đóng file rồi xuất lại. |
 | `charts.qmd` báo lỗi về R hay thiếu gói (`there is no package called …`) | Cài R và các gói ở mục 8, hoặc xóa `charts.qmd` nếu không cần. |
@@ -334,30 +336,30 @@ format:
 | Mục lục bản Word trống | Nhấp vào mục lục, nhấn F9. |
 | Bảng rộng bị chia cột không đều | Cho nhiều dấu `-` hơn ở cột có chữ dài (mục 3). |
 
-Vẫn chưa được? Hãy báo lỗi tại mục [Issues](https://github.com/trongtrd/quarto-vcci/issues) của repo, kèm lệnh đã chạy và thông báo lỗi.
+Vẫn chưa được? Hãy báo lỗi tại mục [Issues](https://github.com/trongtrd/vcci-quarto/issues) của repo, kèm lệnh đã chạy và thông báo lỗi.
 
 ## Người thực hiện và cách trích dẫn
 
-Bộ mẫu do **Trương Đức Trọng** phát triển và thiết kế, dựa trên Bộ nhận diện thương hiệu VCCI của cùng tác giả ([trongtrd/vcci-brand-identity](https://github.com/trongtrd/vcci-brand-identity)). Mã nguồn được viết với sự hỗ trợ của Claude (Anthropic). Font đi kèm: Lora, Be Vietnam Pro và JetBrains Mono. Kiểu trích dẫn APA và Chicago lấy từ dự án Citation Style Language.
+Bộ mẫu do **Trương Đức Trọng** phát triển và thiết kế, dựa trên Bộ nhận diện thương hiệu VCCI của cùng tác giả ([trongtrd/vcci-brand-identity](https://github.com/trongtrd/vcci-brand-identity)). Font đi kèm: Lora, Be Vietnam Pro và JetBrains Mono. Kiểu trích dẫn APA và Chicago lấy từ dự án Citation Style Language.
 
-Nếu bộ mẫu có ích cho công việc của bạn, có thể ghi nguồn như sau:
+Nếu bộ mẫu có ích cho công việc của bạn, có thể ghi nguồn như sau (trên GitHub, nút **Cite this repository** ở cột bên phải cũng cho sẵn hai dạng này):
 
-> Trương Đức Trọng (2026). *quarto-vcci: Mẫu tài liệu VCCI cho Quarto* (phiên bản 1.0.0). https://github.com/trongtrd/quarto-vcci
+> Trương Đức Trọng (2026). *vcci-quarto: Mẫu tài liệu VCCI cho Quarto* (phiên bản 1.0.0). https://github.com/trongtrd/vcci-quarto
 
 ```bibtex
-@software{truong2026quartovcci,
+@software{truong2026vcciquarto,
   author  = {{Trương Đức Trọng}},
-  title   = {quarto-vcci: Mẫu tài liệu VCCI cho Quarto},
+  title   = {vcci-quarto: Mẫu tài liệu VCCI cho Quarto},
   year    = {2026},
   version = {1.0.0},
-  url     = {https://github.com/trongtrd/quarto-vcci}
+  url     = {https://github.com/trongtrd/vcci-quarto}
 }
 ```
 
 ## Lưu ý
 
-Bộ mẫu này do Trương Đức Trọng làm, phi thương mại, để phục vụ công việc. Đây **không phải** bộ mẫu tài liệu chính thức của VCCI và không thay cho các quy định hay mẫu văn bản chính thức của VCCI.
+Bộ mẫu này do Trương Đức Trọng phát triển, phi thương mại, để phục vụ công việc. Đây **không phải** bộ mẫu tài liệu chính thức của VCCI và không thay cho các quy định hay mẫu văn bản chính thức của VCCI.
 
 ## Giấy phép
 
-Mã nguồn dùng giấy phép MIT. Logo, tên và nhãn hiệu VCCI thuộc sở hữu của VCCI và chỉ dùng cho tài liệu của VCCI. Font dùng giấy phép SIL Open Font License. Chi tiết xem [LICENSE.md](https://github.com/trongtrd/quarto-vcci/blob/main/LICENSE.md).
+Mã nguồn dùng giấy phép MIT. Logo, tên và nhãn hiệu VCCI thuộc sở hữu của VCCI và chỉ dùng cho tài liệu của VCCI. Font dùng giấy phép SIL Open Font License. Chi tiết xem [LICENSE.md](https://github.com/trongtrd/vcci-quarto/blob/main/LICENSE.md).
