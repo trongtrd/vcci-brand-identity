@@ -7,7 +7,7 @@ Repo này gồm nhiều loại nội dung với quyền sử dụng khác nhau.
 | Logo VCCI, tên và nhãn hiệu VCCI | `source/logo/`, `brand-assets/01_Logo/` và mọi nơi logo xuất hiện | Thuộc sở hữu của Liên đoàn Thương mại và Công nghiệp Việt Nam. Được chia sẻ trong repo này với sự cho phép của VCCI; **không cấp phép sử dụng lại** ngoài mục đích của VCCI. |
 | Hệ thống nhận diện: hướng dẫn, template, họa tiết, hero icon, bảng nhận diện | `brand-assets/`, `board/` | Bảo lưu mọi quyền (All rights reserved), dành cho VCCI. |
 | Icon giao diện (UI) | `brand-assets/05_Icons/UI/` | Dựa trên Lucide, giấy phép ISC. Xem `brand-assets/05_Icons/LICENSES.md`. |
-| Font Lora, Be Vietnam Pro | `brand-assets/03_Fonts/` | SIL Open Font License 1.1. Xem `OFL.txt` trong từng thư mục font. |
+| Font Lora, Be Vietnam Pro, JetBrains Mono | `brand-assets/03_Fonts/` | SIL Open Font License 1.1. Xem `OFL.txt` trong từng thư mục font. |
 | Mã nguồn công cụ dựng | `tools/` | Giấy phép MIT (bên dưới). |
 | Script của skill cho AI agent | `skills/vcci-brand/scripts/` | Giấy phép MIT (bên dưới). Ví dụ trong `skills/vcci-brand/examples/` dùng số liệu giả lập. |
 | Extension Quarto | `quarto-vcci/` (trừ font, logo và file `.csl`) | Giấy phép MIT (bên dưới). Font đi kèm theo SIL OFL 1.1; logo theo quy định của VCCI như trên; `apa.csl` (APA 7) và `vcci-chicago-notes.csl` (Chicago chú thích, bản tùy biến cho VCCI) lấy từ dự án Citation Style Language, theo CC BY-SA 3.0. |

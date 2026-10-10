@@ -50,8 +50,8 @@ def readme(ver):
     if 'dev-only' in s: sys.exit('release.py: unbalanced dev-only block in README.md')
     if 'templates/' in s or '](../' in s or 'brand-assets' in s or 'DEVELOPMENT.md' in s:
         sys.exit('release.py: README.md refers to the development repository outside a dev-only block')
-    # the README pins and links this version (installation, Word samples attached to the release)
-    stale = sorted(set(re.findall(r'@v(\d+\.\d+\.\d+)|/download/v(\d+\.\d+\.\d+)/', s)) - {(ver, ''), ('', ver)})
+    # the README pins and links this version (installation, Word samples attached to the release, the citation)
+    stale = sorted(set(re.findall(r'(?:@v|/download/v|phiên bản |version\s*=\s*\{)(\d+\.\d+\.\d+)', s)) - {ver})
     if stale or f'@v{ver}' not in s: sys.exit(f'release.py: README.md must name version {ver}, found {stale}')
     return s
 

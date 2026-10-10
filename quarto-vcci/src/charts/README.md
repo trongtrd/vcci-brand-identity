@@ -10,7 +10,7 @@ Biểu đồ vẽ bằng Python, R hay Stata có cùng màu, chữ và đường
 
 **Font.** Cài Lora và Be Vietnam Pro từ `brand-assets/03_Fonts`. Nếu chưa cài, Python và R tự tìm font trong extension Quarto (thư mục `fonts` trong `_extensions/`) hoặc trong `brand-assets/03_Fonts`, ở thư mục làm việc và tối đa bốn cấp phía trên. Stata chỉ dùng font đã cài.
 
-**Cách dùng chung.** Chép các file của công cụ mình dùng vào cạnh file mã hoặc tài liệu Quarto. Mặc định số viết theo tiếng Việt: 2,5 và 12.500. Bài tiếng Anh chọn `"en"`.
+**Cách dùng chung.** Chép file theme của công cụ bạn dùng vào cùng thư mục với file mã hoặc tài liệu Quarto. Mặc định, số được viết theo kiểu Việt Nam: 2,5 và 12.500. Bài tiếng Anh thì chọn `"en"`.
 
 ## Python (matplotlib)
 
@@ -64,8 +64,8 @@ graph export "mpg.svg", replace
 
 ## Quy tắc (phần 08 của hướng dẫn)
 
-- Tối đa sáu chuỗi, theo thứ tự VCCI Blue, Sky, Drum Bronze, Slate, Bronze 20, Deep Navy. Nhiều hơn thì gộp nhóm nhỏ hoặc tách thành nhiều biểu đồ nhỏ.
-- Vàng không phải màu chuỗi: chỉ nhấn một giá trị, luôn kèm nhãn số.
-- Trục cột bắt đầu từ 0. Không 3D, không bóng đổ, không trong suốt, không chuyển màu.
-- Ghi tên chuỗi trực tiếp khi được; ghi nguồn dưới mỗi biểu đồ.
-- Không dùng màu trạng thái (đỏ, xanh lá) làm màu chuỗi.
+- Mỗi biểu đồ có tối đa sáu chuỗi số liệu, lấy màu theo thứ tự VCCI Blue, Sky, Drum Bronze, Slate, Bronze 20, Deep Navy. Nhiều hơn thì gộp các nhóm nhỏ, hoặc tách thành nhiều biểu đồ nhỏ.
+- Màu vàng không dùng cho cả một chuỗi, chỉ để nhấn một giá trị và luôn kèm nhãn số.
+- Trục của biểu đồ cột bắt đầu từ 0. Không dùng hiệu ứng 3D, bóng đổ, độ trong suốt hay màu chuyển sắc.
+- Khi có thể, ghi tên chuỗi ngay cạnh đường hoặc cột thay cho chú giải. Ghi nguồn số liệu dưới mỗi biểu đồ.
+- Không dùng màu trạng thái (đỏ, xanh lá) cho chuỗi số liệu.

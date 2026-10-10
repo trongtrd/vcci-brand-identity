@@ -1,8 +1,8 @@
-# Template Word và PowerPoint VCCI — v1.1
+# Template Word và PowerPoint VCCI (v1.1)
 
 | File | Dùng cho | Cấu trúc |
 |---|---|---|
-| `Word/VCCI_Letterhead.dotx` | Thư, công văn, thư ngỏ | Trang 1 có tiêu đề thương hiệu đầy đủ, khối địa chỉ và hình chìm trống đồng. Từ trang 2 trở đi có tiêu đề rút gọn và số trang. |
+| `Word/VCCI_Letterhead.dotx` | Thư, công văn, thư ngỏ | Trang 1 có đầu thư đầy đủ, khối địa chỉ và hình trống đồng in chìm. Từ trang 2, đầu trang được rút gọn và có số trang. |
 | `Word/VCCI_Report.dotx` | Báo cáo, đề xuất, ấn phẩm nghiên cứu | Bìa trước, mục lục, thân bài (chương, bảng, biểu đồ, trích dẫn, hộp nhấn mạnh), bìa sau |
 | `Word/VCCI_Invitation.dotx` | Thư mời sự kiện | Một trang: tên sự kiện, khách mời, bảng thông tin có icon, chương trình, chữ ký |
 
@@ -18,7 +18,7 @@ Bản xem trước PDF nằm trong `Word/Previews/`.
 |---|---|
 | Title / Subtitle | Tên và tiêu đề phụ trên bìa |
 | VCCI Label | Nhãn nhỏ viết hoa màu nâu đồng (ví dụ "CHƯƠNG 01", "V/V") |
-| Heading 1 / 2 / 3 | Ba cấp tiêu đề; tự động đưa vào mục lục |
+| Heading 1 / 2 / 3 | Ba cấp tiêu đề; tự vào mục lục |
 | VCCI Lead | Đoạn dẫn đầu chương |
 | Normal | Thân bài |
 | Quote | Trích dẫn (viền trái vàng) |
@@ -28,7 +28,7 @@ Bản xem trước PDF nằm trong `Word/Previews/`.
 
 4. **Mục lục:** sau khi sửa tiêu đề, nhấp chuột phải vào mục lục và chọn *Update Field → Update entire table*.
 5. **Icon chủ đề trên bìa báo cáo:** nhấp vào icon, chọn *Change Picture*, rồi chọn icon phù hợp trong `05_Icons/Hero/PNG/Gold-on-dark/` (gợi ý ghép cặp có trong `05_Icons/HANDBACK_TO_CLAUDE.md`).
-6. **Bảng:** cả ba template có sẵn 3 kiểu bảng. Bảng mới chèn (*Insert → Table*) tự động dùng **VCCI Table**. Để đổi kiểu: nhấp vào bảng, mở tab *Table Design*, chọn kiểu trong gallery (nhóm *Custom*).
+6. **Bảng:** cả ba template có sẵn 3 kiểu bảng. Bảng mới chèn (*Insert → Table*) tự dùng kiểu **VCCI Table**. Để đổi kiểu: nhấp vào bảng, mở tab *Table Design*, chọn kiểu trong gallery (nhóm *Custom*).
 
 | Kiểu bảng | Dùng cho | Tùy chọn nên bật trong *Table Style Options* |
 |---|---|---|
@@ -36,11 +36,11 @@ Bản xem trước PDF nằm trong `Word/Previews/`.
 | **VCCI Table Light** | Bảng mô tả, danh mục, chương trình: nhãn tiêu đề chữ in hoa màu nâu đồng, cột đầu chữ đậm màu xanh, không tô nền | Header Row, First Column |
 | **VCCI Table Tint** | Khối số liệu nổi bật, ghi chú: ô nền xanh nhạt, ngăn bằng khe trắng | Tắt hết |
 
-Số liệu trong bảng nên căn phải (Ctrl + R). Không tự kẻ thêm viền hay tô màu ô: mọi định dạng đã có trong kiểu bảng.
+Số liệu trong bảng nên căn phải (Ctrl + R). Không kẻ thêm viền hay tô màu ô, vì kiểu bảng đã có sẵn mọi định dạng.
 
 ## Font
 
-Hai font Lora và Be Vietnam Pro đã được **nhúng sẵn** trong template, nên máy chưa cài font vẫn hiển thị đúng. Để soạn thảo thoải mái (nhất là chữ đậm, nghiêng và gõ tiếng Việt), nên cài font từ `03_Fonts/`. Khi lưu tài liệu để gửi đi, giữ tùy chọn *File → Options → Save → Embed fonts in the file*.
+Hai font Lora và Be Vietnam Pro đã được **nhúng sẵn** trong template, nên máy chưa cài font vẫn hiển thị đúng. Để soạn thảo thuận tiện hơn (nhất là khi dùng chữ đậm, chữ nghiêng và gõ tiếng Việt), nên cài font từ `03_Fonts/`. Khi lưu tài liệu để gửi đi, giữ tùy chọn *File → Options → Save → Embed fonts in the file*.
 
 ## Quy tắc giữ nhất quán
 
@@ -63,7 +63,7 @@ Khổ 16:9, một file có cả layout nền sáng và nền xanh, font đã nh�
 | Sáng | 10 Chỉ có tiêu đề · 11 Trống | Bố cục tự do |
 | Xanh | 12 Bìa sự kiện | Sân khấu, màn hình LED (logo trên ô nền sáng) |
 | Xanh | 13 Chuyển chương | Mở đầu mỗi phần; có hiệu ứng Fade và vị trí hero icon |
-| Xanh | 14 Số liệu nổi bật · 15 Tuyên bố lớn · 16 Trích dẫn | Tạo nhịp, nhấn mạnh thông điệp |
+| Xanh | 14 Số liệu nổi bật · 15 Tuyên bố lớn · 16 Trích dẫn | Đổi nhịp bài trình bày, nhấn mạnh thông điệp |
 | Xanh | 17 Ảnh toàn khung | Ảnh lớn kèm dải chú thích |
 | Xanh | 18 Kết thúc | Lời cảm ơn, logo, thông tin liên hệ |
 
@@ -79,7 +79,7 @@ Khổ 16:9, một file có cả layout nền sáng và nền xanh, font đã nh�
 
 Theme cho matplotlib (`vcci_charts.py`, `vcci.mplstyle`), ggplot2 (`theme_vcci.R`) và Stata (`scheme-vcci.scheme`, `vcci_graph.do`): biểu đồ vẽ bằng mã có cùng màu chuỗi, chữ, lưới và dấu phẩy thập phân như biểu đồ trong Word và PowerPoint. Cách dùng: `Charts/README.md`. Các file này được sinh từ `brand-tokens.json` bằng `python quarto-vcci/build.py`; không sửa tay.
 
-## Dựng lại template
+## Tạo lại template
 
 - Word: `python tools/build.py word` (đóng Word trước khi chạy).
 - PowerPoint: `python tools/build.py ppt` (đóng PowerPoint trước khi chạy).
