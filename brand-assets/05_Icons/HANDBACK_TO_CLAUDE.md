@@ -22,9 +22,9 @@ Hero scope increased from 20 to 24, with 12 priority themes first. Numbering and
 | UI  | search | Tìm kiếm | Search |
 | UI  | filter | Bộ lọc | Filter |
 | UI  | settings | Cài đặt | Settings |
-| UI  | arrow-right | Sang phải | Arrow Right |
-| UI  | arrow-left | Sang trái | Arrow Left |
-| UI  | chevron-down | Mở xuống | Chevron Down |
+| UI  | arrow-right | Mũi tên phải | Arrow Right |
+| UI  | arrow-left | Mũi tên trái | Arrow Left |
+| UI  | chevron-down | Mũi tên xuống | Chevron Down |
 | UI  | external-link | Liên kết ngoài | External Link |
 | UI  | download | Tải xuống | Download |
 | UI  | upload | Tải lên | Upload |
@@ -58,7 +58,7 @@ Hero scope increased from 20 to 24, with 12 priority themes first. Numbering and
 | UI  | pie-chart | Biểu đồ tròn | Pie Chart |
 | UI  | briefcase | Công việc | Briefcase |
 | UI  | building | Tòa nhà | Building |
-| UI  | landmark | Thiết chế | Landmark |
+| UI  | landmark | Cơ quan | Landmark |
 | UI  | factory | Nhà máy | Factory |
 | UI  | ship | Tàu hàng | Ship |
 | UI  | handshake | Bắt tay | Handshake |
@@ -74,8 +74,8 @@ Hero scope increased from 20 to 24, with 12 priority themes first. Numbering and
 | Hero 08 | sme | Doanh nghiệp nhỏ và vừa | Small and Medium Enterprises |
 | Hero 09 | private-sector-development | Phát triển kinh tế tư nhân | Private Sector Development |
 | Hero 10 | enterprise-productivity | Năng suất doanh nghiệp | Enterprise Productivity |
-| Hero 11 | enterprise-green-transition | Chuyển đổi xanh doanh nghiệp | Enterprise Green Transition |
-| Hero 12 | enterprise-digital-transition | Chuyển đổi số doanh nghiệp | Enterprise Digital Transition |
+| Hero 11 | enterprise-green-transition | Chuyển đổi xanh | Enterprise Green Transition |
+| Hero 12 | enterprise-digital-transition | Chuyển đổi số | Enterprise Digital Transition |
 | Hero 13 | membership | Hội viên | Membership |
 | Hero 14 | trade-promotion | Xúc tiến thương mại | Trade Promotion |
 | Hero 15 | trade-fair | Hội chợ, triển lãm | Trade Fair |
