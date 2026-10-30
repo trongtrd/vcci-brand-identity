@@ -234,7 +234,7 @@ Mỗi bước kết thúc bằng một lần bạn duyệt. Không chuyển bư�
 | Tiêu đề bìa và chương nhiều dòng quá sát (giãn dòng tính theo cỡ chữ 10 pt thay vì cỡ tiêu đề) | Ảnh phóng to |
 | Nhãn "Bản thảo" màu vàng thành điểm nhấn vàng thứ hai | Xem theo quy tắc thương hiệu |
 | Word đặt ký hiệu đầu dòng bằng Symbol/Arial, phương trình bằng Cambria Math | Lớp 4 (Word thật); cho phép riêng cho các ký hiệu này, chữ thường vẫn phải theo font thương hiệu |
-| Template Word và PowerPoint mất hình nền khi dựng lại v1.1 (Edge chạy bất đồng bộ) | Ảnh xem trước của template; đã sửa ở commit `636fde3` |
+| Template Word và PowerPoint mất hình nền khi dựng lại v1.1 (Edge chạy bất đồng bộ) | Ảnh xem trước của template; đã sửa ở commit `751ffe2` |
 
 **Giới hạn đã ghi trong README:** bản Word không có bìa màu; mục lục Word cần F9; danh sách trong `::: highlight` nằm ngoài hộp ở bản Word; tài liệu tham khảo luôn ở cuối.
 
